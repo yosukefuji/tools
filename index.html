@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="脂質目標">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<meta name="theme-color" content="#1D3F8A">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<style>html{-webkit-text-size-adjust:100%}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+<title>脂質管理目標の決め方</title>
+<style>
+/* 上から下へ一本道：前提 → スコア項目 → 判定カード。結果は常に画面内に残す */
+:root{
+  --bg:#eef1f6; --card:#ffffff; --ink:#1b2027; --muted:#657083;
+  --line:#dbe1ea; --navy:#1D3F8A; --navy-soft:#e8eefb; --accent:#B4601F;
+  --ok:#1c7048; --ok-soft:#e6f2ec; --warn-soft:#fbf1e7;
+  --display:"Helvetica Neue",system-ui,-apple-system,sans-serif;
+  --body:-apple-system,"Hiragino Sans","Yu Gothic",system-ui,sans-serif;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#13161b; --card:#1c2128; --ink:#e7ebf0; --muted:#98a3b2;
+    --line:#2c333d; --navy:#86a6ec; --navy-soft:#1d2534; --accent:#e09a63;
+    --ok:#62c48f; --ok-soft:#18271f; --warn-soft:#2a2218;
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#13161b; --card:#1c2128; --ink:#e7ebf0; --muted:#98a3b2;
+  --line:#2c333d; --navy:#86a6ec; --navy-soft:#1d2534; --accent:#e09a63;
+  --ok:#62c48f; --ok-soft:#18271f; --warn-soft:#2a2218;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+body{
+  background:var(--bg); color:var(--ink);
+  font-family:var(--body); font-size:15px; line-height:1.62;
+}
+.wrap{
+  max-width:760px; margin:0 auto;
+  padding-left:max(16px,env(safe-area-inset-left,0px));
+  padding-right:max(16px,env(safe-area-inset-right,0px));
+  padding-block:24px 56px;
+}
+header{margin-bottom:18px}
+h1{font-size:22px; margin:0 0 3px; letter-spacing:.01em; text-wrap:balance}
+.sub{margin:0; color:var(--muted); font-size:12.5px}
+
+.card{background:var(--card); border:1px solid var(--line); border-radius:12px; padding:16px; margin-bottom:12px}
+h2{
+  font-size:12px; margin:0 0 12px; color:var(--navy);
+  letter-spacing:.1em; font-weight:700;
+}
+.grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(148px,1fr)); gap:12px}
+.grid > div{min-width:0}
+label{display:block; font-size:12px; color:var(--muted); margin-bottom:4px}
+input[type=number], select{
+  width:100%; padding:9px 10px; font-size:16px; font-family:inherit;
+  border:1px solid var(--line); border-radius:8px; background:var(--card); color:var(--ink);
+  font-variant-numeric:tabular-nums;
+}
+input:focus-visible, select:focus-visible, button:focus-visible, .chk:focus-within{
+  outline:2px solid var(--navy); outline-offset:1px
+}
+.chks{display:flex; flex-wrap:wrap; gap:8px}
+.chk{
+  display:flex; align-items:center; gap:7px; padding:8px 12px; border:1px solid var(--line);
+  border-radius:999px; cursor:pointer; font-size:14px; background:var(--card); user-select:none;
+}
+.chk input{width:16px; height:16px; margin:0; accent-color:var(--navy)}
+.chk.on{border-color:var(--navy); background:var(--navy-soft); font-weight:500}
+.sublock{margin-top:11px; padding-top:11px; border-top:1px dashed var(--line)}
+.t{font-size:11.5px; color:var(--muted); margin-bottom:7px; letter-spacing:.04em}
+
+.result{
+  background:var(--card); border:1px solid var(--line); border-top:3px solid var(--navy);
+  border-radius:12px; padding:16px;
+}
+.cat{display:flex; align-items:baseline; gap:10px; flex-wrap:wrap; margin-bottom:3px}
+.cat .k{font-size:23px; font-weight:700; letter-spacing:.02em}
+.cat .why{font-size:12.5px; color:var(--muted); min-width:0}
+.risk{
+  font-family:var(--display); font-size:14px; color:var(--muted);
+  font-variant-numeric:tabular-nums; margin-bottom:14px; letter-spacing:.02em;
+}
+.risk b{color:var(--ink); font-size:21px; font-weight:600}
+.targets{display:grid; grid-template-columns:1fr 1fr; gap:10px}
+.tg{border:1px solid var(--line); border-radius:9px; padding:11px 12px; min-width:0}
+.tg .lbl{font-size:11px; color:var(--muted); letter-spacing:.06em}
+.tg .val{font-family:var(--display); font-size:28px; line-height:1.12; font-variant-numeric:tabular-nums; font-weight:500}
+.tg .now{font-size:12px; margin-top:3px}
+.hit{color:var(--ok)} .miss{color:var(--accent)}
+.pill{display:inline-block; padding:1px 8px; border-radius:999px; font-size:11.5px; border:1px solid currentColor; white-space:nowrap}
+.msg{margin-top:12px; padding:10px 12px; border-radius:9px; background:var(--warn-soft); font-size:13px; border-left:3px solid var(--accent)}
+.points{margin-top:12px; font-size:12px; color:var(--muted); font-variant-numeric:tabular-nums}
+
+.actions{display:flex; gap:8px; margin-top:14px; flex-wrap:wrap}
+button{
+  font-family:inherit; font-size:13px; padding:8px 14px; border-radius:8px; cursor:pointer;
+  border:1px solid var(--line); background:var(--card); color:var(--ink);
+}
+button.primary{background:var(--navy); border-color:var(--navy); color:#fff}
+button:hover{border-color:var(--navy)}
+.copied{color:var(--ok); font-size:12.5px; align-self:center}
+
+details{margin-top:14px; font-size:13px}
+summary{cursor:pointer; color:var(--navy); font-size:13px; padding:4px 0}
+details .body{margin-top:8px; color:var(--muted); line-height:1.7}
+.tblwrap{overflow-x:auto; margin-top:8px}
+table{border-collapse:collapse; font-size:12.5px; font-variant-numeric:tabular-nums}
+th,td{border:1px solid var(--line); padding:4px 9px; text-align:center; white-space:nowrap}
+th{background:var(--navy-soft); color:var(--ink); font-weight:700}
+td.x{color:var(--muted); opacity:.45}
+td:first-child,th:first-child{text-align:left}
+footer{margin-top:20px; font-size:11.5px; color:var(--muted); line-height:1.7}
+@media (max-width:430px){ .targets{grid-template-columns:1fr} }
+@media (prefers-reduced-motion:reduce){ *{transition:none!important} }
+</style>
+</head>
+<body>
+
+
+<div class="wrap">
+  <header>
+    <h1>脂質管理目標の決め方</h1>
+    <p class="sub">動脈硬化性疾患予防ガイドライン2022（日本動脈硬化学会）図3-1・図3-2・表3-2</p>
+  </header>
+
+  <div class="card">
+    <h2>まず確認</h2>
+    <div class="chks">
+      <label class="chk" id="w-second"><input type="checkbox" id="second"><span>冠動脈疾患／アテローム血栓性脳梗塞の既往</span></label>
+    </div>
+    <div class="sublock" id="secondSub" hidden>
+      <div class="t">次のいずれかがある</div>
+      <div class="chks">
+        <label class="chk" id="w-acs"><input type="checkbox" id="acs"><span>急性冠症候群</span></label>
+        <label class="chk" id="w-fh"><input type="checkbox" id="fh"><span>家族性高コレステロール血症</span></label>
+        <label class="chk" id="w-both"><input type="checkbox" id="both"><span>冠動脈疾患と脳梗塞の合併</span></label>
+      </div>
+    </div>
+    <div class="sublock">
+      <div class="t">高リスク病態（スコアを使わず高リスク）</div>
+      <div class="chks">
+        <label class="chk" id="w-dm"><input type="checkbox" id="dm"><span>糖尿病</span></label>
+        <label class="chk" id="w-ckd"><input type="checkbox" id="ckd"><span>CKD</span></label>
+        <label class="chk" id="w-pad"><input type="checkbox" id="pad"><span>末梢動脈疾患（ABI 0.90以下）</span></label>
+      </div>
+      <div id="dmSub" hidden style="margin-top:9px">
+        <div class="t">糖尿病に次を伴う</div>
+        <div class="chks">
+          <label class="chk" id="w-micro"><input type="checkbox" id="micro"><span>細小血管症（網膜症・腎症・神経障害）</span></label>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>久山町スコアの項目</h2>
+    <div class="grid">
+      <div><label for="age">年齢</label><input type="number" id="age" value="62" min="20" max="110" step="1" inputmode="numeric"></div>
+      <div><label for="sex">性別</label><select id="sex"><option value="0">女性</option><option value="7" selected>男性</option></select></div>
+      <div><label for="sbp">収縮期血圧 mmHg</label><input type="number" id="sbp" value="138" min="70" max="260" step="1" inputmode="numeric"></div>
+      <div><label for="ldl">LDL-C mg/dL</label><input type="number" id="ldl" value="142" min="20" max="500" step="1" inputmode="numeric"></div>
+      <div><label for="hdl">HDL-C mg/dL</label><input type="number" id="hdl" value="48" min="10" max="150" step="1" inputmode="numeric"></div>
+      <div><label for="tc">総コレステロール mg/dL（任意）</label><input type="number" id="tc" value="" min="60" max="600" step="1" placeholder="non-HDL-C の計算用" inputmode="numeric"></div>
+    </div>
+    <div class="chks" style="margin-top:12px">
+      <label class="chk" id="w-smoke"><input type="checkbox" id="smoke"><span>喫煙あり（現在喫煙者）</span></label>
+      <label class="chk" id="w-igt"><input type="checkbox" id="igt"><span>耐糖能異常あり（糖尿病は除く）</span></label>
+    </div>
+  </div>
+
+  <div class="result" id="result"></div>
+
+  <details>
+    <summary>配点とリスク区分の表</summary>
+    <div class="body">
+      <div class="tblwrap">
+        <table>
+          <tr><th>項目</th><th>0点</th><th>1点</th><th>2点</th><th>3点</th><th>4点</th><th>7点</th></tr>
+          <tr><td>性別</td><td>女性</td><td class="x">—</td><td class="x">—</td><td class="x">—</td><td class="x">—</td><td>男性</td></tr>
+          <tr><td>収縮期血圧</td><td>&lt;120</td><td>120–129</td><td>130–139</td><td>140–159</td><td>160–</td><td class="x">—</td></tr>
+          <tr><td>耐糖能異常</td><td>なし</td><td>あり</td><td class="x">—</td><td class="x">—</td><td class="x">—</td><td class="x">—</td></tr>
+          <tr><td>LDL-C</td><td>&lt;120</td><td>120–139</td><td>140–159</td><td>160–</td><td class="x">—</td><td class="x">—</td></tr>
+          <tr><td>HDL-C</td><td>60–</td><td>40–59</td><td>&lt;40</td><td class="x">—</td><td class="x">—</td><td class="x">—</td></tr>
+          <tr><td>喫煙</td><td>なし</td><td class="x">—</td><td>あり</td><td class="x">—</td><td class="x">—</td><td class="x">—</td></tr>
+        </table>
+      </div>
+      <div class="tblwrap">
+        <table>
+          <tr><th>合計点</th><th>40–49歳</th><th>50–59歳</th><th>60–69歳</th><th>70–79歳</th></tr>
+          <tr><td>低リスク（10年 2%未満）</td><td>0–12</td><td>0–7</td><td>0–1</td><td class="x">該当なし</td></tr>
+          <tr><td>中リスク（2–10%未満）</td><td>13以上</td><td>8–18</td><td>2–12</td><td>0–7</td></tr>
+          <tr><td>高リスク（10%以上）</td><td class="x">該当なし</td><td>19以上</td><td>13以上</td><td>8以上</td></tr>
+        </table>
+      </div>
+      <p style="margin:10px 0 0">喫煙は現在喫煙者のみ「あり」。過去喫煙者は「なし」とする。糖尿病・CKDはスコアの項目から外されている（あれば高リスク病態として扱うため）。運動習慣・蛋白尿も含まれない。</p>
+    </div>
+  </details>
+
+  <footer>
+    管理目標値は到達努力目標。一次予防では、原則3〜6か月の生活習慣改善の効果をみてから薬物療法を検討する（LDL-C 180mg/dL以上が持続する場合は同時に検討してよい）。低・中リスクではLDL-C 20〜30%低下も目標となりうる。<br>
+    あわせて TG 150mg/dL未満（空腹時）・175mg/dL未満（随時）、HDL-C 40mg/dL以上。<br>
+    家族性高コレステロール血症・家族性Ⅲ型高脂血症は、このチャートを用いずそれぞれの診療方針に従う。
+  </footer>
+</div>
+
+<script>
+const RISK = [
+ [null,null,1.7,3.4],[null,null,1.9,3.9],[null,null,2.2,4.5],[null,1.1,2.6,5.2],
+ [null,1.3,3.0,6.0],[null,1.4,3.4,6.9],[null,1.7,3.9,7.9],[null,1.9,4.5,9.1],
+ [1.1,2.2,5.2,10.4],[1.3,2.6,6.0,11.9],[1.4,3.0,6.9,13.6],[1.7,3.4,7.9,15.5],
+ [1.9,3.9,9.1,17.7],[2.2,4.5,10.4,20.2],[2.6,5.2,11.9,22.9],[3.0,6.0,13.6,25.9],
+ [3.4,6.9,15.5,29.3],[3.9,7.9,17.7,33.0],[4.5,9.1,20.2,37.0],[5.2,10.4,22.9,41.1]
+];
+const AGE_LABEL = ['40代','50代','60代','70代'];
+const $ = id => document.getElementById(id);
+const BOXES = ['second','acs','fh','both','dm','ckd','pad','micro','smoke','igt'];
+const FIELDS = ['age','sex','sbp','ldl','hdl','tc'];
+const STORE = 'lipid-target-v1';
+
+const ptSBP = v => v<120?0 : v<130?1 : v<140?2 : v<160?3 : 4;
+const ptLDL = v => v<120?0 : v<140?1 : v<160?2 : 3;
+const ptHDL = v => v>=60?0 : v>=40?1 : 2;
+const ageCol = a => a<50?0 : a<60?1 : a<70?2 : 3;
+
+let copyText = '';
+
+function save(){
+  try{
+    const d = {};
+    BOXES.forEach(k => d[k] = $(k).checked);
+    FIELDS.forEach(k => d[k] = $(k).value);
+    localStorage.setItem(STORE, JSON.stringify(d));
+  }catch(e){}
+}
+function load(){
+  try{
+    const raw = localStorage.getItem(STORE);
+    if(!raw) return;
+    const d = JSON.parse(raw);
+    BOXES.forEach(k => { if(k in d) $(k).checked = !!d[k]; });
+    FIELDS.forEach(k => { if(k in d && d[k] !== '') $(k).value = d[k]; });
+  }catch(e){}
+}
+
+function calc(){
+  BOXES.forEach(k => { const w = $('w-'+k); if(w) w.classList.toggle('on', $(k).checked); });
+  $('secondSub').hidden = !$('second').checked;
+  $('dmSub').hidden = !$('dm').checked;
+
+  const age = +$('age').value, sbp = +$('sbp').value, ldl = +$('ldl').value, hdl = +$('hdl').value;
+  const tc = $('tc').value === '' ? null : +$('tc').value;
+  const nonHDL = tc === null ? null : tc - hdl;
+
+  let cat, why, ldlT, nonT, risk = null, pts = null, msg = '';
+
+  if ($('second').checked){
+    const strict = $('acs').checked || $('fh').checked || $('both').checked || $('dm').checked;
+    cat = '二次予防'; ldlT = strict ? 70 : 100; nonT = strict ? 100 : 130;
+    why = strict ? '急性冠症候群・FH・糖尿病・冠動脈疾患と脳梗塞の合併のいずれかあり'
+                 : '冠動脈疾患／アテローム血栓性脳梗塞の既往';
+  } else if ($('dm').checked || $('ckd').checked || $('pad').checked){
+    cat = '高リスク';
+    const names = [];
+    if ($('dm').checked) names.push('糖尿病');
+    if ($('ckd').checked) names.push('CKD');
+    if ($('pad').checked) names.push('末梢動脈疾患');
+    why = names.join('・') + ' → スコアを使わず高リスク';
+    const tight = $('dm').checked && ($('micro').checked || $('smoke').checked || $('pad').checked);
+    ldlT = tight ? 100 : 120; nonT = tight ? 130 : 150;
+    if (tight){
+      const add = [];
+      if ($('pad').checked) add.push('末梢動脈疾患');
+      if ($('micro').checked) add.push('細小血管症');
+      if ($('smoke').checked) add.push('喫煙');
+      why += '（糖尿病に' + add.join('・') + 'を伴う）';
+    }
+  } else {
+    pts = (+$('sex').value) + ptSBP(sbp) + ptLDL(ldl) + ptHDL(hdl)
+        + ($('igt').checked ? 1 : 0) + ($('smoke').checked ? 2 : 0);
+    if (age < 40){
+      cat = '判定外'; why = '40歳未満はスコアの対象外'; ldlT = nonT = null;
+      msg = '久山町スコアは40〜79歳が対象です。生涯リスクの観点から、危険因子の是正を優先します。';
+    } else if (age >= 80){
+      cat = '判定外'; why = '80歳以上はスコアを使わない'; ldlT = nonT = null;
+      msg = '80歳以上の一次予防では、スコアから一律に管理目標値を決めず、患者の状態を把握して個別に判断します。';
+    } else {
+      risk = RISK[Math.min(pts, 19)][ageCol(age)];
+      if (risk === null){ cat='低リスク'; ldlT=160; nonT=190; why='10年リスク 1.0%未満'; }
+      else if (risk < 2){ cat='低リスク'; ldlT=160; nonT=190; why='10年リスク 2%未満'; }
+      else if (risk < 10){ cat='中リスク'; ldlT=140; nonT=170; why='10年リスク 2〜10%未満'; }
+      else { cat='高リスク'; ldlT=120; nonT=150; why='10年リスク 10%以上'; }
+    }
+  }
+
+  const colors = {'低リスク':'var(--ok)','中リスク':'var(--navy)','高リスク':'var(--accent)','二次予防':'var(--accent)','判定外':'var(--muted)'};
+  let h = '<div class="cat"><span class="k" style="color:' + colors[cat] + '">' + cat + '</span><span class="why">' + why + '</span></div>';
+
+  if (risk !== null){
+    h += '<div class="risk">10年間の動脈硬化性疾患発症確率　<b>' + risk + '%</b>　（' + pts + '点／' + AGE_LABEL[ageCol(age)] + '）</div>';
+  } else if (pts !== null){
+    h += '<div class="risk">合計 <b>' + pts + '</b> 点</div>';
+  } else {
+    h += '<div class="risk">スコアは使用しません</div>';
+  }
+
+  if (ldlT !== null){
+    const ldlOK = ldl < ldlT;
+    const nonOK = nonHDL === null ? null : nonHDL < nonT;
+    h += '<div class="targets">' +
+      '<div class="tg"><div class="lbl">LDL-C 目標</div><div class="val">&lt; ' + ldlT + '</div>' +
+        '<div class="now ' + (ldlOK?'hit':'miss') + '">現在 ' + ldl + ' ・ <span class="pill">' + (ldlOK ? '達成' : 'あと ' + (ldl-ldlT+1) + ' 下げる') + '</span></div></div>' +
+      '<div class="tg"><div class="lbl">non-HDL-C 目標</div><div class="val">&lt; ' + nonT + '</div>' +
+        (nonHDL === null
+          ? '<div class="now" style="color:var(--muted)">総コレステロールを入れると判定します</div>'
+          : '<div class="now ' + (nonOK?'hit':'miss') + '">現在 ' + nonHDL + ' ・ <span class="pill">' + (nonOK ? '達成' : 'あと ' + (nonHDL-nonT+1) + ' 下げる') + '</span></div>') +
+      '</div></div>';
+  }
+
+  if (pts !== null && risk !== null){
+    h += '<div class="points">内訳：性別 ' + $('sex').value + ' ／ 収縮期血圧 ' + ptSBP(sbp) +
+         ' ／ 耐糖能異常 ' + ($('igt').checked?1:0) + ' ／ LDL-C ' + ptLDL(ldl) +
+         ' ／ HDL-C ' + ptHDL(hdl) + ' ／ 喫煙 ' + ($('smoke').checked?2:0) + '（点）</div>';
+  }
+  if (msg) h += '<div class="msg">' + msg + '</div>';
+  if (cat === '二次予防' && !$('acs').checked && !$('fh').checked && !$('both').checked && !$('dm').checked){
+    h += '<div class="msg">急性冠症候群・家族性高コレステロール血症・糖尿病・冠動脈疾患と脳梗塞の合併があれば、目標は LDL-C 70 ／ non-HDL-C 100 未満になります。</div>';
+  }
+
+  h += '<div class="actions">' +
+       '<button type="button" class="primary" id="copyBtn">カルテ用にコピー</button>' +
+       '<button type="button" id="resetBtn">入力をクリア</button>' +
+       '<span class="copied" id="copied" hidden>コピーしました</span></div>';
+
+  $('result').innerHTML = h;
+
+  copyText = ldlT === null
+    ? '脂質管理：' + cat + '（' + why + '）'
+    : '脂質管理区分：' + cat + '（' + why + (risk !== null ? '、' + pts + '点、10年リスク' + risk + '%' : '') + '）'
+      + ' 目標 LDL-C<' + ldlT + '、non-HDL-C<' + nonT
+      + '／現在 LDL-C ' + ldl + (nonHDL !== null ? '、non-HDL-C ' + nonHDL : '');
+
+  $('copyBtn').addEventListener('click', doCopy);
+  $('resetBtn').addEventListener('click', doReset);
+  save();
+}
+
+function doCopy(){
+  const done = () => { const c = $('copied'); c.hidden = false; setTimeout(() => { c.hidden = true; }, 1800); };
+  try{
+    navigator.clipboard.writeText(copyText).then(done).catch(selectFallback);
+  }catch(e){ selectFallback(); }
+}
+function selectFallback(){
+  const ta = document.createElement('textarea');
+  ta.value = copyText;
+  ta.style.position = 'fixed'; ta.style.top = '-1000px';
+  document.body.appendChild(ta); ta.select();
+  try{ document.execCommand('copy'); }catch(e){}
+  document.body.removeChild(ta);
+  const c = $('copied'); c.hidden = false; setTimeout(() => { c.hidden = true; }, 1800);
+}
+function doReset(){
+  BOXES.forEach(k => $(k).checked = false);
+  $('age').value = 62; $('sex').value = '7'; $('sbp').value = 138;
+  $('ldl').value = 142; $('hdl').value = 48; $('tc').value = '';
+  calc();
+}
+
+BOXES.concat(FIELDS).forEach(id => {
+  const el = $(id);
+  el.addEventListener('input', calc);
+  el.addEventListener('change', calc);
+});
+load();
+calc();
+</script>
+
+
+<script>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', function(){
+    navigator.serviceWorker.register('sw.js').catch(function(){});
+  });
+}
+</script>
+</body>
+</html>
