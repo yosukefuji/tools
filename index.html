@@ -203,7 +203,8 @@ footer{margin-top:20px; font-size:12.5px; color:var(--muted); line-height:1.7}
   <footer>
     管理目標値は到達努力目標。一次予防では、原則3〜6か月の生活習慣改善の効果をみてから薬物療法を検討する（LDL-C 180mg/dL以上が持続する場合は同時に検討してよい）。低・中リスクではLDL-C 20〜30%低下も目標となりうる。<br>
     あわせて TG 150mg/dL未満（空腹時）・175mg/dL未満（随時）、HDL-C 40mg/dL以上。<br>
-    家族性高コレステロール血症・家族性Ⅲ型高脂血症は、このチャートを用いずそれぞれの診療方針に従う。
+    家族性高コレステロール血症・家族性Ⅲ型高脂血症は、このチャートを用いずそれぞれの診療方針に従う。<br>
+    <span style="opacity:.75">版 2026-10-25</span>
   </footer>
 </div>
 
@@ -373,7 +374,18 @@ calc();
 
 <script>
 if ('serviceWorker' in navigator) {
-  window.addEventListener('load', function(){ navigator.serviceWorker.register('sw.js').catch(function(){}); });
+  navigator.serviceWorker.register('sw.js').then(function(reg){
+    reg.update();                       // 起動のたびに新版を確認
+    setInterval(function(){ reg.update(); }, 60 * 60 * 1000);
+  }).catch(function(){});
+
+  // 新しい版が主導権を取ったら、その場で読み込み直す
+  var reloaded = false;
+  navigator.serviceWorker.addEventListener('controllerchange', function(){
+    if (reloaded) return;
+    reloaded = true;
+    location.reload();
+  });
 }
 </script>
 </body>
