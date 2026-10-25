@@ -8,7 +8,6 @@
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <meta name="theme-color" content="#1D3F8A">
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <style>html{-webkit-text-size-adjust:100%}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
 <title>脂質管理目標の決め方</title>
 <style>
@@ -37,28 +36,28 @@
 *{box-sizing:border-box}
 body{
   background:var(--bg); color:var(--ink);
-  font-family:var(--body); font-size:15px; line-height:1.62;
+  font-family:var(--body); font-size:17px; line-height:1.6;
 }
 .wrap{
   max-width:760px; margin:0 auto;
   padding-left:max(16px,env(safe-area-inset-left,0px));
   padding-right:max(16px,env(safe-area-inset-right,0px));
-  padding-block:24px 56px;
+  padding-block:calc(20px + env(safe-area-inset-top,0px)) calc(56px + env(safe-area-inset-bottom,0px));
 }
 header{margin-bottom:18px}
-h1{font-size:22px; margin:0 0 3px; letter-spacing:.01em; text-wrap:balance}
-.sub{margin:0; color:var(--muted); font-size:12.5px}
+h1{font-size:24px; margin:0 0 3px; letter-spacing:.01em; text-wrap:balance}
+.sub{margin:0; color:var(--muted); font-size:13.5px}
 
 .card{background:var(--card); border:1px solid var(--line); border-radius:12px; padding:16px; margin-bottom:12px}
 h2{
-  font-size:12px; margin:0 0 12px; color:var(--navy);
+  font-size:13px; margin:0 0 12px; color:var(--navy);
   letter-spacing:.1em; font-weight:700;
 }
 .grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(148px,1fr)); gap:12px}
 .grid > div{min-width:0}
-label{display:block; font-size:12px; color:var(--muted); margin-bottom:4px}
+label{display:block; font-size:13.5px; color:var(--muted); margin-bottom:4px}
 input[type=number], select{
-  width:100%; padding:9px 10px; font-size:16px; font-family:inherit;
+  width:100%; padding:11px 12px; font-size:17px; font-family:inherit;
   border:1px solid var(--line); border-radius:8px; background:var(--card); color:var(--ink);
   font-variant-numeric:tabular-nums;
 }
@@ -68,54 +67,53 @@ input:focus-visible, select:focus-visible, button:focus-visible, .chk:focus-with
 .chks{display:flex; flex-wrap:wrap; gap:8px}
 .chk{
   display:flex; align-items:center; gap:7px; padding:8px 12px; border:1px solid var(--line);
-  border-radius:999px; cursor:pointer; font-size:14px; background:var(--card); user-select:none;
+  border-radius:999px; cursor:pointer; font-size:15.5px; background:var(--card); user-select:none;
 }
 .chk input{width:16px; height:16px; margin:0; accent-color:var(--navy)}
 .chk.on{border-color:var(--navy); background:var(--navy-soft); font-weight:500}
 .sublock{margin-top:11px; padding-top:11px; border-top:1px dashed var(--line)}
-.t{font-size:11.5px; color:var(--muted); margin-bottom:7px; letter-spacing:.04em}
+.t{font-size:12.5px; color:var(--muted); margin-bottom:7px; letter-spacing:.04em}
 
 .result{
   background:var(--card); border:1px solid var(--line); border-top:3px solid var(--navy);
   border-radius:12px; padding:16px;
 }
 .cat{display:flex; align-items:baseline; gap:10px; flex-wrap:wrap; margin-bottom:3px}
-.cat .k{font-size:23px; font-weight:700; letter-spacing:.02em}
-.cat .why{font-size:12.5px; color:var(--muted); min-width:0}
+.cat .k{font-size:26px; font-weight:700; letter-spacing:.02em}
+.cat .why{font-size:13.5px; color:var(--muted); min-width:0}
 .risk{
-  font-family:var(--display); font-size:14px; color:var(--muted);
+  font-family:var(--display); font-size:15px; color:var(--muted);
   font-variant-numeric:tabular-nums; margin-bottom:14px; letter-spacing:.02em;
 }
-.risk b{color:var(--ink); font-size:21px; font-weight:600}
+.risk b{color:var(--ink); font-size:24px; font-weight:600}
 .targets{display:grid; grid-template-columns:1fr 1fr; gap:10px}
 .tg{border:1px solid var(--line); border-radius:9px; padding:11px 12px; min-width:0}
-.tg .lbl{font-size:11px; color:var(--muted); letter-spacing:.06em}
-.tg .val{font-family:var(--display); font-size:28px; line-height:1.12; font-variant-numeric:tabular-nums; font-weight:500}
-.tg .now{font-size:12px; margin-top:3px}
+.tg .lbl{font-size:12px; color:var(--muted); letter-spacing:.06em}
+.tg .val{font-family:var(--display); font-size:33px; line-height:1.12; font-variant-numeric:tabular-nums; font-weight:500}
+.tg .now{font-size:13.5px; margin-top:3px}
 .hit{color:var(--ok)} .miss{color:var(--accent)}
-.pill{display:inline-block; padding:1px 8px; border-radius:999px; font-size:11.5px; border:1px solid currentColor; white-space:nowrap}
-.msg{margin-top:12px; padding:10px 12px; border-radius:9px; background:var(--warn-soft); font-size:13px; border-left:3px solid var(--accent)}
-.points{margin-top:12px; font-size:12px; color:var(--muted); font-variant-numeric:tabular-nums}
+.pill{display:inline-block; padding:1px 8px; border-radius:999px; font-size:12.5px; border:1px solid currentColor; white-space:nowrap; padding:1px 9px}
+.msg{margin-top:12px; padding:11px 13px; border-radius:9px; background:var(--warn-soft); font-size:14px; border-left:3px solid var(--accent)}
+.points{margin-top:12px; font-size:13px; color:var(--muted); font-variant-numeric:tabular-nums}
 
 .actions{display:flex; gap:8px; margin-top:14px; flex-wrap:wrap}
 button{
-  font-family:inherit; font-size:13px; padding:8px 14px; border-radius:8px; cursor:pointer;
+  font-family:inherit; font-size:14.5px; padding:10px 16px; border-radius:8px; cursor:pointer;
   border:1px solid var(--line); background:var(--card); color:var(--ink);
 }
 button.primary{background:var(--navy); border-color:var(--navy); color:#fff}
 button:hover{border-color:var(--navy)}
-.copied{color:var(--ok); font-size:12.5px; align-self:center}
 
-details{margin-top:14px; font-size:13px}
-summary{cursor:pointer; color:var(--navy); font-size:13px; padding:4px 0}
+details{margin-top:14px; font-size:14px}
+summary{cursor:pointer; color:var(--navy); font-size:14px; padding:4px 0}
 details .body{margin-top:8px; color:var(--muted); line-height:1.7}
 .tblwrap{overflow-x:auto; margin-top:8px}
-table{border-collapse:collapse; font-size:12.5px; font-variant-numeric:tabular-nums}
+table{border-collapse:collapse; font-size:13.5px; font-variant-numeric:tabular-nums}
 th,td{border:1px solid var(--line); padding:4px 9px; text-align:center; white-space:nowrap}
 th{background:var(--navy-soft); color:var(--ink); font-weight:700}
 td.x{color:var(--muted); opacity:.45}
 td:first-child,th:first-child{text-align:left}
-footer{margin-top:20px; font-size:11.5px; color:var(--muted); line-height:1.7}
+footer{margin-top:20px; font-size:12.5px; color:var(--muted); line-height:1.7}
 @media (max-width:430px){ .targets{grid-template-columns:1fr} }
 @media (prefers-reduced-motion:reduce){ *{transition:none!important} }
 </style>
@@ -228,8 +226,6 @@ const ptLDL = v => v<120?0 : v<140?1 : v<160?2 : 3;
 const ptHDL = v => v>=60?0 : v>=40?1 : 2;
 const ageCol = a => a<50?0 : a<60?1 : a<70?2 : 3;
 
-let copyText = '';
-
 function save(){
   try{
     const d = {};
@@ -332,39 +328,14 @@ function calc(){
     h += '<div class="msg">急性冠症候群・家族性高コレステロール血症・糖尿病・冠動脈疾患と脳梗塞の合併があれば、目標は LDL-C 70 ／ non-HDL-C 100 未満になります。</div>';
   }
 
-  h += '<div class="actions">' +
-       '<button type="button" class="primary" id="copyBtn">カルテ用にコピー</button>' +
-       '<button type="button" id="resetBtn">入力をクリア</button>' +
-       '<span class="copied" id="copied" hidden>コピーしました</span></div>';
+  h += '<div class="actions"><button type="button" id="resetBtn">入力をクリア</button></div>';
 
   $('result').innerHTML = h;
 
-  copyText = ldlT === null
-    ? '脂質管理：' + cat + '（' + why + '）'
-    : '脂質管理区分：' + cat + '（' + why + (risk !== null ? '、' + pts + '点、10年リスク' + risk + '%' : '') + '）'
-      + ' 目標 LDL-C<' + ldlT + '、non-HDL-C<' + nonT
-      + '／現在 LDL-C ' + ldl + (nonHDL !== null ? '、non-HDL-C ' + nonHDL : '');
-
-  $('copyBtn').addEventListener('click', doCopy);
   $('resetBtn').addEventListener('click', doReset);
   save();
 }
 
-function doCopy(){
-  const done = () => { const c = $('copied'); c.hidden = false; setTimeout(() => { c.hidden = true; }, 1800); };
-  try{
-    navigator.clipboard.writeText(copyText).then(done).catch(selectFallback);
-  }catch(e){ selectFallback(); }
-}
-function selectFallback(){
-  const ta = document.createElement('textarea');
-  ta.value = copyText;
-  ta.style.position = 'fixed'; ta.style.top = '-1000px';
-  document.body.appendChild(ta); ta.select();
-  try{ document.execCommand('copy'); }catch(e){}
-  document.body.removeChild(ta);
-  const c = $('copied'); c.hidden = false; setTimeout(() => { c.hidden = true; }, 1800);
-}
 function doReset(){
   BOXES.forEach(k => $(k).checked = false);
   $('age').value = 62; $('sex').value = '7'; $('sbp').value = 138;
@@ -381,12 +352,9 @@ load();
 calc();
 </script>
 
-
 <script>
 if ('serviceWorker' in navigator) {
-  window.addEventListener('load', function(){
-    navigator.serviceWorker.register('sw.js').catch(function(){});
-  });
+  window.addEventListener('load', function(){ navigator.serviceWorker.register('sw.js').catch(function(){}); });
 }
 </script>
 </body>
