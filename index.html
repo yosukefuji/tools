@@ -159,11 +159,11 @@ footer{margin-top:20px; font-size:12.5px; color:var(--muted); line-height:1.7}
   <div class="card">
     <h2>久山町スコアの項目</h2>
     <div class="grid">
-      <div><label for="age">年齢</label><input type="number" id="age" value="62" min="20" max="110" step="1" inputmode="numeric"></div>
-      <div><label for="sex">性別</label><select id="sex"><option value="0">女性</option><option value="7" selected>男性</option></select></div>
-      <div><label for="sbp">収縮期血圧 mmHg</label><input type="number" id="sbp" value="138" min="70" max="260" step="1" inputmode="numeric"></div>
-      <div><label for="ldl">LDL-C mg/dL</label><input type="number" id="ldl" value="142" min="20" max="500" step="1" inputmode="numeric"></div>
-      <div><label for="hdl">HDL-C mg/dL</label><input type="number" id="hdl" value="48" min="10" max="150" step="1" inputmode="numeric"></div>
+      <div><label for="age">年齢</label><input type="number" id="age" min="20" max="110" step="1" inputmode="numeric" placeholder="例 62"></div>
+      <div><label for="sex">性別</label><select id="sex"><option value="" selected>—</option><option value="0">女性</option><option value="7">男性</option></select></div>
+      <div><label for="sbp">収縮期血圧 mmHg</label><input type="number" id="sbp" min="70" max="260" step="1" inputmode="numeric" placeholder="例 138"></div>
+      <div><label for="ldl">LDL-C mg/dL</label><input type="number" id="ldl" min="20" max="500" step="1" inputmode="numeric" placeholder="例 142"></div>
+      <div><label for="hdl">HDL-C mg/dL</label><input type="number" id="hdl" min="10" max="150" step="1" inputmode="numeric" placeholder="例 48"></div>
       <div><label for="tc">総コレステロール mg/dL（任意）</label><input type="number" id="tc" value="" min="60" max="600" step="1" placeholder="non-HDL-C の計算用" inputmode="numeric"></div>
     </div>
     <div class="chks" style="margin-top:12px">
@@ -249,9 +249,10 @@ function calc(){
   $('secondSub').hidden = !$('second').checked;
   $('dmSub').hidden = !$('dm').checked;
 
-  const age = +$('age').value, sbp = +$('sbp').value, ldl = +$('ldl').value, hdl = +$('hdl').value;
-  const tc = $('tc').value === '' ? null : +$('tc').value;
-  const nonHDL = tc === null ? null : tc - hdl;
+  const num = id => $(id).value === '' ? null : +$(id).value;
+  const age = num('age'), sbp = num('sbp'), ldl = num('ldl'), hdl = num('hdl'), tc = num('tc');
+  const sexPt = $('sex').value === '' ? null : +$('sex').value;
+  const nonHDL = (tc === null || hdl === null) ? null : tc - hdl;
 
   let cat, why, ldlT, nonT, risk = null, pts = null, msg = '';
 
@@ -277,7 +278,22 @@ function calc(){
       why += '（糖尿病に' + add.join('・') + 'を伴う）';
     }
   } else {
-    pts = (+$('sex').value) + ptSBP(sbp) + ptLDL(ldl) + ptHDL(hdl)
+    const missing = [];
+    if (age === null) missing.push('年齢');
+    if (sexPt === null) missing.push('性別');
+    if (sbp === null) missing.push('収縮期血圧');
+    if (ldl === null) missing.push('LDL-C');
+    if (hdl === null) missing.push('HDL-C');
+    if (missing.length){
+      $('result').innerHTML = '<div class="cat"><span class="k" style="color:var(--muted)">判定待ち</span>' +
+        '<span class="why">' + missing.join('・') + ' を入力すると判定します</span></div>' +
+        '<div class="risk">既往や糖尿病・CKD・末梢動脈疾患があれば、上のチェックだけで目標値が出ます</div>' +
+        '<div class="actions"><button type="button" id="resetBtn">入力をクリア</button></div>';
+      $('resetBtn').addEventListener('click', doReset);
+      save();
+      return;
+    }
+    pts = sexPt + ptSBP(sbp) + ptLDL(ldl) + ptHDL(hdl)
         + ($('igt').checked ? 1 : 0) + ($('smoke').checked ? 2 : 0);
     if (age < 40){
       cat = '判定外'; why = '40歳未満はスコアの対象外'; ldlT = nonT = null;
@@ -306,20 +322,22 @@ function calc(){
   }
 
   if (ldlT !== null){
-    const ldlOK = ldl < ldlT;
+    const ldlOK = ldl === null ? null : ldl < ldlT;
     const nonOK = nonHDL === null ? null : nonHDL < nonT;
     h += '<div class="targets">' +
       '<div class="tg"><div class="lbl">LDL-C 目標</div><div class="val">&lt; ' + ldlT + '</div>' +
-        '<div class="now ' + (ldlOK?'hit':'miss') + '">現在 ' + ldl + ' ・ <span class="pill">' + (ldlOK ? '達成' : 'あと ' + (ldl-ldlT+1) + ' 下げる') + '</span></div></div>' +
+        (ldl === null
+          ? '<div class="now" style="color:var(--muted)">LDL-C を入れると達成状況が出ます</div></div>'
+          : '<div class="now ' + (ldlOK?'hit':'miss') + '">現在 ' + ldl + ' ・ <span class="pill">' + (ldlOK ? '達成' : 'あと ' + (ldl-ldlT+1) + ' 下げる') + '</span></div></div>') +
       '<div class="tg"><div class="lbl">non-HDL-C 目標</div><div class="val">&lt; ' + nonT + '</div>' +
         (nonHDL === null
-          ? '<div class="now" style="color:var(--muted)">総コレステロールを入れると判定します</div>'
+          ? '<div class="now" style="color:var(--muted)">総コレステロールとHDL-Cを入れると判定します</div>'
           : '<div class="now ' + (nonOK?'hit':'miss') + '">現在 ' + nonHDL + ' ・ <span class="pill">' + (nonOK ? '達成' : 'あと ' + (nonHDL-nonT+1) + ' 下げる') + '</span></div>') +
       '</div></div>';
   }
 
   if (pts !== null && risk !== null){
-    h += '<div class="points">内訳：性別 ' + $('sex').value + ' ／ 収縮期血圧 ' + ptSBP(sbp) +
+    h += '<div class="points">内訳：性別 ' + sexPt + ' ／ 収縮期血圧 ' + ptSBP(sbp) +
          ' ／ 耐糖能異常 ' + ($('igt').checked?1:0) + ' ／ LDL-C ' + ptLDL(ldl) +
          ' ／ HDL-C ' + ptHDL(hdl) + ' ／ 喫煙 ' + ($('smoke').checked?2:0) + '（点）</div>';
   }
@@ -338,9 +356,10 @@ function calc(){
 
 function doReset(){
   BOXES.forEach(k => $(k).checked = false);
-  $('age').value = 62; $('sex').value = '7'; $('sbp').value = 138;
-  $('ldl').value = 142; $('hdl').value = 48; $('tc').value = '';
+  FIELDS.forEach(k => $(k).value = '');
+  try{ localStorage.removeItem(STORE); }catch(e){}
   calc();
+  $('age').focus();
 }
 
 BOXES.concat(FIELDS).forEach(id => {
