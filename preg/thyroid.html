@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#8A3A5E">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+
+<title>妊娠と甲状腺</title>
+<style>
+@page{size:A4 portrait; margin:8.5mm 10mm;}
+*{box-sizing:border-box}
+body{font-family:"Yu Gothic","Meiryo",sans-serif; color:#1b1b1b; margin:0; font-size:10.3pt; line-height:1.52;}
+@media print{body{width:auto; padding:0;}}
+.page{break-after:page;}
+.page:last-child{break-after:auto;}
+h1{font-size:15pt; margin:0 0 1.5mm;}
+.lead{font-size:9pt; color:#666; margin:0 0 3mm;}
+h2{font-size:11pt; margin:0 0 2.2mm; padding:1.2mm 2.4mm; background:#1D3F8A; color:#fff; letter-spacing:.04em;}
+section{margin-bottom:3.2mm;}
+section:last-of-type{margin-bottom:0;}
+.cols{display:flex; gap:5mm;} .cols>div{flex:1;}
+table{border-collapse:collapse; width:100%; font-size:10pt;}
+th,td{border:.3pt solid #c5c5c5; padding:1.3mm 2mm; text-align:left; vertical-align:top;}
+th{background:#eef1f7; font-weight:700;}
+.s{display:block; font-size:8.6pt; color:#666; font-weight:400;}
+td.c,th.c{text-align:center; font-variant-numeric:tabular-nums; white-space:nowrap;}
+tr.hi td{background:#eef4ff;}
+ul{margin:0; padding-left:5mm;} li{margin-bottom:1.2mm;}
+.warn{border-left:3pt solid #C0692A; padding:2mm 0 2mm 3mm; background:#fdf6f0;}
+.note{font-size:9pt; color:#555; margin-top:2mm;}
+em{font-style:normal; background:#fff2cc; padding:0 .6mm;}
+.big{font-weight:700;}
+footer{font-size:8pt; color:#888; border-top:.3pt solid #ddd; padding-top:1.2mm; margin-top:2mm;}
+:root{--brand:#8A3A5E}
+
+@media screen{
+  html{-webkit-text-size-adjust:100%}
+  body{font-size:16px; line-height:1.72; background:#fff; color:#1b1b1b; padding-bottom:40px}
+  .page{break-after:auto; padding:18px max(16px,env(safe-area-inset-right,0px)) 10px max(16px,env(safe-area-inset-left,0px)); border-bottom:10px solid #eef0f5}
+  .page:last-child{border-bottom:0}
+  h1{font-size:21px; margin:6px 0 4px; line-height:1.4}
+  .lead{font-size:13.5px; margin:0 0 16px}
+  h2{font-size:16px; margin:0 0 11px; padding:8px 11px; border-radius:5px; line-height:1.45}
+  section{margin-bottom:24px}
+  .cols{flex-direction:column; gap:16px}
+  .cols>div{flex:1 1 auto !important}
+  .tw{overflow-x:auto; -webkit-overflow-scrolling:touch; margin:0}
+  .tw table{min-width:100%}
+  table{font-size:14.5px; margin:0; table-layout:auto}
+  th,td{padding:7px 9px; word-break:break-word}
+  th{min-width:4.6em}
+  td.c,td.n{white-space:nowrap}
+  th.c,th.n{white-space:normal}
+  .warn{padding:11px 13px 11px 14px; border-radius:0 6px 6px 0; margin:0}
+  .flow{padding:12px 13px; border-radius:6px; font-size:15px}
+  .step{margin-bottom:7px}
+  .note{font-size:13.5px; margin-top:10px; line-height:1.68}
+  .s{font-size:12.5px; margin-top:2px}
+  ul{padding-left:20px} li{margin-bottom:6px}
+  footer{font-size:12px; margin-top:20px; padding-top:9px}
+  .nav{position:sticky; top:0; z-index:20; display:flex; align-items:center; gap:12px;
+       padding:11px max(14px,env(safe-area-inset-left,0px)) 11px max(14px,env(safe-area-inset-right,0px));
+       background:var(--brand); color:#fff; font-weight:700; font-size:15px}
+  .nav a{color:#fff; text-decoration:none; font-weight:400; font-size:14px; opacity:.92}
+  .nav .sp{margin-left:auto}
+}
+@media print{ .nav{display:none} .tw{overflow:visible} }
+</style>
+</head>
+<body>
+<div class="nav"><a href="index.html">&#8249;&nbsp;一覧</a><span class="sp"></span><span>妊娠と甲状腺</span></div>
+
+
+<div class="page">
+<h1>① 妊娠と甲状腺機能低下症</h1>
+<p class="lead">目標値・増量のしかた・通院の間隔・産後の見直し</p>
+
+<section>
+<h2>妊娠中は数字の読み方が変わる</h2>
+<table>
+<tr><th style="width:30%">hCGがTSH受容体を刺激</th><td>妊娠初期は<b>FT4が上がりTSHが下がる</b>のが生理的（8〜14週がピーク）。<em>TSHが低い＝バセドウ病ではない</em></td></tr>
+<tr><th>エストロゲンでTBG増加</th><td><b>総T4・総T3は使えない。</b>FT4で見る</td></tr>
+<tr><th>ホルモン需要が30〜50%増</th><td>すでに内服している人に増量が必要になる理由</td></tr>
+</table>
+<div class="warn" style="margin-top:3mm">
+<b class="big">診断の線と、治療の目標は別もの</b>　<b>妊娠初期のTSH上限 4.0</b>は<em>治療を始めるかどうか</em>の線（かつての「2.5未満」はATA 2017で緩和）。一方、<b>治療している人の目標は 2.5未満</b>のまま。
+</div>
+</section>
+
+<section>
+<h2>TSHの目標 ——「妊娠が視野に入ったら2.5、そうでなければ4」</h2>
+<div class="cols">
+<div>
+<table>
+<tr><th style="width:62%">状況</th><th class="c">目標</th></tr>
+<tr class="hi"><td><b>妊娠中／妊娠希望／不妊治療中</b></td><td class="c"><b>&lt; 2.5</b></td></tr>
+<tr><td>それ以外</td><td class="c"><b>&lt; 4</b></td></tr>
+</table>
+<p class="note"><b>下限もある。</b>実用レンジは<b>0.5〜2.5</b>で、<em>抑制（0.1未満）は過剰補充</em>。FT4は基準範囲内なら可で、<b>主役はTSH</b>。</p>
+</div>
+<div>
+<table>
+<tr><th style="width:34%">用量の動かし方</th><th>内容</th></tr>
+<tr><td>大きく外れている</td><td>25μg刻み</td></tr>
+<tr class="hi"><td><b>微調整</b></td><td><b>12.5μg刻み</b>。<em>50μg以下で25μg刻みは粗すぎる</em></td></tr>
+<tr class="hi"><td><b>週単位で平均を作る</b></td><td>半減期7日なので毎日同量でなくてよい。例：<b>毎日50μg＋週2日だけ75μg</b>＝平均約57μg／日</td></tr>
+</table>
+</div>
+</div>
+</section>
+
+<footer>ATA 2017 Guidelines（妊娠・産後の甲状腺疾患）</footer>
+</div>
+
+<div class="page">
+<h1>② 妊娠と甲状腺機能低下症（続き）</h1>
+<p class="lead">増量のしかた・通院の間隔・不妊治療で始まった補充の畳み方</p>
+
+<section>
+<h2>妊娠が分かったら —— 増量の必要度は人によって違う</h2>
+<div class="cols">
+<div>
+<div class="warn">
+<b class="big">機械的な「週2回分追加」は行き過ぎることがある</b>
+<ul>
+<li><b>真の機能低下症</b>（橋本病で甲状腺が働いていない）→ <b>30〜50%の増量が必要</b></li>
+<li><b>不妊治療で予防的に始めた人</b>（TSH 3くらい・抗体陰性）→ <em>自前の甲状腺が働けるので大幅な増量は要らない</em></li>
+</ul>
+<div style="margin-top:1.5mm">後者に一律で追加すると<em>抑制してしまう</em>。<b>最初のTSHを見てから決める。</b></div>
+</div>
+</div>
+<div style="flex:0 0 42%">
+<table>
+<tr><th colspan="2">通院・採血の間隔</th></tr>
+<tr><td style="width:40%"><b>妊娠判明</b></td><td>即増量＋TSH</td></tr>
+<tr class="hi"><td><b>〜20週</b></td><td><b>4週ごと</b></td></tr>
+<tr><td>26〜32週</td><td>最低1回</td></tr>
+<tr><td><b>分娩後</b></td><td>妊娠前の量に戻す</td></tr>
+<tr class="hi"><td><b>産後6週</b></td><td>TSH → 卒業の検討 or 通常フォロー</td></tr>
+</table>
+</div>
+</div>
+<p class="note"><b>治療していなくても、抗体陽性なら妊娠前半は4週ごとにTSHを測る。</b><em>「抗体陽性だけど正常だから様子見」で放置すると、20週で発見ということになる。</em></p>
+</section>
+
+<section>
+<h2>「抗体陽性だからLT4」は否定されている</h2>
+<div class="cols">
+<div style="flex:0 0 44%">
+<table>
+<tr><th style="width:68%">状況</th><th class="c">対応</th></tr>
+<tr><td>顕性（FT4低値／TSH 10超）</td><td class="c"><b>治療</b></td></tr>
+<tr class="hi"><td><b>抗体陽性＋TSHが上限超</b></td><td class="c"><b>治療</b></td></tr>
+<tr><td>抗体陽性＋TSH 2.5〜上限</td><td class="c">考慮</td></tr>
+<tr><td>抗体陰性＋TSHが上限超</td><td class="c">考慮</td></tr>
+<tr><td>抗体陰性＋TSH正常</td><td class="c">不要</td></tr>
+</table>
+</div>
+<div>
+<div class="warn">
+<b class="big">抗体陽性で機能正常な人へのLT4は、流産・早産を減らさない</b><br>
+<b>TABLET試験</b>（NEJM 2019）：抗TPO抗体陽性・機能正常で<em>流産既往または不妊</em>の女性にLT4 50μg → <b>生児出生率に差なし</b>。POSTAL・T4LiFEも陰性。<br>
+<em>機能が正常なら、抗体だけを理由に補充しない。</em>
+</div>
+</div>
+</div>
+</section>
+
+<section>
+<h2>不妊治療で始まった補充を、どう畳むか</h2>
+<div class="warn">
+<b>妊娠中にやめる判断はしない。</b>「TSH 3.0・抗体陰性」で始まった補充は本来は適応が怪しいが、<em>妊娠中に中止すれば不確実性が増えるだけ</em>。<b>妊娠期間はそのまま続けて2.5未満を維持する。</b><br>
+<b>見直しは分娩後</b> → 妊娠前の用量に戻す → 6週後にTSH → <b>低用量・抗体陰性・甲状腺腫なしなら中止を検討</b>。<em>不妊治療で始まったLT4は、産後に卒業できる人がかなり多い。</em>
+</div>
+</section>
+
+<section>
+<h2>日本では、ヨード補充を勧めない</h2>
+<div class="warn">
+<b>日本ではヨード補充を勧めない。</b>欧米は妊娠中の補充（150μg／日）を推奨するが、日本はヨード<b>過剰傾向</b>で、<em>昆布やヨード卵の過剰摂取で胎児の機能低下を起こすリスク</em>のほうが現実的。<b>サプリは不要。</b>
+</div>
+</section>
+
+<footer>ATA 2017 Guidelines（妊娠・産後の甲状腺疾患）／Dhillon-Smith RK et al. NEJM 2019（TABLET）</footer>
+</div>
+
+<div class="page">
+<h1>③ 妊娠とバセドウ病・産後甲状腺炎</h1>
+<p class="lead">まず鑑別、次に薬の使い分け、そしてTRAbは胎児のために測る</p>
+
+<section>
+<h2>まず鑑別 —— 治療するかどうかが変わる</h2>
+<table>
+<tr><th style="width:24%"></th><th>妊娠一過性甲状腺機能亢進症</th><th>バセドウ病</th></tr>
+<tr><td>原因</td><td><b>hCG</b>（妊娠悪阻に伴う）</td><td>自己免疫</td></tr>
+<tr class="hi"><td><b>TRAb</b></td><td><b>陰性</b></td><td><b>陽性</b></td></tr>
+<tr><td>甲状腺腫・眼症</td><td>なし</td><td>あり</td></tr>
+<tr><td>経過</td><td><b>16〜20週で自然軽快</b></td><td>持続</td></tr>
+<tr><td>治療</td><td><b>不要</b>（対症療法のみ）</td><td>抗甲状腺薬</td></tr>
+</table>
+<p class="note"><b>一過性のほうが多い。</b>妊娠初期のTSH低値・FT4高値を見たら<em>まずTRAb</em>。</p>
+</section>
+
+<section>
+<h2>抗甲状腺薬 —— 時期で使い分ける</h2>
+<div class="cols">
+<div>
+<table>
+<tr class="hi"><td style="width:52%"><b>器官形成期（〜15週前後）</b></td><td><b>PTU</b></td></tr>
+<tr class="hi"><td><b>中期以降</b></td><td><b>MMI に戻す</b></td></tr>
+</table>
+<p class="note"><b>理由</b>：MMIには<b>メチマゾール胎児症</b>（頭皮欠損、後鼻孔閉鎖、食道閉鎖）、<b>PTUには肝毒性</b>。<b>妊娠を希望する時点でPTUに変更しておく</b>。</p>
+</div>
+<div>
+<div class="warn">
+<b class="big">母体は「やや甲状腺機能亢進寄り」に保つ</b><br>
+<b>最小有効量</b>で、<b>FT4を基準範囲の上限付近</b>に維持する。<b>TSHは抑制されたままでよい</b>。<em>下げすぎると胎児が機能低下になる</em>——母体を完全に正常化しないのが正解という、珍しい管理。
+</div>
+<p class="note"><b>授乳は可能。</b>MMI 10mg／日、PTU 300mg／日まで。<em>「薬を飲むなら授乳をやめる」必要はない。</em></p>
+</div>
+</div>
+</section>
+
+<section>
+<h2>TRAbは胎児のために測る</h2>
+<div class="cols">
+<div>
+<table>
+<tr><th style="width:40%">測定時期</th><td><b>18〜22週、30〜34週</b></td></tr>
+<tr class="hi"><th>基準上限の3倍以上</th><td><b>胎児甲状腺機能亢進症のリスク</b></td></tr>
+<tr><th>胎児エコーで見る</th><td>頻脈／甲状腺腫／発育不全／胎児水腫</td></tr>
+</table>
+<div class="warn" style="margin-top:3mm">
+<b>治療済みでもTRAbは残る。</b>手術・アイソトープ後でも残存しうる。<em>母体の機能が正常でも抗体は胎盤を通過する</em>。<b>既往があれば必ず測る</b>——最も見落とされやすい。
+</div>
+</div>
+<div style="flex:0 0 40%">
+<table>
+<tr><th colspan="2">通院・採血の間隔</th></tr>
+<tr class="hi"><td style="width:42%"><b>用量調整期</b></td><td><b>2〜4週ごと</b>（FT4・TSH）</td></tr>
+<tr><td>安定後</td><td>4〜6週ごと</td></tr>
+</table>
+<p class="note"><b>妊娠後半は寛解しやすく3割程度は中止できる。</b>逆に<b>産後3か月以内に再燃しやすい</b>。</p>
+</div>
+</div>
+</section>
+
+<section>
+<h2>産後甲状腺炎</h2>
+<div class="cols">
+<div>
+<p class="note" style="margin-top:0"><b>産後2〜6か月、5〜10%。TPO抗体陽性者では30〜50%</b>と高率。<b>3相性</b>：中毒期 → 機能低下期 → 回復。<em>産後の「疲れが抜けない」を全部育児のせいにしない。</em></p>
+</div>
+<div>
+<table>
+<tr class="hi"><td style="width:30%"><b>中毒期</b></td><td><b>抗甲状腺薬は無効</b>（破壊性）。<b>β遮断薬のみ</b></td></tr>
+<tr><td>機能低下期</td><td>症状があればLT4</td></tr>
+<tr class="hi"><td><b>その後</b></td><td><b>20〜30%が永続的な機能低下へ</b> → 年1回のTSH</td></tr>
+</table>
+<p class="note"><b>スクリーニング</b>：TPO抗体陽性者は<b>産後3か月と6か月にTSH</b>。既往がある人は次回妊娠後も。</p>
+</div>
+</div>
+
+</section>
+
+<footer>ATA 2017 Guidelines（妊娠・産後の甲状腺疾患）／日本甲状腺学会</footer>
+</div>
+
+
+<script>
+document.querySelectorAll('.page table').forEach(function(t){
+  if(t.parentNode.classList.contains('tw')) return;
+  var w=document.createElement('div'); w.className='tw';
+  t.parentNode.insertBefore(w,t); w.appendChild(t);
+  var r=t.rows[0], n=0;
+  if(r){ for(var i=0;i<r.cells.length;i++) n += (r.cells[i].colSpan||1); }
+  if(n>=3) t.style.minWidth = (n*7.6) + 'em';
+});
+if('serviceWorker' in navigator){
+  navigator.serviceWorker.register('sw.js').then(function(reg){ reg.update(); });
+  var reloaded=false;
+  navigator.serviceWorker.addEventListener('controllerchange', function(){
+    if(!reloaded){reloaded=true; location.reload();}
+  });
+}
+</script>
+</body>
+</html>
