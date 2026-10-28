@@ -73,6 +73,8 @@ footer{font-size:8pt; color:#888; border-top:.3pt solid #ddd; padding-top:1.2mm;
   .cols>div{flex:1 1 auto !important}
   .tw{overflow-x:auto; -webkit-overflow-scrolling:touch; margin:0}
   .tw table{min-width:100%}
+  .tw.wide table{width:max-content !important; min-width:100%}
+  .tw.wide td,.tw.wide th{min-width:6em; max-width:17em}
   .tw.stack{overflow:visible}
   .tw.stack table,.tw.stack tbody,.tw.stack tr,.tw.stack th,.tw.stack td{display:block; width:auto !important; min-width:0 !important}
   .tw.stack table{border:0; min-width:0 !important}
@@ -364,6 +366,33 @@ document.querySelectorAll('.page').forEach(function(pg, pi){
   var ref = lead || h1;
   if(ref && idx.children.length > 1) ref.parentNode.insertBefore(idx, ref.nextSibling);
 });
+// 実際の描画を測り、細かく折り返している表は縦積みにする
+if(window.matchMedia('(max-width:820px)').matches){
+  var colCount = function(t){
+    var r = t.rows[0], n = 0;
+    if(r){ for(var i=0;i<r.cells.length;i++) n += (r.cells[i].colSpan||1); }
+    return n;
+  };
+  var badlyWrapped = function(t){
+    var cells = t.querySelectorAll('td,th');
+    for(var i=0;i<cells.length;i++){
+      var c = cells[i];
+      var txt = (c.innerText||'').replace(/\s+/g,'');
+      if(txt.length < 8) continue;
+      var lh = parseFloat(getComputedStyle(c).lineHeight) || 20;
+      var lines = Math.round((c.getBoundingClientRect().height - 10) / lh);
+      if(lines >= 3 && txt.length / lines <= 6) return true;
+    }
+    return false;
+  };
+  document.querySelectorAll('.tw:not(.stack)').forEach(function(w){
+    var t = w.querySelector('table'); if(!t) return;
+    if(!badlyWrapped(t)) return;
+    var n = colCount(t);
+    if(n <= 4){ w.className += ' stack'; }
+    else { w.className += ' wide'; }
+  });
+}
 if(window.matchMedia('(max-width:820px)').matches){
   var pgs = document.querySelectorAll('.page');
   if(pgs.length > 1){

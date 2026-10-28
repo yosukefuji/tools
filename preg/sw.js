@@ -1,4 +1,4 @@
-const CACHE = 'preg-20261028-r9';
+const CACHE = 'preg-20261028-r10';
 const ASSETS = [
   './',
   './index.html',
