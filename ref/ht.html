@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#1D3F8A">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+
+<title>高血圧 診療の整理</title>
+<style>
+
+@page { size: A4 portrait; margin: 8mm; }
+* { box-sizing: border-box; }
+body { font-family: "Yu Gothic","Meiryo",sans-serif; color:#1b1b1b; margin:0;
+       font-size: 9.9pt; line-height: 1.42; width: 194mm; padding: 8mm; }
+h1 { font-size: 15pt; margin: 0 0 1mm; }
+.lead { font-size: 9pt; color:#555; margin: 0 0 2mm; }
+h2 { font-size: 10.6pt; margin: 0 0 1.5mm; padding: 1.1mm 2mm; background:#1D3F8A; color:#fff; letter-spacing:.04em; }
+section { margin-bottom: 2mm; }
+.cols { display:flex; gap:4mm; }
+.cols > div { flex:1; }
+ul { margin:0; padding-left:4.2mm; }
+li { margin-bottom:.6mm; }
+table { border-collapse:collapse; width:100%; font-size:9.6pt; }
+th,td { border:.3pt solid #b9b9b9; padding:.7mm 1.6mm; text-align:left; vertical-align:top; }
+th { background:#eef1f7; font-weight:700; }
+td.n { text-align:right; font-variant-numeric:tabular-nums; white-space:nowrap; }
+.flow { border:.4pt solid #1D3F8A; padding:1.8mm; font-size:9.6pt; }
+.flow b { color:#1D3F8A; }
+.step { margin-bottom:1.2mm; }
+.arrow { color:#888; margin:0 1mm; }
+.warn { border-left:2.5pt solid #C0692A; padding:1.4mm 0 1.4mm 2.2mm; background:#fdf6f0; }
+.note { font-size:8.6pt; color:#555; margin-top:1mm; }
+em { font-style:normal; background:#fff2cc; padding:0 .5mm; }
+@media print { body { width: auto; padding: 0; } }
+footer { font-size:8.2pt; color:#777; border-top:.3pt solid #ccc; padding-top:1.2mm; margin-top:2mm; }
+
+.page{break-after:page;}
+.page:last-child{break-after:auto;}
+.cols{display:flex; gap:3.5mm;} .cols>div{flex:1;}
+:root{--brand:#1D3F8A}
+
+@media screen{
+  html{-webkit-text-size-adjust:100%}
+  body{font-size:16px; line-height:1.72; background:#fff; color:#1b1b1b; padding-bottom:40px}
+  .page{break-after:auto; padding:18px max(16px,env(safe-area-inset-right,0px)) 10px max(16px,env(safe-area-inset-left,0px)); border-bottom:10px solid #eef0f5}
+  .page:last-child{border-bottom:0}
+  h1{font-size:21px; margin:6px 0 4px; line-height:1.4}
+  .lead{font-size:13.5px; margin:0 0 16px}
+  h2{font-size:16px; margin:0 0 11px; padding:8px 11px; border-radius:5px; line-height:1.45}
+  section{margin-bottom:24px}
+  .cols{flex-direction:column; gap:16px}
+  .cols>div{flex:1 1 auto !important}
+  .tw{overflow-x:auto; -webkit-overflow-scrolling:touch; margin:0}
+  .tw table{min-width:100%}
+  table{font-size:14.5px; margin:0; table-layout:auto}
+  th,td{padding:7px 9px; word-break:break-word}
+  th{min-width:4.6em}
+  td.c,td.n{white-space:nowrap}
+  th.c,th.n{white-space:normal}
+  .warn{padding:11px 13px 11px 14px; border-radius:0 6px 6px 0; margin:0}
+  .flow{padding:12px 13px; border-radius:6px; font-size:15px}
+  .step{margin-bottom:7px}
+  .note{font-size:13.5px; margin-top:10px; line-height:1.68}
+  .s{font-size:12.5px; margin-top:2px}
+  ul{padding-left:20px} li{margin-bottom:6px}
+  footer{font-size:12px; margin-top:20px; padding-top:9px}
+  .nav{position:sticky; top:0; z-index:20; display:flex; align-items:center; gap:12px;
+       padding:11px max(14px,env(safe-area-inset-left,0px)) 11px max(14px,env(safe-area-inset-right,0px));
+       background:var(--brand); color:#fff; font-weight:700; font-size:15px}
+  .nav a{color:#fff; text-decoration:none; font-weight:400; font-size:14px; opacity:.92}
+  .nav .sp{margin-left:auto}
+}
+@media print{ .nav{display:none} .tw{overflow:visible} }
+</style>
+</head>
+<body>
+<div class="nav"><a href="index.html">&#8249;&nbsp;一覧</a><span class="sp"></span><span>高血圧</span></div>
+
+<div class="page">
+<h1>① 血圧を下げる意味</h1>
+<p class="lead">何がどれだけ減るのか、そして何は減らないのか</p>
+
+<section>
+<h2>基本法則</h2>
+<div class="flow">
+<div class="step"><b>収縮期血圧を 10 mmHg 下げるごとに、主要心血管イベントが約20%減る</b></div>
+<div class="step">Ettehadらのメタ解析（Lancet 2016、123試験・613,815例）。低下幅に比例して効果が大きくなる。</div>
+</div>
+<table style="margin-top:1.5mm">
+<tr><th style="width:30%">アウトカム（SBP 10mmHg低下あたり）</th><th class="c">相対リスク低下</th><th>補足</th></tr>
+<tr><td>主要心血管イベント</td><td class="c">約20%（RR 0.80）</td><td rowspan="6">脂質（LDL低下）が冠動脈に強く効くのに対し、<em>降圧は脳卒中と心不全に最も効く</em>。日本は欧米より脳卒中が多く、降圧の価値が相対的に高い</td></tr>
+<tr><td>冠動脈疾患</td><td class="c">約17%</td></tr>
+<tr><td><b>脳卒中</b></td><td class="c"><b>約27%</b></td></tr>
+<tr><td><b>心不全</b></td><td class="c"><b>約28%</b></td></tr>
+<tr><td>総死亡</td><td class="c">約13%</td></tr>
+<tr><td><em>腎不全</em></td><td class="c"><em>有意差なし</em>（0.95、0.84–1.07）</td></tr>
+</table>
+</section>
+
+<section>
+<h2>どこまで下げるか ― SPRINT</h2>
+<div class="cols">
+<div>
+<table>
+<tr><th>SPRINT（糖尿病のない高リスク例）</th><th class="c">結果</th></tr>
+<tr><td>強化降圧（SBP&lt;120）vs 標準（&lt;140）</td><td class="c">—</td></tr>
+<tr><td>主要複合エンドポイント</td><td class="c">約25%減</td></tr>
+<tr><td>総死亡</td><td class="c">約27%減</td></tr>
+<tr><td><em>失神・急性腎障害・電解質異常</em></td><td class="c"><em>増加</em></td></tr>
+</table>
+<p class="note">JSH2025が全年齢で130/80未満に統一した背景にある。ただし、下げるほど有害事象も増えるため、<em>ふらつき・腎機能・フレイルを見ながら</em>個別に調整する前提は変わらない。</p>
+</div>
+<div>
+<div class="warn">
+<b>効かない・はっきりしないもの</b>
+<ul>
+  <li><b>腎不全への進行</b>：降圧の上乗せで透析導入が減るという直接の証拠は乏しい（RR 0.95、0.84–1.07）。MDRD・AASKも試験期間中は陰性で、<em>長期追跡と蛋白尿のある群に限って有益の可能性</em>。ACCORD-BP・SPRINTのpost hocは「強化降圧でCKDの進行は遅らせない」とし、むしろ<em>AKI・新規CKDが増える</em></li>
+  <li><b>腎保護は薬剤クラスの効果</b>で血圧低下とは別：RAS阻害薬（蛋白尿減少）、SGLT2阻害薬、DKDではフィネレノン（腎複合アウトカム 約18%減）、GLP-1受容体作動薬（FLOW：セマグルチド HR 0.76、0.66–0.88）</li>
+  <li><b>認知症</b>：SPRINT MINDで軽度認知障害は減ったが、認知症単独では有意差に届かなかった</li>
+</ul>
+</div>
+<p class="note">低リスク例や、もともと血圧が低い層では効果が小さくなる（メタ解析の線形性の仮定に対する批判）。</p>
+</div>
+</div>
+</section>
+
+<section>
+<h2>測り方で変わる</h2>
+<ul>
+  <li>診察室血圧より<b>家庭血圧</b>を優先する。白衣高血圧・仮面高血圧を拾える</li>
+  <li>JSH2025の目標は、診察室 130/80未満、<b>家庭 125/75未満</b></li>
+  <li>減塩・減量・運動・節酒は、いずれも数mmHgの降圧効果がある。薬1剤に相当することもある</li>
+</ul>
+</section>
+
+<p class="note" style="margin-top:2mm">患者説明用：「上の血圧を10下げると、脳卒中が約3割、心不全が約3割減ります」</p>
+
+</div>
+<div class="page">
+<h1>② 降圧目標と薬剤の選択</h1>
+<p class="lead">高血圧管理・治療ガイドライン2025（JSH2025）に基づく降圧目標と、薬剤選択の順序。</p>
+
+<section>
+<h2>降圧目標（JSH2025）</h2>
+<div class="flow">
+  <div class="step"><b>診察室血圧 130/80 mmHg 未満</b>　<span class="arrow">／</span>　<b>家庭血圧 125/75 mmHg 未満</b>　<span class="arrow">▶</span> 全年齢共通</div>
+  <div class="step">JSH2019の「75歳以上は140/90未満」の区分は廃止。糖尿病・CKDも同じ目標。</div>
+  <div class="step">高血圧の定義（診察室 140/90以上）は変更なし。</div>
+  <div class="step"><em>一律に下げない</em>　ふらつき・腎機能低下・フレイルを見ながら個別に調整する。</div>
+</div>
+</section>
+
+<section>
+<h2>薬剤選択の順序</h2>
+<table>
+<tr><th style="width:13%">段階</th><th style="width:30%">薬剤</th><th>根拠・考え方</th></tr>
+<tr><td><b>第一選択</b></td><td>Ca拮抗薬／ARB・ACE阻害薬／少量サイアザイド</td><td>いずれも第一選択。併存疾患で選ぶ</td></tr>
+<tr><td><b>2剤目</b></td><td>RAS阻害薬 ＋ Ca拮抗薬</td><td>ACCOMPLISH（NEJM 2008）：ACE阻害薬＋アムロジピンは、ACE阻害薬＋サイアザイドより心血管イベント約20%少ない</td></tr>
+<tr><td><b>3剤目</b></td><td>サイアザイド系利尿薬<br>（トリクロルメチアジド 1mg）</td><td>2剤で下がらない例は体液貯留・塩分感受性が背景にあることが多い。RAS阻害薬併用下では低K血症が相殺される</td></tr>
+<tr><td><b>4剤目</b></td><td>スピロノラクトン</td><td>PATHWAY-2（Lancet 2015）：治療抵抗性高血圧でβ遮断薬・α遮断薬より優れる</td></tr>
+</table>
+<p class="note">治療抵抗性高血圧の定義＝RAS阻害薬＋Ca拮抗薬＋利尿薬の3剤を適切に使っても目標未達。<br>
+2剤で届かないとき、3剤に増やす代わりに <b>ARNI</b>（サクビトリルバルサルタン）で2剤のまま強化する選択肢もある。高血圧は1回200mg 1日1回（<em>心不全は1日2回</em>）、400mgまで増量可。Na利尿ペプチドの分解抑制でNa利尿も働く。<em>高血圧単独での心血管アウトカム試験はない</em>。ACE阻害薬とは併用禁忌で36時間空ける。薬価 141.2円/錠。</p>
+</section>
+
+<section>
+<h2>利尿薬を使うときの注意</h2>
+<div class="warn">
+<ul>
+  <li>eGFR 30未満ではサイアザイドは効きにくい → ループ利尿薬へ</li>
+  <li>フルイトランは1mgで。増量しても降圧は伸びず代謝副作用だけ増える</li>
+  <li>低K血症、耐糖能の悪化・新規糖尿病、高尿酸血症、脂質悪化、低Na血症（高齢者）</li>
+  <li>痛風・高尿酸血症では避ける</li>
+</ul>
+</div>
+</section>
+
+<section>
+<h2>併存疾患による選択</h2>
+<table>
+<tr><th style="width:24%">併存疾患</th><th style="width:30%">優先</th><th>避ける・注意</th></tr>
+<tr><td>糖尿病</td><td>ARB・ACE阻害薬</td><td>サイアザイド、β遮断薬（低血糖のマスク）</td></tr>
+<tr><td>CKD（蛋白尿あり）</td><td>ARB・ACE阻害薬</td><td>eGFR 30未満ではサイアザイド→ループへ。K・Crをフォロー</td></tr>
+<tr><td>心不全（HFrEF）</td><td>ARNI／β遮断薬／MRA／SGLT2阻害薬</td><td>Ca拮抗薬（ジルチアゼム・ベラパミル）</td></tr>
+<tr><td>冠動脈疾患</td><td>β遮断薬、RAS阻害薬</td><td>—</td></tr>
+<tr><td>心房細動（レート調節）</td><td>β遮断薬、ベラパミル・ジルチアゼム</td><td>—</td></tr>
+<tr><td>脳血管障害後</td><td>Ca拮抗薬、RAS阻害薬、利尿薬</td><td>急性期の過降圧</td></tr>
+<tr><td>痛風・高尿酸血症</td><td>ARB（ロサルタンは尿酸低下作用）</td><td>サイアザイド</td></tr>
+<tr><td>妊娠・妊娠可能性</td><td>メチルドパ、ラベタロール、ニフェジピン徐放錠</td><td><em>RAS阻害薬・ARNIは禁忌</em></td></tr>
+</table>
+</section>
+
+
+<footer>出典：高血圧管理・治療ガイドライン2025（日本高血圧学会）／Ettehad et al. Lancet 2016／SPRINT（NEJM 2015）・SPRINT MIND／ACCOMPLISH（NEJM 2008）／PATHWAY-2（Lancet 2015）／MDRD・AASK／ACCORD-BP・SPRINT post hoc（2023）／FIDELIO-DKD／FLOW／エンレスト電子添文　薬価は2026年4月改定後　作成 2026-10-21</footer>
+</div>
+
+<script>
+document.querySelectorAll('.page table').forEach(function(t){
+  if(t.parentNode.classList.contains('tw')) return;
+  var w=document.createElement('div'); w.className='tw';
+  t.parentNode.insertBefore(w,t); w.appendChild(t);
+  var r=t.rows[0], n=0;
+  if(r){ for(var i=0;i<r.cells.length;i++) n += (r.cells[i].colSpan||1); }
+  if(n>=3) t.style.minWidth = (n*7.6) + 'em';
+});
+if('serviceWorker' in navigator){
+  navigator.serviceWorker.register('sw.js').then(function(reg){ reg.update(); });
+  var reloaded=false;
+  navigator.serviceWorker.addEventListener('controllerchange', function(){
+    if(!reloaded){reloaded=true; location.reload();}
+  });
+}
+</script>
+</body>
+</html>

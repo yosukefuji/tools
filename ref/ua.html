@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#1D3F8A">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+
+<title>高尿酸血症・痛風の整理</title>
+<style>
+@page{size:A4 portrait; margin:8mm;}
+*{box-sizing:border-box}
+body{font-family:"Yu Gothic","Meiryo",sans-serif; color:#1b1b1b; margin:0; font-size:9.4pt; line-height:1.34;}
+@media print{body{width:auto; padding:0;}}
+.page{break-after:page;} .page:last-child{break-after:auto;}
+h1{font-size:15pt; margin:0 0 1mm;}
+.lead{font-size:8.8pt; color:#555; margin:0 0 2mm;}
+h2{font-size:10.4pt; margin:0 0 1.3mm; padding:1mm 2mm; background:#1D3F8A; color:#fff; letter-spacing:.04em;}
+section{margin-bottom:1.6mm;}
+.cols{display:flex; gap:3.5mm;} .cols>div{flex:1;}
+table{border-collapse:collapse; width:100%; font-size:9pt;}
+th,td{border:.3pt solid #b9b9b9; padding:.55mm 1.4mm; text-align:left; vertical-align:top;}
+th{background:#eef1f7; font-weight:700;}
+td.c,th.c{text-align:center; font-variant-numeric:tabular-nums; white-space:nowrap;}
+td.n,th.n{text-align:right; font-variant-numeric:tabular-nums; white-space:nowrap;}
+ul{margin:0; padding-left:4mm;} li{margin-bottom:.5mm;}
+.flow{border:.4pt solid #1D3F8A; padding:1.8mm; font-size:9.8pt;}
+.flow b{color:#1D3F8A;}
+.step{margin-bottom:1mm;}
+.arrow{color:#888; margin:0 1mm;}
+.warn{border-left:2.5pt solid #C0692A; padding:1.2mm 0 1.2mm 2.2mm; background:#fdf6f0;}
+.ok{border-left:2.5pt solid #1f7a4d; padding:1.2mm 0 1.2mm 2.2mm; background:#eef6f1;}
+.note{font-size:8pt; color:#555; margin-top:1mm;}
+em{font-style:normal; background:#fff2cc; padding:0 .5mm;}
+footer{font-size:7.8pt; color:#777; border-top:.3pt solid #ccc; padding-top:1.1mm; margin-top:1.8mm;}
+:root{--brand:#1D3F8A}
+
+@media screen{
+  html{-webkit-text-size-adjust:100%}
+  body{font-size:16px; line-height:1.72; background:#fff; color:#1b1b1b; padding-bottom:40px}
+  .page{break-after:auto; padding:18px max(16px,env(safe-area-inset-right,0px)) 10px max(16px,env(safe-area-inset-left,0px)); border-bottom:10px solid #eef0f5}
+  .page:last-child{border-bottom:0}
+  h1{font-size:21px; margin:6px 0 4px; line-height:1.4}
+  .lead{font-size:13.5px; margin:0 0 16px}
+  h2{font-size:16px; margin:0 0 11px; padding:8px 11px; border-radius:5px; line-height:1.45}
+  section{margin-bottom:24px}
+  .cols{flex-direction:column; gap:16px}
+  .cols>div{flex:1 1 auto !important}
+  .tw{overflow-x:auto; -webkit-overflow-scrolling:touch; margin:0}
+  .tw table{min-width:100%}
+  table{font-size:14.5px; margin:0; table-layout:auto}
+  th,td{padding:7px 9px; word-break:break-word}
+  th{min-width:4.6em}
+  td.c,td.n{white-space:nowrap}
+  th.c,th.n{white-space:normal}
+  .warn{padding:11px 13px 11px 14px; border-radius:0 6px 6px 0; margin:0}
+  .flow{padding:12px 13px; border-radius:6px; font-size:15px}
+  .step{margin-bottom:7px}
+  .note{font-size:13.5px; margin-top:10px; line-height:1.68}
+  .s{font-size:12.5px; margin-top:2px}
+  ul{padding-left:20px} li{margin-bottom:6px}
+  footer{font-size:12px; margin-top:20px; padding-top:9px}
+  .nav{position:sticky; top:0; z-index:20; display:flex; align-items:center; gap:12px;
+       padding:11px max(14px,env(safe-area-inset-left,0px)) 11px max(14px,env(safe-area-inset-right,0px));
+       background:var(--brand); color:#fff; font-weight:700; font-size:15px}
+  .nav a{color:#fff; text-decoration:none; font-weight:400; font-size:14px; opacity:.92}
+  .nav .sp{margin-left:auto}
+}
+@media print{ .nav{display:none} .tw{overflow:visible} }
+</style>
+</head>
+<body>
+<div class="nav"><a href="index.html">&#8249;&nbsp;一覧</a><span class="sp"></span><span>高尿酸血症・痛風</span></div>
+
+
+<div class="page">
+<h1>① 尿酸を下げる目的と、治療の順序</h1>
+<p class="lead">高尿酸血症・痛風の治療ガイドライン第3版［2022年追補版］（日本痛風・尿酸核酸学会）</p>
+
+<section>
+<h2>何のために下げるのか</h2>
+<div class="cols">
+<div>
+<div class="ok">
+<b>確立している目的</b>
+<ul>
+  <li><b>痛風発作の予防</b>、痛風結節の退縮</li>
+  <li><b>尿路結石（尿酸結石）の予防</b></li>
+  <li><b>痛風腎（尿酸塩腎症）</b>：尿酸塩結晶が髄質・間質に沈着して起こる。高度の高尿酸血症、管理不良の痛風では下げる意義がある</li>
+  <li><em>急性尿酸性腎症</em>（腫瘍崩壊症候群）は別病態。緊急に対応する</li>
+</ul>
+</div>
+</div>
+<div>
+<div class="warn">
+<b>根拠が弱い・示されていない目的</b>
+<ul>
+  <li><b>心血管イベントの抑制</b>：痛風のない虚血性心疾患にアロプリノールを上乗せしても通常治療と差なし（ALL-HEART、Lancet 2022）</li>
+  <li><b>腎機能の保護</b>：痛風のない集団を対象にしたCKD-FIX（CKD stage 3–4、369例）、PERL（1型糖尿病、530例）とも陰性</li>
+</ul>
+</div>
+<p class="note">ただしガイドラインは、<em>腎障害を有する高尿酸血症への尿酸降下薬を「条件つきで推奨」</em>（5件のRCTが根拠。eGFRへのエビデンスの確実性は中等度、Cr・CCrでは弱い〜非常に弱い）。CKD診療ガイドも「考慮してもよい」としている。</p>
+</div>
+</div>
+</section>
+
+<section>
+<h2>治療を始める順序</h2>
+<div class="flow">
+<div class="step"><b>高尿酸血症の定義</b>　血清尿酸値 <b>7.0 mg/dL超</b>（性・年齢を問わない）</div>
+<div class="step"><b>1.</b> 痛風関節炎の既往、または痛風結節がある　<span class="arrow">▶</span>　<b>薬物療法。目標 6.0 mg/dL以下</b></div>
+<div class="step"><b>2.</b> 無症候性で、合併症がある　<span class="arrow">▶</span>　<b>8.0 mg/dL以上</b>で薬物療法を考慮</div>
+<div class="step"><b>3.</b> 無症候性で、合併症がない　<span class="arrow">▶</span>　<b>9.0 mg/dL以上</b>で薬物療法を考慮</div>
+<div class="step">いずれの段階でも生活指導は行う</div>
+</div>
+<p class="note">合併症＝腎障害、尿路結石、高血圧、虚血性心疾患、糖尿病、メタボリックシンドロームなど。</p>
+</section>
+
+<section>
+<h2>発作が起きているとき</h2>
+<div class="cols">
+<div>
+<div class="warn">
+<ul>
+  <li><em>発作中に尿酸降下薬を新規に開始しない</em>（尿酸値の急な変動が発作を悪化させる）</li>
+  <li><em>すでに飲んでいる場合は中止せず継続する</em></li>
+</ul>
+</div>
+</div>
+<div>
+<ul>
+  <li>発作の治療：NSAIDの短期投与、コルヒチン、ステロイド（NSAIDが使えないとき・腎障害例・多関節例）</li>
+  <li>落ち着いてから（おおむね2週間後）尿酸降下薬を開始。少量から<em>ゆっくり下げる</em></li>
+  <li>導入期はコルヒチンカバー（0.5mg/日を数か月）を検討</li>
+</ul>
+</div>
+</div>
+</section>
+</div>
+
+<div class="page">
+<h1>② 生活指導と薬</h1>
+<p class="lead">何がどれだけ効くのか。根拠の強いものと、そうでないもの</p>
+
+<section>
+<h2>生活指導 ― 効果がはっきりしているもの</h2>
+<table>
+<tr><th style="width:17%">項目</th><th style="width:30%">内容</th><th>根拠・補足</th></tr>
+<tr><td><b>減量</b></td><td>肥満があれば体重を減らす</td><td>最も確実。インスリン抵抗性の改善を介して尿酸の排泄が改善する。<em>ただし急激な減量・絶食は一時的に尿酸を上げる</em></td></tr>
+<tr><td><b>飲酒</b></td><td>量を減らす。<em>ビールに限らずアルコール全般</em></td><td>アルコール自体が尿酸の産生を増やし、排泄を抑える。ビールはプリン体も多いが、本体はアルコール量。目安として、日本酒1合／ビール500mL／ウイスキー60mL程度までとされることが多い</td></tr>
+<tr><td><b>肉・魚介</b></td><td>摂りすぎを避ける</td><td>Choiら（NEJM 2004、男性47,150人）：肉の摂取量が最多の群は痛風リスク <b>RR 1.41</b>、魚介は <b>RR 1.51</b></td></tr>
+<tr><td><b>乳製品</b></td><td>むしろ推奨</td><td>同研究で、乳製品の摂取量が最多の群は <b>RR 0.56</b>（リスクが低い）</td></tr>
+<tr><td><b>水分</b></td><td>尿量 1日2L以上</td><td>尿路結石の予防。尿酸排泄促進薬を使うときは特に重要</td></tr>
+</table>
+</section>
+
+<section>
+<h2>生活指導 ― 言われているほどではないもの</h2>
+<div class="cols">
+<div>
+<div class="warn">
+<b>植物性のプリン体は制限しなくてよい</b>
+<ul>
+  <li>同じChoiらの研究で、<em>プリン体の多い野菜（きのこ・豆・ほうれん草など）は痛風リスクと関連しなかった</em></li>
+  <li>総蛋白質摂取量も、リスクと関連なし</li>
+  <li>プリン体の総量より、<b>何由来か</b>のほうが効く</li>
+</ul>
+</div>
+<p class="note">「プリン体を含む食品」として小魚・きのこ・干物まで一律に挙げる指導は、疫学と合わない。制限するなら<b>肉・魚介・アルコール</b>に絞るほうが、患者も守りやすい。食事由来のプリン体制限で下がるのは、せいぜい 1 mg/dL程度とされる。</p>
+</div>
+<div>
+<div class="warn">
+<b>運動は、直接は下げない</b>
+<ul>
+  <li>ガイドラインの説明：<em>有酸素運動は血清尿酸値に影響せず</em>、体脂肪の減少に伴うインスリン抵抗性の改善を介して効く（＝間接的）</li>
+  <li><em>無酸素運動・過度な運動は、かえって尿酸値を上げる</em>ため避ける（ATP分解の亢進と、乳酸による尿酸排泄の低下）</li>
+  <li>勧めるなら、ウォーキングなどの有酸素運動</li>
+</ul>
+</div>
+<p class="note">「運動して尿酸を下げましょう」ではなく、「<b>減量のために有酸素運動を。筋トレや全力ダッシュはむしろ上げる</b>」が正確。</p>
+</div>
+</div>
+</section>
+
+<section>
+<h2>薬の選択と腎機能・結石</h2>
+<table>
+<tr><th style="width:15%">分類</th><th style="width:19%">薬剤</th><th style="width:28%">腎機能低下時</th><th>注意</th></tr>
+<tr><td rowspan="2"><b>尿酸生成抑制</b></td><td>フェブキソスタット<br>（フェブリク）</td><td>軽度〜中等度は調節不要</td><td>10mgから開始し20→40mgへ漸増。<em>尿中への尿酸排泄を増やさないので、結石のある人に向く</em></td></tr>
+<tr><td>アロプリノール</td><td><em>腎機能に応じて減量</em><br>目安：CCr&gt;50→100–300mg/日、30–50→100mg/日、30未満→50mg/日</td><td>腎排泄型。腎不全例で重篤な経過の報告あり。皮膚障害に注意</td></tr>
+<tr><td rowspan="2"><b>尿酸排泄促進</b></td><td>ドチヌラド<br>（ユリス）</td><td>腎機能低下例でも使いやすい</td><td><em>尿路結石を伴う患者には、やむを得ない場合を除き投与しない</em>。使うなら尿アルカリ化（尿pH 6.0〜7.0）と尿量確保。副作用に腎結石（1%未満）</td></tr>
+<tr><td>ベンズブロマロン</td><td>eGFR低下例では効果が落ちる</td><td><em>劇症肝炎の警告。開始6か月は必ず肝機能検査</em>。結石のある人には使わない</td></tr>
+</table>
+<p class="note">日本人の高尿酸血症は<b>排泄低下型が最多</b>のため、排泄促進薬は病型に合った選択。結石の既往を確認してから選ぶ。<br>
+併用薬の影響：<b>ロサルタン・フェノフィブラート・SGLT2阻害薬</b>は尿酸を下げ、<b>サイアザイド系利尿薬</b>は上げる。</p>
+</section>
+
+<section>
+<h2>薬価と自己負担（2026年4月改定後・30日分・3割負担／薬剤費のみ）</h2>
+<table>
+<tr><th style="width:27%">薬剤</th><th class="n">薬価</th><th class="n">1日量の例</th><th class="n">30日の薬剤費</th><th class="n">3割負担</th></tr>
+<tr><td><b>フェブキソスタット 20mg（後発）</b></td><td class="n">10.8円</td><td class="n">1錠</td><td class="n">324円</td><td class="n"><b>約100円</b></td></tr>
+<tr><td>フェブリク 20mg（先発）</td><td class="n">24.9円</td><td class="n">1錠</td><td class="n">747円</td><td class="n">約220円</td></tr>
+<tr><td><b>ユリス 2mg（ドチヌラド）</b></td><td class="n">74.2円</td><td class="n">1錠</td><td class="n">2,226円</td><td class="n"><b>約670円</b></td></tr>
+<tr><td>アロプリノール 100mg（後発）</td><td class="n">10.4–10.8円</td><td class="n">200mg＝2錠</td><td class="n">624–648円</td><td class="n">約190円</td></tr>
+<tr><td>ベンズブロマロン 50mg</td><td class="n">9.5円</td><td class="n">1錠</td><td class="n">285円</td><td class="n">約90円</td></tr>
+</table>
+<p class="note">ユリスには後発品がなく、フェブキソスタット後発品の約7倍。月あたりでは約570円の差。調剤料・管理料は含まない。</p>
+</section>
+
+<footer>出典：高尿酸血症・痛風の治療ガイドライン第3版［2022年追補版］（日本痛風・尿酸核酸学会）／Choi HK, et al. NEJM 2004;350:1093／ALL-HEART（Lancet 2022）／CKD-FIX／PERL（NEJM 2020）／CARES（NEJM 2018）／FAST（Lancet 2020）／各薬剤の電子添文・日経メディカル処方薬事典　アロプリノールの腎機能別用量と飲酒量の目安は成書による　薬価は掲載元により数円の差があり目安　作成 2026-10-21</footer>
+</div>
+
+
+<script>
+document.querySelectorAll('.page table').forEach(function(t){
+  if(t.parentNode.classList.contains('tw')) return;
+  var w=document.createElement('div'); w.className='tw';
+  t.parentNode.insertBefore(w,t); w.appendChild(t);
+  var r=t.rows[0], n=0;
+  if(r){ for(var i=0;i<r.cells.length;i++) n += (r.cells[i].colSpan||1); }
+  if(n>=3) t.style.minWidth = (n*7.6) + 'em';
+});
+if('serviceWorker' in navigator){
+  navigator.serviceWorker.register('sw.js').then(function(reg){ reg.update(); });
+  var reloaded=false;
+  navigator.serviceWorker.addEventListener('controllerchange', function(){
+    if(!reloaded){reloaded=true; location.reload();}
+  });
+}
+</script>
+</body>
+</html>

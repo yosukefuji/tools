@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#1D3F8A">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<title>診療メモ</title>
+<style>
+:root{--brand:#1D3F8A}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0; font-family:"Hiragino Sans","Yu Gothic",system-ui,sans-serif; background:#f4f5f8; color:#1b1b1b; line-height:1.6;
+  padding-bottom:calc(28px + env(safe-area-inset-bottom,0px))}
+header{background:var(--brand); color:#fff;
+  padding:calc(18px + env(safe-area-inset-top,0px)) max(18px,env(safe-area-inset-left,0px)) 18px max(18px,env(safe-area-inset-right,0px))}
+header h1{margin:0; font-size:21px; letter-spacing:.02em}
+header p{margin:5px 0 0; font-size:13px; opacity:.85}
+main{padding:16px max(16px,env(safe-area-inset-left,0px)) 0 max(16px,env(safe-area-inset-right,0px));
+  display:flex; flex-direction:column; gap:11px; max-width:640px; margin:0 auto}
+a.card{display:block; background:#fff; border-radius:11px; padding:15px 17px; text-decoration:none; color:inherit;
+  box-shadow:0 1px 3px rgba(20,30,60,.10)}
+a.card b{display:block; font-size:16.5px; margin-bottom:3px}
+a.card span{font-size:13px; color:#666}
+footer{max-width:640px; margin:22px auto 0; padding:0 18px; font-size:11.5px; color:#8a8f9a; line-height:1.7}
+</style>
+</head>
+<body>
+<header>
+<h1>診療メモ</h1>
+<p>外来で使う診療の整理</p>
+</header>
+<main>
+<a class="card" href="ht.html"><b>高血圧</b><span>降圧目標と薬剤の選択</span></a>
+<a class="card" href="lipid.html"><b>脂質異常症</b><span>目標値・薬の使い方・CKD</span></a>
+<a class="card" href="ua.html"><b>高尿酸血症・痛風</b><span>下げる目的と治療の順序</span></a>
+<a class="card" href="stroke.html"><b>脳梗塞</b><span>保存的加療の整理</span></a>
+<a class="card" href="dm-elderly.html"><b>高齢者糖尿病</b><span>血糖コントロール目標</span></a>
+<a class="card" href="thyroid.html"><b>甲状腺</b><span>結節・慢性甲状腺炎・潜在性</span></a>
+</main>
+<footer>オフラインで使えます。内容は作成時点のガイドラインに基づく個人用のメモで、最終的な判断は原典を確認してください。<br>版 2026-10-28</footer>
+<script>
+if('serviceWorker' in navigator){
+  navigator.serviceWorker.register('sw.js').then(function(reg){
+    reg.update();
+    setInterval(function(){reg.update();}, 60*60*1000);
+  });
+  var reloaded=false;
+  navigator.serviceWorker.addEventListener('controllerchange', function(){
+    if(!reloaded){reloaded=true; location.reload();}
+  });
+}
+</script>
+</body>
+</html>

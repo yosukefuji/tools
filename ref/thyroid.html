@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#1D3F8A">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+
+<title>甲状腺 診療の整理</title>
+<style>
+@page{size:A4 portrait; margin:8.5mm 10mm;}
+*{box-sizing:border-box}
+body{font-family:"Yu Gothic","Meiryo",sans-serif; color:#1b1b1b; margin:0; font-size:10.3pt; line-height:1.52;}
+@media print{body{width:auto; padding:0;}}
+.page{break-after:page;}
+.page:last-child{break-after:auto;}
+h1{font-size:15pt; margin:0 0 1.5mm;}
+.lead{font-size:9pt; color:#666; margin:0 0 3mm;}
+h2{font-size:11pt; margin:0 0 2.2mm; padding:1.2mm 2.4mm; background:#1D3F8A; color:#fff; letter-spacing:.04em;}
+section{margin-bottom:3.2mm;}
+section:last-of-type{margin-bottom:0;}
+.cols{display:flex; gap:5mm;} .cols>div{flex:1;}
+table{border-collapse:collapse; width:100%; font-size:10pt;}
+th,td{border:.3pt solid #c5c5c5; padding:1.3mm 2mm; text-align:left; vertical-align:top;}
+th{background:#eef1f7; font-weight:700;}
+.s{display:block; font-size:8.6pt; color:#666; font-weight:400;}
+td.c,th.c{text-align:center; font-variant-numeric:tabular-nums; white-space:nowrap;}
+tr.hi td{background:#eef4ff;}
+ul{margin:0; padding-left:5mm;} li{margin-bottom:1.2mm;}
+.warn{border-left:3pt solid #C0692A; padding:2mm 0 2mm 3mm; background:#fdf6f0;}
+.note{font-size:9pt; color:#555; margin-top:2mm;}
+em{font-style:normal; background:#fff2cc; padding:0 .6mm;}
+.big{font-weight:700;}
+footer{font-size:8pt; color:#888; border-top:.3pt solid #ddd; padding-top:1.2mm; margin-top:2mm;}
+:root{--brand:#1D3F8A}
+
+@media screen{
+  html{-webkit-text-size-adjust:100%}
+  body{font-size:16px; line-height:1.72; background:#fff; color:#1b1b1b; padding-bottom:40px}
+  .page{break-after:auto; padding:18px max(16px,env(safe-area-inset-right,0px)) 10px max(16px,env(safe-area-inset-left,0px)); border-bottom:10px solid #eef0f5}
+  .page:last-child{border-bottom:0}
+  h1{font-size:21px; margin:6px 0 4px; line-height:1.4}
+  .lead{font-size:13.5px; margin:0 0 16px}
+  h2{font-size:16px; margin:0 0 11px; padding:8px 11px; border-radius:5px; line-height:1.45}
+  section{margin-bottom:24px}
+  .cols{flex-direction:column; gap:16px}
+  .cols>div{flex:1 1 auto !important}
+  .tw{overflow-x:auto; -webkit-overflow-scrolling:touch; margin:0}
+  .tw table{min-width:100%}
+  table{font-size:14.5px; margin:0; table-layout:auto}
+  th,td{padding:7px 9px; word-break:break-word}
+  th{min-width:4.6em}
+  td.c,td.n{white-space:nowrap}
+  th.c,th.n{white-space:normal}
+  .warn{padding:11px 13px 11px 14px; border-radius:0 6px 6px 0; margin:0}
+  .flow{padding:12px 13px; border-radius:6px; font-size:15px}
+  .step{margin-bottom:7px}
+  .note{font-size:13.5px; margin-top:10px; line-height:1.68}
+  .s{font-size:12.5px; margin-top:2px}
+  ul{padding-left:20px} li{margin-bottom:6px}
+  footer{font-size:12px; margin-top:20px; padding-top:9px}
+  .nav{position:sticky; top:0; z-index:20; display:flex; align-items:center; gap:12px;
+       padding:11px max(14px,env(safe-area-inset-left,0px)) 11px max(14px,env(safe-area-inset-right,0px));
+       background:var(--brand); color:#fff; font-weight:700; font-size:15px}
+  .nav a{color:#fff; text-decoration:none; font-weight:400; font-size:14px; opacity:.92}
+  .nav .sp{margin-left:auto}
+}
+@media print{ .nav{display:none} .tw{overflow:visible} }
+</style>
+</head>
+<body>
+<div class="nav"><a href="index.html">&#8249;&nbsp;一覧</a><span class="sp"></span><span>甲状腺</span></div>
+
+
+<div class="page">
+<h1>① 甲状腺結節のフォロー</h1>
+<p class="lead">どこまで調べ、どの間隔で追い、いつ終わるか</p>
+
+<section>
+<h2>最初の分岐は TSH</h2>
+<table>
+<tr><th style="width:26%">TSHが低い</th><td><b>シンチグラフィへ。</b>機能性結節（Plummer病）なら<em>悪性はほぼないので穿刺は不要</em></td></tr>
+<tr><th>TSHが正常〜高値</th><td>超音波で評価</td></tr>
+</table>
+<p class="note">サイログロブリンは良悪性の鑑別に使えない。病歴で拾うのは <b>小児期の頭頸部放射線照射／家族歴／嗄声・固着・嚥下障害</b>。</p>
+</section>
+
+<section>
+<h2>超音波の悪性所見と、FNAの適応</h2>
+<div class="cols">
+<div>
+<div class="warn">
+<b>悪性を疑う所見</b>
+<ul>
+<li><b>縦横比 &gt; 1</b></li>
+<li><b>微細石灰化</b></li>
+<li>境界不明瞭・形状不整</li>
+<li>著明な低エコー</li>
+<li><b>被膜外進展</b></li>
+<li><b>頸部リンパ節腫大</b></li>
+</ul>
+</div>
+</div>
+<div>
+<table>
+<tr><th>超音波リスク</th><th class="c" style="width:30%">FNA</th></tr>
+<tr><td>高度〜中等度疑い</td><td class="c"><b>1cm以上</b></td></tr>
+<tr><td>低度疑い</td><td class="c">1.5cm以上</td></tr>
+<tr class="hi"><td><b>極低度疑い</b>（海綿状）</td><td class="c"><b>2cm以上</b></td></tr>
+<tr><td>純嚢胞</td><td class="c">不要</td></tr>
+</table>
+<p class="note"><b>所見が良性らしくても、2cmを超えたら一度は検討。</b>純嚢胞は何cmでも診断目的の穿刺は不要。<br><b>4cm超はむしろ偽陰性が増える</b>（サンプリングエラー）。</p>
+</div>
+</div>
+</section>
+
+<section>
+<h2>「大きくなったか」はあてにならない</h2>
+<div class="warn">
+<b class="big">Durante ら（JAMA 2015）良性結節992個・5年</b>　増大15.4%／<b>縮小18.5%</b>／不変69%。癌は5個（0.3%）で、<em>うち4個は増大していなかった</em>。
+</div>
+<table style="margin-top:3mm">
+<tr><th style="width:34%">有事の優先順位</th><th>内容</th></tr>
+<tr class="hi"><td><b>① 新しい悪性所見</b></td><td>微細石灰化、境界不明瞭、縦横比&gt;1、被膜外進展</td></tr>
+<tr class="hi"><td><b>② リンパ節腫大</b></td><td>サイズによらず</td></tr>
+<tr><td><b>③ 臨床症状</b></td><td>嗄声・固着・嚥下障害</td></tr>
+<tr><td>④ サイズ変化</td><td>2方向で20%以上かつ2mm以上。<em>単独では弱い</em></td></tr>
+</table>
+</section>
+
+<section>
+<h2>いつ終わるか</h2>
+<table>
+<tr><th style="width:34%">日本のガイドライン</th><td><b>終了規定はない</b></td></tr>
+<tr><th>ATA 2015</th><td>良性なら12〜24か月→以後さらに延長。<b>終了とは言っていない</b>。良性FNAが2回なら以後の穿刺は不要</td></tr>
+<tr class="hi"><th>ACR TI-RADS</th><td><b>5年間安定なら終了</b>。TR1・TR2は<b>最初からフォロー不要</b>。<em>TR5でも1cm未満なら穿刺せず5年観察して卒業する</em></td></tr>
+</table>
+<div class="warn" style="margin-top:3mm">
+<b>終了するときは「もう来なくていい」ではなく、合図を渡す</b><br>
+<b>声がかすれる／しこりが急に大きくなる／首のリンパ節が腫れる／飲み込みにくい</b> ——このときは予約を待たずに受診を。
+</div>
+</section>
+
+<footer>日本甲状腺学会 甲状腺結節取扱い診療ガイドライン／ATA 2015／ACR TI-RADS 2017／Durante C et al. JAMA 2015</footer>
+</div>
+
+<div class="page">
+<h1>② 慢性甲状腺炎（橋本病）</h1>
+<p class="lead">診断の要件と、機能正常のときのフォロー</p>
+
+<section>
+<h2>診断ガイドライン（日本甲状腺学会）</h2>
+<table>
+<tr><th style="width:22%">a）臨床所見</th><td>びまん性甲状腺腫大（萎縮性のこともある）</td></tr>
+<tr><th>b）検査所見</th><td>抗TPO抗体陽性／抗サイログロブリン抗体陽性／細胞診でリンパ球浸潤</td></tr>
+<tr><th>除外</th><td>バセドウ病を除外すること</td></tr>
+<tr class="hi"><th>診断</th><td><b>除外を満たし、a）b）のいずれか1つ以上</b><span class="s">「腫大があるか、抗体が陽性か」どちらか1つでよい。両方は要らない</span></td></tr>
+<tr><th>「疑い」</th><td>① 機能異常も腫大もないが抗体陽性　② 他に原因のない原発性甲状腺機能低下症　③ 超音波で内部エコー低下・不均質があり臨床所見を伴う</td></tr>
+</table>
+<p class="note"><b>付記</b>：阻害型TSH受容体抗体で萎縮性甲状腺炎を呈することがある。<b>甲状腺悪性リンパ腫は稀だが、ほぼ例外なく橋本病を背景に発生する</b>。</p>
+</section>
+
+<section>
+<h2>機能正常のときのフォロー</h2>
+<div class="warn">
+<b class="big">TSHを年1回。FT4は要らない</b>　機能低下は<b>TSHが先に動く</b>ので、TSH単独で拾える。<em>FT4を足すのはTSHが異常だったとき</em>。
+</div>
+<div class="cols" style="margin-top:3mm">
+<div>
+<table>
+<tr><th style="width:56%">機能低下への移行</th><th class="c">年間</th></tr>
+<tr class="hi"><td><b>抗体陽性のみ（機能正常）</b></td><td class="c"><b>約2%</b></td></tr>
+<tr><td>TSH高値のみ</td><td class="c">約2.6%</td></tr>
+<tr class="hi"><td><b>抗体陽性＋TSH高値</b></td><td class="c"><b>約4.3%</b></td></tr>
+<tr><td>抗体もTSH異常もない女性</td><td class="c">約0.35%</td></tr>
+</table>
+<p class="note">ガイドラインの付記は<b>「橋本病のうち機能低下症となるのは約1割」</b>。<em>機能正常の方への説明は「1割程度」が適切。</em></p>
+</div>
+<div>
+<div class="warn">
+<b>やらなくていいこと</b>
+<ul>
+<li><b>抗体のルーチン再検</b><span class="s">ただし急な増悪時には上昇する（破壊で抗原が漏れるため）。その場面で方針を決めるのはTRAb・サイログロブリン・摂取率</span></li>
+<li><b>ルーチンの超音波</b></li>
+<li><b>症状を甲状腺のせいにする</b><span class="s">機能が正常なら倦怠感・体重増加は無関係</span></li>
+</ul>
+</div>
+</div>
+</div>
+<p class="note"><b>「年1回」に強い根拠はない。</b>日本・米国いずれの指針にも明確な推奨はなく、実務上のコンセンサス。<em>安定例は1〜2年に1回でもよく、潜在性の人は年1回では粗い。</em></p>
+</section>
+
+<section>
+<h2>安定していても「有事」とする場面</h2>
+<table>
+<tr class="hi"><td style="width:32%"><b>びまん性腫大が急速に増大</b></td><td><b>悪性リンパ腫を疑う。</b>これだけは別格</td></tr>
+<tr><td><b>疼痛を伴う急速な腫脹</b></td><td><b>橋本病の急性増悪。</b><em>ステロイドが効くので拾う価値がある</em></td></tr>
+<tr class="hi"><td><b>妊娠した／希望</b></td><td>抗体陽性者は妊娠中にTSHが上がりやすい。流産・早産のリスク</td></tr>
+<tr class="hi"><td><b>ヨード負荷</b></td><td><b>造影CTの後</b>、ヨード含有うがい薬、昆布の過剰摂取。<em>控えるだけで戻ることがある</em></td></tr>
+<tr><td><b>免疫チェックポイント阻害薬</b></td><td>抗体陽性者はリスクが高い。<b>導入前に抗体の有無を知っておく</b>。ほかアミオダロン、リチウム</td></tr>
+</table>
+</section>
+
+<footer>日本甲状腺学会 甲状腺疾患診断ガイドライン／Vanderpump MPJ et al.（Whickham研究）</footer>
+</div>
+
+<div class="page">
+<h1>③ 潜在性甲状腺機能低下症</h1>
+<p class="lead">TSH高値・FT4正常。治療するかどうかをどう決めるか</p>
+
+<section>
+<h2>そもそも、症状は出るのか</h2>
+<div class="warn">
+<b class="big">治療しても症状は良くならない</b><br>
+<b>TRUST</b>（NEJM 2017、65歳以上737例）— レボチロキシンでTSHは正常化したが、<em>症状スコアも疲労スコアも改善しなかった</em>。<b>IEMO 80+</b>も同じ。<br>
+→ <b>症状はTSHのせいではなかった可能性が高い。</b>
+</div>
+<p class="note">理屈の上でも「出ないはず」：組織に届くのはFT4・FT3で、それが正常なら<b>末梢では足りている</b>。<b>交絡も強い</b>——疲労感は一般人口でも20〜30%が訴えるため、「疲れる」と受診した人にTSHを測れば、たまたま高い人が見つかる。<br><b>反論</b>：FT4には個人ごとのセットポイントがあり、基準範囲内でも本人には不足かもしれない——成立はするが試験では裏づけられていない。TRUST・IEMOはいずれも高齢者の試験で、<em>若年〜中年のデータは乏しい</em>。</p>
+</section>
+
+<section>
+<h2>治療するかどうか　— 年齢とTSHで決める</h2>
+<table>
+<tr><th style="width:24%">年齢</th><th class="c" style="width:28%">TSH 4.5〜10</th><th class="c">TSH 10以上</th></tr>
+<tr><td><b>65歳未満</b></td><td class="c">原則経過観察</td><td class="c"><b>治療</b></td></tr>
+<tr class="hi"><td><b>65〜80歳</b></td><td class="c"><b>治療しない</b></td><td class="c">治療を検討</td></tr>
+<tr class="hi"><td><b>80歳以上</b></td><td class="c"><b>治療しない</b></td><td class="c"><b>個別判断</b></td></tr>
+</table>
+<div class="cols" style="margin-top:2.5mm">
+<div>
+<p class="note" style="margin-top:0"><b>エビデンス上の線は65歳</b>（TRUSTの対象年齢）。75歳ではない。<br><b>4.5〜10でも治療する場面</b>：<em>妊娠希望・妊娠中</em>（迷わない）／甲状腺腫大・抗体高値／明らかな症状／若年。</p>
+</div>
+<div>
+<div class="warn">
+<b>TSHの基準値そのものが加齢で上がる</b>　NHANESでは<b>80歳以上の97.5パーセンタイルは7.5前後</b>。<em>80歳のTSH 6は、その年齢では正常範囲内かもしれない。</em>
+</div>
+</div>
+</div>
+</section>
+
+<section>
+<h2>さらに踏み込んだ勧告もある</h2>
+<div class="warn">
+<b class="big">BMJ Rapid Recommendations（2019）</b>　<b>「ほぼすべての成人の潜在性甲状腺機能低下症に、レボチロキシンを推奨しない」</b>——年齢を問わない<em>強い推奨</em>。例外は <b>TSH 20超／妊娠中・妊娠希望／非常に強い症状／30歳未満</b> のみ。
+</div>
+<p class="note">日本の実務はここまで振り切っていないが、<em>「治療しない」側の根拠は年々厚くなっている</em>。</p>
+</section>
+
+<section>
+<h2>すでにレボチロキシンが入っている症例</h2>
+<div class="cols">
+<div>
+<table>
+<tr><th style="width:50%">中止を検討してよい</th><th>中止してはいけない</th></tr>
+<tr class="hi"><td><b>潜在性で始まった</b></td><td>顕性で始まった</td></tr>
+<tr><td><b>低用量</b>（25〜50μg）</td><td>全摘・アイソトープ後</td></tr>
+<tr><td>高齢者</td><td><b>妊娠中・妊娠希望</b></td></tr>
+<tr><td><b>TSHが抑制されている</b></td><td>中枢性／開始時TSH 20超</td></tr>
+</table>
+</div>
+<div>
+<p class="note" style="margin-top:0"><b>手順</b>（半減期7日）：<b>中止 → 6〜8週後にTSH</b>。正常なら3か月・6か月・1年 → 以後年1回。<b>上がれば再開するだけ</b>。<br><b>潜在性で始めた人の30〜60%は、中止後も機能正常を維持する</b>。開始時のデータが分からなければ、<em>「やめてみて測る」こと自体が診断になる</em>。</p>
+<div class="warn" style="margin-top:2mm">
+<b>説明は「悪くなったら戻せます」から入る。</b>続けることの害——過剰補充は<em>65歳以上の心房細動</em>と<em>閉経後女性の骨密度低下</em>のリスク。
+</div>
+</div>
+</div>
+</section>
+
+<footer>Stott DJ et al. NEJM 2017（TRUST）／Mooijaart SP et al. JAMA 2019（IEMO 80+）／Bekkering GE et al. BMJ 2019</footer>
+</div>
+
+
+<script>
+document.querySelectorAll('.page table').forEach(function(t){
+  if(t.parentNode.classList.contains('tw')) return;
+  var w=document.createElement('div'); w.className='tw';
+  t.parentNode.insertBefore(w,t); w.appendChild(t);
+  var r=t.rows[0], n=0;
+  if(r){ for(var i=0;i<r.cells.length;i++) n += (r.cells[i].colSpan||1); }
+  if(n>=3) t.style.minWidth = (n*7.6) + 'em';
+});
+if('serviceWorker' in navigator){
+  navigator.serviceWorker.register('sw.js').then(function(reg){ reg.update(); });
+  var reloaded=false;
+  navigator.serviceWorker.addEventListener('controllerchange', function(){
+    if(!reloaded){reloaded=true; location.reload();}
+  });
+}
+</script>
+</body>
+</html>

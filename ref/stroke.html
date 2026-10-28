@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#1D3F8A">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+
+<title>脳梗塞 保存的加療の整理</title>
+<style>
+@page{size:A4 portrait; margin:8.5mm 10mm;}
+*{box-sizing:border-box}
+body{font-family:"Yu Gothic","Meiryo",sans-serif; color:#1b1b1b; margin:0; font-size:10.3pt; line-height:1.52;}
+@media print{body{width:auto; padding:0;}}
+.page{break-after:page;}
+.page:last-child{break-after:auto;}
+h1{font-size:15pt; margin:0 0 1.5mm;}
+.lead{font-size:9pt; color:#666; margin:0 0 3mm;}
+h2{font-size:11pt; margin:0 0 2.2mm; padding:1.2mm 2.4mm; background:#1D3F8A; color:#fff; letter-spacing:.04em;}
+section{margin-bottom:3.2mm;}
+section:last-of-type{margin-bottom:0;}
+.cols{display:flex; gap:5mm;} .cols>div{flex:1;}
+table{border-collapse:collapse; width:100%; font-size:10pt;}
+th,td{border:.3pt solid #c5c5c5; padding:1.3mm 2mm; text-align:left; vertical-align:top;}
+th{background:#eef1f7; font-weight:700;}
+.s{display:block; font-size:8.6pt; color:#666; font-weight:400;}
+td.c,th.c{text-align:center; font-variant-numeric:tabular-nums; white-space:nowrap;}
+tr.hi td{background:#eef4ff;}
+ul{margin:0; padding-left:5mm;} li{margin-bottom:1.2mm;}
+.warn{border-left:3pt solid #C0692A; padding:2mm 0 2mm 3mm; background:#fdf6f0;}
+.note{font-size:9pt; color:#555; margin-top:2mm;}
+em{font-style:normal; background:#fff2cc; padding:0 .6mm;}
+.big{font-weight:700;}
+footer{font-size:8pt; color:#888; border-top:.3pt solid #ddd; padding-top:1.2mm; margin-top:2mm;}
+:root{--brand:#1D3F8A}
+
+@media screen{
+  html{-webkit-text-size-adjust:100%}
+  body{font-size:16px; line-height:1.72; background:#fff; color:#1b1b1b; padding-bottom:40px}
+  .page{break-after:auto; padding:18px max(16px,env(safe-area-inset-right,0px)) 10px max(16px,env(safe-area-inset-left,0px)); border-bottom:10px solid #eef0f5}
+  .page:last-child{border-bottom:0}
+  h1{font-size:21px; margin:6px 0 4px; line-height:1.4}
+  .lead{font-size:13.5px; margin:0 0 16px}
+  h2{font-size:16px; margin:0 0 11px; padding:8px 11px; border-radius:5px; line-height:1.45}
+  section{margin-bottom:24px}
+  .cols{flex-direction:column; gap:16px}
+  .cols>div{flex:1 1 auto !important}
+  .tw{overflow-x:auto; -webkit-overflow-scrolling:touch; margin:0}
+  .tw table{min-width:100%}
+  table{font-size:14.5px; margin:0; table-layout:auto}
+  th,td{padding:7px 9px; word-break:break-word}
+  th{min-width:4.6em}
+  td.c,td.n{white-space:nowrap}
+  th.c,th.n{white-space:normal}
+  .warn{padding:11px 13px 11px 14px; border-radius:0 6px 6px 0; margin:0}
+  .flow{padding:12px 13px; border-radius:6px; font-size:15px}
+  .step{margin-bottom:7px}
+  .note{font-size:13.5px; margin-top:10px; line-height:1.68}
+  .s{font-size:12.5px; margin-top:2px}
+  ul{padding-left:20px} li{margin-bottom:6px}
+  footer{font-size:12px; margin-top:20px; padding-top:9px}
+  .nav{position:sticky; top:0; z-index:20; display:flex; align-items:center; gap:12px;
+       padding:11px max(14px,env(safe-area-inset-left,0px)) 11px max(14px,env(safe-area-inset-right,0px));
+       background:var(--brand); color:#fff; font-weight:700; font-size:15px}
+  .nav a{color:#fff; text-decoration:none; font-weight:400; font-size:14px; opacity:.92}
+  .nav .sp{margin-left:auto}
+}
+@media print{ .nav{display:none} .tw{overflow:visible} }
+</style>
+</head>
+<body>
+<div class="nav"><a href="index.html">&#8249;&nbsp;一覧</a><span class="sp"></span><span>脳梗塞</span></div>
+
+
+<div class="page">
+<h1>① 急性期　病型と抗血栓療法</h1>
+<p class="lead">血栓溶解・血栓回収を行わない場合の管理</p>
+
+<section>
+<h2>まず病型を決める —— 治療が病型で変わる</h2>
+<table>
+<tr><th style="width:54%">画像の所見</th><th>病型</th></tr>
+<tr><td>穿通枝領域に単発、15mm未満、皮質症状なし</td><td>ラクナ</td></tr>
+<tr class="hi"><td><b>両側・前後にまたがる多発</b>／皮質を含む大梗塞／出血性変化／早期再開通</td><td><b>心原性</b></td></tr>
+<tr><td>同一血管支配域に散在（穿通枝＋皮質枝）、狭窄の遠位</td><td>アテローム血栓性<span class="s">A-to-A塞栓</span></td></tr>
+<tr><td>放線冠〜半卵円中心に<b>数珠状に3つ以上</b>／ACA-MCA・MCA-PCA境界の楔状</td><td>分水嶺梗塞<span class="s">＝低灌流</span></td></tr>
+</table>
+</section>
+
+<section>
+<h2>見落とすと痛い2つ</h2>
+<div class="cols">
+<div>
+<div class="warn">
+<b class="big">BAD（branch atheromatous disease）</b><br>
+ラクナに見えるが穿通枝<em>起始部</em>のアテローム。レンズ核線条体動脈で<b>3スライス以上</b>、橋では<b>腹側表面に接する</b>。<br>
+<em>入院後に進行性に悪化する</em>ので「軽症」と扱わない。
+</div>
+</div>
+<div>
+<div class="warn">
+<b class="big">分水嶺梗塞を見たら、近位の高度狭窄を探す</b><br>
+頸動脈エコー・MRA／CTAは必須。機序が低灌流なので<em>降圧すると梗塞が広がる</em>。むしろ補液。CEA／CASの検討対象。
+</div>
+</div>
+</div>
+<p class="note">名前の由来：watershed＝分水嶺。2本の動脈の灌流領域が接する<b>最も遠い末端</b>で、灌流圧が落ちると真っ先に虚血になる（独語 letzte Wiese＝最後の牧草地）。</p>
+</section>
+
+<section>
+<h2>抗血栓療法</h2>
+<table>
+<tr><th style="width:22%">非心原性</th><td>
+<b>アスピリン 160〜300mg</b> を48時間以内に開始<span class="s">バイアスピリンは添付文書内（300mgまで可）。腸溶錠は<em>噛み砕かせる</em>／バファリン配合錠A81を使う</span>
+<div style="margin-top:1.5mm">軽症（<b>NIHSS 3以下</b>）・高リスクTIA → <b>DAPT（アスピリン＋クロピドグレル75mg）21日間 → 単剤へ</b><span class="s">CHANCE・POINT。21日を超えると出血が増えるので切替日を決めておく。<em>クロピドグレルのローディング（300mg）は日本では適応外のため行わない</em></span></div>
+<div style="margin-top:1.5mm">アルガトロバン：48時間以内、<b>ラクナを除く</b></div>
+</td></tr>
+<tr class="hi"><th>心原性（Af）</th><td>
+<b>DOAC。開始時期の考え方が変わった</b><br>
+従来の「1-2-3-4週ルール」→ <b>軽症〜中等症は48〜72時間以内の早期開始</b><span class="s">ELAN・TIMING・OPTIMAS・CATALYST。大梗塞・出血性変化があれば従来どおり待機</span>
+</td></tr>
+</table>
+<p class="note"><b>抗凝固薬と抗血小板薬の併用は原則しない</b>（出血が増えるだけ）。<b>rt-PA後24時間は抗血栓薬を入れない。</b></p>
+</section>
+
+<footer>脳卒中治療ガイドライン2021［2023改訂］／CHANCE・POINT／ELAN・OPTIMAS</footer>
+</div>
+
+<div class="page">
+<h1>② 急性期　全身管理と薬のやめどき</h1>
+<p class="lead">ここが保存的加療の本体</p>
+
+<section>
+<h2>血圧は下げない</h2>
+<div class="warn">
+<b class="big">血栓溶解・血栓回収をしないなら、220/120mmHg 未満は降圧しない</b><br>
+急性期の過度な降圧は<em>ペナンブラの血流を落として梗塞を拡大させる</em>。48時間以降から徐々に、慢性期は130/80未満へ。
+</div>
+<table style="margin-top:3mm">
+<tr><th style="width:22%">血糖</th><td>140〜180mg/dL（低血糖を避ける）</td></tr>
+<tr><th>体温</th><td>37.5℃以上は解熱</td></tr>
+<tr><th>SpO₂</th><td>94%以上。<b>ルーチンの酸素は不要</b></td></tr>
+</table>
+</section>
+
+<section>
+<h2>輸液は「何を入れるか」より先に「入れるかどうか」</h2>
+<div class="cols">
+<div>
+<table>
+<tr><th style="width:38%">輸液の選択</th><th>理由</th></tr>
+<tr class="hi"><td><b>生理食塩水</b></td><td>等張（308）。自由水を足さず血管内を保てる</td></tr>
+<tr><td>乳酸リンゲル</td><td>Na130でわずかに低張。脳浮腫がある場面では避ける</td></tr>
+<tr><td>3号液</td><td><b>低張</b>。脳浮腫とSIADHの低Naを悪化させる</td></tr>
+<tr><td>5%ブドウ糖</td><td><b>高血糖で梗塞を悪化</b>＋代謝後は実質<em>自由水</em></td></tr>
+</table>
+</div>
+<div style="flex:0 0 38%">
+<div class="warn">
+<b>輸液が必要なのは3つだけ</b>
+<ul>
+<li>経口摂取ができない</li>
+<li>脱水がある</li>
+<li><b>低灌流が機序</b>（分水嶺・高度狭窄）＝このときは治療の一部</li>
+</ul>
+<div style="margin-top:1.5mm">食べられて脱水がなければ不要。<em>心原性で心機能が悪い人に漫然と流さない。</em></div>
+</div>
+</div>
+</div>
+</section>
+
+<section>
+<h2>薬のやめどき</h2>
+<table>
+<tr><th style="width:17%">エダラボン</th><td>
+24時間以内に開始、30mg×2／日、添付文書上<b>14日以内</b>。<br>
+<em>14日は上限であって目標ではない。</em>脳浮腫のピークは3〜5日。<b>症状の進行が止まり全身状態が安定したら中止（目安7日前後）</b>。<br>
+<b>禁忌＝重篤な腎機能障害</b>（数値の定義は添付文書になく、eGFR30未満・Cr2.0以上は各施設の慣習）。急性腎障害・肝障害・血小板減少・DICの警告、死亡例あり。<em>値より投与中の上昇傾向を見る</em>（BUN・Crを数日ごと）。脱水・高齢・感染合併でリスク増
+</td></tr>
+<tr class="hi"><th>アルガトロバン</th><td>
+48時間以内、<b>ラクナを除く</b>。最初の2日：60mg／日を24時間持続 → その後5日：10mg×2／日（各3時間）。<br>
+<b>合計7日間が添付文書の規定</b>で、これを超えると適応外。APTTをモニター。抗血小板薬併用で出血が増える。rt-PA後は24時間あける
+</td></tr>
+</table>
+<div class="warn" style="margin-top:3mm">
+<b>セフェム併用に注意。</b>エダラボンの併用注意にセファゾリン・セフォチアム・ピペラシリン等（機序不明、腎機能障害が増悪）。<em>誤嚥性肺炎を併発した時点が、エダラボンのやめどきになりやすい。</em>
+</div>
+<p class="note"><b>その他</b>：リハは24〜48時間以内に開始（超早期の過度な離床は逆効果＝AVERT）。脳浮腫にはグリセオール、<b>ステロイドは無効</b>（悪性中大脳動脈梗塞は外減圧）。<b>やらないこと</b>＝抗てんかん薬の予防投与、尿道カテーテルの安易な留置。</p>
+</section>
+
+<footer>脳卒中治療ガイドライン2021［2023改訂］／エダラボン・アルガトロバンの用法は各添付文書（PMDA）</footer>
+</div>
+
+<div class="page">
+<h1>③ NIHSS の読み方</h1>
+<p class="lead">自分でつけるより、紹介状やサマリーに書かれた点数を読む場面のほうが多い</p>
+
+<section>
+<h2>点数の意味 —— 0〜42点、高いほど重症</h2>
+<div class="cols">
+<div>
+<table>
+<tr><th style="width:26%">見ているもの</th><th>項目（全15）</th><th class="c" style="width:14%">配点</th></tr>
+<tr><td><b>意識</b></td><td>意識水準／質問／従命</td><td class="c">0–7</td></tr>
+<tr><td><b>目</b></td><td>注視（左右方向のみ）／視野</td><td class="c">0–5</td></tr>
+<tr class="hi"><td><b>麻痺</b></td><td>顔面／上肢（左右）／下肢（左右）</td><td class="c"><b>0–19</b></td></tr>
+<tr><td><b>感覚・失調</b></td><td>感覚／運動失調（麻痺で評価できなければ0点）</td><td class="c">0–4</td></tr>
+<tr><td><b>言葉</b></td><td>言語／構音</td><td class="c">0–5</td></tr>
+<tr><td><b>無視</b></td><td>消去・注意障害</td><td class="c">0–2</td></tr>
+</table>
+</div>
+<div style="flex:0 0 30%">
+<table>
+<tr><th class="c" style="width:38%">合計点</th><th>重症度</th></tr>
+<tr><td class="c">0</td><td>症状なし</td></tr>
+<tr><td class="c"><b>1–4</b></td><td><b>軽症</b></td></tr>
+<tr><td class="c">5–15</td><td>中等症</td></tr>
+<tr><td class="c">16–20</td><td>中等症〜重症</td></tr>
+<tr><td class="c">21–42</td><td>重症</td></tr>
+</table>
+</div>
+</div>
+<p class="note">麻痺は上肢10秒・下肢5秒の保持で見る。<b>配点が麻痺に大きく偏っている</b>（19点＝全体の半分近い）——これが次の弱点の原因。<b>1点増えるごとに良好な転帰のオッズが約17%下がる</b>。</p>
+</section>
+
+<section>
+<h2>点数を信じすぎてはいけない場面 —— 2つ</h2>
+<div class="cols">
+<div>
+<div class="warn">
+<b class="big">① 脳幹・小脳は点数が低く出る</b><br>
+<b>めまい・ふらつき・複視</b>を拾う項目がほとんどない。運動失調は2点までで、麻痺があれば0点。<br>
+<em>NIHSS 2点でも、脳底動脈が詰まっていれば命に関わる。</em>
+</div>
+</div>
+<div>
+<div class="warn">
+<b class="big">② 右半球は点数が低く出る</b><br>
+<b>失語には5点</b>が割り振られているのに、<b>半側空間無視はたった2点</b>。<br>
+右半球の大きな梗塞が「軽症」に見え、<em>rt-PAの適応から外れることがある</em>。
+</div>
+</div>
+</div>
+<p class="note">どちらも<b>「点数が低い＝軽症」ではない</b>に行き着く。<em>NIHSSは経過を追う共通言語であって、重症度そのものではない。</em></p>
+</section>
+
+<section>
+<h2>点数が治療の判断に直結する場面</h2>
+<table>
+<tr class="hi"><td style="width:24%"><b>DAPT を21日間</b></td><td class="c" style="width:14%"><b>3以下</b></td><td>CHANCE・POINT はいずれも<b>NIHSS 3以下</b>が対象（THALESは5以下）</td></tr>
+<tr><td>rt-PA</td><td class="c">26以上／4以下</td><td>どちらも<b>慎重投与</b>。<em>ただし失語や無視があれば、点数が低くても適応になりうる</em></td></tr>
+<tr><td>血栓回収療法</td><td class="c">6以上</td><td>主要試験の対象がこの範囲。<b>点数が低くても大血管閉塞はありうる</b></td></tr>
+</table>
+</section>
+
+<section>
+<h2>自分で使うなら、3項目で足りる</h2>
+<div class="warn">
+<b class="big">CPSS</b>（救急隊が使うもの）　<b>① 顔</b>：歯を見せて笑う → 左右が非対称か　／　<b>② 腕</b>：両腕を前に上げて10秒 → 片方が下がるか　／　<b>③ 言葉</b>：短い文を言ってもらう<br>
+<b>1つでも異常なら脳卒中の可能性72%、3つそろえば85%以上。</b>これに<b>共同偏視</b>が加われば<b>大血管閉塞</b>を強く疑う。
+</div>
+</section>
+
+<section>
+<h2>mRS —— 退院後の「生活」の指標</h2>
+<div class="cols">
+<div>
+<table>
+<tr class="hi"><td style="width:22%"><b>0–2</b></td><td><b>自立</b>（介助なしで身の回りのことができる）</td></tr>
+<tr><td><b>3–5</b></td><td>介助が必要（3は歩行だけ自立、5は常時介護）</td></tr>
+<tr><td><b>6</b></td><td>死亡</td></tr>
+</table>
+</div>
+<div style="flex:0 0 42%">
+<p class="note" style="margin-top:0"><b>NIHSS＝急性期の症状の重さ、mRS＝退院後に自立できているか。</b><em>試験が「よくなった」とは、ほぼ「mRS 0–2の人が増えた」という意味</em>で、<b>発症90日のmRS</b>が論文でいう「予後」。</p>
+</div>
+</div>
+</section>
+
+<footer>NIHSS日本語版／脳卒中治療ガイドライン2021［2023改訂］／CHANCE・POINT・THALES</footer>
+</div>
+
+<div class="page">
+<h1>④ 退院後のフォロー</h1>
+<p class="lead">再発予防の目標値と、クロピドグレルを使うときの注意</p>
+
+<section>
+<h2>再発予防の4本柱</h2>
+<table>
+<tr><th style="width:14%">抗血栓薬</th><td>病型に応じて<b>生涯継続</b>。自己中断が最大のリスク</td></tr>
+<tr class="hi"><th>血圧</th><td><b>130/80mmHg未満</b>。ただし<b>両側頸動脈高度狭窄・脳主幹動脈閉塞がある、または未評価なら140/90未満</b>（下げすぎによる低灌流を避ける）。<em>ラクナ・脳出血既往では130/80の達成を妥協しない</em>（SPS3で脳出血 HR 0.37）</td></tr>
+<tr><th>脂質</th><td>LDL-C <b>100未満</b>（二次予防＝冠動脈疾患・アテローム血栓性脳梗塞）。<b>70未満になるのは</b>ACS・家族性高コレステロール血症・<b>糖尿病</b>・冠動脈疾患の合併がある場合<span class="s">TSTでは70未満が90〜110に優った（8.5% vs 10.9%、HR 0.78）が、管理目標は100未満</span></td></tr>
+<tr><th>血糖</th><td>HbA1c 7.0%未満。ただし<em>血糖降下そのものは大血管イベントを減らさない</em>（ACCORD・ADVANCE・VADT）——<b>効くのは薬の選択</b></td></tr>
+</table>
+<table style="margin-top:3mm">
+<tr><th style="width:24%">脳卒中を減らす</th><td><b>GLP-1受容体作動薬</b>（REWIND HR 0.76／SUSTAIN-6 HR 0.61）、<b>ピオグリタゾン</b>（PROactive 脳卒中既往サブ HR 0.53）</td></tr>
+<tr class="hi"><th>減らさない</th><td><b>SGLT2</b>（心不全・腎には効くが脳卒中は減らさない）、<b>DPP-4・SU・α-GI</b>（イベント抑制なし）</td></tr>
+</table>
+<p class="note"><b>生活では禁煙が最も効く。</b>減塩6g未満、節酒、運動。<b>ピオグリタゾンの注意</b>：体重増加・浮腫・<b>骨折の増加</b>。<em>IRIS試験は非糖尿病例が対象</em>で、日本では保険適用が2型糖尿病のみのため非糖尿病への投与は適応外。</p>
+</section>
+
+<section>
+<h2>クロピドグレルを使うときの注意 —— CYP2C19</h2>
+<div class="cols">
+<div>
+<div class="warn">
+<b class="big">日本人の4割近くが「効きにくい」可能性がある</b><br>
+クロピドグレルはプロドラッグで、<b>CYP2C19により活性化される</b>。日本人は<b>poor metabolizer 約20%、intermediate を含めると4割近く</b>。<br>
+<em>再発を繰り返すなら、この可能性を疑う。</em>代替は<b>プラスグレル3.75mg</b>（2021年に脳梗塞の適応追加、多型の影響を受けにくい）。
+</div>
+</div>
+<div>
+<table>
+<tr><th style="width:34%">併用で効果を落とす薬</th><th>対応</th></tr>
+<tr class="hi"><td><b>オメプラゾール<br>エソメプラゾール</b></td><td>CYP2C19を阻害する。<b>ランソプラゾール・ラベプラゾール</b>、または<b>ボノプラザン</b>（CYP2C19非依存）に変える</td></tr>
+<tr><td>フルボキサミン<br>フルオキセチン</td><td>同じ理由。脳卒中後うつでSSRIを使うなら<b>エスシタロプラム・セルトラリン</b>を選ぶ</td></tr>
+</table>
+<p class="note">SSRIは<b>それ自体が出血リスクを上げる</b>（血小板セロトニンの枯渇）。抗血栓薬との併用では消化管出血に注意。</p>
+</div>
+</div>
+</section>
+
+<section>
+<h2>フォローの実際</h2>
+<table>
+<tr><th style="width:22%">外来</th><td>退院後2〜4週 → 1〜3か月ごと → 安定後3〜6か月ごと</td></tr>
+<tr><th>血液検査</th><td>3〜6か月ごと（肝腎機能、脂質、<b>CK</b>）</td></tr>
+<tr class="hi"><th>画像</th><td><b>定期撮影は不要。</b>症状が変わったときに</td></tr>
+<tr><th>頸動脈エコー</th><td>狭窄や未治療病変があれば6〜12か月ごと</td></tr>
+<tr class="hi"><th>心電図</th><td><b>原因不明例はAf検索を継続</b>（Afが見つかればDOACの適応が立つ）</td></tr>
+</table>
+</section>
+
+
+
+<footer>動脈硬化性疾患予防ガイドライン2022／SPS3・SPARCL・TST・J-STARS／PROactive・SUSTAIN-6・REWIND</footer>
+</div>
+
+
+<script>
+document.querySelectorAll('.page table').forEach(function(t){
+  if(t.parentNode.classList.contains('tw')) return;
+  var w=document.createElement('div'); w.className='tw';
+  t.parentNode.insertBefore(w,t); w.appendChild(t);
+  var r=t.rows[0], n=0;
+  if(r){ for(var i=0;i<r.cells.length;i++) n += (r.cells[i].colSpan||1); }
+  if(n>=3) t.style.minWidth = (n*7.6) + 'em';
+});
+if('serviceWorker' in navigator){
+  navigator.serviceWorker.register('sw.js').then(function(reg){ reg.update(); });
+  var reloaded=false;
+  navigator.serviceWorker.addEventListener('controllerchange', function(){
+    if(!reloaded){reloaded=true; location.reload();}
+  });
+}
+</script>
+</body>
+</html>

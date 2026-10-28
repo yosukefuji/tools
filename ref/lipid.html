@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#1D3F8A">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+
+<title>脂質異常症 診療の整理</title>
+<style>
+@page{size:A4 portrait; margin:8mm;}
+*{box-sizing:border-box}
+body{font-family:"Yu Gothic","Meiryo",sans-serif; color:#1b1b1b; margin:0; font-size:9.7pt; line-height:1.38;}
+@media print{body{width:auto; padding:0;}}
+.page{break-after:page;}
+.page:last-child{break-after:auto;}
+h1{font-size:15pt; margin:0 0 1mm;}
+.lead{font-size:8.8pt; color:#555; margin:0 0 2mm;}
+h2{font-size:10.4pt; margin:0 0 1.3mm; padding:1mm 2mm; background:#1D3F8A; color:#fff; letter-spacing:.04em;}
+section{margin-bottom:2mm;}
+.cols{display:flex; gap:3.5mm;} .cols>div{flex:1;}
+table{border-collapse:collapse; width:100%; font-size:9.3pt;}
+th,td{border:.3pt solid #b9b9b9; padding:.7mm 1.5mm; text-align:left; vertical-align:top;}
+th{background:#eef1f7; font-weight:700;}
+table.pts th{background:#eef1f7;} table.pts td.x{color:#c4c4c4;}
+.s{display:block; font-size:7.8pt; color:#666; font-weight:400;}
+td.c,th.c{text-align:center; font-variant-numeric:tabular-nums; white-space:nowrap;}
+td.n,th.n{text-align:right; font-variant-numeric:tabular-nums; white-space:nowrap;}
+tr.hi td{background:#eef4ff;}
+ul{margin:0; padding-left:4mm;} li{margin-bottom:.5mm;}
+.flow{border:.4pt solid #1D3F8A; padding:1.8mm; font-size:9.8pt;}
+.flow b{color:#1D3F8A;}
+.step{margin-bottom:1mm;}
+.arrow{color:#888; margin:0 1mm;}
+.warn{border-left:2.5pt solid #C0692A; padding:1.2mm 0 1.2mm 2.2mm; background:#fdf6f0;}
+.note{font-size:8.3pt; color:#555; margin-top:1mm;}
+em{font-style:normal; background:#fff2cc; padding:0 .5mm;}
+.big{font-weight:700;}
+footer{font-size:7.8pt; color:#777; border-top:.3pt solid #ccc; padding-top:1.1mm; margin-top:1.8mm;}
+:root{--brand:#1D3F8A}
+
+@media screen{
+  html{-webkit-text-size-adjust:100%}
+  body{font-size:16px; line-height:1.72; background:#fff; color:#1b1b1b; padding-bottom:40px}
+  .page{break-after:auto; padding:18px max(16px,env(safe-area-inset-right,0px)) 10px max(16px,env(safe-area-inset-left,0px)); border-bottom:10px solid #eef0f5}
+  .page:last-child{border-bottom:0}
+  h1{font-size:21px; margin:6px 0 4px; line-height:1.4}
+  .lead{font-size:13.5px; margin:0 0 16px}
+  h2{font-size:16px; margin:0 0 11px; padding:8px 11px; border-radius:5px; line-height:1.45}
+  section{margin-bottom:24px}
+  .cols{flex-direction:column; gap:16px}
+  .cols>div{flex:1 1 auto !important}
+  .tw{overflow-x:auto; -webkit-overflow-scrolling:touch; margin:0}
+  .tw table{min-width:100%}
+  table{font-size:14.5px; margin:0; table-layout:auto}
+  th,td{padding:7px 9px; word-break:break-word}
+  th{min-width:4.6em}
+  td.c,td.n{white-space:nowrap}
+  th.c,th.n{white-space:normal}
+  .warn{padding:11px 13px 11px 14px; border-radius:0 6px 6px 0; margin:0}
+  .flow{padding:12px 13px; border-radius:6px; font-size:15px}
+  .step{margin-bottom:7px}
+  .note{font-size:13.5px; margin-top:10px; line-height:1.68}
+  .s{font-size:12.5px; margin-top:2px}
+  ul{padding-left:20px} li{margin-bottom:6px}
+  footer{font-size:12px; margin-top:20px; padding-top:9px}
+  .nav{position:sticky; top:0; z-index:20; display:flex; align-items:center; gap:12px;
+       padding:11px max(14px,env(safe-area-inset-left,0px)) 11px max(14px,env(safe-area-inset-right,0px));
+       background:var(--brand); color:#fff; font-weight:700; font-size:15px}
+  .nav a{color:#fff; text-decoration:none; font-weight:400; font-size:14px; opacity:.92}
+  .nav .sp{margin-left:auto}
+}
+@media print{ .nav{display:none} .tw{overflow:visible} }
+</style>
+</head>
+<body>
+<div class="nav"><a href="index.html">&#8249;&nbsp;一覧</a><span class="sp"></span><span>脂質異常症</span></div>
+
+<div class="page">
+<h1>① LDL-Cを下げる意味</h1>
+<p class="lead">何がどれだけ減るのか、そして何は減らないのか</p>
+
+<section>
+<h2>基本法則</h2>
+<div class="flow">
+<div class="step"><b>LDL-Cを 1 mmol/L（≒39 mg/dL）下げるごとに、主要血管イベントが約22%減る</b></div>
+<div class="step">CTTメタ解析（Lancet 2010/2012、27試験・約17万人）。LDL 160→120 mg/dL がちょうどこの幅。</div>
+</div>
+<table style="margin-top:1.5mm">
+<tr><th style="width:34%">アウトカム（1 mmol/L低下あたり）</th><th class="c">相対リスク低下</th><th>補足</th></tr>
+<tr><td>冠動脈イベント</td><td class="c">約24%</td><td rowspan="5">低下の手段（スタチン・エゼチミブ・PCSK9阻害薬）を問わず、<em>絶対的なLDL低下量に比例</em>する。ベースラインのLDLが高くなくても同じ比率で減る</td></tr>
+<tr><td>冠血行再建</td><td class="c">約24%</td></tr>
+<tr><td>虚血性脳卒中</td><td class="c">約15〜21%</td></tr>
+<tr><td>冠動脈疾患死</td><td class="c">約20%</td></tr>
+<tr><td><b>総死亡</b></td><td class="c"><b>約10%</b></td></tr>
+</table>
+<p class="note">減るのは<em>相対リスク</em>。実際の利益はもとのリスク次第で、二次予防では絶対的な利益が大きく、低リスクの一次予防では小さい。ガイドラインが区分ごとに目標値を変えているのはこのため。</p>
+</section>
+
+<section>
+<h2>効くもの・効かないもの</h2>
+<div class="cols">
+<div>
+<table>
+<tr><th>効く（動脈硬化が主役）</th><th>根拠</th></tr>
+<tr><td>冠動脈疾患</td><td>CTT、IMPROVE-IT、FOURIER</td></tr>
+<tr><td>アテローム血栓性脳梗塞</td><td>CTT</td></tr>
+<tr><td>末梢動脈疾患（PAD）</td><td>FOURIER PADサブ解析</td></tr>
+<tr><td>静脈血栓塞栓症</td><td>JUPITER（HR 0.57）。機序は不明</td></tr>
+</table>
+<p class="note"><b>PADがある人ほど得が大きい</b>：FOURIERの絶対リスク減少は PADあり 3.5%、なし 1.6%。重大な下肢イベント（MALE）は全体で HR 0.58（0.38–0.88）、PAD群では HR 0.63（0.39–1.03）で有意には届かず。</p>
+</div>
+<div>
+<div class="warn">
+<b>効かない</b>
+<ul>
+  <li><b>腎機能の悪化・透析導入</b>：SHARP（CKD約9,000人）で腎アウトカムに差なし（腎関連入院 RR 0.97、0.90–1.03）。<em>透析導入後は動脈硬化イベントも有意差なし</em>（15.0% vs 16.5%）。4D・AURORAも陰性</li>
+  <li><b>大動脈弁狭窄症の進行</b>：SEAS、SALTIREとも陰性</li>
+  <li><b>心不全</b>：CORONA、GISSI-HFとも陰性</li>
+  <li><b>認知症</b>：予防効果は示されていない（害も否定されている）</li>
+  <li>がん：増えも減りもしない</li>
+</ul>
+</div>
+<p class="note">腎保護はSGLT2阻害薬・RAS阻害薬の役割。「LDLを下げれば腎臓も」という説明にはしない。</p>
+</div>
+</div>
+</section>
+
+<section>
+<h2>時間の効果</h2>
+<p style="margin:0">遺伝学的研究（メンデルランダム化）では、<em>生涯にわたってLDLが低い人は、同じ低下幅でも約3倍大きいリスク低減</em>を示す。薬で数年下げるより、長く低いほうが効く。GL2022が40〜50代で生涯リスクも考慮すべきとしているのはこの文脈。</p>
+<p class="note">日本人のデータ：MEGA試験（一次予防、プラバスタチンで冠動脈疾患 約33%減）、EWTOPIA 75（75歳以上の一次予防、エゼチミブで冠動脈イベント抑制）。</p>
+</section>
+
+<p class="note" style="margin-top:2mm">患者説明用：「LDLを40下げると、心筋梗塞や脳梗塞が2割減ります」</p>
+
+</div>
+<div class="page">
+<h1>② 脂質管理目標の決め方</h1>
+<p class="lead">動脈硬化性疾患予防ガイドライン2022（日本動脈硬化学会）図3-1・図3-2・表3-2</p>
+
+<section>
+<h2>① 判定の順番</h2>
+<div class="flow">
+  <div class="step"><b>1.</b> 冠動脈疾患／アテローム血栓性脳梗塞の既往がある　<span class="arrow">▶</span>　<b>二次予防</b>（スコア不要）</div>
+  <div class="step"><b>2.</b> 糖尿病・CKD・末梢動脈疾患のいずれかがある　<span class="arrow">▶</span>　<b>高リスク</b>（スコア不要）</div>
+  <div class="step"><b>3.</b> どちらもなければ　<span class="arrow">▶</span>　<b>久山町スコア</b>で低・中・高リスクに振り分ける</div>
+</div>
+<p class="note">40歳未満・80歳以上はスコアを使わない。家族性高コレステロール血症・家族性Ⅲ型高脂血症は別に扱う。<br>末梢動脈疾患＝ABI 0.90以下（症状の有無を問わない）。血行再建後にABIが戻っても高リスクのまま扱う。</p>
+</section>
+
+<section>
+<h2>② 久山町スコア　配点（該当するところを横に読む）</h2>
+<table class="pts">
+<tr><th style="width:21%">項目</th><th class="c">0点</th><th class="c">1点</th><th class="c">2点</th><th class="c">3点</th><th class="c">4点</th><th class="c">7点</th></tr>
+<tr><th>性別</th><td class="c">女性</td><td class="c x">—</td><td class="c x">—</td><td class="c x">—</td><td class="c x">—</td><td class="c">男性</td></tr>
+<tr><th>収縮期血圧</th><td class="c">&lt;120</td><td class="c">120–129</td><td class="c">130–139</td><td class="c">140–159</td><td class="c">160–</td><td class="c x">—</td></tr>
+<tr><th>耐糖能異常<span class="s">糖尿病は除く</span></th><td class="c">なし</td><td class="c">あり</td><td class="c x">—</td><td class="c x">—</td><td class="c x">—</td><td class="c x">—</td></tr>
+<tr><th>LDL-C</th><td class="c">&lt;120</td><td class="c">120–139</td><td class="c">140–159</td><td class="c">160–</td><td class="c x">—</td><td class="c x">—</td></tr>
+<tr><th>HDL-C</th><td class="c">60–</td><td class="c">40–59</td><td class="c">&lt;40</td><td class="c x">—</td><td class="c x">—</td><td class="c x">—</td></tr>
+<tr><th>喫煙<span class="s">現在喫煙者のみ</span></th><td class="c">なし</td><td class="c x">—</td><td class="c">あり</td><td class="c x">—</td><td class="c x">—</td><td class="c x">—</td></tr>
+</table>
+<p class="note">血圧・LDL-C・HDL-C の単位は mmHg、mg/dL。過去喫煙者は「なし」とする。6項目の点数を合計する。</p>
+</section>
+
+<section>
+<h2>③ 合計点 → リスク区分（年齢階級ごと）</h2>
+<table>
+<tr><th>合計点</th><th class="c">40–49歳</th><th class="c">50–59歳</th><th class="c">60–69歳</th><th class="c">70–79歳</th></tr>
+<tr><td><span class="big">低リスク</span>（10年 2%未満）</td><td class="c">0–12</td><td class="c">0–7</td><td class="c">0–1</td><td class="c">該当なし</td></tr>
+<tr><td><span class="big">中リスク</span>（2–10%未満）</td><td class="c">13以上</td><td class="c">8–18</td><td class="c">2–12</td><td class="c">0–7</td></tr>
+<tr><td><span class="big">高リスク</span>（10%以上）</td><td class="c">該当なし</td><td class="c">19以上</td><td class="c">13以上</td><td class="c">8以上</td></tr>
+</table>
+<p class="note">10年間に冠動脈疾患＋アテローム血栓性脳梗塞を発症する確率。</p>
+</section>
+
+<section>
+<h2>④ 区分 → 管理目標値（mg/dL）</h2>
+<table>
+<tr><th style="width:22%">区分</th><th class="c">LDL-C</th><th class="c">non-HDL-C</th><th>条件</th></tr>
+<tr><td>低リスク</td><td class="c">&lt;160</td><td class="c">&lt;190</td><td>一次予防</td></tr>
+<tr><td>中リスク</td><td class="c">&lt;140</td><td class="c">&lt;170</td><td>一次予防</td></tr>
+<tr><td>高リスク</td><td class="c">&lt;120</td><td class="c">&lt;150</td><td>糖尿病・CKD・PAD、またはスコアで高リスク</td></tr>
+<tr><td>高リスク（糖尿病）</td><td class="c">&lt;100</td><td class="c">&lt;130</td><td>末梢動脈疾患・細小血管症（網膜症・腎症・神経障害）の合併、または喫煙あり</td></tr>
+<tr><td>二次予防</td><td class="c">&lt;100</td><td class="c">&lt;130</td><td>冠動脈疾患／アテローム血栓性脳梗塞の既往</td></tr>
+<tr><td>二次予防（厳格）</td><td class="c">&lt;70</td><td class="c">&lt;100</td><td>急性冠症候群・家族性高コレステロール血症・糖尿病・冠動脈疾患と脳梗塞の合併</td></tr>
+</table>
+<p class="note"><em>non-HDL-C ＝ 総コレステロール − HDL-C</em>（LDL目標＋30）。空腹時でなくても評価でき、TG 400以上でも使える。<br>
+あわせて TG 150未満（空腹時）・175未満（随時）、HDL-C 40以上。</p>
+</section>
+
+<section>
+<h2>⑤ 使うときの注意</h2>
+<table>
+<tr><td style="width:33%">一次予防の進め方</td><td>原則3〜6か月の生活習慣改善の効果をみてから薬物療法を検討（LDL-C 180以上が持続する場合は同時に検討してよい）</td></tr>
+<tr><td>80歳以上</td><td>年齢だけで絶対リスクが跳ね上がり、併存疾患の影響も大きい。目標値に機械的に当てはめず個別に判断</td></tr>
+</table>
+</section>
+
+
+</div>
+<div class="page">
+<h1>③ LDL-C低下薬の使い方</h1>
+<p class="lead">ロスバスタチンを軸にした増量・上乗せの判断、腎機能低下時の扱い、自己負担、レクビオの適応</p>
+
+<section>
+<h2>① 増量するか、エゼチミブを足すか</h2>
+<div class="cols">
+<div>
+<table>
+<tr><th>手段</th><th class="c">LDL-C 追加低下</th></tr>
+<tr><td>スタチンを倍量にする</td><td class="c"><b>約6%</b></td></tr>
+<tr><td>エゼチミブ10mgを足す</td><td class="c"><b>約18〜20%</b></td></tr>
+</table>
+<p class="note">倍量で得られるのは約6%のみ（rule of 6）。ロスバスタチン 2.5→5mg でも5%程度。エゼチミブ1剤の上乗せは、倍量3回ぶんに相当する。</p>
+<div class="warn" style="margin-top:1.5mm">
+<b>使い分けの目安</b>
+<ul>
+  <li>目標まで<b>10%以内</b> → スタチンを1段階増量</li>
+  <li>目標まで<b>15〜20%以上</b> → エゼチミブを追加</li>
+  <li>筋症状がある・出そう → <em>増量せずエゼチミブ</em></li>
+</ul>
+</div>
+</div>
+<div>
+<b>RACING試験</b>（韓国26施設、ASCVD既往 3,780例）
+<ul>
+  <li>ロスバスタチン<b>10mg＋エゼチミブ</b> vs ロスバスタチン<b>20mg単剤</b></li>
+  <li>3年の主要評価項目　<b>9.1% vs 9.9%</b>（非劣性）</li>
+  <li>不耐・有害事象による中止や減量　<b>4.8% vs 8.2%</b>（併用群が少ない）</li>
+  <li>LDL-C目標達成率も併用群が高い</li>
+</ul>
+<p class="note">高用量1剤より、中等量＋エゼチミブのほうが同等に効いて脱落が少ない。日本では高用量スタチンを使う機会が少なく、この形が実情に合う。</p>
+</div>
+</div>
+</section>
+
+<section>
+<h2>② 腎機能が低下しているとき</h2>
+<table>
+<tr><th style="width:17%">薬剤</th><th style="width:36%">腎機能による調節</th><th>注意</th></tr>
+<tr><td><b>ロスバスタチン</b></td><td><em>CCr 30未満 → 2.5mgで開始し、最大5mg/日</em><br>通常は2.5mg開始、上限20mg/日</td><td>20mg使用時は開始後12週まで原則 月1回、以降は定期的に腎機能を確認。筋症状・CK上昇・血清Cr上昇があれば直ちに中止</td></tr>
+<tr><td><b>エゼチミブ</b></td><td><b>調節不要。透析患者にも使用可</b></td><td>腸・肝でグルクロン酸抱合され胆汁排泄。CCr 10〜29で非抱合体AUCが約1.6倍になるが用量規定なし。<em>中等度以上の肝障害では推奨されない</em></td></tr>
+</table>
+<p class="note">腎機能が落ちるほどスタチンは増やせない。<b>増量より追加</b>がいっそう合理的になる。</p>
+</section>
+
+<section>
+<h2>③ CKDでの考え方 ― 下げる目的は腎臓ではない</h2>
+<div class="cols">
+<div>
+<div class="flow">
+<div class="step"><b>CKDは高リスク病態</b>＝スコアを使わず <b>LDL-C 120未満</b>（CKD診療ガイドライン2024は「可能であれば100未満」）</div>
+<div class="step"><b>SHARP（CKD約9,000人）</b>：主要動脈硬化性イベント <b>17%減少</b>／<em>末期腎不全への進行は変わらず</em></div>
+<div class="step"><b>「腎臓は守れないが、心臓と脳は守れる」</b>――最大の死因は腎不全ではなく心血管疾患。<em>腎保護はSGLT2・RAS阻害薬の役割</em></div>
+</div>
+</div>
+<div>
+<div class="warn">
+<b>KDIGOは目標値を追いかけない ― fire and forget</b><br>
+<b>「50歳以上の非透析CKDにはスタチン（±エゼチミブ）を使う」とだけ決めて、以後LDLを測って用量調整しない</b>。日本は目標値を置くので<em>方針が違う</em>。<b>「120未満に届いたか」ではなく「スタチンを飲む人かどうか」</b>で考えると、判断の難しい場面は楽になる。
+</div>
+<table style="margin-top:1.5mm">
+<tr><th style="width:30%">透析中</th><td><b>新規開始の根拠はない</b>（SHARP透析サブ 15.0% vs 16.5%で有意差なし、<b>4D・AURORAとも陰性</b>）。KDIGOは<b>新規開始は推奨しない（2A）／導入時に内服中なら継続を提案（2C）</b>――<em>2Cは弱く、中止も選択肢</em></td></tr>
+<tr class="hi"><td><b>80歳以上の一次予防</b></td><td>GL2022は<em>「スコアの結果から一律に管理目標値に紐づけず、患者の状態を把握して個別の治療を行うべき」</em>と明記</td></tr>
+</table>
+<p class="note"><b>透析患者のLDL値はリスクマーカーとして機能しない</b>（reverse epidemiology）。<b>エゼチミブ単剤の透析患者でのエビデンスはゼロ</b>――SHARPは合剤での試験。<em>切る前に確認：直近のACS・冠動脈疾患／FH／高TG（膵炎予防）。</em></p>
+</div>
+</div>
+</section>
+
+<footer>出典：動脈硬化性疾患予防ガイドライン2022年版／エビデンスに基づくCKD診療ガイドライン2024／KDIGO Lipid Guideline／SHARP（Lancet 2011）・4D（NEJM 2005）・AURORA（NEJM 2009）／IMPROVE-IT・RACING／各薬剤の電子添文</footer>
+</div>
+
+<div class="page">
+<h1>④ 薬価とレクビオ</h1>
+<p class="lead">自己負担の目安と、インクリシランの適応</p>
+
+<section>
+<h2>① 薬価と自己負担（2026年4月改定後・30日分・3割負担／薬剤費のみ）</h2>
+<table>
+<tr><th style="width:27%">薬剤</th><th class="n">薬価</th><th class="n">30日の薬剤費</th><th class="n">3割負担</th><th>備考</th></tr>
+<tr><td>ロスバスタチン 5mg（後発）</td><td class="n">10.8–16.9円</td><td class="n">324–507円</td><td class="n"><b>約100–150円</b></td><td>先発クレストールは23.5円</td></tr>
+<tr><td>エゼチミブ 10mg（後発）</td><td class="n">17.0–19.3円</td><td class="n">510–579円</td><td class="n"><b>約150–170円</b></td><td>先発ゼチーアは49.5円</td></tr>
+<tr><td>エゼロス配合錠HD（後発）</td><td class="n">31.3円</td><td class="n">939円</td><td class="n"><b>約280円</b></td><td>ロスバスタチン5mg＋エゼチミブ10mg。別々に出すのとほぼ同額で1錠</td></tr>
+<tr><td>ネクセトール 180mg</td><td class="n">371.5円</td><td class="n">11,145円</td><td class="n"><b>約3,340円</b></td><td>1日1回</td></tr>
+<tr><td>レパーサ 140mgペン</td><td class="n">24,302円/本</td><td class="n">48,604円</td><td class="n"><b>約14,600円</b></td><td>2週ごと＝月2本。年間 約17.5万円</td></tr>
+<tr><td>レクビオ 300mg</td><td class="n">394,758円/筒</td><td class="n">年2回で789,516円</td><td class="n"><b>約118,400円/回</b></td><td>年間 約23.7万円。初年度は3回で約35.5万円</td></tr>
+</table>
+<p class="note">高額療養費制度の対象になれば、実際の支払いは上限までとなる。調剤料・管理料は含まない。</p>
+</section>
+
+<section>
+<h2>② レクビオ（インクリシラン）の適応</h2>
+<div class="cols">
+<div>
+<b>効能・効果</b>　家族性高コレステロール血症、高コレステロール血症<br>
+<em>ただし、次のいずれも満たす場合に限る</em>
+<ul>
+  <li>心血管イベントの発現リスクが高い</li>
+  <li>スタチンで効果不十分、またはスタチンによる治療が適さない</li>
+</ul>
+<b>「心血管リスクが高い」の判断</b>（注意5.2）<br>
+家族性高コレステロール血症以外では、<b>動脈硬化性心血管疾患・末梢動脈疾患・糖尿病・慢性腎臓病</b>などの罹患歴・既往歴から判断する
+</div>
+<div>
+<b>「スタチンが適さない」</b>（注意5.4）
+<ul>
+  <li>副作用の既往などでスタチンの使用が困難</li>
+  <li>スタチンが禁忌</li>
+</ul>
+<b>用法・用量</b>　1回300mgを皮下注。<b>初回 → 3か月後 → 以降6か月ごと</b>
+<div class="warn" style="margin-top:1.2mm">
+<ul>
+  <li><em>スタチンが適さない場合を除き、スタチンと併用する</em>（注意7.1）</li>
+  <li>初回投与後に脂質を測定して継続の可否を判断。継続時も定期的に測定し、反応がなければ中止（注意7.2）</li>
+  <li>禁忌は本剤成分への過敏症のみ</li>
+</ul>
+</div>
+</div>
+</div>
+</section>
+
+
+</div>
+<div class="page">
+<h1>⑤ 高トリグリセライド血症</h1>
+<p class="lead">スタチン投与下でTGが残る例への対応。動脈硬化性疾患予防ガイドライン2022、REDUCE-IT、JELIS、PROMINENT に基づく。</p>
+
+<section>
+<h2>治療の順序</h2>
+<div class="flow">
+  <div class="step"><b>0.</b> 二次性高TGをつぶす　血糖コントロール／飲酒／甲状腺機能／薬剤性（ステロイド、エストロゲン）</div>
+  <div class="step"><b>1.</b> スタチンでLDL-C・non-HDL-Cを目標まで　<span class="arrow">▶</span> イベント抑制の土台はここ</div>
+  <div class="step"><b>2.</b> TG 150〜499 ＋ 高リスク <span class="arrow">▶</span> <b>EPA</b> を上乗せ（イベント予防目的）</div>
+  <div class="step"><b>3.</b> TG 500以上 <span class="arrow">▶</span> <b>ペマフィブラート</b>で500未満へ（膵炎予防目的）</div>
+  <div class="step"><b>4.</b> 効果判定は TG だけでなく <b>non-HDL-C</b> で</div>
+</div>
+</section>
+
+<div class="cols">
+<div>
+<section>
+<h2>EPA ― 適応と注意</h2>
+<b>足す対象（いずれか ＋ スタチン投与下 ＋ TG 150〜499）</b>
+<ul>
+  <li>冠動脈疾患</li>
+  <li>末梢動脈疾患（PAD）</li>
+  <li>アテローム血栓性脳梗塞後</li>
+  <li>糖尿病</li>
+</ul>
+<div class="warn" style="margin-top:1.5mm">
+<b>控える</b>
+<ul>
+  <li>心房細動の既往・疑い（REDUCE-IT 5.3% vs 3.9%）</li>
+  <li>抗凝固薬併用、出血リスク高値（2.7% vs 2.1%）</li>
+  <li>手術・内視鏡処置の予定（術前1週間程度休薬）</li>
+  <li>75歳以上は個別判断（80歳以上はデータなし）</li>
+</ul>
+</div>
+<p class="note">エパデール1800mgのTG低下は数%〜10%程度。<em>TGが下がらないことを理由に中止しない</em>。REDUCE-ITでは達成TG値と効果に相関なし。</p>
+</section>
+</div>
+
+<div>
+<section>
+<h2>ペマフィブラート ― 位置づけ</h2>
+<ul>
+  <li><b>膵炎予防</b>：TG 500以上。1000超は急ぐ</li>
+  <li>腎機能低下例でフィブラートが要るとき（胆汁排泄、スタチン併用禁忌は解除、CK・腎機能はフォロー）</li>
+  <li>MASH／PBC は適応外（肝硬度・ALP改善のデータはあり）</li>
+</ul>
+<div class="warn" style="margin-top:1.5mm">
+<b>心血管イベント抑制の根拠はない</b><br>
+PROMINENT（NEJM 2022、10,497例、2型糖尿病、TG 200〜499、スタチン下）<br>
+TG −26.2% にもかかわらず HR 1.03（0.91〜1.15）。LDL-C・apoB はむしろ上昇。腎有害事象とVTEが増加。
+</div>
+<p class="note"><em>TGを下げてもapoB（粒子数）が減らなければイベントは減らない</em>。</p>
+</section>
+</div>
+</div>
+
+
+
+<section>
+<h2>TGと膵炎リスク</h2>
+<table>
+<tr><th class="n">TG</th><th>対応</th></tr>
+<tr><td class="n">≧1000</td><td>急ぐ。絶食、入院、インスリン持続静注も検討（発症 5〜20%）</td></tr>
+<tr><td class="n">500〜1000</td><td>薬物療法を開始。背景因子を同時に詰める</td></tr>
+<tr><td class="n">&lt;500</td><td>膵炎としては慌てない。以降は心血管の話</td></tr>
+</table>
+<p class="note">500は閾値ではなく実務上の線引き（ATP III 500、米内分泌学会 1000、ESC/EAS 885）。飲酒・血糖悪化・感染・薬剤で数日に跳ねる。</p>
+</section>
+
+<section>
+<h2>薬価と自己負担（2026年4月改定後・30日分・3割負担／薬剤費のみ）</h2>
+<table>
+<tr><th style="width:26%">薬剤</th><th class="n">薬価</th><th class="n">1日量</th><th class="n">30日の薬剤費</th><th class="n">3割負担</th></tr>
+<tr><td>エパデールS900（後発）</td><td class="n">41.2円/包</td><td class="n">1800mg＝2包</td><td class="n">2,472円</td><td class="n"><b>約740円</b></td></tr>
+<tr><td>エパデールS900（先発）</td><td class="n">42.5円/包</td><td class="n">1800mg＝2包</td><td class="n">2,550円</td><td class="n">約770円</td></tr>
+<tr><td>エパデールEM 2g（1日1回）</td><td class="n">112.2円/包</td><td class="n">1包</td><td class="n">3,366円</td><td class="n">約1,010円</td></tr>
+<tr><td>ロトリガ 2g（後発）</td><td class="n">64.9–72.3円/包</td><td class="n">1包</td><td class="n">1,947–2,169円</td><td class="n"><b>約580–650円</b></td></tr>
+<tr><td>ロトリガ 2g（先発）</td><td class="n">122.5円/包</td><td class="n">1包</td><td class="n">3,675円</td><td class="n">約1,100円</td></tr>
+<tr><td>パルモディアXR 0.2mg</td><td class="n">51円/錠</td><td class="n">1錠</td><td class="n">1,530円</td><td class="n"><b>約460円</b></td></tr>
+</table>
+<p class="note">EPA 1800mg は1日約82円で、パルモディアより少し高い。ロトリガはTG低下作用が強い一方、<em>EPA＋DHAのSTRENGTH試験は心血管イベントで陰性</em>で、日本でのアウトカム試験もない。調剤料・管理料は含まない。</p>
+</section>
+
+<footer>出典：動脈硬化性疾患予防ガイドライン2022年版 第3章（日本動脈硬化学会）／CTTメタ解析（Lancet 2010・2012）／IMPROVE-IT（NEJM 2015）／FOURIER（NEJM 2017）／SHARP／RACING／REDUCE-IT（NEJM 2019）／JELIS（Lancet 2007）／PROMINENT（NEJM 2022）／各薬剤の電子添文／山口県薬剤師会フォーミュラリ資料（薬価2026.4）　薬価は掲載元により数円の差があり目安　作成 2026-10-21</footer>
+</div>
+
+<script>
+document.querySelectorAll('.page table').forEach(function(t){
+  if(t.parentNode.classList.contains('tw')) return;
+  var w=document.createElement('div'); w.className='tw';
+  t.parentNode.insertBefore(w,t); w.appendChild(t);
+  var r=t.rows[0], n=0;
+  if(r){ for(var i=0;i<r.cells.length;i++) n += (r.cells[i].colSpan||1); }
+  if(n>=3) t.style.minWidth = (n*7.6) + 'em';
+});
+if('serviceWorker' in navigator){
+  navigator.serviceWorker.register('sw.js').then(function(reg){ reg.update(); });
+  var reloaded=false;
+  navigator.serviceWorker.addEventListener('controllerchange', function(){
+    if(!reloaded){reloaded=true; location.reload();}
+  });
+}
+</script>
+</body>
+</html>
