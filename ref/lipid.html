@@ -10,35 +10,36 @@
 
 <title>脂質異常症 診療の整理</title>
 <style>
-@page{size:A4 portrait; margin:8mm;}
+@page{size:A4 portrait; margin:8.5mm 10mm;}
 *{box-sizing:border-box}
-body{font-family:"Yu Gothic","Meiryo",sans-serif; color:#1b1b1b; margin:0; font-size:9.7pt; line-height:1.38;}
+body{font-family:"Yu Gothic","Meiryo",sans-serif; color:#1b1b1b; margin:0; font-size:10.3pt; line-height:1.52;}
 @media print{body{width:auto; padding:0;}}
 .page{break-after:page;}
 .page:last-child{break-after:auto;}
-h1{font-size:15pt; margin:0 0 1mm;}
-.lead{font-size:8.8pt; color:#555; margin:0 0 2mm;}
-h2{font-size:10.4pt; margin:0 0 1.3mm; padding:1mm 2mm; background:#1D3F8A; color:#fff; letter-spacing:.04em;}
-section{margin-bottom:2mm;}
-.cols{display:flex; gap:3.5mm;} .cols>div{flex:1;}
-table{border-collapse:collapse; width:100%; font-size:9.3pt;}
-th,td{border:.3pt solid #b9b9b9; padding:.7mm 1.5mm; text-align:left; vertical-align:top;}
+h1{font-size:15pt; margin:0 0 1.5mm;}
+.lead{font-size:9pt; color:#666; margin:0 0 3mm;}
+h2{font-size:11pt; margin:0 0 2.2mm; padding:1.2mm 2.4mm; background:#1D3F8A; color:#fff; letter-spacing:.04em;}
+section{margin-bottom:3.2mm;}
+section:last-of-type{margin-bottom:0;}
+.cols{display:flex; gap:5mm;} .cols>div{flex:1;}
+table{border-collapse:collapse; width:100%; font-size:10pt;}
+th,td{border:.3pt solid #c5c5c5; padding:1.3mm 2mm; text-align:left; vertical-align:top;}
 th{background:#eef1f7; font-weight:700;}
 table.pts th{background:#eef1f7;} table.pts td.x{color:#c4c4c4;}
-.s{display:block; font-size:7.8pt; color:#666; font-weight:400;}
+.s{display:block; font-size:8.6pt; color:#666; font-weight:400;}
 td.c,th.c{text-align:center; font-variant-numeric:tabular-nums; white-space:nowrap;}
 td.n,th.n{text-align:right; font-variant-numeric:tabular-nums; white-space:nowrap;}
 tr.hi td{background:#eef4ff;}
-ul{margin:0; padding-left:4mm;} li{margin-bottom:.5mm;}
-.flow{border:.4pt solid #1D3F8A; padding:1.8mm; font-size:9.8pt;}
+ul{margin:0; padding-left:5mm;} li{margin-bottom:1.2mm;}
+.flow{border:.4pt solid #1D3F8A; padding:2mm; font-size:10pt;}
 .flow b{color:#1D3F8A;}
-.step{margin-bottom:1mm;}
+.step{margin-bottom:1.4mm;}
 .arrow{color:#888; margin:0 1mm;}
-.warn{border-left:2.5pt solid #C0692A; padding:1.2mm 0 1.2mm 2.2mm; background:#fdf6f0;}
-.note{font-size:8.3pt; color:#555; margin-top:1mm;}
-em{font-style:normal; background:#fff2cc; padding:0 .5mm;}
+.warn{border-left:3pt solid #C0692A; padding:2mm 0 2mm 3mm; background:#fdf6f0;}
+.note{font-size:9pt; color:#555; margin-top:2mm;}
+em{font-style:normal; background:#fff2cc; padding:0 .6mm;}
 .big{font-weight:700;}
-footer{font-size:7.8pt; color:#777; border-top:.3pt solid #ccc; padding-top:1.1mm; margin-top:1.8mm;}
+footer{font-size:8pt; color:#888; border-top:.3pt solid #ddd; padding-top:1.2mm; margin-top:2mm;}
 :root{--brand:#1D3F8A}
 
 @media screen and (max-width:820px){
@@ -47,12 +48,33 @@ footer{font-size:7.8pt; color:#777; border-top:.3pt solid #ccc; padding-top:1.1m
        word-break:normal; overflow-wrap:break-word; line-break:strict;
        width:auto !important; max-width:none !important;
        margin:0 !important; padding:0 0 40px !important}
-  .page{break-after:auto; padding:18px max(16px,env(safe-area-inset-right,0px)) 10px max(16px,env(safe-area-inset-left,0px)); border-bottom:10px solid #eef0f5}
-  .page:last-child{border-bottom:0}
-  h1{font-size:21px; margin:6px 0 4px; line-height:1.4}
-  .lead{font-size:13.5px; margin:0 0 16px}
-  h2{font-size:16px; margin:0 0 11px; padding:8px 11px; border-radius:5px; line-height:1.45}
-  section{margin-bottom:24px}
+  body{background:#eceff4 !important}
+  .page{break-after:auto; padding:16px max(14px,env(safe-area-inset-right,0px)) 2px max(14px,env(safe-area-inset-left,0px))}
+  h1{font-size:20px; margin:4px 2px 4px; line-height:1.4}
+  .lead{font-size:13px; margin:0 2px 12px}
+  .toc{background:#fff; border-radius:12px; margin:14px 0 4px; padding:2px 0;
+       box-shadow:0 1px 2px rgba(20,32,64,.09); overflow:hidden}
+  .toc a{display:block; padding:12px 34px 12px 14px; text-decoration:none; color:#1b1b1b;
+         font-size:15px; line-height:1.45; border-bottom:1px solid #eef0f4; position:relative}
+  .toc a:last-child{border-bottom:0}
+  .toc a::after{content:''; position:absolute; right:16px; top:50%; width:7px; height:7px;
+                border-right:2px solid #aab2c0; border-bottom:2px solid #aab2c0;
+                transform:translateY(-50%) rotate(-45deg)}
+  .toc a b{display:inline-block; min-width:1.5em; color:#1D3F8A}
+  .page + .page{border-top:1px solid #d6dce6; margin-top:14px; padding-top:20px}
+  .pidx{display:flex; flex-wrap:wrap; gap:6px; margin:0 2px 14px}
+  .pidx a{font-size:12.5px; line-height:1.3; background:#fff; border:1px solid #d7dce5; border-radius:999px;
+          padding:6px 11px; text-decoration:none; color:#2b3550}
+  section{background:#fff; border-radius:12px; margin:0 0 13px; overflow:hidden;
+          box-shadow:0 1px 2px rgba(20,32,64,.09)}
+  section>h2{font-size:15.5px; margin:0; padding:12px 38px 12px 14px; border-radius:0; line-height:1.45;
+             position:relative; cursor:pointer; -webkit-tap-highlight-color:transparent}
+  section>h2::after{content:''; position:absolute; right:16px; top:50%; width:8px; height:8px;
+                    border-right:2px solid rgba(255,255,255,.85); border-bottom:2px solid rgba(255,255,255,.85);
+                    transform:translateY(-70%) rotate(45deg); transition:transform .15s}
+  section.closed>h2::after{transform:translateY(-50%) rotate(-45deg)}
+  .sbody{padding:14px}
+  section.closed .sbody{display:none}
   .cols{flex-direction:column; gap:16px}
   .cols>div{flex:1 1 auto !important}
   .tw{overflow-x:auto; -webkit-overflow-scrolling:touch; margin:0}
@@ -83,7 +105,7 @@ footer{font-size:7.8pt; color:#777; border-top:.3pt solid #ccc; padding-top:1.1m
             padding:2px 0 2px 12px; border-left:3px solid #c9d2e4}
   .s{font-size:13px; color:#565b63; margin-top:3px; line-height:1.62}
   ul{padding-left:20px} li{margin-bottom:6px}
-  footer{font-size:12px; margin-top:20px; padding-top:9px}
+  footer{font-size:11.5px; margin:2px 4px 16px; padding-top:9px; color:#78808e}
   .nav{position:sticky; top:0; z-index:20; display:flex; align-items:center; gap:12px;
        padding:11px max(14px,env(safe-area-inset-left,0px)) 11px max(14px,env(safe-area-inset-right,0px));
        background:var(--brand); color:#fff; font-weight:700; font-size:15px}
@@ -97,7 +119,86 @@ footer{font-size:7.8pt; color:#777; border-top:.3pt solid #ccc; padding-top:1.1m
 <div class="nav"><a href="index.html">&#8249;&nbsp;一覧</a><span class="sp"></span><span>脂質異常症</span></div>
 
 <div class="page">
-<h1>① LDL-Cを下げる意味</h1>
+<h1>① 脂質異常症とは</h1>
+<p class="lead">診断基準、二次性の除外、FH</p>
+
+<section>
+<h2>診断基準（空腹時採血）</h2>
+<table>
+<tr><th style="width:30%">項目</th><th class="c" style="width:26%">基準</th><th>呼び方</th></tr>
+<tr class="hi"><td><b>LDL-C</b></td><td class="c"><b>140 以上</b></td><td>高LDLコレステロール血症</td></tr>
+<tr><td>　</td><td class="c">120–139</td><td>境界域高LDLコレステロール血症</td></tr>
+<tr><td><b>HDL-C</b></td><td class="c"><b>40 未満</b></td><td>低HDLコレステロール血症</td></tr>
+<tr class="hi"><td><b>TG</b></td><td class="c"><b>150 以上</b>（空腹時）<br><b>175 以上</b>（随時）</td><td>高トリグリセライド血症</td></tr>
+<tr><td><b>non-HDL-C</b></td><td class="c"><b>170 以上</b></td><td>高non-HDLコレステロール血症</td></tr>
+<tr><td>　</td><td class="c">150–169</td><td>境界域高non-HDLコレステロール血症</td></tr>
+</table>
+<p class="note"><b>空腹時＝10時間以上の絶食</b>（水やお茶は可）。<em>随時採血で判定できるのはTGだけ</em>で、その場合の基準は175以上。<br>
+<b>LDL-Cの計算（Friedewald式）は TG 400未満のときだけ使える。</b>TGが高い例では直接法か、<b>non-HDL-C（総コレステロール − HDL-C）</b>で評価する。</p>
+</section>
+
+<section>
+<h2>まず二次性を外す</h2>
+<div class="cols">
+<div>
+<table>
+<tr><th style="width:38%">原因</th><th>手がかり</th></tr>
+<tr class="hi"><td><b>甲状腺機能低下症</b></td><td><b>TSHを一度は測る。</b>補充で脂質が戻ることがある</td></tr>
+<tr><td>ネフローゼ症候群</td><td>蛋白尿・浮腫。<em>腎臓が悪いから脂質が乱れる</em>方向</td></tr>
+<tr><td>糖尿病・肥満</td><td>高TG・低HDLが主体</td></tr>
+<tr><td>閉塞性黄疸・原発性胆汁性胆管炎</td><td>高コレステロール</td></tr>
+<tr><td>アルコール</td><td>高TG。<b>節酒だけで数百下がることがある</b></td></tr>
+</table>
+</div>
+<div>
+<div class="warn">
+<b>薬剤性</b><br>
+ステロイド／エストロゲン／<b>サイアザイド</b>／β遮断薬／レチノイド／抗精神病薬（とくにオランザピン）／タモキシフェン／免疫抑制薬
+</div>
+<p class="note"><b>二次性は脂質異常の数%ではなく、外来では珍しくない。</b><em>スタチンを出す前に、TSHと尿蛋白と飲酒歴を押さえる。</em></p>
+</div>
+</div>
+</section>
+
+
+<section>
+<h2>家族性高コレステロール血症（FH）を見落とさない</h2>
+<div class="warn">
+<b class="big">成人のFH診断は、次の2項目以上</b>
+<ul>
+<li><b>未治療の LDL-C 180 以上</b></li>
+<li><b>腱黄色腫</b>（手背・肘・膝、アキレス腱肥厚）または<b>皮膚結節性黄色腫</b></li>
+<li><b>2親等以内の血族に FH または早発性冠動脈疾患</b>（男性55歳未満・女性65歳未満）</li>
+</ul>
+</div>
+<p class="note"><b>有病率は約300人に1人</b>——<em>珍しい病気ではない</em>。<b>FHは年齢・一次予防/二次予防にかかわらず治療対象</b>で、管理目標も別枠。<br>
+<b>家族歴はなくても診断できる</b>（3項目中2項目以上）。むしろ<em>診断をきっかけに血縁者の脂質を測る（カスケードスクリーニング）</em>と、未診断の家族が見つかることが多い。</p>
+
+<div class="warn" style="margin-top:3mm">
+<b class="big">二次性を除外して LDL-C 180以上 → アキレス腱を触る</b><br>
+足関節を背屈させ、母指と示指でつまむ。<b>左右差・紡錘状のびまん性肥厚</b>を見る。数秒で終わる。<br>
+<b>肥厚の基準（2022年版）</b>　<b>X線：男性 8.0mm／女性 7.5mm 以上</b>　／　<b>超音波：男性 6.0mm／女性 5.5mm 以上</b><br><em>従来のX線 9mm（1977年の基準）から下方修正され、超音波の基準が新設された。</em>
+</div>
+</section>
+
+<section>
+<h2>黄色腫 — どこにあったら何を疑うか</h2>
+<table>
+<tr><th style="width:34%">部位</th><th>示唆するもの</th></tr>
+<tr class="hi"><td><b>腱</b>（アキレス腱・手背・肘・膝）</td><td><b>FH</b>　診断基準に入る。<em>アキレス腱肥厚はとくに特異的</em></td></tr>
+<tr class="hi"><td><b>皮膚結節性</b>（肘・膝）</td><td><b>FH</b>　診断基準に入る</td></tr>
+<tr><td><b>眼瞼</b></td><td><em>最も頻度が高いが、約半数は脂質正常</em>——<b>診断基準には入らない</b>。ただし脂質と独立して心血管リスクと関連するので、<b>見かけたら脂質を測る</b></td></tr>
+<tr><td><b>発疹性</b>（体幹・四肢伸側の黄色丘疹）</td><td><b>高TG（1000以上）。膵炎のサイン</b></td></tr>
+<tr><td><b>手掌線条</b>（手のしわが黄色い）</td><td><b>III型高脂血症に特異的</b>（ApoE2/2）。めったに見ないが、見たらこれ</td></tr>
+<tr><td>角膜輪</td><td><b>45歳未満</b>なら意義あり。高齢者は加齢性で意味が薄い</td></tr>
+</table>
+</section>
+
+<footer>動脈硬化性疾患予防ガイドライン2022年版（日本動脈硬化学会）／成人家族性高コレステロール血症診療ガイドライン2022　2026-10-28</footer>
+</div>
+
+<div class="page">
+<h1>② なぜ下げるのか</h1>
 <p class="lead">何がどれだけ減るのか、そして何は減らないのか</p>
 
 <section>
@@ -151,16 +252,15 @@ footer{font-size:7.8pt; color:#777; border-top:.3pt solid #ccc; padding-top:1.1m
 <p style="margin:0">遺伝学的研究（メンデルランダム化）では、<em>生涯にわたってLDLが低い人は、同じ低下幅でも約3倍大きいリスク低減</em>を示す。薬で数年下げるより、長く低いほうが効く。GL2022が40〜50代で生涯リスクも考慮すべきとしているのはこの文脈。</p>
 <p class="note">日本人のデータ：MEGA試験（一次予防、プラバスタチンで冠動脈疾患 約33%減）、EWTOPIA 75（75歳以上の一次予防、エゼチミブで冠動脈イベント抑制）。</p>
 </section>
-
-<p class="note" style="margin-top:2mm">患者説明用：「LDLを40下げると、心筋梗塞や脳梗塞が2割減ります」</p>
-
+<footer>CTTメタ解析（Lancet 2010・2012）／IMPROVE-IT／FOURIER／SHARP　2026-10-28</footer>
 </div>
+
 <div class="page">
-<h1>② 脂質管理目標の決め方</h1>
-<p class="lead">動脈硬化性疾患予防ガイドライン2022（日本動脈硬化学会）図3-1・図3-2・表3-2</p>
+<h1>③ 目標値</h1>
+<p class="lead">リスク区分を決めて、いくつを目指すか</p>
 
 <section>
-<h2>① 判定の順番</h2>
+<h2>判定の順番</h2>
 <div class="flow">
   <div class="step"><b>1.</b> 冠動脈疾患／アテローム血栓性脳梗塞の既往がある　<span class="arrow">▶</span>　<b>二次予防</b>（スコア不要）</div>
   <div class="step"><b>2.</b> 糖尿病・CKD・末梢動脈疾患のいずれかがある　<span class="arrow">▶</span>　<b>高リスク</b>（スコア不要）</div>
@@ -170,7 +270,7 @@ footer{font-size:7.8pt; color:#777; border-top:.3pt solid #ccc; padding-top:1.1m
 </section>
 
 <section>
-<h2>② 久山町スコア　配点（該当するところを横に読む）</h2>
+<h2>久山町スコア　配点（該当するところを横に読む）</h2>
 <table class="pts">
 <tr><th style="width:21%">項目</th><th class="c">0点</th><th class="c">1点</th><th class="c">2点</th><th class="c">3点</th><th class="c">4点</th><th class="c">7点</th></tr>
 <tr><th>性別</th><td class="c">女性</td><td class="c x">—</td><td class="c x">—</td><td class="c x">—</td><td class="c x">—</td><td class="c">男性</td></tr>
@@ -184,7 +284,7 @@ footer{font-size:7.8pt; color:#777; border-top:.3pt solid #ccc; padding-top:1.1m
 </section>
 
 <section>
-<h2>③ 合計点 → リスク区分（年齢階級ごと）</h2>
+<h2>合計点 → リスク区分（年齢階級ごと）</h2>
 <table>
 <tr><th>合計点</th><th class="c">40–49歳</th><th class="c">50–59歳</th><th class="c">60–69歳</th><th class="c">70–79歳</th></tr>
 <tr><td><span class="big">低リスク</span>（10年 2%未満）</td><td class="c">0–12</td><td class="c">0–7</td><td class="c">0–1</td><td class="c">該当なし</td></tr>
@@ -195,7 +295,7 @@ footer{font-size:7.8pt; color:#777; border-top:.3pt solid #ccc; padding-top:1.1m
 </section>
 
 <section>
-<h2>④ 区分 → 管理目標値（mg/dL）</h2>
+<h2>区分 → 管理目標値（mg/dL）</h2>
 <table>
 <tr><th style="width:22%">区分</th><th class="c">LDL-C</th><th class="c">non-HDL-C</th><th>条件</th></tr>
 <tr><td>低リスク</td><td class="c">&lt;160</td><td class="c">&lt;190</td><td>一次予防</td></tr>
@@ -210,21 +310,21 @@ footer{font-size:7.8pt; color:#777; border-top:.3pt solid #ccc; padding-top:1.1m
 </section>
 
 <section>
-<h2>⑤ 使うときの注意</h2>
+<h2>使うときの注意</h2>
 <table>
 <tr><td style="width:33%">一次予防の進め方</td><td>原則3〜6か月の生活習慣改善の効果をみてから薬物療法を検討（LDL-C 180以上が持続する場合は同時に検討してよい）</td></tr>
 <tr><td>80歳以上</td><td>年齢だけで絶対リスクが跳ね上がり、併存疾患の影響も大きい。目標値に機械的に当てはめず個別に判断</td></tr>
 </table>
 </section>
-
-
+<footer>動脈硬化性疾患予防ガイドライン2022年版（日本動脈硬化学会） 第3章　2026-10-28</footer>
 </div>
+
 <div class="page">
-<h1>③ LDL-C低下薬の使い方</h1>
-<p class="lead">ロスバスタチンを軸にした増量・上乗せの判断、腎機能低下時の扱い、自己負担、レクビオの適応</p>
+<h1>④ 薬を選ぶ</h1>
+<p class="lead">増量か追加か、腎機能、薬価</p>
 
 <section>
-<h2>① 増量するか、エゼチミブを足すか</h2>
+<h2>増量するか、エゼチミブを足すか</h2>
 <div class="cols">
 <div>
 <table>
@@ -256,7 +356,7 @@ footer{font-size:7.8pt; color:#777; border-top:.3pt solid #ccc; padding-top:1.1m
 </section>
 
 <section>
-<h2>② 腎機能が低下しているとき</h2>
+<h2>腎機能が低下しているとき</h2>
 <table>
 <tr><th style="width:17%">薬剤</th><th style="width:36%">腎機能による調節</th><th>注意</th></tr>
 <tr><td><b>ロスバスタチン</b></td><td><em>CCr 30未満 → 2.5mgで開始し、最大5mg/日</em><br>通常は2.5mg開始、上限20mg/日</td><td>20mg使用時は開始後12週まで原則 月1回、以降は定期的に腎機能を確認。筋症状・CK上昇・血清Cr上昇があれば直ちに中止</td></tr>
@@ -266,7 +366,91 @@ footer{font-size:7.8pt; color:#777; border-top:.3pt solid #ccc; padding-top:1.1m
 </section>
 
 <section>
-<h2>③ CKDでの考え方 ― 下げる目的は腎臓ではない</h2>
+<h2>薬価と自己負担（30日分・3割負担／薬剤費のみ）</h2>
+<table>
+<tr><th style="width:27%">薬剤</th><th class="n">薬価</th><th class="n">30日の薬剤費</th><th class="n">3割負担</th><th>備考</th></tr>
+<tr><td>ロスバスタチン 5mg（後発）</td><td class="n">10.8–16.9円</td><td class="n">324–507円</td><td class="n"><b>約100–150円</b></td><td>先発クレストールは23.5円</td></tr>
+<tr><td>エゼチミブ 10mg（後発）</td><td class="n">17.0–19.3円</td><td class="n">510–579円</td><td class="n"><b>約150–170円</b></td><td>先発ゼチーアは49.5円</td></tr>
+<tr><td>エゼロス配合錠HD（後発）</td><td class="n">31.3円</td><td class="n">939円</td><td class="n"><b>約280円</b></td><td>ロスバスタチン5mg＋エゼチミブ10mg。別々に出すのとほぼ同額で1錠</td></tr>
+<tr><td>ネクセトール 180mg</td><td class="n">371.5円</td><td class="n">11,145円</td><td class="n"><b>約3,340円</b></td><td>1日1回</td></tr>
+<tr><td>レパーサ 140mgペン</td><td class="n">24,302円/本</td><td class="n">48,604円</td><td class="n"><b>約14,600円</b></td><td>2週ごと＝月2本。年間 約17.5万円</td></tr>
+<tr><td>レクビオ 300mg</td><td class="n">394,758円/筒</td><td class="n">年2回で789,516円</td><td class="n"><b>約118,400円/回</b></td><td>年間 約23.7万円。初年度は3回で約35.5万円</td></tr>
+</table>
+<p class="note">高額療養費制度の対象になれば、実際の支払いは上限までとなる。調剤料・管理料は含まない。</p>
+</section>
+<footer>IMPROVE-IT／RACING／山口県薬剤師会フォーミュラリ資料（薬価2026.4）　2026-10-28</footer>
+</div>
+
+<div class="page">
+<h1>⑤ 高トリグリセライド血症</h1>
+<p class="lead">治療の順序、EPA、ペマフィブラート、膵炎</p>
+
+<section>
+<h2>治療の順序</h2>
+<div class="flow">
+  <div class="step"><b>0.</b> 二次性高TGをつぶす　血糖コントロール／飲酒／甲状腺機能／薬剤性（ステロイド、エストロゲン）</div>
+  <div class="step"><b>1.</b> スタチンでLDL-C・non-HDL-Cを目標まで　<span class="arrow">▶</span> イベント抑制の土台はここ</div>
+  <div class="step"><b>2.</b> TG 150〜499 ＋ 高リスク <span class="arrow">▶</span> <b>EPA</b> を上乗せ（イベント予防目的）</div>
+  <div class="step"><b>3.</b> TG 500以上 <span class="arrow">▶</span> <b>ペマフィブラート</b>で500未満へ（膵炎予防目的）</div>
+  <div class="step"><b>4.</b> 効果判定は TG だけでなく <b>non-HDL-C</b> で</div>
+</div>
+</section>
+
+<section>
+<h2>EPA ― 適応と注意</h2>
+<b>足す対象（いずれか ＋ スタチン投与下 ＋ TG 150〜499）</b>
+<ul>
+  <li>冠動脈疾患</li>
+  <li>末梢動脈疾患（PAD）</li>
+  <li>アテローム血栓性脳梗塞後</li>
+  <li>糖尿病</li>
+</ul>
+<div class="warn" style="margin-top:1.5mm">
+<b>控える</b>
+<ul>
+  <li>心房細動の既往・疑い（REDUCE-IT 5.3% vs 3.9%）</li>
+  <li>抗凝固薬併用、出血リスク高値（2.7% vs 2.1%）</li>
+  <li>手術・内視鏡処置の予定（術前1週間程度休薬）</li>
+  <li>75歳以上は個別判断（80歳以上はデータなし）</li>
+</ul>
+</div>
+<p class="note">エパデール1800mgのTG低下は数%〜10%程度。<em>TGが下がらないことを理由に中止しない</em>。REDUCE-ITでは達成TG値と効果に相関なし。</p>
+</section>
+
+<section>
+<h2>ペマフィブラート ― 位置づけ</h2>
+<ul>
+  <li><b>膵炎予防</b>：TG 500以上。1000超は急ぐ</li>
+  <li>腎機能低下例でフィブラートが要るとき（胆汁排泄、スタチン併用禁忌は解除、CK・腎機能はフォロー）</li>
+  <li>MASH／PBC は適応外（肝硬度・ALP改善のデータはあり）</li>
+</ul>
+<div class="warn" style="margin-top:1.5mm">
+<b>心血管イベント抑制の根拠はない</b><br>
+PROMINENT（NEJM 2022、10,497例、2型糖尿病、TG 200〜499、スタチン下）<br>
+TG −26.2% にもかかわらず HR 1.03（0.91〜1.15）。LDL-C・apoB はむしろ上昇。腎有害事象とVTEが増加。
+</div>
+<p class="note"><em>TGを下げてもapoB（粒子数）が減らなければイベントは減らない</em>。</p>
+</section>
+
+<section>
+<h2>TGと膵炎リスク</h2>
+<table>
+<tr><th class="n">TG</th><th>対応</th></tr>
+<tr><td class="n">≧1000</td><td>急ぐ。絶食、入院、インスリン持続静注も検討（発症 5〜20%）</td></tr>
+<tr><td class="n">500〜1000</td><td>薬物療法を開始。背景因子を同時に詰める</td></tr>
+<tr><td class="n">&lt;500</td><td>膵炎としては慌てない。以降は心血管の話</td></tr>
+</table>
+<p class="note">500は閾値ではなく実務上の線引き（ATP III 500、米内分泌学会 1000、ESC/EAS 885）。飲酒・血糖悪化・感染・薬剤で数日に跳ねる。</p>
+</section>
+<footer>REDUCE-IT（NEJM 2019）／JELIS（Lancet 2007）／PROMINENT（NEJM 2022）　2026-10-28</footer>
+</div>
+
+<div class="page">
+<h1>⑥ CKDと脂質・レクビオ</h1>
+<p class="lead">下げる目的は腎臓ではない／インクリシランの使いどころ</p>
+
+<section>
+<h2>CKDでの考え方 ― 下げる目的は腎臓ではない</h2>
 <div class="cols">
 <div>
 <div class="flow">
@@ -289,146 +473,34 @@ footer{font-size:7.8pt; color:#777; border-top:.3pt solid #ccc; padding-top:1.1m
 </div>
 </section>
 
-<footer>出典：動脈硬化性疾患予防ガイドライン2022年版／エビデンスに基づくCKD診療ガイドライン2024／KDIGO Lipid Guideline／SHARP（Lancet 2011）・4D（NEJM 2005）・AURORA（NEJM 2009）／IMPROVE-IT・RACING／各薬剤の電子添文</footer>
-</div>
-
-<div class="page">
-<h1>④ 薬価とレクビオ</h1>
-<p class="lead">自己負担の目安と、インクリシランの適応</p>
-
 <section>
-<h2>① 薬価と自己負担（2026年4月改定後・30日分・3割負担／薬剤費のみ）</h2>
-<table>
-<tr><th style="width:27%">薬剤</th><th class="n">薬価</th><th class="n">30日の薬剤費</th><th class="n">3割負担</th><th>備考</th></tr>
-<tr><td>ロスバスタチン 5mg（後発）</td><td class="n">10.8–16.9円</td><td class="n">324–507円</td><td class="n"><b>約100–150円</b></td><td>先発クレストールは23.5円</td></tr>
-<tr><td>エゼチミブ 10mg（後発）</td><td class="n">17.0–19.3円</td><td class="n">510–579円</td><td class="n"><b>約150–170円</b></td><td>先発ゼチーアは49.5円</td></tr>
-<tr><td>エゼロス配合錠HD（後発）</td><td class="n">31.3円</td><td class="n">939円</td><td class="n"><b>約280円</b></td><td>ロスバスタチン5mg＋エゼチミブ10mg。別々に出すのとほぼ同額で1錠</td></tr>
-<tr><td>ネクセトール 180mg</td><td class="n">371.5円</td><td class="n">11,145円</td><td class="n"><b>約3,340円</b></td><td>1日1回</td></tr>
-<tr><td>レパーサ 140mgペン</td><td class="n">24,302円/本</td><td class="n">48,604円</td><td class="n"><b>約14,600円</b></td><td>2週ごと＝月2本。年間 約17.5万円</td></tr>
-<tr><td>レクビオ 300mg</td><td class="n">394,758円/筒</td><td class="n">年2回で789,516円</td><td class="n"><b>約118,400円/回</b></td><td>年間 約23.7万円。初年度は3回で約35.5万円</td></tr>
-</table>
-<p class="note">高額療養費制度の対象になれば、実際の支払いは上限までとなる。調剤料・管理料は含まない。</p>
-</section>
-
-<section>
-<h2>② レクビオ（インクリシラン）の適応</h2>
+<h2>レクビオ（インクリシラン）</h2>
 <div class="cols">
 <div>
-<b>効能・効果</b>　家族性高コレステロール血症、高コレステロール血症<br>
-<em>ただし、次のいずれも満たす場合に限る</em>
-<ul>
-  <li>心血管イベントの発現リスクが高い</li>
-  <li>スタチンで効果不十分、またはスタチンによる治療が適さない</li>
-</ul>
-<b>「心血管リスクが高い」の判断</b>（注意5.2）<br>
-家族性高コレステロール血症以外では、<b>動脈硬化性心血管疾患・末梢動脈疾患・糖尿病・慢性腎臓病</b>などの罹患歴・既往歴から判断する
-</div>
-<div>
-<b>「スタチンが適さない」</b>（注意5.4）
-<ul>
-  <li>副作用の既往などでスタチンの使用が困難</li>
-  <li>スタチンが禁忌</li>
-</ul>
-<b>用法・用量</b>　1回300mgを皮下注。<b>初回 → 3か月後 → 以降6か月ごと</b>
-<div class="warn" style="margin-top:1.2mm">
-<ul>
-  <li><em>スタチンが適さない場合を除き、スタチンと併用する</em>（注意7.1）</li>
-  <li>初回投与後に脂質を測定して継続の可否を判断。継続時も定期的に測定し、反応がなければ中止（注意7.2）</li>
-  <li>禁忌は本剤成分への過敏症のみ</li>
-</ul>
-</div>
-</div>
-</div>
-</section>
-
-
-</div>
-<div class="page">
-<h1>⑤ 高トリグリセライド血症</h1>
-<p class="lead">スタチン投与下でTGが残る例への対応。動脈硬化性疾患予防ガイドライン2022、REDUCE-IT、JELIS、PROMINENT に基づく。</p>
-
-<section>
-<h2>治療の順序</h2>
-<div class="flow">
-  <div class="step"><b>0.</b> 二次性高TGをつぶす　血糖コントロール／飲酒／甲状腺機能／薬剤性（ステロイド、エストロゲン）</div>
-  <div class="step"><b>1.</b> スタチンでLDL-C・non-HDL-Cを目標まで　<span class="arrow">▶</span> イベント抑制の土台はここ</div>
-  <div class="step"><b>2.</b> TG 150〜499 ＋ 高リスク <span class="arrow">▶</span> <b>EPA</b> を上乗せ（イベント予防目的）</div>
-  <div class="step"><b>3.</b> TG 500以上 <span class="arrow">▶</span> <b>ペマフィブラート</b>で500未満へ（膵炎予防目的）</div>
-  <div class="step"><b>4.</b> 効果判定は TG だけでなく <b>non-HDL-C</b> で</div>
-</div>
-</section>
-
-<div class="cols">
-<div>
-<section>
-<h2>EPA ― 適応と注意</h2>
-<b>足す対象（いずれか ＋ スタチン投与下 ＋ TG 150〜499）</b>
-<ul>
-  <li>冠動脈疾患</li>
-  <li>末梢動脈疾患（PAD）</li>
-  <li>アテローム血栓性脳梗塞後</li>
-  <li>糖尿病</li>
-</ul>
-<div class="warn" style="margin-top:1.5mm">
-<b>控える</b>
-<ul>
-  <li>心房細動の既往・疑い（REDUCE-IT 5.3% vs 3.9%）</li>
-  <li>抗凝固薬併用、出血リスク高値（2.7% vs 2.1%）</li>
-  <li>手術・内視鏡処置の予定（術前1週間程度休薬）</li>
-  <li>75歳以上は個別判断（80歳以上はデータなし）</li>
-</ul>
-</div>
-<p class="note">エパデール1800mgのTG低下は数%〜10%程度。<em>TGが下がらないことを理由に中止しない</em>。REDUCE-ITでは達成TG値と効果に相関なし。</p>
-</section>
-</div>
-
-<div>
-<section>
-<h2>ペマフィブラート ― 位置づけ</h2>
-<ul>
-  <li><b>膵炎予防</b>：TG 500以上。1000超は急ぐ</li>
-  <li>腎機能低下例でフィブラートが要るとき（胆汁排泄、スタチン併用禁忌は解除、CK・腎機能はフォロー）</li>
-  <li>MASH／PBC は適応外（肝硬度・ALP改善のデータはあり）</li>
-</ul>
-<div class="warn" style="margin-top:1.5mm">
-<b>心血管イベント抑制の根拠はない</b><br>
-PROMINENT（NEJM 2022、10,497例、2型糖尿病、TG 200〜499、スタチン下）<br>
-TG −26.2% にもかかわらず HR 1.03（0.91〜1.15）。LDL-C・apoB はむしろ上昇。腎有害事象とVTEが増加。
-</div>
-<p class="note"><em>TGを下げてもapoB（粒子数）が減らなければイベントは減らない</em>。</p>
-</section>
-</div>
-</div>
-
-
-
-<section>
-<h2>TGと膵炎リスク</h2>
 <table>
-<tr><th class="n">TG</th><th>対応</th></tr>
-<tr><td class="n">≧1000</td><td>急ぐ。絶食、入院、インスリン持続静注も検討（発症 5〜20%）</td></tr>
-<tr><td class="n">500〜1000</td><td>薬物療法を開始。背景因子を同時に詰める</td></tr>
-<tr><td class="n">&lt;500</td><td>膵炎としては慌てない。以降は心血管の話</td></tr>
+<tr><th style="width:26%">適応</th><td>家族性高コレステロール血症／高コレステロール血症。<b>次のいずれも満たす場合に限る</b>：①心血管イベントの発現リスクが高い　②スタチンで効果不十分、またはスタチンが適さない</td></tr>
+<tr><td><b>「リスクが高い」</b></td><td>FH以外では、<b>動脈硬化性心血管疾患・末梢動脈疾患・糖尿病・慢性腎臓病</b>などの罹患歴・既往歴から判断</td></tr>
+<tr class="hi"><td><b>投与</b></td><td><b>1回300mgを皮下注。初回 → 3か月後 → 以降6か月ごと</b>（年2回）</td></tr>
 </table>
-<p class="note">500は閾値ではなく実務上の線引き（ATP III 500、米内分泌学会 1000、ESC/EAS 885）。飲酒・血糖悪化・感染・薬剤で数日に跳ねる。</p>
-</section>
-
-<section>
-<h2>薬価と自己負担（2026年4月改定後・30日分・3割負担／薬剤費のみ）</h2>
-<table>
-<tr><th style="width:26%">薬剤</th><th class="n">薬価</th><th class="n">1日量</th><th class="n">30日の薬剤費</th><th class="n">3割負担</th></tr>
-<tr><td>エパデールS900（後発）</td><td class="n">41.2円/包</td><td class="n">1800mg＝2包</td><td class="n">2,472円</td><td class="n"><b>約740円</b></td></tr>
-<tr><td>エパデールS900（先発）</td><td class="n">42.5円/包</td><td class="n">1800mg＝2包</td><td class="n">2,550円</td><td class="n">約770円</td></tr>
-<tr><td>エパデールEM 2g（1日1回）</td><td class="n">112.2円/包</td><td class="n">1包</td><td class="n">3,366円</td><td class="n">約1,010円</td></tr>
-<tr><td>ロトリガ 2g（後発）</td><td class="n">64.9–72.3円/包</td><td class="n">1包</td><td class="n">1,947–2,169円</td><td class="n"><b>約580–650円</b></td></tr>
-<tr><td>ロトリガ 2g（先発）</td><td class="n">122.5円/包</td><td class="n">1包</td><td class="n">3,675円</td><td class="n">約1,100円</td></tr>
-<tr><td>パルモディアXR 0.2mg</td><td class="n">51円/錠</td><td class="n">1錠</td><td class="n">1,530円</td><td class="n"><b>約460円</b></td></tr>
-</table>
-<p class="note">EPA 1800mg は1日約82円で、パルモディアより少し高い。ロトリガはTG低下作用が強い一方、<em>EPA＋DHAのSTRENGTH試験は心血管イベントで陰性</em>で、日本でのアウトカム試験もない。調剤料・管理料は含まない。</p>
-</section>
-
-<footer>出典：動脈硬化性疾患予防ガイドライン2022年版 第3章（日本動脈硬化学会）／CTTメタ解析（Lancet 2010・2012）／IMPROVE-IT（NEJM 2015）／FOURIER（NEJM 2017）／SHARP／RACING／REDUCE-IT（NEJM 2019）／JELIS（Lancet 2007）／PROMINENT（NEJM 2022）／各薬剤の電子添文／山口県薬剤師会フォーミュラリ資料（薬価2026.4）　薬価は掲載元により数円の差があり目安　作成 2026-10-21</footer>
+<p class="note"><b>スタチンが適さない場合を除き、スタチンと併用する。</b>初回投与後に脂質を測って継続の可否を判断し、反応がなければ中止。禁忌は本剤成分への過敏症のみ。</p>
 </div>
+<div style="flex:0 0 42%">
+<table>
+<tr><th>費用</th><th class="n"></th></tr>
+<tr><td>薬価</td><td class="n">394,758円/筒</td></tr>
+<tr class="hi"><td><b>3割負担</b></td><td class="n"><b>約118,400円/回</b></td></tr>
+<tr><td>年間（2回）</td><td class="n">約23.7万円</td></tr>
+<tr><td>初年度（3回）</td><td class="n">約35.5万円</td></tr>
+</table>
+<div class="warn" style="margin-top:3mm">
+<b>高額療養費制度の対象になれば、実際の支払いは上限までで止まる。</b><em>年2回という投与間隔のため、投与した月だけ自己負担が跳ね上がる</em>——<b>月をまたがないよう投与日を揃えると負担が抑えられる</b>。
+</div>
+</div>
+</div>
+</section>
+<footer>CKD診療ガイドライン2024／KDIGO／SHARP・4D・AURORA／レクビオ電子添文　2026-10-28</footer>
+</div>
+
 
 <script>
 if(window.matchMedia('(max-width:820px)').matches)
@@ -470,6 +542,52 @@ document.querySelectorAll('.page table').forEach(function(t){
   if((rowHeader && maxLen>60) || (n<=3 && maxLen>85)){ w.className += ' stack'; return; }
   if(n>=4) t.style.minWidth = (n*8.4) + 'em';
 });
+if(window.matchMedia('(max-width:820px)').matches)
+document.querySelectorAll('.page').forEach(function(pg, pi){
+  var secs = [].slice.call(pg.children).filter(function(e){ return e.tagName === 'SECTION'; });
+  if(!secs.length) return;
+  var idx = document.createElement('div'); idx.className = 'pidx';
+  secs.forEach(function(sec, si){
+    var h2 = sec.querySelector(':scope > h2');
+    if(!h2) return;
+    var id = 's' + pi + '-' + si;
+    sec.id = id;
+    var body = document.createElement('div'); body.className = 'sbody';
+    while(h2.nextSibling) body.appendChild(h2.nextSibling);
+    sec.appendChild(body);
+    h2.addEventListener('click', function(){ sec.classList.toggle('closed'); });
+    var a = document.createElement('a');
+    a.href = '#' + id;
+    a.textContent = (h2.textContent || '').split(/[—―─-]/)[0].replace(/\s+$/, '');
+    idx.appendChild(a);
+  });
+  var lead = pg.querySelector(':scope > .lead');
+  var h1 = pg.querySelector(':scope > h1');
+  var ref = lead || h1;
+  if(ref && idx.children.length > 1) ref.parentNode.insertBefore(idx, ref.nextSibling);
+});
+if(window.matchMedia('(max-width:820px)').matches){
+  var pgs = document.querySelectorAll('.page');
+  if(pgs.length > 1){
+    var toc = document.createElement('div'); toc.className = 'toc';
+    pgs.forEach(function(pg, i){
+      var h1 = pg.querySelector(':scope > h1'); if(!h1) return;
+      if(!pg.id) pg.id = 'p' + i;
+      var txt = (h1.textContent || '').trim();
+      var m = txt.match(/^([①-⑳])\s*(.*)$/);
+      var a = document.createElement('a');
+      a.href = '#' + pg.id;
+      a.innerHTML = m ? ('<b>' + m[1] + '</b>' + m[2].split('　—')[0].split(' —')[0])
+                      : txt;
+      toc.appendChild(a);
+    });
+    var nav = document.querySelector('.nav');
+    var wrap = document.createElement('div');
+    wrap.style.cssText = 'padding:0 max(14px,env(safe-area-inset-left,0px))';
+    wrap.appendChild(toc);
+    if(nav) nav.parentNode.insertBefore(wrap, nav.nextSibling);
+  }
+}
 if('serviceWorker' in navigator){
   navigator.serviceWorker.register('sw.js').then(function(reg){ reg.update(); });
   var reloaded=false;
