@@ -38,7 +38,9 @@ footer{font-size:8pt; color:#888; border-top:.3pt solid #ddd; padding-top:1.2mm;
 
 @media screen{
   html{-webkit-text-size-adjust:100%}
-  body{font-size:16px; line-height:1.72; background:#fff; color:#1b1b1b; padding-bottom:40px}
+  body{font-size:16px; line-height:1.72; background:#fff; color:#1b1b1b;
+       width:auto !important; max-width:none !important;
+       margin:0 !important; padding:0 0 40px !important}
   .page{break-after:auto; padding:18px max(16px,env(safe-area-inset-right,0px)) 10px max(16px,env(safe-area-inset-left,0px)); border-bottom:10px solid #eef0f5}
   .page:last-child{border-bottom:0}
   h1{font-size:21px; margin:6px 0 4px; line-height:1.4}
@@ -51,7 +53,7 @@ footer{font-size:8pt; color:#888; border-top:.3pt solid #ddd; padding-top:1.2mm;
   .tw table{min-width:100%}
   table{font-size:14.5px; margin:0; table-layout:auto}
   th,td{padding:7px 9px; word-break:break-word}
-  th{min-width:4.6em}
+  th{min-width:6.2em}
   td.c,td.n{white-space:nowrap}
   th.c,th.n{white-space:normal}
   .warn{padding:11px 13px 11px 14px; border-radius:0 6px 6px 0; margin:0}
@@ -135,7 +137,7 @@ document.querySelectorAll('.page table').forEach(function(t){
   t.parentNode.insertBefore(w,t); w.appendChild(t);
   var r=t.rows[0], n=0;
   if(r){ for(var i=0;i<r.cells.length;i++) n += (r.cells[i].colSpan||1); }
-  if(n>=3) t.style.minWidth = (n*7.6) + 'em';
+  if(n>=3) t.style.minWidth = (n*8.4) + 'em';
 });
 if('serviceWorker' in navigator){
   navigator.serviceWorker.register('sw.js').then(function(reg){ reg.update(); });
