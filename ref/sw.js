@@ -1,4 +1,4 @@
-const CACHE = 'ref-20261028-r2';
+const CACHE = 'ref-20261028-r6';
 const ASSETS = [
   './',
   './index.html',
@@ -35,7 +35,6 @@ self.addEventListener('activate', function(e){
   );
 });
 
-// ドキュメントは network-first（更新を取りこぼさない）、それ以外は cache-first
 self.addEventListener('fetch', function(e){
   var req = e.request;
   if (req.method !== 'GET') return;
