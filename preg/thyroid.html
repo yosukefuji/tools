@@ -8,9 +8,9 @@
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 
-<title>妊娠と甲状腺</title>
+<title>妊娠と甲状腺 診療の整理</title>
 <style>
-@page{size:A4 portrait; margin:8.5mm 10mm;}
+@page{size:A4 portrait; margin:8mm 9.5mm;}
 *{box-sizing:border-box}
 body{font-family:"Yu Gothic","Meiryo",sans-serif; color:#1b1b1b; margin:0; font-size:10.3pt; line-height:1.52;}
 @media print{body{width:auto; padding:0;}}
@@ -19,17 +19,23 @@ body{font-family:"Yu Gothic","Meiryo",sans-serif; color:#1b1b1b; margin:0; font-
 h1{font-size:15pt; margin:0 0 1.5mm;}
 .lead{font-size:9pt; color:#666; margin:0 0 3mm;}
 h2{font-size:11pt; margin:0 0 2.2mm; padding:1.2mm 2.4mm; background:#1D3F8A; color:#fff; letter-spacing:.04em;}
-section{margin-bottom:3.2mm;}
+section{margin-bottom:2.8mm;}
 section:last-of-type{margin-bottom:0;}
 .cols{display:flex; gap:5mm;} .cols>div{flex:1;}
 table{border-collapse:collapse; width:100%; font-size:10pt;}
-th,td{border:.3pt solid #c5c5c5; padding:1.3mm 2mm; text-align:left; vertical-align:top;}
+th,td{border:.3pt solid #c5c5c5; padding:1.15mm 1.9mm; text-align:left; vertical-align:top;}
 th{background:#eef1f7; font-weight:700;}
 .s{display:block; font-size:8.6pt; color:#666; font-weight:400;}
 td.c,th.c{text-align:center; font-variant-numeric:tabular-nums; white-space:nowrap;}
+td.n,th.n{text-align:right; font-variant-numeric:tabular-nums; white-space:nowrap;}
 tr.hi td{background:#eef4ff;}
 ul{margin:0; padding-left:5mm;} li{margin-bottom:1.2mm;}
+.flow{border:.4pt solid #1D3F8A; padding:2mm; font-size:10pt;}
+.flow b{color:#1D3F8A;}
+.step{margin-bottom:1.4mm;}
+.arrow{color:#888; margin:0 1mm;}
 .warn{border-left:3pt solid #C0692A; padding:2mm 0 2mm 3mm; background:#fdf6f0;}
+.ok{border-left:3pt solid #1f7a4d; padding:2mm 0 2mm 3mm; background:#eef6f1;}
 .note{font-size:9pt; color:#555; margin-top:2mm;}
 em{font-style:normal; background:#fff2cc; padding:0 .6mm;}
 .big{font-weight:700;}
@@ -114,10 +120,9 @@ footer{font-size:8pt; color:#888; border-top:.3pt solid #ddd; padding-top:1.2mm;
 <body>
 <div class="nav"><a href="index.html">&#8249;&nbsp;一覧</a><span class="sp"></span><span>妊娠と甲状腺</span></div>
 
-
 <div class="page">
-<h1>① 妊娠と甲状腺機能低下症</h1>
-<p class="lead">目標値・増量のしかた・通院の間隔・産後の見直し</p>
+<h1>① 妊娠と甲状腺 ―― なにが変わり、なぜ治療するのか</h1>
+<p class="lead">妊娠中の数字の読み方、治療の対象、TSHの目標</p>
 
 <section>
 <h2>妊娠中は数字の読み方が変わる</h2>
@@ -128,6 +133,33 @@ footer{font-size:8pt; color:#888; border-top:.3pt solid #ddd; padding-top:1.2mm;
 </table>
 <div class="warn" style="margin-top:3mm">
 <b class="big">診断の線と、治療の目標は別もの</b>　<b>妊娠初期のTSH上限 4.0</b>は<em>治療を始めるかどうか</em>の線（かつての「2.5未満」はATA 2017で緩和）。一方、<b>治療している人の目標は 2.5未満</b>のまま。
+</div>
+</section>
+
+<section>
+<h2>なぜ治療するのか ―― 対象は「顕性」と「上限を超えたTSH」</h2>
+<div class="cols">
+<div>
+<div class="ok">
+<b>初期の胎児は、母体のT4で脳を作る</b>
+<ul>
+  <li><b>胎児の甲状腺は18〜20週まで働かない</b>。それまでの神経発達は<em>母体から渡るT4に完全に依存する</em></li>
+  <li>だから<b>妊娠初期の不足がいちばん不利</b>——妊娠が分かってからでは遅いことがあり、妊娠前からの調整に意味がある</li>
+</ul>
+</div>
+<p class="note"><b>未治療の顕性甲状腺機能低下症で増えるもの</b>：<em>流産・早産・妊娠高血圧腎症・常位胎盤早期剥離・低出生体重</em>、児の神経発達の遅れ。<b>ここは補充する根拠が強い</b>。</p>
+</div>
+<div>
+<div class="warn">
+<b class="big">一方、「念のため補充」は効果が示されていない</b>
+<ul>
+  <li><b>抗体陽性で機能正常</b>な人へのLT4は、流産・早産を減らさない（<b>TABLET</b>、NEJM 2019）</li>
+  <li><b>潜在性</b>に対するスクリーニング＋補充も、児の認知機能を改善しなかった（<b>CATS</b>／Casey, NEJM 2017）</li>
+</ul>
+<div style="margin-top:1.5mm"><b>治療の対象は3つだけ</b>：<b>① 顕性</b>　<b>② TSHが妊娠期の上限（4.0）を超える</b>　<b>③ すでに補充中の人の用量維持</b></div>
+</div>
+<p class="note"><b>甲状腺機能亢進症の側</b>：未治療の中毒症では<em>流産・早産・妊娠高血圧・胎児発育不全・甲状腺クリーゼ</em>が増える。ただし<b>下げすぎると胎児が機能低下になる</b>——③で扱う。</p>
+</div>
 </div>
 </section>
 
@@ -152,13 +184,12 @@ footer{font-size:8pt; color:#888; border-top:.3pt solid #ddd; padding-top:1.2mm;
 </div>
 </div>
 </section>
-
-<footer>ATA 2017 Guidelines（妊娠・産後の甲状腺疾患）</footer>
+<footer>ATA 2017 Guidelines（妊娠・産後の甲状腺疾患）／Dhillon-Smith RK et al. NEJM 2019（TABLET）／Casey BM et al. NEJM 2017　2026-10-28</footer>
 </div>
 
 <div class="page">
-<h1>② 妊娠と甲状腺機能低下症（続き）</h1>
-<p class="lead">増量のしかた・通院の間隔・不妊治療で始まった補充の畳み方</p>
+<h1>② 機能低下症 ―― なにをするか</h1>
+<p class="lead">増量のしかた、通院の間隔、抗体陽性の扱い、不妊治療で始まった補充の畳み方</p>
 
 <section>
 <h2>妊娠が分かったら —— 増量の必要度は人によって違う</h2>
@@ -224,12 +255,11 @@ footer{font-size:8pt; color:#888; border-top:.3pt solid #ddd; padding-top:1.2mm;
 <b>日本ではヨード補充を勧めない。</b>欧米は妊娠中の補充（150μg／日）を推奨するが、日本はヨード<b>過剰傾向</b>で、<em>昆布やヨード卵の過剰摂取で胎児の機能低下を起こすリスク</em>のほうが現実的。<b>サプリは不要。</b>
 </div>
 </section>
-
-<footer>ATA 2017 Guidelines（妊娠・産後の甲状腺疾患）／Dhillon-Smith RK et al. NEJM 2019（TABLET）</footer>
+<footer>ATA 2017 Guidelines（妊娠・産後の甲状腺疾患）／Dhillon-Smith RK et al. NEJM 2019（TABLET）　2026-10-28</footer>
 </div>
 
 <div class="page">
-<h1>③ 妊娠とバセドウ病・産後甲状腺炎</h1>
+<h1>③ バセドウ病・産後甲状腺炎</h1>
 <p class="lead">まず鑑別、次に薬の使い分け、そしてTRAbは胎児のために測る</p>
 
 <section>
@@ -306,8 +336,7 @@ footer{font-size:8pt; color:#888; border-top:.3pt solid #ddd; padding-top:1.2mm;
 </div>
 
 </section>
-
-<footer>ATA 2017 Guidelines（妊娠・産後の甲状腺疾患）／日本甲状腺学会</footer>
+<footer>ATA 2017 Guidelines（妊娠・産後の甲状腺疾患）／日本甲状腺学会　2026-10-28</footer>
 </div>
 
 
