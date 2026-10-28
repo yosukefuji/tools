@@ -10,7 +10,7 @@
 
 <title>甲状腺 診療の整理</title>
 <style>
-@page{size:A4 portrait; margin:8.5mm 10mm;}
+@page{size:A4 portrait; margin:8mm 9.5mm;}
 *{box-sizing:border-box}
 body{font-family:"Yu Gothic","Meiryo",sans-serif; color:#1b1b1b; margin:0; font-size:10.3pt; line-height:1.52;}
 @media print{body{width:auto; padding:0;}}
@@ -19,17 +19,23 @@ body{font-family:"Yu Gothic","Meiryo",sans-serif; color:#1b1b1b; margin:0; font-
 h1{font-size:15pt; margin:0 0 1.5mm;}
 .lead{font-size:9pt; color:#666; margin:0 0 3mm;}
 h2{font-size:11pt; margin:0 0 2.2mm; padding:1.2mm 2.4mm; background:#1D3F8A; color:#fff; letter-spacing:.04em;}
-section{margin-bottom:3.2mm;}
+section{margin-bottom:2.8mm;}
 section:last-of-type{margin-bottom:0;}
 .cols{display:flex; gap:5mm;} .cols>div{flex:1;}
 table{border-collapse:collapse; width:100%; font-size:10pt;}
-th,td{border:.3pt solid #c5c5c5; padding:1.3mm 2mm; text-align:left; vertical-align:top;}
+th,td{border:.3pt solid #c5c5c5; padding:1.15mm 1.9mm; text-align:left; vertical-align:top;}
 th{background:#eef1f7; font-weight:700;}
 .s{display:block; font-size:8.6pt; color:#666; font-weight:400;}
 td.c,th.c{text-align:center; font-variant-numeric:tabular-nums; white-space:nowrap;}
+td.n,th.n{text-align:right; font-variant-numeric:tabular-nums; white-space:nowrap;}
 tr.hi td{background:#eef4ff;}
 ul{margin:0; padding-left:5mm;} li{margin-bottom:1.2mm;}
+.flow{border:.4pt solid #1D3F8A; padding:2mm; font-size:10pt;}
+.flow b{color:#1D3F8A;}
+.step{margin-bottom:1.4mm;}
+.arrow{color:#888; margin:0 1mm;}
 .warn{border-left:3pt solid #C0692A; padding:2mm 0 2mm 3mm; background:#fdf6f0;}
+.ok{border-left:3pt solid #1f7a4d; padding:2mm 0 2mm 3mm; background:#eef6f1;}
 .note{font-size:9pt; color:#555; margin-top:2mm;}
 em{font-style:normal; background:#fff2cc; padding:0 .6mm;}
 .big{font-weight:700;}
@@ -114,9 +120,76 @@ footer{font-size:8pt; color:#888; border-top:.3pt solid #ddd; padding-top:1.2mm;
 <body>
 <div class="nav"><a href="index.html">&#8249;&nbsp;一覧</a><span class="sp"></span><span>甲状腺</span></div>
 
+<div class="page">
+<h1>① 甲状腺の検査をどう読むか</h1>
+<p class="lead">TSHとFT4の組み合わせ、中毒症の鑑別、抗体とエコーの使いどころ</p>
+
+<section>
+<h2>TSHとFT4の組み合わせで読む</h2>
+<table>
+<tr><th class="c" style="width:11%">TSH</th><th class="c" style="width:11%">FT4</th><th style="width:30%">なにを考えるか</th><th>次の一手</th></tr>
+<tr class="hi"><td class="c"><b>高</b></td><td class="c"><b>低</b></td><td><b>原発性甲状腺機能低下症</b><span class="s">慢性甲状腺炎が最多</span></td><td>抗TPO抗体。<b>レボチロキシン補充</b></td></tr>
+<tr><td class="c"><b>高</b></td><td class="c">正常</td><td><b>潜在性甲状腺機能低下症</b></td><td><em>まず2〜3か月後に再検</em>。治療の判断は④へ</td></tr>
+<tr class="hi"><td class="c"><b>低</b></td><td class="c"><b>高</b></td><td><b>甲状腺中毒症</b></td><td>原因で治療が別。下の鑑別へ</td></tr>
+<tr><td class="c"><b>低</b></td><td class="c">正常</td><td><b>潜在性甲状腺機能亢進症</b></td><td><em>TSH 0.1未満・高齢・心房細動・骨粗鬆症があれば治療を検討</em>。0.1〜0.4なら再検して経過観察</td></tr>
+<tr><td class="c"><b>低</b></td><td class="c"><b>低</b></td><td><b>中枢性（下垂体）</b>／<b>非甲状腺疾患</b>／回復期</td><td>急性期なら測り直す。中枢性なら<em>副腎皮質機能を先に評価</em>（補充の順序を誤ると副腎不全）</td></tr>
+</table>
+<p class="note"><b>スクリーニングはTSH単独でよい</b>——FT4がわずかに動くとTSHは対数的に大きく動くため、<em>異常はTSHが先に外れる</em>。<b>FT4を足すのはTSHが異常だったとき</b>。<b>軽度異常を一度で決めない</b>（無痛性甲状腺炎や一過性の変動が多く、<em>2〜3か月後の再検で正常化する例が相当ある</em>）。<br><b>TSH正常なのにFT4だけ異常なら、まず測定の問題を疑う</b>——ビオチンサプリ・異好性抗体・薬剤。再検してから動く。</p>
+</section>
+
+<section>
+<h2>中毒症なら、原因で治療が別もの</h2>
+<div class="cols">
+<div>
+<table>
+<tr><th style="width:26%">原因</th><th>手がかり</th></tr>
+<tr class="hi"><td><b>バセドウ病</b></td><td><b>TRAb陽性</b>、びまん性腫大、血流増加、眼症状。<em>持続する</em>ので治療が必要</td></tr>
+<tr><td><b>無痛性甲状腺炎</b></td><td>TRAb陰性、痛みなし、<b>数か月で自然に終わる</b>。橋本病・産後・ヨード負荷が背景。<em>抗甲状腺薬は無効</em></td></tr>
+<tr><td><b>亜急性甲状腺炎</b></td><td><b>疼痛＋CRP・赤沈上昇</b>、先行する感冒。圧痛のある硬い腫れ。<b>NSAID〜ステロイド</b></td></tr>
+</table>
+</div>
+<div style="flex:0 0 36%">
+<div class="warn">
+<b>見分けがつかないとき</b>
+<ul>
+  <li><b>TRAb</b>がいちばん効く（バセドウなら陽性）</li>
+  <li>迷えば<b>放射性ヨード摂取率</b>（バセドウは高、破壊性は低）。<em>抗甲状腺薬を当てて様子を見ない</em>——破壊性なら無効</li>
+  <li><b>機能性結節（Plummer）</b>は単結節＋TSH低値。<b>シンチで集積</b></li>
+</ul>
+</div>
+</div>
+</div>
+</section>
+
+<section>
+<h2>抗体とエコーは、いつ測るか</h2>
+<div class="cols">
+<div>
+<table>
+<tr><th style="width:26%">抗TPO抗体<br>抗Tg抗体</th><td><b>慢性甲状腺炎の証拠</b>。<em>診断時に1回でよく、以後のルーチン再検は不要</em><span class="s">健常女性でも10%前後が陽性。陽性だけでは治療の対象にならない</span></td></tr>
+<tr class="hi"><th>TRAb</th><td><b>バセドウ病の診断</b>と、<b>妊娠中は胎児のための評価</b>（妊娠メモ③へ）</td></tr>
+<tr><th>超音波</th><td>結節を触れる／偶然見つかった／急速な腫大・疼痛のとき。<b>機能異常のみを理由にした定期エコーは不要</b><span class="s">サイログロブリンは結節の良悪性には使えない（術後の再発モニタリング用）</span></td></tr>
+</table>
+</div>
+<div style="flex:0 0 36%">
+<div class="ok">
+<b>測る理由がある場面</b>
+<ul>
+  <li>甲状腺腫、結節／<b>心房細動</b>、原因不明の洞性徐脈</li>
+  <li>脂質異常、体重変化、便通の変化、高CK、うつ・認知機能低下</li>
+  <li><b>不妊・不育・妊娠</b></li>
+  <li><b>アミオダロン・リチウム・ICIの導入前と導入中</b></li>
+</ul>
+</div>
+</div>
+</div>
+<p class="note"><b>測らないほうがよい場面</b>　<em>急性疾患の入院中・術直後</em>（非甲状腺疾患で低T3・低TSHになり読めない）。ステロイド・ドパミン・ヨード造影の直後も同様。<b>妊娠中は基準値が変わる</b>。</p>
+</section>
+<footer>日本甲状腺学会 甲状腺疾患診断ガイドライン　2026-10-28</footer>
+</div>
 
 <div class="page">
-<h1>① 甲状腺結節のフォロー</h1>
+<h1>② 甲状腺結節のフォロー</h1>
 <p class="lead">どこまで調べ、どの間隔で追い、いつ終わるか</p>
 
 <section>
@@ -183,12 +256,11 @@ footer{font-size:8pt; color:#888; border-top:.3pt solid #ddd; padding-top:1.2mm;
 <b>声がかすれる／しこりが急に大きくなる／首のリンパ節が腫れる／飲み込みにくい</b> ——このときは予約を待たずに受診を。
 </div>
 </section>
-
-<footer>日本甲状腺学会 甲状腺結節取扱い診療ガイドライン／ATA 2015／ACR TI-RADS 2017／Durante C et al. JAMA 2015</footer>
+<footer>日本甲状腺学会 甲状腺結節取扱い診療ガイドライン／ATA 2015／ACR TI-RADS 2017／Durante C et al. JAMA 2015　2026-10-28</footer>
 </div>
 
 <div class="page">
-<h1>② 慢性甲状腺炎（橋本病）</h1>
+<h1>③ 慢性甲状腺炎（橋本病）</h1>
 <p class="lead">診断の要件と、機能正常のときのフォロー</p>
 
 <section>
@@ -243,12 +315,11 @@ footer{font-size:8pt; color:#888; border-top:.3pt solid #ddd; padding-top:1.2mm;
 <tr><td><b>免疫チェックポイント阻害薬</b></td><td>抗体陽性者はリスクが高い。<b>導入前に抗体の有無を知っておく</b>。ほかアミオダロン、リチウム</td></tr>
 </table>
 </section>
-
-<footer>日本甲状腺学会 甲状腺疾患診断ガイドライン／Vanderpump MPJ et al.（Whickham研究）</footer>
+<footer>日本甲状腺学会 甲状腺疾患診断ガイドライン／Vanderpump MPJ et al.（Whickham研究）　2026-10-28</footer>
 </div>
 
 <div class="page">
-<h1>③ 潜在性甲状腺機能低下症</h1>
+<h1>④ 潜在性甲状腺機能低下症</h1>
 <p class="lead">TSH高値・FT4正常。治療するかどうかをどう決めるか</p>
 
 <section>
@@ -309,8 +380,7 @@ footer{font-size:8pt; color:#888; border-top:.3pt solid #ddd; padding-top:1.2mm;
 </div>
 </div>
 </section>
-
-<footer>Stott DJ et al. NEJM 2017（TRUST）／Mooijaart SP et al. JAMA 2019（IEMO 80+）／Bekkering GE et al. BMJ 2019</footer>
+<footer>Stott DJ et al. NEJM 2017（TRUST）／Mooijaart SP et al. JAMA 2019（IEMO 80+）／Bekkering GE et al. BMJ 2019　2026-10-28</footer>
 </div>
 
 

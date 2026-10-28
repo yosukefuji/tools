@@ -10,7 +10,7 @@
 
 <title>脳梗塞 保存的加療の整理</title>
 <style>
-@page{size:A4 portrait; margin:8.5mm 10mm;}
+@page{size:A4 portrait; margin:8mm 9.5mm;}
 *{box-sizing:border-box}
 body{font-family:"Yu Gothic","Meiryo",sans-serif; color:#1b1b1b; margin:0; font-size:10.3pt; line-height:1.52;}
 @media print{body{width:auto; padding:0;}}
@@ -19,17 +19,23 @@ body{font-family:"Yu Gothic","Meiryo",sans-serif; color:#1b1b1b; margin:0; font-
 h1{font-size:15pt; margin:0 0 1.5mm;}
 .lead{font-size:9pt; color:#666; margin:0 0 3mm;}
 h2{font-size:11pt; margin:0 0 2.2mm; padding:1.2mm 2.4mm; background:#1D3F8A; color:#fff; letter-spacing:.04em;}
-section{margin-bottom:3.2mm;}
+section{margin-bottom:2.8mm;}
 section:last-of-type{margin-bottom:0;}
 .cols{display:flex; gap:5mm;} .cols>div{flex:1;}
 table{border-collapse:collapse; width:100%; font-size:10pt;}
-th,td{border:.3pt solid #c5c5c5; padding:1.3mm 2mm; text-align:left; vertical-align:top;}
+th,td{border:.3pt solid #c5c5c5; padding:1.15mm 1.9mm; text-align:left; vertical-align:top;}
 th{background:#eef1f7; font-weight:700;}
 .s{display:block; font-size:8.6pt; color:#666; font-weight:400;}
 td.c,th.c{text-align:center; font-variant-numeric:tabular-nums; white-space:nowrap;}
+td.n,th.n{text-align:right; font-variant-numeric:tabular-nums; white-space:nowrap;}
 tr.hi td{background:#eef4ff;}
 ul{margin:0; padding-left:5mm;} li{margin-bottom:1.2mm;}
+.flow{border:.4pt solid #1D3F8A; padding:2mm; font-size:10pt;}
+.flow b{color:#1D3F8A;}
+.step{margin-bottom:1.4mm;}
+.arrow{color:#888; margin:0 1mm;}
 .warn{border-left:3pt solid #C0692A; padding:2mm 0 2mm 3mm; background:#fdf6f0;}
+.ok{border-left:3pt solid #1f7a4d; padding:2mm 0 2mm 3mm; background:#eef6f1;}
 .note{font-size:9pt; color:#555; margin-top:2mm;}
 em{font-style:normal; background:#fff2cc; padding:0 .6mm;}
 .big{font-weight:700;}
@@ -114,13 +120,72 @@ footer{font-size:8pt; color:#888; border-top:.3pt solid #ddd; padding-top:1.2mm;
 <body>
 <div class="nav"><a href="index.html">&#8249;&nbsp;一覧</a><span class="sp"></span><span>脳梗塞</span></div>
 
-
 <div class="page">
-<h1>① 急性期　病型と抗血栓療法</h1>
-<p class="lead">血栓溶解・血栓回収を行わない場合の管理</p>
+<h1>① 脳梗塞とは ―― なにを目指す治療か</h1>
+<p class="lead">ペナンブラ、保存的加療の4本柱、時間軸、病型で変わること</p>
 
 <section>
-<h2>まず病型を決める —— 治療が病型で変わる</h2>
+<h2>なにが起きているのか</h2>
+<div class="cols">
+<div>
+<table>
+<tr><th style="width:24%">脳梗塞</th><td>脳動脈が詰まって血流が途絶え、<b>脳組織が不可逆的に壊れた</b>状態</td></tr>
+<tr class="hi"><th>TIA</th><td>症状が<b>24時間以内に消え、画像上の梗塞がない</b>もの。<em>梗塞の予告であって軽い脳梗塞ではない</em>——<b>発症48時間以内の再発が最も多い</b>ので、即日精査・即日抗血小板</td></tr>
+</table>
+<div class="warn" style="margin-top:3mm">
+<b class="big">救えるのは「ペナンブラ」だけ</b><br>
+詰まった血管の中心（<b>コア</b>）は数分で死ぬ。その周囲は血流が落ちて<em>機能は止まっているが、まだ生きている</em>——これが<b>ペナンブラ</b>。側副血行で保たれている間だけ救済できるが、<b>時間とともにコアに取り込まれていく</b>。<br>
+<em>急性期の管理はすべて「ペナンブラを死なせない」ための操作</em>——だから血圧を下げず、脱水を作らない。
+</div>
+</div>
+<div style="flex:0 0 40%">
+<div class="ok">
+<b>溶かさない・取らない症例で、やっていること</b>
+<ul>
+  <li><b>守る</b>　ペナンブラの灌流を保つ（降圧しない、補液、血糖・体温・酸素）</li>
+  <li><b>止める</b>　血栓の進展と再発を止める（抗血栓療法）</li>
+  <li><b>防ぐ</b>　二次的な悪化を防ぐ（脳浮腫、誤嚥性肺炎、不動）</li>
+  <li><b>備える</b>　退院後の再発予防を急性期から始める</li>
+</ul>
+</div>
+<p class="note">「保存的加療」は<b>何もしないことではなく、この4つを同時に回すこと</b>。悪くなるときは、ほぼ<em>脳浮腫・進行性梗塞・誤嚥性肺炎</em>のどれか。</p>
+</div>
+</div>
+</section>
+
+<section>
+<h2>時間軸 ―― いつ、なにをするか</h2>
+<div class="flow">
+<div class="step"><b>〜4.5時間</b> rt-PA　／　<b>〜24時間</b> 血栓回収（大血管閉塞で適応があれば）<span class="arrow">▶</span><em>以下は、これらを行わない／行えない場合</em></div>
+<div class="step"><b>〜24時間</b>　エダラボン開始（使うなら）。<b>rt-PA後は24時間、抗血栓薬を入れない</b></div>
+<div class="step"><b>〜48時間</b>　抗血小板薬の開始（非心原性）。アルガトロバン（ラクナを除く）。<b>リハは24〜48時間以内に開始</b></div>
+<div class="step"><b>48〜72時間</b>　心原性では<b>軽症〜中等症はDOACを早期開始</b>。降圧をここから徐々に始める</div>
+<div class="step"><b>3〜5日</b>　<b>脳浮腫のピーク</b>。悪化するならこの時期</div>
+<div class="step"><b>7日前後〜2週</b>　<b>点滴薬のやめどき</b>。嚥下の再評価、再発予防薬の確定、転院・自宅調整</div>
+</div>
+<p class="note">発症から<b>48時間以内に悪化する例が一定数ある</b>のが脳梗塞の特徴。<em>「軽症だから大丈夫」と言い切らず、48〜72時間は進行を見張る</em>——特に次ページのBADと分水嶺梗塞。</p>
+</section>
+
+<section>
+<h2>なぜ病型を決めるのか ―― 病型ごとに治療が別もの</h2>
+<table>
+<tr><th style="width:17%">病型</th><th style="width:30%">機序</th><th>治療が変わるところ</th></tr>
+<tr><td><b>ラクナ</b></td><td>穿通枝の血管自体の変化（リポヒアリノーシス）</td><td>抗血小板単剤。<em>アルガトロバンは適応外</em>。血圧管理が本体</td></tr>
+<tr class="hi"><td><b>アテローム血栓性</b></td><td>主幹動脈の狭窄・プラークからの血栓／A-to-A塞栓</td><td><b>軽症ならDAPT 21日間</b>。狭窄の評価（CEA/CAS）、<b>スタチンを強く</b></td></tr>
+<tr><td><b>心原性</b></td><td>心内（主にAf）の血栓が飛ぶ</td><td><b>DOAC</b>。<em>抗血小板薬ではない</em>。梗塞が大きければ開始を待つ</td></tr>
+<tr><td><b>分水嶺（低灌流）</b></td><td>近位の高度狭窄＋灌流圧の低下</td><td><b>降圧すると広がる。むしろ補液</b>。血行再建の検討</td></tr>
+</table>
+<p class="note"><em>病型が決まらないうちは、少なくとも「降圧してよいか」と「抗凝固か抗血小板か」が決まらない</em>。だから画像と心電図（Af検索）が先に来る。</p>
+</section>
+<footer>脳卒中治療ガイドライン2021［2023年改訂］（日本脳卒中学会）　2026-10-28</footer>
+</div>
+
+<div class="page">
+<h1>② 病型を決める、抗血栓療法を決める</h1>
+<p class="lead">画像からの病型診断と、見落とすと痛い2つ</p>
+
+<section>
+<h2>画像から病型を決める</h2>
 <table>
 <tr><th style="width:54%">画像の所見</th><th>病型</th></tr>
 <tr><td>穿通枝領域に単発、15mm未満、皮質症状なし</td><td>ラクナ</td></tr>
@@ -165,12 +230,11 @@ footer{font-size:8pt; color:#888; border-top:.3pt solid #ddd; padding-top:1.2mm;
 </table>
 <p class="note"><b>抗凝固薬と抗血小板薬の併用は原則しない</b>（出血が増えるだけ）。<b>rt-PA後24時間は抗血栓薬を入れない。</b></p>
 </section>
-
-<footer>脳卒中治療ガイドライン2021［2023改訂］／CHANCE・POINT／ELAN・OPTIMAS</footer>
+<footer>脳卒中治療ガイドライン2021［2023年改訂］（日本脳卒中学会）／CHANCE・POINT／ELAN・OPTIMAS　2026-10-28</footer>
 </div>
 
 <div class="page">
-<h1>② 急性期　全身管理と薬のやめどき</h1>
+<h1>③ 全身管理と、薬のやめどき</h1>
 <p class="lead">ここが保存的加療の本体</p>
 
 <section>
@@ -230,12 +294,11 @@ footer{font-size:8pt; color:#888; border-top:.3pt solid #ddd; padding-top:1.2mm;
 </div>
 <p class="note"><b>その他</b>：リハは24〜48時間以内に開始（超早期の過度な離床は逆効果＝AVERT）。脳浮腫にはグリセオール、<b>ステロイドは無効</b>（悪性中大脳動脈梗塞は外減圧）。<b>やらないこと</b>＝抗てんかん薬の予防投与、尿道カテーテルの安易な留置。</p>
 </section>
-
-<footer>脳卒中治療ガイドライン2021［2023改訂］／エダラボン・アルガトロバンの用法は各添付文書（PMDA）</footer>
+<footer>脳卒中治療ガイドライン2021［2023年改訂］（日本脳卒中学会）／エダラボン・アルガトロバンの用法は各電子添文（PMDA）　2026-10-28</footer>
 </div>
 
 <div class="page">
-<h1>③ NIHSS の読み方</h1>
+<h1>④ NIHSS の読み方</h1>
 <p class="lead">自分でつけるより、紹介状やサマリーに書かれた点数を読む場面のほうが多い</p>
 
 <section>
@@ -319,12 +382,11 @@ footer{font-size:8pt; color:#888; border-top:.3pt solid #ddd; padding-top:1.2mm;
 </div>
 </div>
 </section>
-
-<footer>NIHSS日本語版／脳卒中治療ガイドライン2021［2023改訂］／CHANCE・POINT・THALES</footer>
+<footer>NIHSS日本語版／脳卒中治療ガイドライン2021［2023年改訂］（日本脳卒中学会）／CHANCE・POINT・THALES　2026-10-28</footer>
 </div>
 
 <div class="page">
-<h1>④ 退院後のフォロー</h1>
+<h1>⑤ 退院後のフォロー ―― どこまで下げるか</h1>
 <p class="lead">再発予防の目標値と、クロピドグレルを使うときの注意</p>
 
 <section>
@@ -373,10 +435,7 @@ footer{font-size:8pt; color:#888; border-top:.3pt solid #ddd; padding-top:1.2mm;
 <tr class="hi"><th>心電図</th><td><b>原因不明例はAf検索を継続</b>（Afが見つかればDOACの適応が立つ）</td></tr>
 </table>
 </section>
-
-
-
-<footer>動脈硬化性疾患予防ガイドライン2022／SPS3・SPARCL・TST・J-STARS／PROactive・SUSTAIN-6・REWIND</footer>
+<footer>動脈硬化性疾患予防ガイドライン2022／SPS3・SPARCL・TST／PROactive・SUSTAIN-6・REWIND　2026-10-28</footer>
 </div>
 
 

@@ -8,33 +8,38 @@
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 
-<title>高尿酸血症・痛風の整理</title>
+<title>高尿酸血症・痛風 診療の整理</title>
 <style>
-@page{size:A4 portrait; margin:8mm;}
+@page{size:A4 portrait; margin:8mm 9.5mm;}
 *{box-sizing:border-box}
-body{font-family:"Yu Gothic","Meiryo",sans-serif; color:#1b1b1b; margin:0; font-size:9.4pt; line-height:1.34;}
+body{font-family:"Yu Gothic","Meiryo",sans-serif; color:#1b1b1b; margin:0; font-size:10.3pt; line-height:1.52;}
 @media print{body{width:auto; padding:0;}}
-.page{break-after:page;} .page:last-child{break-after:auto;}
-h1{font-size:15pt; margin:0 0 1mm;}
-.lead{font-size:8.8pt; color:#555; margin:0 0 2mm;}
-h2{font-size:10.4pt; margin:0 0 1.3mm; padding:1mm 2mm; background:#1D3F8A; color:#fff; letter-spacing:.04em;}
-section{margin-bottom:1.6mm;}
-.cols{display:flex; gap:3.5mm;} .cols>div{flex:1;}
-table{border-collapse:collapse; width:100%; font-size:9pt;}
-th,td{border:.3pt solid #b9b9b9; padding:.55mm 1.4mm; text-align:left; vertical-align:top;}
+.page{break-after:page;}
+.page:last-child{break-after:auto;}
+h1{font-size:15pt; margin:0 0 1.5mm;}
+.lead{font-size:9pt; color:#666; margin:0 0 3mm;}
+h2{font-size:11pt; margin:0 0 2.2mm; padding:1.2mm 2.4mm; background:#1D3F8A; color:#fff; letter-spacing:.04em;}
+section{margin-bottom:2.8mm;}
+section:last-of-type{margin-bottom:0;}
+.cols{display:flex; gap:5mm;} .cols>div{flex:1;}
+table{border-collapse:collapse; width:100%; font-size:10pt;}
+th,td{border:.3pt solid #c5c5c5; padding:1.15mm 1.9mm; text-align:left; vertical-align:top;}
 th{background:#eef1f7; font-weight:700;}
+.s{display:block; font-size:8.6pt; color:#666; font-weight:400;}
 td.c,th.c{text-align:center; font-variant-numeric:tabular-nums; white-space:nowrap;}
 td.n,th.n{text-align:right; font-variant-numeric:tabular-nums; white-space:nowrap;}
-ul{margin:0; padding-left:4mm;} li{margin-bottom:.5mm;}
-.flow{border:.4pt solid #1D3F8A; padding:1.8mm; font-size:9.8pt;}
+tr.hi td{background:#eef4ff;}
+ul{margin:0; padding-left:5mm;} li{margin-bottom:1.2mm;}
+.flow{border:.4pt solid #1D3F8A; padding:2mm; font-size:10pt;}
 .flow b{color:#1D3F8A;}
-.step{margin-bottom:1mm;}
+.step{margin-bottom:1.4mm;}
 .arrow{color:#888; margin:0 1mm;}
-.warn{border-left:2.5pt solid #C0692A; padding:1.2mm 0 1.2mm 2.2mm; background:#fdf6f0;}
-.ok{border-left:2.5pt solid #1f7a4d; padding:1.2mm 0 1.2mm 2.2mm; background:#eef6f1;}
-.note{font-size:8pt; color:#555; margin-top:1mm;}
-em{font-style:normal; background:#fff2cc; padding:0 .5mm;}
-footer{font-size:7.8pt; color:#777; border-top:.3pt solid #ccc; padding-top:1.1mm; margin-top:1.8mm;}
+.warn{border-left:3pt solid #C0692A; padding:2mm 0 2mm 3mm; background:#fdf6f0;}
+.ok{border-left:3pt solid #1f7a4d; padding:2mm 0 2mm 3mm; background:#eef6f1;}
+.note{font-size:9pt; color:#555; margin-top:2mm;}
+em{font-style:normal; background:#fff2cc; padding:0 .6mm;}
+.big{font-weight:700;}
+footer{font-size:8pt; color:#888; border-top:.3pt solid #ddd; padding-top:1.2mm; margin-top:2mm;}
 :root{--brand:#1D3F8A}
 
 @media screen and (max-width:820px){
@@ -115,10 +120,90 @@ footer{font-size:7.8pt; color:#777; border-top:.3pt solid #ccc; padding-top:1.1m
 <body>
 <div class="nav"><a href="index.html">&#8249;&nbsp;一覧</a><span class="sp"></span><span>高尿酸血症・痛風</span></div>
 
+<div class="page">
+<h1>① 高尿酸血症・痛風とは</h1>
+<p class="lead">7.0 の意味、発作の成り立ち、二次性と病型</p>
+
+<section>
+<h2>定義 ―― 7.0 は統計ではなく、溶解度の数字</h2>
+<div class="cols">
+<div>
+<div class="flow">
+<div class="step"><b>高尿酸血症</b>　血清尿酸値 <b>7.0 mg/dL超</b></div>
+<div class="step">性別・年齢を問わず、この一つの値</div>
+</div>
+<p class="note">37℃での尿酸塩の溶解度が <b>およそ 6.4〜7.0 mg/dL</b>。これを超えると体液中で結晶化しうる。<em>7.0 は「平均±2SD」のような統計値ではなく、物理化学的な飽和濃度に由来する</em>——だから男女で分けない。</p>
+</div>
+<div>
+<div class="ok">
+<b>痛風発作が起こる仕組み</b>
+<ul>
+  <li>飽和を超えた尿酸が <b>尿酸一ナトリウム（MSU）結晶</b>として関節内・滑膜に沈着して蓄積する</li>
+  <li>結晶が剥がれ落ち、好中球に貪食される</li>
+  <li><b>自然炎症（インフラマソーム → IL-1β）</b>が起動し、急性単関節炎になる</li>
+</ul>
+</div>
+<p class="note"><b>結晶は「前から溜まっていたもの」</b>。だから<em>尿酸値が急に動いたとき（上がっても下がっても）に発作が起きる</em>——薬を始めた直後に発作が出るのは、これが理由。</p>
+</div>
+</div>
+</section>
+
+<section>
+<h2>発作の見分け方と、まちがえやすいもの</h2>
+<div class="cols">
+<div>
+<table>
+<tr><th style="width:30%">典型像</th><th>内容</th></tr>
+<tr class="hi"><td><b>部位</b></td><td><b>単関節。第1中足趾節（母趾）が最多</b>。次に足関節・足背・膝</td></tr>
+<tr><td><b>立ち上がり</b></td><td><b>12〜24時間でピーク</b>に達する。夜間・早朝に始まることが多い</td></tr>
+<tr><td><b>経過</b></td><td>治療しなくても <b>1〜2週で自然に消える</b>。間欠期は無症状だが、放置すると発作が増え多関節化する</td></tr>
+</table>
+</div>
+<div>
+<div class="warn">
+<b>発作中の尿酸値は、下がることがある</b>
+<ul>
+  <li>急性炎症時は尿酸が関節に移動し、尿中排泄も増えるため、<em>発作のまっただ中に測ると正常値のことがある</em></li>
+  <li><b>正常値をもって痛風を否定しない。</b>落ち着いてから測り直す</li>
+</ul>
+</div>
+<p class="note"><b>鑑別</b>　化膿性関節炎（熱感・発熱が強い、関節穿刺で決める。迷ったら必ず穿刺）／<b>偽痛風（CPPD）</b>＝ピロリン酸カルシウム。<em>膝・手関節に多く、高齢者。X線で関節軟骨の線状石灰化</em>／蜂窩炎／外傷。</p>
+</div>
+</div>
+</section>
+
+
+<section>
+<h2>二次性を考える場面と、病型</h2>
+<div class="cols">
+<div>
+<div class="warn">
+<b>二次性・精査を考えるとき</b>
+<ul>
+  <li><b>腎機能低下</b>（最も多い。排泄低下）</li>
+  <li><b>血液疾患・悪性腫瘍、化学療法後</b>（産生過剰。<em>腫瘍崩壊症候群は別物として緊急対応</em>）</li>
+  <li>乾癬、溶血、横紋筋融解</li>
+  <li><em>若年発症・家族歴が濃い</em> → 遺伝性（HPRT欠損など）</li>
+</ul>
+</div>
+</div>
+<div>
+<table>
+<tr><th style="width:34%">病型</th><th>割合・意味</th></tr>
+<tr class="hi"><td><b>尿酸排泄低下型</b></td><td><b>日本人で最多（約6割）</b></td></tr>
+<tr><td>混合型</td><td>次に多い</td></tr>
+<tr><td>尿酸産生過剰型</td><td>少数。二次性を疑う。<span class="s">ほかに腎外（腸管）排泄低下型</span></td></tr>
+</table>
+<p class="note"><em>薬の選択を左右するのは病型よりも「尿路結石の既往」と「腎機能」</em>。病型分類を省いても治療は組める。</p>
+</div>
+</div>
+</section>
+<footer>高尿酸血症・痛風の治療ガイドライン第3版［2022年追補版］（日本痛風・尿酸核酸学会）　2026-10-28</footer>
+</div>
 
 <div class="page">
-<h1>① 尿酸を下げる目的と、治療の順序</h1>
-<p class="lead">高尿酸血症・痛風の治療ガイドライン第3版［2022年追補版］（日本痛風・尿酸核酸学会）</p>
+<h1>② なぜ下げるのか、いつ始めるのか</h1>
+<p class="lead">目的がはっきりしているもの／していないもの、開始基準、目標値</p>
 
 <section>
 <h2>何のために下げるのか</h2>
@@ -148,7 +233,7 @@ footer{font-size:7.8pt; color:#777; border-top:.3pt solid #ccc; padding-top:1.1m
 </section>
 
 <section>
-<h2>治療を始める順序</h2>
+<h2>いつ始めるか、どこまで下げるか</h2>
 <div class="flow">
 <div class="step"><b>高尿酸血症の定義</b>　血清尿酸値 <b>7.0 mg/dL超</b>（性・年齢を問わない）</div>
 <div class="step"><b>1.</b> 痛風関節炎の既往、または痛風結節がある　<span class="arrow">▶</span>　<b>薬物療法。目標 6.0 mg/dL以下</b></div>
@@ -179,51 +264,80 @@ footer{font-size:7.8pt; color:#777; border-top:.3pt solid #ccc; padding-top:1.1m
 </div>
 </div>
 </section>
+<footer>高尿酸血症・痛風の治療ガイドライン第3版［2022年追補版］（日本痛風・尿酸核酸学会）／ALL-HEART（Lancet 2022）／CKD-FIX／PERL（NEJM 2020）　2026-10-28</footer>
 </div>
 
 <div class="page">
-<h1>② 生活指導と薬</h1>
-<p class="lead">何がどれだけ効くのか。根拠の強いものと、そうでないもの</p>
+<h1>③ なにをするか（1）</h1>
+<p class="lead">まず薬を見る。それから生活指導</p>
 
 <section>
-<h2>生活指導 ― 効果がはっきりしているもの</h2>
+<h2>上がる原因 ―― まず薬をみる</h2>
+<div class="cols">
+<div>
+<table>
+<tr><th style="width:38%">尿酸を<b>上げる</b>もの</th><th>機序</th></tr>
+<tr class="hi"><td><b>サイアザイド系・ループ利尿薬</b></td><td>最も頻度が高い。脱水と尿酸の再吸収亢進</td></tr>
+<tr><td><b>低用量アスピリン</b></td><td>排泄を抑える。<em>心血管予防目的なら中止しない</em></td></tr>
+<tr><td>シクロスポリン、タクロリムス、ピラジナミド、エタンブトール、テオフィリン、ニコチン酸</td><td>移植後、結核治療中</td></tr>
+<tr><td><b>アルコール、果糖（清涼飲料）、脱水</b></td><td>薬以外で最も効くもの</td></tr>
+</table>
+</div>
+<div>
+<table>
+<tr><th style="width:38%">尿酸を<b>下げる</b>もの</th><th>使いどころ</th></tr>
+<tr class="hi"><td><b>ロサルタン</b></td><td>高血圧を併存するなら、これを選ぶだけで下がる</td></tr>
+<tr><td><b>SGLT2阻害薬</b></td><td>糖尿病・心不全・CKDで使っていれば副次的に下がる</td></tr>
+<tr><td><b>フェノフィブラート</b></td><td>高TGを併存するなら</td></tr>
+</table>
+<p class="note">アトルバスタチン・アムロジピンもわずかに下げる。<b>薬を足す前に、いま飲んでいる薬で説明がつかないかを見る</b>——利尿薬をロサルタンに替えるだけで足りることがある。</p>
+</div>
+</div>
+</section>
+
+<section>
+<h2>生活指導 ―― 効果がはっきりしているもの</h2>
 <table>
 <tr><th style="width:17%">項目</th><th style="width:30%">内容</th><th>根拠・補足</th></tr>
-<tr><td><b>減量</b></td><td>肥満があれば体重を減らす</td><td>最も確実。インスリン抵抗性の改善を介して尿酸の排泄が改善する。<em>ただし急激な減量・絶食は一時的に尿酸を上げる</em></td></tr>
-<tr><td><b>飲酒</b></td><td>量を減らす。<em>ビールに限らずアルコール全般</em></td><td>アルコール自体が尿酸の産生を増やし、排泄を抑える。ビールはプリン体も多いが、本体はアルコール量。目安として、日本酒1合／ビール500mL／ウイスキー60mL程度までとされることが多い</td></tr>
-<tr><td><b>肉・魚介</b></td><td>摂りすぎを避ける</td><td>Choiら（NEJM 2004、男性47,150人）：肉の摂取量が最多の群は痛風リスク <b>RR 1.41</b>、魚介は <b>RR 1.51</b></td></tr>
-<tr><td><b>乳製品</b></td><td>むしろ推奨</td><td>同研究で、乳製品の摂取量が最多の群は <b>RR 0.56</b>（リスクが低い）</td></tr>
+<tr><td><b>減量</b></td><td>肥満があれば体重を減らす</td><td>最も確実。インスリン抵抗性の改善を介して排泄が改善する。<em>ただし急激な減量・絶食は一時的に上げる</em></td></tr>
+<tr><td><b>飲酒</b></td><td>量を減らす。<em>ビールに限らずアルコール全般</em></td><td>アルコール自体が産生を増やし排泄を抑える。ビールはプリン体も多いが本体はアルコール量。目安は<b>日本酒1合／ビール500mL／ウイスキー60mL</b>まで</td></tr>
+<tr><td><b>肉・魚介</b></td><td>摂りすぎを避ける</td><td>Choiら（NEJM 2004、男性47,150人）：摂取最多群の痛風リスクは肉 <b>RR 1.41</b>、魚介 <b>RR 1.51</b></td></tr>
+<tr><td><b>乳製品</b></td><td>むしろ推奨</td><td>同研究で摂取最多群は <b>RR 0.56</b></td></tr>
 <tr><td><b>水分</b></td><td>尿量 1日2L以上</td><td>尿路結石の予防。尿酸排泄促進薬を使うときは特に重要</td></tr>
 </table>
 </section>
 
 <section>
-<h2>生活指導 ― 言われているほどではないもの</h2>
+<h2>生活指導 ―― 言われているほどではないもの</h2>
 <div class="cols">
 <div>
 <div class="warn">
 <b>植物性のプリン体は制限しなくてよい</b>
 <ul>
   <li>同じChoiらの研究で、<em>プリン体の多い野菜（きのこ・豆・ほうれん草など）は痛風リスクと関連しなかった</em></li>
-  <li>総蛋白質摂取量も、リスクと関連なし</li>
-  <li>プリン体の総量より、<b>何由来か</b>のほうが効く</li>
+  <li>総蛋白質摂取量も関連なし。<b>総量より何由来か</b>が効く</li>
 </ul>
 </div>
-<p class="note">「プリン体を含む食品」として小魚・きのこ・干物まで一律に挙げる指導は、疫学と合わない。制限するなら<b>肉・魚介・アルコール</b>に絞るほうが、患者も守りやすい。食事由来のプリン体制限で下がるのは、せいぜい 1 mg/dL程度とされる。</p>
+<p class="note">小魚・きのこ・干物まで一律に挙げる指導は疫学と合わない。制限するなら<b>肉・魚介・アルコール</b>に絞る。食事由来のプリン体制限で下がるのは、せいぜい 1 mg/dL程度。</p>
 </div>
 <div>
 <div class="warn">
 <b>運動は、直接は下げない</b>
 <ul>
-  <li>ガイドラインの説明：<em>有酸素運動は血清尿酸値に影響せず</em>、体脂肪の減少に伴うインスリン抵抗性の改善を介して効く（＝間接的）</li>
-  <li><em>無酸素運動・過度な運動は、かえって尿酸値を上げる</em>ため避ける（ATP分解の亢進と、乳酸による尿酸排泄の低下）</li>
-  <li>勧めるなら、ウォーキングなどの有酸素運動</li>
+  <li><em>有酸素運動は血清尿酸値に影響せず</em>、体脂肪の減少によるインスリン抵抗性の改善を介して間接的に効く</li>
+  <li><em>無酸素運動・過度な運動はかえって上げる</em>（ATP分解と乳酸による排泄低下）。勧めるならウォーキング</li>
 </ul>
 </div>
-<p class="note">「運動して尿酸を下げましょう」ではなく、「<b>減量のために有酸素運動を。筋トレや全力ダッシュはむしろ上げる</b>」が正確。</p>
+<p class="note">「<b>減量のために有酸素運動を。筋トレや全力ダッシュはむしろ上げる</b>」が正確。</p>
 </div>
 </div>
 </section>
+<footer>高尿酸血症・痛風の治療ガイドライン第3版［2022年追補版］（日本痛風・尿酸核酸学会）／Choi HK, et al. NEJM 2004;350:1093　2026-10-28</footer>
+</div>
+
+<div class="page">
+<h1>④ なにをするか（2）</h1>
+<p class="lead">薬の選び方と、薬価</p>
 
 <section>
 <h2>薬の選択と腎機能・結石</h2>
@@ -250,8 +364,7 @@ footer{font-size:7.8pt; color:#777; border-top:.3pt solid #ccc; padding-top:1.1m
 </table>
 <p class="note">ユリスには後発品がなく、フェブキソスタット後発品の約7倍。月あたりでは約570円の差。調剤料・管理料は含まない。</p>
 </section>
-
-<footer>出典：高尿酸血症・痛風の治療ガイドライン第3版［2022年追補版］（日本痛風・尿酸核酸学会）／Choi HK, et al. NEJM 2004;350:1093／ALL-HEART（Lancet 2022）／CKD-FIX／PERL（NEJM 2020）／CARES（NEJM 2018）／FAST（Lancet 2020）／各薬剤の電子添文・日経メディカル処方薬事典　アロプリノールの腎機能別用量と飲酒量の目安は成書による　薬価は掲載元により数円の差があり目安　作成 2026-10-21</footer>
+<footer>高尿酸血症・痛風の治療ガイドライン第3版［2022年追補版］（日本痛風・尿酸核酸学会）／各薬剤の電子添文／薬価は2026年4月改定　2026-10-28</footer>
 </div>
 
 
