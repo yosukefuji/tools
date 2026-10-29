@@ -1,4 +1,4 @@
-const CACHE = 'ref-20261028-r12';
+const CACHE = 'ref-20261028-r13';
 const ASSETS = [
   './',
   './index.html',
@@ -12,7 +12,8 @@ const ASSETS = [
   './ua.html',
   './stroke.html',
   './dm-elderly.html',
-  './thyroid.html'
+  './thyroid.html',
+  './kerendia.html'
 ];
 
 self.addEventListener('install', function(e){

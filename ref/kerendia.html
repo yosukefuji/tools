@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#1D3F8A">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+
+<title>ケレンディア導入 診療の整理</title>
+<style>
+@page{size:A4 portrait; margin:8mm 9.5mm;}
+*{box-sizing:border-box}
+body{font-family:"Yu Gothic","Meiryo",sans-serif; color:#1b1b1b; margin:0; font-size:10.3pt; line-height:1.52;}
+@media print{body{width:auto; padding:0;}}
+.page{break-after:page;}
+.page:last-child{break-after:auto;}
+h1{font-size:15pt; margin:0 0 1.5mm;}
+.lead{font-size:9pt; color:#666; margin:0 0 3mm;}
+h2{font-size:11pt; margin:0 0 2.2mm; padding:1.2mm 2.4mm; background:#1D3F8A; color:#fff; letter-spacing:.04em;}
+section{margin-bottom:2.8mm;}
+section:last-of-type{margin-bottom:0;}
+.cols{display:flex; gap:5mm;} .cols>div{flex:1;}
+table{border-collapse:collapse; width:100%; font-size:10pt;}
+th,td{border:.3pt solid #c5c5c5; padding:1.15mm 1.9mm; text-align:left; vertical-align:top;}
+th{background:#eef1f7; font-weight:700;}
+.s{display:block; font-size:8.6pt; color:#666; font-weight:400;}
+td.c,th.c{text-align:center; font-variant-numeric:tabular-nums; white-space:nowrap;}
+td.n,th.n{text-align:right; font-variant-numeric:tabular-nums; white-space:nowrap;}
+tr.hi td{background:#eef4ff;}
+ul{margin:0; padding-left:5mm;} li{margin-bottom:1.2mm;}
+.flow{border:.4pt solid #1D3F8A; padding:2mm; font-size:10pt;}
+.flow b{color:#1D3F8A;}
+.step{margin-bottom:1.4mm;}
+.arrow{color:#888; margin:0 1mm;}
+.warn{border-left:3pt solid #C0692A; padding:2mm 0 2mm 3mm; background:#fdf6f0;}
+.ok{border-left:3pt solid #1f7a4d; padding:2mm 0 2mm 3mm; background:#eef6f1;}
+.note{font-size:9pt; color:#555; margin-top:2mm;}
+em{font-style:normal; background:#fff2cc; padding:0 .6mm;}
+.big{font-weight:700;}
+footer{font-size:8pt; color:#888; border-top:.3pt solid #ddd; padding-top:1.2mm; margin-top:2mm;}
+:root{--brand:#1D3F8A}
+
+@media screen and (max-width:820px){
+  html{-webkit-text-size-adjust:100%}
+  body{font-size:16px; line-height:1.72; background:#fff; color:#1b1b1b;
+       word-break:normal; overflow-wrap:break-word; line-break:strict;
+       width:auto !important; max-width:none !important;
+       margin:0 !important; padding:0 0 40px !important}
+  body{background:#eceff4 !important}
+  .page{break-after:auto; padding:16px max(14px,env(safe-area-inset-right,0px)) 2px max(14px,env(safe-area-inset-left,0px))}
+  h1{font-size:20px; margin:4px 2px 4px; line-height:1.4}
+  .lead{font-size:13px; margin:0 2px 12px}
+  .toc{background:#fff; border-radius:12px; margin:14px 0 4px; padding:2px 0;
+       box-shadow:0 1px 2px rgba(20,32,64,.09); overflow:hidden}
+  .toc a{display:block; padding:12px 34px 12px 14px; text-decoration:none; color:#1b1b1b;
+         font-size:15px; line-height:1.45; border-bottom:1px solid #eef0f4; position:relative}
+  .toc a:last-child{border-bottom:0}
+  .toc a::after{content:''; position:absolute; right:16px; top:50%; width:7px; height:7px;
+                border-right:2px solid #aab2c0; border-bottom:2px solid #aab2c0;
+                transform:translateY(-50%) rotate(-45deg)}
+  .toc a b{display:inline-block; min-width:1.5em; color:#1D3F8A}
+  .page + .page{border-top:1px solid #d6dce6; margin-top:14px; padding-top:20px}
+  .pidx{display:flex; flex-wrap:wrap; gap:6px; margin:0 2px 14px}
+  .pidx a{font-size:12.5px; line-height:1.3; background:#fff; border:1px solid #d7dce5; border-radius:999px;
+          padding:6px 11px; text-decoration:none; color:#2b3550}
+  section{background:#fff; border-radius:12px; margin:0 0 13px; overflow:hidden;
+          box-shadow:0 1px 2px rgba(20,32,64,.09)}
+  section>h2{font-size:15.5px; margin:0; padding:12px 38px 12px 14px; border-radius:0; line-height:1.45;
+             position:relative; cursor:pointer; -webkit-tap-highlight-color:transparent}
+  section>h2::after{content:''; position:absolute; right:16px; top:50%; width:8px; height:8px;
+                    border-right:2px solid rgba(255,255,255,.85); border-bottom:2px solid rgba(255,255,255,.85);
+                    transform:translateY(-70%) rotate(45deg); transition:transform .15s}
+  section.closed>h2::after{transform:translateY(-50%) rotate(-45deg)}
+  .sbody{padding:14px}
+  section.closed .sbody{display:none}
+  .cols{flex-direction:column; gap:16px}
+  .cols>div{flex:1 1 auto !important}
+  .tw{overflow-x:auto; -webkit-overflow-scrolling:touch; margin:0}
+  .tw table{min-width:100%}
+  .tw.wide table{width:max-content !important; min-width:100%}
+  .tw.wide td,.tw.wide th{min-width:6em; max-width:17em}
+  .tw.stack{overflow:visible}
+  .tw.stack table,.tw.stack tbody,.tw.stack tr,.tw.stack th,.tw.stack td{display:block; width:auto !important; min-width:0 !important}
+  .tw.stack table{border:0; min-width:0 !important}
+  .tw.stack tr{border:1px solid #cfd4dc; border-radius:7px; overflow:hidden; margin-bottom:10px; background:#fff}
+  .tw.stack tr:last-child{margin-bottom:0}
+  .tw.stack th,.tw.stack td{border:0; text-align:left !important; white-space:normal !important}
+  .tw.stack td{padding:10px 12px}
+  .tw.stack tr>:first-child{background:#eef1f7; font-weight:700; padding:7px 12px; font-size:14.5px; line-height:1.55}
+  .tw.stack tr.hi>:first-child{background:#dbe5f8}
+  .tw.stack td+td{border-top:1px dashed #d8dce3}
+  .tw.stack tr.hdr{display:flex; flex-wrap:wrap; gap:4px 14px; background:#eef1f7; border:0; border-radius:6px;
+                   padding:6px 12px; margin-bottom:9px; font-size:12.5px; color:#44506a}
+  .tw.stack tr.hdr th{display:inline; background:none; padding:0; font-size:12.5px; font-weight:700}
+  table{font-size:14.5px; margin:0; table-layout:auto}
+  th,td{padding:7px 9px; word-break:normal; overflow-wrap:break-word; line-break:strict}
+  th{min-width:6.2em}
+  td.c,td.n{white-space:nowrap}
+  th.c,th.n{white-space:normal}
+  .warn{padding:11px 13px 11px 14px; border-radius:0 6px 6px 0; margin:0}
+  .flow{padding:12px 13px; border-radius:6px; font-size:15px}
+  .step{margin-bottom:7px}
+  .note{font-size:13.5px; margin-top:10px; line-height:1.68}
+  .spanNote{font-size:13.5px; line-height:1.70; color:#3f444c; margin:10px 0 0;
+            padding:2px 0 2px 12px; border-left:3px solid #c9d2e4}
+  .s{font-size:13px; color:#565b63; margin-top:3px; line-height:1.62}
+  ul{padding-left:20px} li{margin-bottom:6px}
+  footer{font-size:11.5px; margin:2px 4px 16px; padding-top:9px; color:#78808e}
+  .nav{position:sticky; top:0; z-index:20; display:flex; align-items:center; gap:12px;
+       padding:11px max(14px,env(safe-area-inset-left,0px)) 11px max(14px,env(safe-area-inset-right,0px));
+       background:var(--brand); color:#fff; font-weight:700; font-size:15px}
+  .nav a{color:#fff; text-decoration:none; font-weight:400; font-size:14px; opacity:.92}
+  .nav .sp{margin-left:auto}
+}
+@media print{ .nav{display:none} .tw{overflow:visible} }
+</style>
+</head>
+<body>
+<div class="nav"><a href="index.html">&#8249;&nbsp;一覧</a><span class="sp"></span><span>ケレンディア導入</span></div>
+
+<div class="page">
+<h1>① ケレンディアとは</h1>
+<p class="lead">MRAだが、スピロノラクトンの延長ではない。どこに置く薬か</p>
+
+<section>
+<h2>MRAだが、スピロノラクトンの延長ではない</h2>
+<table>
+<tr><th style="width:14%">　</th><th>スピロノラクトン</th><th>エプレレノン／エサキセレノン</th><th style="width:28%">フィネレノン（ケレンディア）</th></tr>
+<tr><td><b>構造</b></td><td>ステロイド型</td><td>ステロイド型</td><td><b>非ステロイド型</b></td></tr>
+<tr><td><b>選択性</b></td><td>低い<span class="s">性ホルモン受容体にも結合</span></td><td>高い</td><td><b>高い</b></td></tr>
+<tr><td><b>組織分布</b></td><td>腎臓に偏る</td><td>腎臓に偏る</td><td><b>心臓と腎臓にほぼ均等</b></td></tr>
+<tr><td><b>女性化乳房</b></td><td>男性の約1割（RALES）</td><td>まれ</td><td><b>ほぼ出ない</b></td></tr>
+<tr class="hi"><td><b>糖尿病性腎臓病での<br>ハードアウトカム</b></td><td>なし</td><td>なし<span class="s">エサキセレノンはアルブミン尿の低下まで</span></td><td><b>腎・心血管ともに大規模試験あり</b></td></tr>
+</table>
+<p class="note"><b>アルドステロン受容体の過剰活性化が起こす炎症と線維化を抑える薬。</b><em>血行動態で効く薬ではないので、血圧をほとんど下げないのにアルブミン尿と腎機能の傾きが変わる。</em></p>
+</section>
+
+<section>
+<h2>下げるもの、動かさないもの</h2>
+<div class="cols">
+<div class="ok">
+<b class="big">下げる</b>
+<ul>
+  <li><b>アルブミン尿</b>——4か月で約30%低下</li>
+  <li><b>腎機能低下の傾き</b>——開始直後にeGFRがわずかに下がるが、<em>そのあとの傾きがゆるやかになる</em>。慌てて中止しない</li>
+  <li><b>心不全入院</b></li>
+</ul>
+</div>
+<div class="warn">
+<b class="big">ほとんど動かさない</b>
+<ul>
+  <li><b>血圧</b>——収縮期で3mmHg程度</li>
+  <li><b>血糖・HbA1c・体重</b></li>
+  <li><b>総死亡</b>——有意差なし（②）</li>
+</ul>
+</div>
+</div>
+</section>
+
+<section>
+<h2>適応は2つ。糖尿病のないCKDには使えない</h2>
+<table>
+<tr><th style="width:27%">2型糖尿病を合併する<br>慢性腎臓病</th><td><b>末期腎不全または透析施行中の患者を除く</b>。<em>1型糖尿病、糖尿病のないCKDは適応外</em>。本来の対象は<b>アルブミン尿が残っている人</b>（試験の組み入れは尿アルブミン／Cr比 30mg/gCr以上）</td></tr>
+<tr class="hi"><th>慢性心不全</th><td><b>標準的な治療を受けている患者に限る</b>。<em>2025年12月に追加</em>。効能にLVEFの規定はないが、根拠となった試験は<b>LVEF 40%以上</b></td></tr>
+</table>
+</section>
+
+<section>
+<h2>糖尿病性腎臓病での置きどころ</h2>
+<div class="flow">
+<div class="step"><b>① RAS阻害薬（ACE阻害薬かARB）を最大耐用量まで</b><span class="arrow">→</span>これが土台。試験では99.8%が内服していた</div>
+<div class="step"><b>② SGLT2阻害薬</b><span class="arrow">→</span>腎・心・死亡に効く。禁忌がなければこちらを先に</div>
+<div class="step"><b>③ ケレンディア</b><span class="arrow">→</span><em>①②を入れてもアルブミン尿が残る人に足す</em></div>
+</div>
+<p class="note">＋スタチン、＋GLP-1受容体作動薬。<b>SGLT2阻害薬とは効き方が別（血行動態 vs 炎症・線維化）で併用してよい</b>——<em>ただし試験での併用は6〜7%だけ</em>で、上乗せ分は確かめられていない。KDIGOはそれでも併用を推奨。</p>
+</section>
+<footer>ケレンディア錠 電子添文（2026年3月改訂）／KDIGO CKD診療ガイドライン2024　2026-10-29</footer>
+</div>
+
+<div class="page">
+<h1>② なぜ使うのか</h1>
+<p class="lead">何がどれだけ減り、なには減らないのか</p>
+
+<section>
+<h2>2つの試験 ―― 進んだCKDと、早いCKD</h2>
+<table>
+<tr><th style="width:20%">　</th><th>FIDELIO-DKD（2020）</th><th>FIGARO-DKD（2021）</th></tr>
+<tr><td><b>人数／追跡</b></td><td>5,734人／中央値 2.6年</td><td>7,437人／中央値 3.4年</td></tr>
+<tr><td><b>平均eGFR</b></td><td>44</td><td>68</td></tr>
+<tr><td><b>アルブミン尿（中央値）</b></td><td>約850 mg/gCr</td><td>約310 mg/gCr</td></tr>
+<tr class="hi"><td><b>主要評価項目</b></td><td><b>腎複合</b>（腎不全・eGFR 40%低下・腎死）<br><b>HR 0.82（0.73-0.93）</b></td><td><b>心血管複合</b>（CV死・MI・脳卒中・心不全入院）<br><b>HR 0.87（0.76-0.98）</b></td></tr>
+<tr><td><b>もう一方</b></td><td>心血管 HR 0.86（0.75-0.99）</td><td>腎 HR 0.87（0.76-1.01）<span class="s">有意差なし</span></td></tr>
+<tr><td><b>共通の組み入れ</b></td><td colspan="2"><b>18歳以上・2型糖尿病・血清K 4.8未満・最大耐用量のACE阻害薬かARBを4週以上</b></td></tr>
+</table>
+<p class="note"><em>どちらの試験も「もう一方」は取りきれなかった</em>——そこで2つをまとめたのがFIDELITY。</p>
+</section>
+
+<section>
+<h2>プール解析（FIDELITY・13,026人・3年）</h2>
+<div class="cols">
+<div>
+<table>
+<tr><th style="width:34%">　</th><th class="c">ケレンディア</th><th class="c">プラセボ</th><th class="c">HR</th><th class="c">NNT</th></tr>
+<tr class="hi"><td><b>腎複合</b><span class="s">腎不全・eGFR 57%低下・腎死（末期腎不全単独は2.3% vs 2.9%、HR 0.80）</span></td><td class="c">5.5%</td><td class="c">7.1%</td><td class="c"><b>0.77</b></td><td class="c"><b>60</b></td></tr>
+<tr class="hi"><td><b>心血管複合</b><span class="s">CV死・MI・脳卒中・心不全入院</span></td><td class="c">12.7%</td><td class="c">14.4%</td><td class="c"><b>0.86</b></td><td class="c"><b>46</b></td></tr>
+<tr><td>総死亡</td><td class="c">8.5%</td><td class="c">9.4%</td><td class="c">0.89</td><td class="c">—<span class="s">有意差なし</span></td></tr>
+</table>
+<p class="note"><b>心血管複合のうち、単独で有意だったのは心不全入院だけ。</b>MI・脳卒中・CV死は個々には減っていない。</p>
+</div>
+<div style="flex:0 0 34%">
+<table>
+<tr><th>高カリウム血症</th><th class="c">薬</th><th class="c">偽薬</th></tr>
+<tr class="hi"><td><b>全体</b></td><td class="c"><b>14%</b></td><td class="c">6.9%</td></tr>
+<tr><td>中止に至った</td><td class="c">1.7%</td><td class="c">0.6%</td></tr>
+<tr><td><b>入院した</b></td><td class="c"><b>0.9%</b></td><td class="c">0.2%</td></tr>
+</table>
+<p class="note"><b>3年で14人に1人が高K</b>（NNH 14）。<em>入院は1%未満</em>で、重篤な有害事象の総数はむしろ薬のほうが少ない（31.6% vs 33.7%）。<b>試験では食事のK制限はしていない。</b></p>
+</div>
+</div>
+</section>
+
+<section>
+<h2>効く人、そして持っておく限界</h2>
+<div class="cols">
+<div class="ok">
+<b class="big">アルブミン尿が多い人ほど効く</b>
+<ul>
+  <li>FIDELIOでは<b>UACR 850mg/gCr以上のサブグループが、腎アウトカムのベネフィットのほぼ全部</b>を説明していた</li>
+  <li>裏返せば<b>アルブミン尿がない人に足す根拠は弱い</b>。導入の判断は<em>eGFRよりアルブミン尿で</em></li>
+</ul>
+</div>
+<div class="warn">
+<b class="big">限界</b>
+<ul>
+  <li><b>SGLT2阻害薬併用は6〜7%のみ</b>——いまの標準治療への上乗せは未検証</li>
+  <li><b>総死亡は減らない。</b>腎不全も「先延ばし」</li>
+  <li>eGFR 25未満・透析・1型糖尿病は入っていない</li>
+</ul>
+</div>
+</div>
+<p class="note"><b>慢性心不全（FINEARTS-HF・2024）</b>　LVEF 40%以上・NYHA II〜IVの6,001人、32か月。<b>CV死＋心不全悪化イベントの率比 0.84（0.74-0.95）</b>。<em>効いているのは心不全イベント（0.82）で、CV死・総死亡（ともに0.93）は有意差なし</em>——ここでも「悪化させない薬」。</p>
+</section>
+<footer>Bakris GL et al. NEJM 2020（FIDELIO-DKD）／Pitt B et al. NEJM 2021（FIGARO-DKD）／Agarwal R et al. Eur Heart J 2022（FIDELITY）／Solomon SD et al. NEJM 2024（FINEARTS-HF）　2026-10-29</footer>
+</div>
+
+<div class="page">
+<h1>③ 導入の実際</h1>
+<p class="lead">誰に、なにを確かめて、何mgから始めるか</p>
+
+<section>
+<h2>導入前に確認する6つ</h2>
+<table>
+<tr><td class="c" style="width:4%"><b>①</b></td><th style="width:20%">適応か</th><td><b>2型糖尿病＋CKD</b>（末期腎不全・透析を除く）／または<b>標準治療下の慢性心不全</b></td></tr>
+<tr class="hi"><td class="c"><b>②</b></td><th>血清カリウム</th><td><b>原則4.8以下で開始</b>（心不全では5.0以下）。<b>5.5超は禁忌。</b><em>4.8〜5.5は禁忌ではないが、4週より前の再検を前提に</em></td></tr>
+<tr><td class="c"><b>③</b></td><th>eGFR</th><td>開始用量が決まる。<b>心不全では25未満は禁忌</b>、CKDでは25未満は投与の適否を慎重に判断</td></tr>
+<tr><td class="c"><b>④</b></td><th>RAS阻害薬</th><td><b>最大耐用量のACE阻害薬かARBが入っているか。</b>入っていない状態での上乗せは試験されていない</td></tr>
+<tr class="hi"><td class="c"><b>⑤</b></td><th>併用禁忌の薬</th><td><b>イトラコナゾール・ボリコナゾール・ポサコナゾール、クラリスロマイシン、リトナビル／コビシスタット含有製剤、ダルナビル、エンシトレルビル（ゾコーバ）、セリチニブ</b>——強いCYP3A阻害薬はすべて禁忌。<em>グレープフルーツも摂らない</em></td></tr>
+<tr><td class="c"><b>⑥</b></td><th>そのほかの禁忌</th><td><b>アジソン病</b>、重度肝障害（Child-Pugh C）、過敏症。<em>Child-Pugh BならKをより頻回に</em></td></tr>
+</table>
+<p class="note"><b>妊娠は禁忌ではないが有益性投与</b>（ラットで催奇形性）。妊娠可能な女性には避妊を指導し、授乳は避けさせる。</p>
+</section>
+
+<section>
+<h2>開始用量と、4週後の増量</h2>
+<div class="cols">
+<div>
+<table>
+<tr><th style="width:30%">eGFR</th><th>2型糖尿病＋CKD</th><th>慢性心不全</th></tr>
+<tr class="hi"><td class="c"><b>60以上</b></td><td><b>20mg</b> 1日1回</td><td><b>20mg</b> → 4週後に<b>40mg</b></td></tr>
+<tr class="hi"><td class="c"><b>25以上60未満</b></td><td><b>10mg</b> → 4週後に<b>20mg</b></td><td><b>10mg</b> → 4週後に<b>20mg</b></td></tr>
+<tr><td class="c">25未満</td><td>適否を慎重に判断</td><td>投与しない（禁忌）</td></tr>
+</table>
+<p class="note">1日1回。<b>最大はCKDで20mg、心不全で40mg。</b>増量の可否はKとeGFRで決める（④）。</p>
+</div>
+<div style="flex:0 0 36%">
+<div class="warn">
+<b class="big">20mg・40mgは20mg錠で出す</b>
+<b>10mg錠と20mg錠は生物学的同等性が示されていない。</b><em>20mgを10mg錠2錠で処方してはいけない</em>（40mgは20mg錠2錠）。40mg錠は存在しない。
+</div>
+</div>
+</div>
+</section>
+
+<section>
+<h2>Kを上げる薬を、同時に見直す</h2>
+<table>
+<tr class="hi"><th style="width:24%">やめる・減らす候補</th><td><b>スピロノラクトン、エプレレノン、エサキセレノン、トリアムテレン</b>（MRAの重複）、<b>カリウム製剤</b>、<b>ST合剤</b>、<b>NSAIDs</b></td></tr>
+<tr><th>効果が落ちる併用</th><td><b>CYP3A誘導薬</b>——リファンピシン、カルバマゼピン、フェニトイン、フェノバルビタール、セイヨウオトギリソウ。<em>血中濃度が著しく下がる</em>ので別の薬に替える</td></tr>
+<tr><th>濃度が上がる併用</th><td>中等度のCYP3A阻害薬（エリスロマイシン、ベラパミル、フルコナゾール）、弱いもの（アミオダロン、フルボキサミン）</td></tr>
+<tr><th>そのほか</th><td>炭酸リチウム（リチウム中毒）、タクロリムス・シクロスポリン</td></tr>
+</table>
+</section>
+<footer>ケレンディア錠 電子添文（禁忌・用法及び用量・相互作用）　2026-10-29</footer>
+</div>
+
+<div class="page">
+<h1>④ そのあとのカリウム</h1>
+<p class="lead">いつ測り、どう動かし、いくらかかるか</p>
+
+<section>
+<h2>いつ測り、どう動かすか</h2>
+<div class="flow">
+<div class="step"><b>開始前</b><span class="arrow">→</span><b>開始・再開・増量から4週後にKとeGFR</b><span class="arrow">→</span><b>その後も定期的に</b></div>
+<div class="step"><b>開始時のKが4.8を超えていたら、4週より前に追加で測る</b>（心不全では5.0超）。eGFRが低い・高K既往・Kを上げる薬の併用があれば、さらに頻回に</div>
+<div class="step"><em>「定期的に」の具体的な間隔は電子添文に書かれていない</em>——<b>実務では「4週後 → 以降4か月ごと」</b>を目安に、上の条件があればもっと短く</div>
+</div>
+<div class="cols" style="margin-top:3mm">
+<div>
+<table>
+<tr><th style="width:34%">4週後のK（CKD）</th><th>どうする</th></tr>
+<tr class="hi"><td class="c"><b>4.8以下</b></td><td><b>増量</b>（10→20mg）。<em>前回からeGFRが30%超低下していないこと</em></td></tr>
+<tr><td class="c"><b>4.8超 5.5以下</b></td><td><b>そのまま維持</b></td></tr>
+<tr><td class="c"><b>5.5超</b></td><td><b>中止。</b>5.0以下に下がれば<b>10mgで再開</b></td></tr>
+</table>
+</div>
+<div>
+<table>
+<tr><th style="width:34%">4週後のK（心不全）</th><th>どうする</th></tr>
+<tr class="hi"><td class="c"><b>5.0未満</b></td><td><b>増量</b></td></tr>
+<tr><td class="c"><b>5.0以上 5.5未満</b></td><td>維持</td></tr>
+<tr><td class="c"><b>5.5以上 6.0未満</b></td><td><b>減量</b></td></tr>
+<tr><td class="c"><b>6.0以上</b></td><td><b>中止。</b>5.5未満に下がれば10mgで再開</td></tr>
+</table>
+</div>
+</div>
+</section>
+
+<section>
+<h2>Kが上がったとき、やめる前にできること</h2>
+<div class="cols">
+<div class="ok">
+<b class="big">中止を決める前に見るもの</b>
+<ul>
+  <li><b>Kを上げる薬の重複</b>——ST合剤、NSAIDs、カリウム製剤、ほかのMRA</li>
+  <li><b>食事</b>——果物・野菜ジュース・いも類、そして<em>減塩しょうゆ・減塩塩（塩化カリウム）</em></li>
+  <li><b>脱水・急性腎障害・代謝性アシドーシス</b>が隠れていないか</li>
+  <li><b>減量（20→10mg）や一時休薬で続けられることが多い。</b>試験でも<b>K吸着薬</b>（ポリスチレンスルホン酸Ca、ジルコニウムシクロケイ酸Na）を使って継続した例がある</li>
+</ul>
+</div>
+<div style="flex:0 0 36%">
+<table>
+<tr><th>薬価（1錠）</th><th class="n">30日・3割</th></tr>
+<tr><td>10mg　142.20円</td><td class="n">約1,280円</td></tr>
+<tr class="hi"><td><b>20mg　203.40円</b></td><td class="n"><b>約1,830円</b></td></tr>
+<tr><td>40mg（20mg×2）</td><td class="n">約3,660円</td></tr>
+</table>
+<p class="note">2026年4月の薬価。<b>月1,300〜1,800円の追加</b>で、SGLT2阻害薬やGLP-1よりは軽い。</p>
+<div class="warn" style="margin-top:3mm">
+<b>説明するときの言い方</b>　<em>「3年続けて、60人に1人の腎不全と、46人に1人の心臓のイベントを防ぐ薬。そのかわり14人に1人でカリウムが上がるので、4週後と以降は定期的に採血します」</em>
+</div>
+</div>
+</div>
+</section>
+<footer>ケレンディア錠 電子添文（用法及び用量に関連する注意・重要な基本的注意）／薬価基準 2026年4月　2026-10-29</footer>
+</div>
+
+
+<script>
+if(window.matchMedia('(max-width:820px)').matches)
+document.querySelectorAll('.page table').forEach(function(t){
+  if(t.parentNode.classList.contains('tw')) return;
+  var w=document.createElement('div'); w.className='tw';
+  t.parentNode.insertBefore(w,t); w.appendChild(t);
+  [].slice.call(t.querySelectorAll('[rowspan]')).forEach(function(c){
+    if(parseInt(c.rowSpan,10) >= 3 && (c.innerText||'').replace(/\s+/g,'').length > 25){
+      var p=document.createElement('div'); p.className='spanNote'; p.innerHTML=c.innerHTML;
+      w.parentNode.insertBefore(p, w.nextSibling);
+      c.parentNode.removeChild(c);
+    }
+  });
+  var rows=[].slice.call(t.rows);
+  var r=rows[0], n=0;
+  if(r){ for(var i=0;i<r.cells.length;i++) n += (r.cells[i].colSpan||1); }
+  var hdr = r && r.cells.length>1 && [].every.call(r.cells, function(c){return c.tagName==='TH';});
+  if(hdr) r.className += ' hdr';
+  var dataRows = rows.slice(hdr?1:0);
+  var rowHeader = dataRows.length>0 && dataRows.every(function(x){
+    return x.cells.length>1 && x.cells[0].tagName==='TH';
+  });
+  if(hdr){
+    var maxc = 0;
+    dataRows.forEach(function(x){ var k=0; [].forEach.call(x.cells,function(c){k+=(c.colSpan||1);}); if(k>maxc) maxc=k; });
+    var hc = 0; [].forEach.call(r.cells,function(c){hc+=(c.colSpan||1);});
+    while(hc > maxc && r.cells.length > 1){
+      var last = r.cells[r.cells.length-1];
+      hc -= (last.colSpan||1);
+      last.parentNode.removeChild(last);
+    }
+    n = hc;
+  }
+  var maxLen = 0;
+  dataRows.forEach(function(x){ [].forEach.call(x.cells, function(c){
+    maxLen = Math.max(maxLen, (c.innerText||'').replace(/\s+/g,'').length);
+  });});
+  if((rowHeader && maxLen>60) || (n<=3 && maxLen>85)){ w.className += ' stack'; return; }
+  if(n>=4) t.style.minWidth = (n*8.4) + 'em';
+});
+if(window.matchMedia('(max-width:820px)').matches)
+document.querySelectorAll('.page').forEach(function(pg, pi){
+  var secs = [].slice.call(pg.children).filter(function(e){ return e.tagName === 'SECTION'; });
+  if(!secs.length) return;
+  var idx = document.createElement('div'); idx.className = 'pidx';
+  secs.forEach(function(sec, si){
+    var h2 = sec.querySelector(':scope > h2');
+    if(!h2) return;
+    var id = 's' + pi + '-' + si;
+    sec.id = id;
+    var body = document.createElement('div'); body.className = 'sbody';
+    while(h2.nextSibling) body.appendChild(h2.nextSibling);
+    sec.appendChild(body);
+    h2.addEventListener('click', function(){ sec.classList.toggle('closed'); });
+    var a = document.createElement('a');
+    a.href = '#' + id;
+    a.textContent = (h2.textContent || '').split(/[—―─-]/)[0].replace(/\s+$/, '');
+    idx.appendChild(a);
+  });
+  var lead = pg.querySelector(':scope > .lead');
+  var h1 = pg.querySelector(':scope > h1');
+  var ref = lead || h1;
+  if(ref && idx.children.length > 1) ref.parentNode.insertBefore(idx, ref.nextSibling);
+});
+// 実際の描画を測り、細かく折り返している表は縦積みにする
+if(window.matchMedia('(max-width:820px)').matches){
+  var colCount = function(t){
+    var r = t.rows[0], n = 0;
+    if(r){ for(var i=0;i<r.cells.length;i++) n += (r.cells[i].colSpan||1); }
+    return n;
+  };
+  var badlyWrapped = function(t){
+    var cells = t.querySelectorAll('td,th');
+    for(var i=0;i<cells.length;i++){
+      var c = cells[i];
+      var txt = (c.innerText||'').replace(/\s+/g,'');
+      if(txt.length < 8) continue;
+      var lh = parseFloat(getComputedStyle(c).lineHeight) || 20;
+      var lines = Math.round((c.getBoundingClientRect().height - 10) / lh);
+      if(lines >= 3 && txt.length / lines <= 6) return true;
+    }
+    return false;
+  };
+  document.querySelectorAll('.tw:not(.stack)').forEach(function(w){
+    var t = w.querySelector('table'); if(!t) return;
+    if(!badlyWrapped(t)) return;
+    var n = colCount(t);
+    if(n <= 4){ w.className += ' stack'; }
+    else { w.className += ' wide'; }
+  });
+}
+if(window.matchMedia('(max-width:820px)').matches){
+  var pgs = document.querySelectorAll('.page');
+  if(pgs.length > 1){
+    var toc = document.createElement('div'); toc.className = 'toc';
+    pgs.forEach(function(pg, i){
+      var h1 = pg.querySelector(':scope > h1'); if(!h1) return;
+      if(!pg.id) pg.id = 'p' + i;
+      var txt = (h1.textContent || '').trim();
+      var m = txt.match(/^([①-⑳])\s*(.*)$/);
+      var a = document.createElement('a');
+      a.href = '#' + pg.id;
+      a.innerHTML = m ? ('<b>' + m[1] + '</b>' + m[2].split('　—')[0].split(' —')[0])
+                      : txt;
+      toc.appendChild(a);
+    });
+    var nav = document.querySelector('.nav');
+    var wrap = document.createElement('div');
+    wrap.style.cssText = 'padding:0 max(14px,env(safe-area-inset-left,0px))';
+    wrap.appendChild(toc);
+    if(nav) nav.parentNode.insertBefore(wrap, nav.nextSibling);
+  }
+}
+if('serviceWorker' in navigator){
+  navigator.serviceWorker.register('sw.js').then(function(reg){ reg.update(); });
+  var reloaded=false;
+  navigator.serviceWorker.addEventListener('controllerchange', function(){
+    if(!reloaded){reloaded=true; location.reload();}
+  });
+}
+</script>
+</body>
+</html>
