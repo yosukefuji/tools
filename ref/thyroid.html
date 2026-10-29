@@ -94,6 +94,11 @@ footer{font-size:8pt; color:#888; border-top:.3pt solid #ddd; padding-top:1.2mm;
   .tw.stack tr.hdr{display:flex; flex-wrap:wrap; gap:4px 14px; background:#eef1f7; border:0; border-radius:6px;
                    padding:6px 12px; margin-bottom:9px; font-size:12.5px; color:#44506a}
   .tw.stack tr.hdr th{display:inline; background:none; padding:0; font-size:12.5px; font-weight:700}
+  .tw.stack.lab tr.hdr{display:none}
+  .tw.stack td[data-lab]::before,.tw.stack th[data-lab]::before{
+    content:attr(data-lab); display:block; font-size:12px; font-weight:700;
+    color:#5a6473; letter-spacing:.02em; margin-bottom:2px}
+  .tw.stack tr>:first-child[data-lab]::before{color:#44506a; margin-bottom:1px}
   table{font-size:14.5px; margin:0; table-layout:auto}
   th,td{padding:7px 9px; word-break:normal; overflow-wrap:break-word; line-break:strict}
   th{min-width:6.2em}
@@ -416,6 +421,27 @@ footer{font-size:8pt; color:#888; border-top:.3pt solid #ddd; padding-top:1.2mm;
 
 
 <script>
+// 縦積みにした表は列見出しが行から切り離されてしまうので、各セルに列名を付け直す
+function labelStack(w){
+  var t = w.querySelector('table'); if(!t) return;
+  var hr = t.querySelector('tr.hdr'); if(!hr) return;
+  var labs = [].map.call(hr.cells, function(c){
+    return (c.innerText||'').replace(/\s+/g,' ').trim();
+  });
+  var any = false;
+  [].forEach.call(t.rows, function(x){
+    if(x === hr) return;
+    var ci = 0;
+    [].forEach.call(x.cells, function(c){
+      var l = labs[ci];
+      ci += (c.colSpan||1);
+      if(l && (c.colSpan||1) === 1 && (c.innerText||'').trim()){
+        c.setAttribute('data-lab', l); any = true;
+      }
+    });
+  });
+  if(any) w.className += ' lab';
+}
 if(window.matchMedia('(max-width:820px)').matches)
 document.querySelectorAll('.page table').forEach(function(t){
   if(t.parentNode.classList.contains('tw')) return;
@@ -452,7 +478,7 @@ document.querySelectorAll('.page table').forEach(function(t){
   dataRows.forEach(function(x){ [].forEach.call(x.cells, function(c){
     maxLen = Math.max(maxLen, (c.innerText||'').replace(/\s+/g,'').length);
   });});
-  if((rowHeader && maxLen>60) || (n<=3 && maxLen>85)){ w.className += ' stack'; return; }
+  if((rowHeader && maxLen>60) || (n<=3 && maxLen>85)){ w.className += ' stack'; labelStack(w); return; }
   if(n>=4) t.style.minWidth = (n*8.4) + 'em';
 });
 if(window.matchMedia('(max-width:820px)').matches)
@@ -502,7 +528,7 @@ if(window.matchMedia('(max-width:820px)').matches){
     var t = w.querySelector('table'); if(!t) return;
     if(!badlyWrapped(t)) return;
     var n = colCount(t);
-    if(n <= 4){ w.className += ' stack'; }
+    if(n <= 5){ w.className += ' stack'; labelStack(w); }
     else { w.className += ' wide'; }
   });
 }

@@ -94,6 +94,11 @@ footer{font-size:8pt; color:#888; border-top:.3pt solid #ddd; padding-top:1.2mm;
   .tw.stack tr.hdr{display:flex; flex-wrap:wrap; gap:4px 14px; background:#eef1f7; border:0; border-radius:6px;
                    padding:6px 12px; margin-bottom:9px; font-size:12.5px; color:#44506a}
   .tw.stack tr.hdr th{display:inline; background:none; padding:0; font-size:12.5px; font-weight:700}
+  .tw.stack.lab tr.hdr{display:none}
+  .tw.stack td[data-lab]::before,.tw.stack th[data-lab]::before{
+    content:attr(data-lab); display:block; font-size:12px; font-weight:700;
+    color:#5a6473; letter-spacing:.02em; margin-bottom:2px}
+  .tw.stack tr>:first-child[data-lab]::before{color:#44506a; margin-bottom:1px}
   table{font-size:14.5px; margin:0; table-layout:auto}
   th,td{padding:7px 9px; word-break:normal; overflow-wrap:break-word; line-break:strict}
   th{min-width:6.2em}
@@ -251,11 +256,10 @@ footer{font-size:8pt; color:#888; border-top:.3pt solid #ddd; padding-top:1.2mm;
 <section>
 <h2>ほかのMRAとの違い</h2>
 <table>
-<tr><th style="width:13%">　</th><th>スピロノラクトン</th><th>エプレレノン／エサキセレノン</th><th style="width:27%">フィネレノン</th></tr>
-<tr><td><b>構造</b></td><td>ステロイド型</td><td>ステロイド型</td><td><b>非ステロイド型</b></td></tr>
-<tr><td><b>分布</b></td><td>腎に偏る</td><td>腎に偏る</td><td><b>心と腎にほぼ均等</b></td></tr>
-<tr><td><b>女性化乳房</b></td><td>男性の約1割</td><td>まれ</td><td><b>ほぼ出ない</b></td></tr>
-<tr class="hi"><td><b>DKDでの<br>ハードアウトカム</b></td><td>なし</td><td>なし<span class="s">エサキセレノンはアルブミン尿まで</span></td><td><b>腎・心血管ともにあり</b></td></tr>
+<tr><th style="width:27%">MRA</th><th>特徴</th></tr>
+<tr><td><b>スピロノラクトン</b></td><td>ステロイド型。腎に偏って効く。<b>男性の約1割で女性化乳房</b>。<em>糖尿病性腎臓病でのハードアウトカムの根拠はない</em></td></tr>
+<tr><td><b>エプレレノン<br>エサキセレノン</b></td><td>ステロイド型。腎に偏る。女性化乳房はまれ。<em>エサキセレノンはアルブミン尿を下げるところまで</em></td></tr>
+<tr class="hi"><td><b>フィネレノン<br>（ケレンディア）</b></td><td><b>非ステロイド型で、心と腎にほぼ均等に分布する。</b>女性化乳房はほぼ出ない。<b>腎・心血管ともに大規模試験のハードアウトカムがある</b></td></tr>
 </table>
 <p class="note"><b>炎症と線維化を抑える薬。</b><em>血圧（収縮期3mmHg程度）・血糖・体重はほとんど動かさないのに、アルブミン尿が4か月で約30%下がり、腎機能低下の傾きがゆるやかになる。</em><b>開始直後のeGFRのわずかな低下で慌てて中止しない。</b></p>
 </section>
@@ -317,11 +321,11 @@ footer{font-size:8pt; color:#888; border-top:.3pt solid #ddd; padding-top:1.2mm;
 <section>
 <h2>適応と、導入前に確認する5つ</h2>
 <table>
-<tr><td class="c" style="width:4%"><b>①</b></td><th style="width:19%">適応</th><td><b>2型糖尿病＋CKD</b>（末期腎不全・透析を除く）／<b>標準治療下の慢性心不全</b>（根拠はLVEF 40%以上）。<em>1型・糖尿病のないCKDは適応外</em></td></tr>
-<tr class="hi"><td class="c"><b>②</b></td><th>血清カリウム</th><td><b>原則4.8以下で開始</b>（心不全は5.0以下）。<b>5.5超は禁忌</b></td></tr>
-<tr><td class="c"><b>③</b></td><th>eGFR</th><td>開始用量が決まる。<b>心不全では25未満が禁忌</b>、CKDでは慎重に判断</td></tr>
-<tr class="hi"><td class="c"><b>④</b></td><th>併用禁忌</th><td><b>強いCYP3A阻害薬すべて</b>——イトラコナゾール・ボリコナゾール・ポサコナゾール、クラリスロマイシン、リトナビル／コビシスタット含有、ダルナビル、ゾコーバ、セリチニブ。<em>グレープフルーツも避ける</em></td></tr>
-<tr><td class="c"><b>⑤</b></td><th>そのほかの禁忌</th><td><b>アジソン病</b>、重度肝障害（Child-Pugh C）、過敏症。<em>妊娠は禁忌ではないが有益性投与</em></td></tr>
+<tr><th style="width:21%">適応</th><td><b>2型糖尿病＋CKD</b>（末期腎不全・透析を除く）／<b>標準治療下の慢性心不全</b>（根拠はLVEF 40%以上）。<em>1型・糖尿病のないCKDは適応外</em></td></tr>
+<tr class="hi"><th>血清カリウム</th><td><b>原則4.8以下で開始</b>（心不全は5.0以下）。<b>5.5超は禁忌</b></td></tr>
+<tr><th>eGFR</th><td>開始用量が決まる。<b>心不全では25未満が禁忌</b>、CKDでは慎重に判断</td></tr>
+<tr class="hi"><th>併用禁忌</th><td><b>強いCYP3A阻害薬すべて</b>——イトラコナゾール・ボリコナゾール・ポサコナゾール、クラリスロマイシン、リトナビル／コビシスタット含有、ダルナビル、ゾコーバ、セリチニブ。<em>グレープフルーツも避ける</em></td></tr>
+<tr><th>そのほかの禁忌</th><td><b>アジソン病</b>、重度肝障害（Child-Pugh C）、過敏症。<em>妊娠は禁忌ではないが有益性投与</em></td></tr>
 </table>
 </section>
 
@@ -384,6 +388,27 @@ footer{font-size:8pt; color:#888; border-top:.3pt solid #ddd; padding-top:1.2mm;
 
 
 <script>
+// 縦積みにした表は列見出しが行から切り離されてしまうので、各セルに列名を付け直す
+function labelStack(w){
+  var t = w.querySelector('table'); if(!t) return;
+  var hr = t.querySelector('tr.hdr'); if(!hr) return;
+  var labs = [].map.call(hr.cells, function(c){
+    return (c.innerText||'').replace(/\s+/g,' ').trim();
+  });
+  var any = false;
+  [].forEach.call(t.rows, function(x){
+    if(x === hr) return;
+    var ci = 0;
+    [].forEach.call(x.cells, function(c){
+      var l = labs[ci];
+      ci += (c.colSpan||1);
+      if(l && (c.colSpan||1) === 1 && (c.innerText||'').trim()){
+        c.setAttribute('data-lab', l); any = true;
+      }
+    });
+  });
+  if(any) w.className += ' lab';
+}
 if(window.matchMedia('(max-width:820px)').matches)
 document.querySelectorAll('.page table').forEach(function(t){
   if(t.parentNode.classList.contains('tw')) return;
@@ -420,7 +445,7 @@ document.querySelectorAll('.page table').forEach(function(t){
   dataRows.forEach(function(x){ [].forEach.call(x.cells, function(c){
     maxLen = Math.max(maxLen, (c.innerText||'').replace(/\s+/g,'').length);
   });});
-  if((rowHeader && maxLen>60) || (n<=3 && maxLen>85)){ w.className += ' stack'; return; }
+  if((rowHeader && maxLen>60) || (n<=3 && maxLen>85)){ w.className += ' stack'; labelStack(w); return; }
   if(n>=4) t.style.minWidth = (n*8.4) + 'em';
 });
 if(window.matchMedia('(max-width:820px)').matches)
@@ -470,7 +495,7 @@ if(window.matchMedia('(max-width:820px)').matches){
     var t = w.querySelector('table'); if(!t) return;
     if(!badlyWrapped(t)) return;
     var n = colCount(t);
-    if(n <= 4){ w.className += ' stack'; }
+    if(n <= 5){ w.className += ' stack'; labelStack(w); }
     else { w.className += ' wide'; }
   });
 }
