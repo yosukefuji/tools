@@ -12,7 +12,8 @@
 <link rel="apple-touch-icon" href="icon-180.png">
 <title>フォト</title>
 <style>
-  html, body { margin: 0; height: 100%; background: #000; overflow: hidden; }
+  html, body { margin: 0; height: 100%; background: #fff; overflow: hidden; }
+  body.empty { background: #000; }
   body { -webkit-user-select: none; user-select: none; -webkit-touch-callout: none;
          font-family: -apple-system, "Hiragino Sans", sans-serif; }
   #img { position: fixed; inset: 0; width: 100%; height: 100%; object-fit: cover; display: none; }
@@ -29,7 +30,7 @@
   input { display: none; }
 </style>
 </head>
-<body>
+<body class="empty">
 <img id="img" alt="">
 <div id="empty">
   <div>表示する画像を選んでください</div>
@@ -68,6 +69,7 @@ function show(blob) {
   if (img.src) URL.revokeObjectURL(img.src);
   img.src = URL.createObjectURL(blob);
   img.style.display = 'block'; empty.style.display = 'none';
+  document.body.classList.remove('empty');
 }
 function setFit(contain) {
   document.body.classList.toggle('contain', contain);
@@ -91,7 +93,7 @@ file.onchange = async () => {
 
 (async () => {
   try {
-    setFit(!!(await get('contain')));
+    setFit((await get('contain')) !== false);
     const b = await get('image'); if (b) show(b);
   } catch (e) {}
   if (navigator.storage && navigator.storage.persist) navigator.storage.persist();
