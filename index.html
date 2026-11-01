@@ -16,6 +16,7 @@
   --bg:#eef1f6; --card:#ffffff; --ink:#1b2027; --muted:#657083;
   --line:#dbe1ea; --navy:#1D3F8A; --navy-soft:#e8eefb; --accent:#B4601F;
   --ok:#1c7048; --ok-soft:#e6f2ec; --warn-soft:#fbf1e7;
+  --reset-bg:#B4601F; --reset-fg:#ffffff;
   --display:"Helvetica Neue",system-ui,-apple-system,sans-serif;
   --body:-apple-system,"Hiragino Sans","Yu Gothic",system-ui,sans-serif;
 }
@@ -23,6 +24,7 @@
   :root:not([data-theme="light"]){
     --bg:#13161b; --card:#1c2128; --ink:#e7ebf0; --muted:#98a3b2;
     --line:#2c333d; --navy:#86a6ec; --navy-soft:#1d2534; --accent:#e09a63;
+    --reset-bg:#e09a63; --reset-fg:#1a1207;
     --ok:#62c48f; --ok-soft:#18271f; --warn-soft:#2a2218;
     color-scheme:dark;
   }
@@ -30,6 +32,7 @@
 :root[data-theme="dark"]{
   --bg:#13161b; --card:#1c2128; --ink:#e7ebf0; --muted:#98a3b2;
   --line:#2c333d; --navy:#86a6ec; --navy-soft:#1d2534; --accent:#e09a63;
+  --reset-bg:#e09a63; --reset-fg:#1a1207;
   --ok:#62c48f; --ok-soft:#18271f; --warn-soft:#2a2218;
   color-scheme:dark;
 }
@@ -96,13 +99,21 @@ input:focus-visible, select:focus-visible, button:focus-visible, .chk:focus-with
 .msg{margin-top:12px; padding:11px 13px; border-radius:9px; background:var(--warn-soft); font-size:14px; border-left:3px solid var(--accent)}
 .points{margin-top:12px; font-size:13px; color:var(--muted); font-variant-numeric:tabular-nums}
 
-.actions{display:flex; gap:8px; margin-top:14px; flex-wrap:wrap}
+.actions{display:flex; gap:8px; margin-top:20px; flex-wrap:wrap}
 button{
   font-family:inherit; font-size:14.5px; padding:10px 16px; border-radius:8px; cursor:pointer;
   border:1px solid var(--line); background:var(--card); color:var(--ink);
 }
 button.primary{background:var(--navy); border-color:var(--navy); color:#fff}
 button:hover{border-color:var(--navy)}
+/* 患者ごとに押す操作なので、探さずに見つかる大きさと色にする */
+button.reset{
+  flex:1 1 100%; justify-content:center;
+  background:var(--reset-bg); border-color:var(--reset-bg); color:var(--reset-fg);
+  font-size:16.5px; font-weight:700; padding:14px 16px; letter-spacing:.05em;
+}
+button.reset:hover{border-color:var(--reset-bg); filter:brightness(1.08)}
+button.reset:active{filter:brightness(.94)}
 
 details{margin-top:14px; font-size:14px}
 summary{cursor:pointer; color:var(--navy); font-size:14px; padding:4px 0}
@@ -289,7 +300,7 @@ function calc(){
       $('result').innerHTML = '<div class="cat"><span class="k" style="color:var(--muted)">判定待ち</span>' +
         '<span class="why">' + missing.join('・') + ' を入力すると判定します</span></div>' +
         '<div class="risk">既往や糖尿病・CKD・末梢動脈疾患があれば、上のチェックだけで目標値が出ます</div>' +
-        '<div class="actions"><button type="button" id="resetBtn">入力をクリア</button></div>';
+        '<div class="actions"><button type="button" class="reset" id="resetBtn">入力をクリア</button></div>';
       $('resetBtn').addEventListener('click', doReset);
       save();
       return;
@@ -347,7 +358,7 @@ function calc(){
     h += '<div class="msg">急性冠症候群・家族性高コレステロール血症・糖尿病・冠動脈疾患と脳梗塞の合併があれば、目標は LDL-C 70 ／ non-HDL-C 100 未満になります。</div>';
   }
 
-  h += '<div class="actions"><button type="button" id="resetBtn">入力をクリア</button></div>';
+  h += '<div class="actions"><button type="button" class="reset" id="resetBtn">入力をクリア</button></div>';
 
   $('result').innerHTML = h;
 
