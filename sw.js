@@ -1,4 +1,4 @@
-const CACHE = 'lipid-v11';
+const CACHE = 'lipid-v12';
 const ASSETS = [
   './',
   './index.html',

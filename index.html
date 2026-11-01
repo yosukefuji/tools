@@ -141,6 +141,7 @@ td:first-child,th:first-child{text-align:left}
 footer{margin-top:20px; font-size:12.5px; color:var(--muted); line-height:1.7}
 @media (max-width:430px){ .targets{grid-template-columns:1fr} }
 @media (prefers-reduced-motion:reduce){ *{transition:none!important} }
+.nb{white-space:nowrap}
 </style>
 </head>
 <body>
@@ -378,6 +379,7 @@ function calc(){
   h += '<div class="actions"><button type="button" class="reset" id="resetBtn">入力をクリア</button></div>';
 
   $('result').innerHTML = h;
+  if (window.nbFix) nbFix($('result'));
 
   $('resetBtn').addEventListener('click', doReset);
   save();
@@ -415,6 +417,29 @@ if ('serviceWorker' in navigator) {
     location.reload();
   });
 }
+
+// ハイフンやスラッシュを含む英数字は、その途中で改行させない
+(window.nbFix = function(root){
+  var RE = /[A-Za-z0-9][A-Za-z0-9.+%]*(?:[-‐–—\/][A-Za-z0-9.+%]+)+/g;
+  var esc = function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;'}[c]; };
+  var w = document.createTreeWalker(root || document.body, NodeFilter.SHOW_TEXT, null);
+  var list = [], n;
+  while ((n = w.nextNode())) {
+    var p = n.parentNode;
+    if (!p || p.nodeName === 'SCRIPT' || p.nodeName === 'STYLE') continue;
+    RE.lastIndex = 0;
+    if (RE.test(n.nodeValue)) list.push(n);
+  }
+  list.forEach(function(t){
+    if (!t.parentNode) return;
+    RE.lastIndex = 0;
+    var html = t.nodeValue.replace(/[&<>]/g, esc)
+                          .replace(RE, '<span class="nb">$&</span>');
+    var f = document.createElement('span');
+    f.innerHTML = html;
+    t.parentNode.replaceChild(f, t);
+  });
+})(document.body);
 </script>
 </body>
 </html>
