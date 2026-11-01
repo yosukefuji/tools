@@ -120,6 +120,7 @@ footer{font-size:8pt; color:#888; border-top:.3pt solid #ddd; padding-top:1.2mm;
   .nav .sp{margin-left:auto}
 }
 @media print{ .nav{display:none} .tw{overflow:visible} }
+.nb{white-space:nowrap}
 </style>
 </head>
 <body>
@@ -450,6 +451,29 @@ if('serviceWorker' in navigator){
     if(!reloaded){reloaded=true; location.reload();}
   });
 }
+
+// ハイフンやスラッシュを含む英数字は、その途中で改行させない
+(window.nbFix = function(root){
+  var RE = /[A-Za-z0-9][A-Za-z0-9.+%]*(?:[-‐–—\/][A-Za-z0-9.+%]+)+/g;
+  var esc = function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;'}[c]; };
+  var w = document.createTreeWalker(root || document.body, NodeFilter.SHOW_TEXT, null);
+  var list = [], n;
+  while ((n = w.nextNode())) {
+    var p = n.parentNode;
+    if (!p || p.nodeName === 'SCRIPT' || p.nodeName === 'STYLE') continue;
+    RE.lastIndex = 0;
+    if (RE.test(n.nodeValue)) list.push(n);
+  }
+  list.forEach(function(t){
+    if (!t.parentNode) return;
+    RE.lastIndex = 0;
+    var html = t.nodeValue.replace(/[&<>]/g, esc)
+                          .replace(RE, '<span class="nb">$&</span>');
+    var f = document.createElement('span');
+    f.innerHTML = html;
+    t.parentNode.replaceChild(f, t);
+  });
+})(document.body);
 </script>
 </body>
 </html>
