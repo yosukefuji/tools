@@ -181,6 +181,12 @@ footer{margin-top:20px; font-size:12.5px; color:var(--muted); line-height:1.7}
         </div>
       </div>
     </div>
+    <div class="sublock">
+      <div class="t">画像でみつかっている動脈硬化</div>
+      <div class="chks">
+        <label class="chk wide" id="w-plaque"><input type="checkbox" id="plaque"><span>頸動脈プラークあり</span></label>
+      </div>
+    </div>
   </div>
 
   <div class="card">
@@ -230,7 +236,7 @@ footer{margin-top:20px; font-size:12.5px; color:var(--muted); line-height:1.7}
   <footer>
     管理目標値は到達努力目標。一次予防では、原則3〜6か月の生活習慣改善の効果をみてから薬物療法を検討する（LDL-C 180mg/dL以上が持続する場合は同時に検討してよい）。低・中リスクではLDL-C 20〜30%低下も目標となりうる。<br>
     家族性高コレステロール血症・家族性Ⅲ型高脂血症は、このチャートを用いずそれぞれの診療方針に従う。<br>
-    <span style="opacity:.75">版 2026-11-01</span>
+    <span style="opacity:.75">版 2026-11-05</span>
   </footer>
 </div>
 
@@ -244,7 +250,7 @@ const RISK = [
 ];
 const AGE_LABEL = ['40代','50代','60代','70代'];
 const $ = id => document.getElementById(id);
-const BOXES = ['second','acs','fh','both','dm','ckd','pad','micro','smoke','igt'];
+const BOXES = ['second','acs','fh','both','dm','ckd','pad','micro','plaque','smoke','igt'];
 const FIELDS = ['age','sex','sbp','ldl','hdl','tc'];
 const STORE = 'lipid-target-v1';
 
@@ -252,6 +258,8 @@ const ptSBP = v => v<120?0 : v<130?1 : v<140?2 : v<160?3 : 4;
 const ptLDL = v => v<120?0 : v<140?1 : v<160?2 : 3;
 const ptHDL = v => v>=60?0 : v>=40?1 : 2;
 const ageCol = a => a<50?0 : a<60?1 : a<70?2 : 3;
+// 頸動脈プラークは GL2022 の高リスク病態ではないので区分は動かさない。目安を一段上げるだけ
+const UP = {160:140, 140:120, 120:100, 100:100, 70:70};
 
 function save(){
   try{
@@ -370,6 +378,18 @@ function calc(){
          seg('性別', sexPt) + seg('収縮期血圧', ptSBP(sbp)) +
          seg('耐糖能異常', $('igt').checked ? 1 : 0) + seg('LDL-C', ptLDL(ldl)) +
          seg('HDL-C', ptHDL(hdl)) + seg('喫煙', $('smoke').checked ? 2 : 0) + '</div>';
+  }
+  if ($('plaque').checked){
+    let t;
+    if (ldlT === null){
+      t = '<b>頸動脈プラークあり</b> ― 動脈硬化がすでにある証拠。スコアの対象外でも、スタチンの適応を個別に検討します。';
+    } else if (ldlT > 100){
+      t = '<b>頸動脈プラークあり</b> ― 動脈硬化がすでにある証拠。GL2022の高リスク病態ではないため上の目標値は変わらないが、'
+        + '<b>一段上げて LDL-C ' + UP[ldlT] + ' 未満</b>（non-HDL-C ' + (UP[ldlT]+30) + ' 未満）で考える。退縮をねらうなら 70 前後。';
+    } else {
+      t = '<b>頸動脈プラークあり</b> ― 目標は上のまま。<b>退縮をねらうなら LDL-C 70 前後</b>（ASTEROID・SATURN）。エコーは6〜12か月でフォロー。';
+    }
+    h += '<div class="msg">' + t + '</div>';
   }
   if (msg) h += '<div class="msg">' + msg + '</div>';
   if (cat === '二次予防' && !$('acs').checked && !$('fh').checked && !$('both').checked && !$('dm').checked){
