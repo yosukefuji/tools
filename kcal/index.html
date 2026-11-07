@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="kcal">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<meta name="theme-color" content="#1D3F8A">
+<style>html{-webkit-text-size-adjust:100%}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+<title>入院栄養指示の算出</title>
+</head>
+<body>
+<style>
+:root{
+  --bg:#eef1f6; --card:#ffffff; --ink:#1b2027; --muted:#657083;
+  --line:#dbe1ea; --navy:#1D3F8A; --navy-soft:#e8eefb; --accent:#B4601F;
+  --ok:#1c7048; --warn-soft:#fbf1e7;
+  --field:#e9edf4; --field-line:#c3ccda; --panel:#f2f5fc;
+  --reset-bg:#B4601F; --reset-fg:#ffffff;
+  --display:"Helvetica Neue",system-ui,-apple-system,sans-serif;
+  --body:-apple-system,"Hiragino Sans","Yu Gothic",system-ui,sans-serif;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#13161b; --card:#1c2128; --ink:#e7ebf0; --muted:#98a3b2;
+    --line:#2c333d; --navy:#86a6ec; --navy-soft:#1d2534; --accent:#e09a63;
+    --field:#11151c; --field-line:#3a4452; --panel:#141b29;
+    --reset-bg:#e09a63; --reset-fg:#1a1207;
+    --ok:#62c48f; --warn-soft:#2a2218;
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#13161b; --card:#1c2128; --ink:#e7ebf0; --muted:#98a3b2;
+  --line:#2c333d; --navy:#86a6ec; --navy-soft:#1d2534; --accent:#e09a63;
+  --field:#11151c; --field-line:#3a4452; --panel:#141b29;
+  --reset-bg:#e09a63; --reset-fg:#1a1207;
+  --ok:#62c48f; --warn-soft:#2a2218;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+body{background:var(--bg); color:var(--ink); font-family:var(--body); font-size:17px; line-height:1.6; margin:0}
+img{max-width:100%}
+.wrap{
+  max-width:760px; margin:0 auto;
+  padding-left:max(16px,env(safe-area-inset-left,0px));
+  padding-right:max(16px,env(safe-area-inset-right,0px));
+  padding-block:calc(20px + env(safe-area-inset-top,0px)) calc(56px + env(safe-area-inset-bottom,0px));
+}
+header{margin-bottom:18px}
+h1{font-size:24px; margin:0 0 3px; letter-spacing:.01em; text-wrap:balance}
+.sub{margin:0; color:var(--muted); font-size:clamp(10px,3.05vw,13.5px)}
+
+.card{background:var(--card); border:1px solid var(--line); border-radius:12px; padding:16px; margin-bottom:12px}
+h2{font-size:13px; margin:0 0 12px; color:var(--navy); letter-spacing:.1em; font-weight:700}
+.grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(130px,1fr)); gap:12px}
+.grid > div{min-width:0; display:flex; flex-direction:column; justify-content:flex-end}
+label{display:block; font-size:13.5px; color:var(--muted); margin-bottom:4px; text-wrap:balance}
+input[type=number], select{
+  width:100%; padding:11px 12px; font-size:17px; font-family:inherit;
+  border:1px solid var(--field-line); border-radius:8px; background:var(--field); color:var(--ink);
+  font-variant-numeric:tabular-nums;
+}
+input[type=number].on, select.on{background:var(--navy-soft); border-color:var(--navy); font-weight:600}
+input:focus-visible, select:focus-visible, button:focus-visible, .chk:focus-within{outline:2px solid var(--navy); outline-offset:1px}
+.chks{display:flex; flex-wrap:wrap; align-items:stretch; gap:8px}
+.chk{display:flex; align-items:center; gap:7px; padding:8px 12px; border:1px solid var(--line);
+  border-radius:999px; cursor:pointer; font-size:15.5px; background:var(--card); user-select:none}
+.chk.wide{flex:1 1 100%; border-radius:10px}
+.chk span{min-width:0}
+.chk input{width:16px; height:16px; margin:0; accent-color:var(--navy)}
+.chk.on{border-color:var(--navy); background:var(--navy-soft); font-weight:500}
+.sublock{margin-top:11px; padding-top:11px; border-top:1px dashed var(--line)}
+.t{font-size:12.5px; color:var(--muted); margin-bottom:7px; letter-spacing:.04em}
+
+.result{background:var(--panel); border:1px solid var(--navy); border-top:5px solid var(--navy); border-radius:12px; padding:16px}
+.head{display:flex; align-items:baseline; gap:10px; flex-wrap:wrap; margin-bottom:12px}
+.head .k{font-family:var(--display); font-size:40px; font-weight:600; line-height:1.05; font-variant-numeric:tabular-nums}
+.head .u{font-size:20px; font-weight:600; color:var(--navy)}
+.head .why{font-size:13.5px; color:var(--muted); min-width:0; flex-basis:100%}
+.range{font-family:var(--display); font-size:14.5px; color:var(--muted); font-variant-numeric:tabular-nums; margin:-6px 0 14px}
+.range b{color:var(--ink); font-weight:600}
+.targets{display:grid; grid-template-columns:1fr 1fr; gap:10px}
+.tg{border:1px solid var(--line); border-radius:9px; padding:11px 12px; min-width:0; background:var(--card)}
+.tg .lbl{font-size:12px; color:var(--muted); letter-spacing:.06em}
+.tg .val{font-family:var(--display); font-size:27px; line-height:1.15; font-variant-numeric:tabular-nums; font-weight:500}
+.tg .now{font-size:13px; margin-top:2px; color:var(--muted)}
+.body-line{margin-top:12px; font-size:13px; color:var(--muted); font-variant-numeric:tabular-nums;
+  display:flex; flex-wrap:wrap; gap:2px 14px}
+.pi{white-space:nowrap}
+.pi b{color:var(--ink); font-weight:600}
+.msg{margin-top:12px; padding:11px 13px; border-radius:9px; background:var(--warn-soft); font-size:14px; border-left:3px solid var(--accent)}
+.actions{display:flex; gap:8px; margin-top:20px; flex-wrap:wrap}
+button{font-family:inherit; font-size:14.5px; padding:10px 16px; border-radius:8px; cursor:pointer;
+  border:1px solid var(--line); background:var(--card); color:var(--ink)}
+button.reset{flex:1 1 100%; justify-content:center;
+  background:var(--reset-bg); border-color:var(--reset-bg); color:var(--reset-fg);
+  font-size:16.5px; font-weight:700; padding:14px 16px; letter-spacing:.05em}
+button.reset:hover{border-color:var(--reset-bg); filter:brightness(1.08)}
+button.reset:active{filter:brightness(.94)}
+details{margin-top:14px; font-size:14px}
+summary{cursor:pointer; color:var(--navy); font-size:14px; padding:4px 0}
+details .body{margin-top:8px; color:var(--muted); line-height:1.7}
+.tblwrap{overflow-x:auto; margin-top:8px}
+table{border-collapse:collapse; font-size:13.5px; font-variant-numeric:tabular-nums; min-width:100%}
+th,td{border:1px solid var(--line); padding:4px 9px; text-align:center; white-space:nowrap}
+th{background:var(--navy-soft); color:var(--ink); font-weight:700}
+td:first-child,th:first-child{text-align:left}
+footer{margin-top:20px; font-size:12.5px; color:var(--muted); line-height:1.7}
+@media (max-width:430px){ .targets{grid-template-columns:1fr} }
+.nb{white-space:nowrap}
+</style>
+
+<div class="wrap">
+  <header>
+    <h1>入院栄養指示の算出</h1>
+    <p class="sub">糖尿病治療ガイド／CKD食事療法基準2014／肝硬変診療ガイドライン2020</p>
+  </header>
+
+  <div class="card">
+    <h2>からだ</h2>
+    <div class="grid">
+      <div><label for="ht">身長 cm</label><input type="number" id="ht" min="100" max="220" step="0.1" inputmode="decimal"></div>
+      <div><label for="wt">体重 kg</label><input type="number" id="wt" min="20" max="200" step="0.1" inputmode="decimal"></div>
+      <div><label for="age">年齢</label><input type="number" id="age" min="15" max="110" step="1" inputmode="numeric"></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>安静度</h2>
+    <select id="act">
+      <option value="rest">ベッド上安静が中心　20〜25</option>
+      <option value="light" selected>軽い労作（入院中の標準）　25〜30</option>
+      <option value="normal">普通の労作・リハビリ介入あり　30〜35</option>
+      <option value="heavy">重い労作　35〜40</option>
+    </select>
+  </div>
+
+  <div class="card">
+    <h2>病態</h2>
+    <div class="chks">
+      <label class="chk" id="w-dm"><input type="checkbox" id="dm"><span>糖尿病</span></label>
+      <label class="chk" id="w-ckd"><input type="checkbox" id="ckd"><span>CKD</span></label>
+      <label class="chk" id="w-hd"><input type="checkbox" id="hd"><span>透析</span></label>
+      <label class="chk" id="w-cirr"><input type="checkbox" id="cirr"><span>肝硬変</span></label>
+      <label class="chk wide" id="w-stress"><input type="checkbox" id="stress"><span>侵襲下（術後・感染・外傷）</span></label>
+    </div>
+
+    <div class="sublock" id="ckdSub" hidden>
+      <div class="t">CKD のステージ</div>
+      <select id="ckdStage">
+        <option value="g12">G1・G2（eGFR 60以上）</option>
+        <option value="g3a" selected>G3a（45〜59）</option>
+        <option value="g3b">G3b（30〜44）</option>
+        <option value="g45">G4・G5（30未満・未透析）</option>
+      </select>
+    </div>
+
+    <div class="sublock" id="hdSub" hidden>
+      <div class="t">透析の種類</div>
+      <select id="hdType">
+        <option value="hd" selected>血液透析（週3回）</option>
+        <option value="pd">腹膜透析</option>
+      </select>
+    </div>
+
+    <div class="sublock" id="cirrSub" hidden>
+      <div class="t">肝硬変に伴うもの</div>
+      <div class="chks">
+        <label class="chk wide" id="w-enceph"><input type="checkbox" id="enceph"><span>蛋白不耐症・肝性脳症あり</span></label>
+        <label class="chk" id="w-ascites"><input type="checkbox" id="ascites"><span>腹水あり</span></label>
+      </div>
+    </div>
+
+    <div class="sublock" id="stressSub" hidden>
+      <div class="t">侵襲からの時期</div>
+      <select id="stressPhase">
+        <option value="acute" selected>急性期（発症・術後 おおむね3日以内）</option>
+        <option value="stable">安定期</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="result" id="result"></div>
+
+  <details>
+    <summary>計算のもとになっている数字</summary>
+    <div class="body">
+      <div class="tblwrap">
+        <table>
+          <tr><th>病態</th><th>エネルギー<br>kcal/kg</th><th>たんぱく質<br>g/kg</th><th>食塩 g</th></tr>
+          <tr><td>糖尿病のみ</td><td>安静度による</td><td>—</td><td>—</td></tr>
+          <tr><td>CKD G1・G2</td><td>25–35</td><td>1.3未満</td><td>3以上6未満</td></tr>
+          <tr><td>CKD G3a</td><td>25–35</td><td>0.8–1.0</td><td>3以上6未満</td></tr>
+          <tr><td>CKD G3b–G5</td><td>25–35</td><td>0.6–0.8</td><td>3以上6未満</td></tr>
+          <tr><td>血液透析</td><td>30–35</td><td>0.9–1.2</td><td>6未満</td></tr>
+          <tr><td>腹膜透析</td><td>30–35</td><td>0.9–1.2</td><td>除水量×7.5＋尿量×5</td></tr>
+          <tr><td>肝硬変</td><td>25–35</td><td>1.0–1.5</td><td>腹水あり 5–7</td></tr>
+          <tr><td>肝硬変・蛋白不耐症</td><td>25–35</td><td>0.5–0.7</td><td>腹水あり 5–7</td></tr>
+          <tr><td>侵襲 急性期</td><td>20–25</td><td>1.2–2.0</td><td>—</td></tr>
+          <tr><td>侵襲 安定期</td><td>25–30</td><td>1.2–2.0</td><td>—</td></tr>
+        </table>
+      </div>
+      <p style="margin:10px 0 0">エネルギー・たんぱく質はいずれも<b>目標体重あたり</b>。ただし侵襲下だけは<b>現体重あたり</b>で計算している。目標体重は 身長(m)<sup>2</sup>×22、65歳以上は×22〜25。</p>
+    </div>
+  </details>
+
+  <footer>
+    指示量は出発点であり、体重・血糖・アルブミン・BUN の動きを見て調整する。<br>
+    「ベッド上安静が中心 20〜25」はガイドラインの区分ではなく、入院中の目安として置いたもの。<br>
+    複数の病態が重なるときは、それぞれの推奨レンジの重なりを採用している。重ならない場合は病態側を優先し、その旨を下に出す。<br>
+    <span style="opacity:.75">版 2026-11-07</span>
+  </footer>
+</div>
+
+<script>
+const $ = id => document.getElementById(id);
+const BOXES = ['dm','ckd','hd','cirr','stress','enceph','ascites'];
+const FIELDS = ['ht','wt','age'];
+const SELS = ['act','ckdStage','hdType','stressPhase'];
+const STORE = 'inpatient-kcal-v1';
+
+const ACT = {rest:[20,25], light:[25,30], normal:[30,35], heavy:[35,40]};
+const ACT_NAME = {rest:'ベッド上安静が中心', light:'軽い労作', normal:'普通の労作', heavy:'重い労作'};
+
+function nbFix(root){
+  if(!root) return;
+  const re = /[A-Za-z0-9]+(?:[-–—/][A-Za-z0-9]+)+/g;
+  const walk = document.createTreeWalker(root, NodeFilter.SHOW_TEXT);
+  const todo = [];
+  let n;
+  while (n = walk.nextNode()){ re.lastIndex = 0; if (re.test(n.nodeValue)) todo.push(n); }
+  todo.forEach(function(t){
+    re.lastIndex = 0;
+    const span = document.createElement('span');
+    span.innerHTML = t.nodeValue.replace(/&/g,'&amp;').replace(/</g,'&lt;')
+      .replace(re, function(m){ return '<span class="nb">' + m + '</span>'; });
+    t.parentNode.replaceChild(span, t);
+  });
+}
+
+function save(){
+  try{
+    const d = {};
+    BOXES.forEach(function(k){ d[k] = $(k).checked; });
+    FIELDS.forEach(function(k){ d[k] = $(k).value; });
+    SELS.forEach(function(k){ d[k] = $(k).value; });
+    localStorage.setItem(STORE, JSON.stringify(d));
+  }catch(e){}
+}
+function load(){
+  try{
+    const raw = localStorage.getItem(STORE); if(!raw) return;
+    const d = JSON.parse(raw);
+    BOXES.forEach(function(k){ if(k in d) $(k).checked = !!d[k]; });
+    FIELDS.forEach(function(k){ if(k in d && d[k] !== '') $(k).value = d[k]; });
+    SELS.forEach(function(k){ if(k in d && d[k]) $(k).value = d[k]; });
+  }catch(e){}
+}
+function doReset(){
+  BOXES.forEach(function(k){ $(k).checked = false; });
+  FIELDS.forEach(function(k){ $(k).value = ''; });
+  $('act').value = 'light'; $('ckdStage').value = 'g3a';
+  $('hdType').value = 'hd'; $('stressPhase').value = 'acute';
+  try{ localStorage.removeItem(STORE); }catch(e){}
+  calc();
+  $('ht').focus();
+}
+
+const r1 = function(v){ return Math.round(v*10)/10; };
+// 80kcal = 1単位。単位が0.5刻みで切れるよう40kcal単位に丸める
+const round40 = function(v){ return Math.round(v/40)*40; };
+
+function calc(){
+  BOXES.forEach(function(k){ const w = $('w-'+k); if(w) w.classList.toggle('on', $(k).checked); });
+  FIELDS.forEach(function(k){ $(k).classList.toggle('on', $(k).value !== ''); });
+  $('ckdSub').hidden = !$('ckd').checked;
+  $('hdSub').hidden = !$('hd').checked;
+  $('cirrSub').hidden = !$('cirr').checked;
+  $('stressSub').hidden = !$('stress').checked;
+
+  const num = function(id){ return $(id).value === '' ? null : +$(id).value; };
+  const ht = num('ht'), wt = num('wt'), age = num('age');
+  const out = $('result');
+
+  if (ht === null || wt === null){
+    out.innerHTML = '<div class="head"><span class="k" style="font-size:24px;color:var(--muted)">入力待ち</span>'
+      + '<span class="why">身長と体重を入れると計算します</span></div>'
+      + '<div class="actions"><button type="button" class="reset" id="resetBtn">入力をクリア</button></div>';
+    $('resetBtn').addEventListener('click', doReset);
+    save();
+    return;
+  }
+
+  const m = ht/100;
+  const tw = m*m*22, tw25 = m*m*25;
+  const bmi = wt/(m*m);
+  const elderly = age !== null && age >= 65;
+
+  // 安静度のレンジから出発し、病態のレンジと重ね合わせる
+  let lo = ACT[$('act').value][0], hi = ACT[$('act').value][1];
+  const src = [ACT_NAME[$('act').value]];
+  const clash = [];
+  const apply = function(a, b, name){
+    const nlo = Math.max(lo, a), nhi = Math.min(hi, b);
+    if (nlo > nhi){ clash.push(name + ' ' + a + '〜' + b); lo = a; hi = b; }
+    else { lo = nlo; hi = nhi; }
+    src.push(name);
+  };
+
+  const dm = $('dm').checked, ckd = $('ckd').checked, hd = $('hd').checked;
+  const cirr = $('cirr').checked, stress = $('stress').checked;
+  const stage = $('ckdStage').value, hdType = $('hdType').value;
+  const enceph = $('enceph').checked, ascites = $('ascites').checked;
+  const acute = $('stressPhase').value === 'acute';
+
+  if (hd) apply(30, 35, '透析');
+  else if (ckd) apply(25, 35, 'CKD');
+  if (cirr) apply(25, dm ? 30 : 35, '肝硬変');
+  if (stress) apply(acute ? 20 : 25, acute ? 25 : 30, '侵襲下');
+
+  // 侵襲下だけは現体重あたり
+  const base = stress ? wt : tw;
+  const baseName = stress ? '現体重' : '目標体重';
+
+  const kLo = round40(base*lo), kHi = round40(base*hi);
+  const rec = kLo;
+  const unit = Math.round(rec/80*10)/10;
+
+  let h = '<div class="head"><span class="k">' + rec + '</span><span class="u">kcal / 日</span>'
+    + '<span class="u" style="color:var(--ink)">＝ ' + unit + ' 単位</span>'
+    + '<span class="why">' + baseName + ' ' + r1(base) + ' kg × ' + lo + ' kcal/kg'
+    + '（' + src.join('・') + '）</span></div>';
+
+  h += '<div class="range">幅をもたせるなら <b>' + kLo + '〜' + kHi + ' kcal</b>'
+    + '（' + (Math.round(kLo/80*10)/10) + '〜' + (Math.round(kHi/80*10)/10) + ' 単位）'
+    + '　／　' + lo + '〜' + hi + ' kcal/kg</div>';
+
+  h += '<div class="targets">'
+    + '<div class="tg"><div class="lbl">目標体重</div><div class="val">' + r1(tw) + '<span style="font-size:15px"> kg</span></div>'
+    + '<div class="now">身長' + ht + 'cm × 22'
+    + (elderly ? '（65歳以上は22〜25＝' + r1(tw) + '〜' + r1(tw25) + 'kg）' : '') + '</div></div>'
+    + '<div class="tg"><div class="lbl">BMI</div><div class="val">' + r1(bmi) + '</div>'
+    + '<div class="now">現体重 ' + wt + ' kg・目標まで ' + (wt > tw ? '−' : '＋') + r1(Math.abs(wt-tw)) + ' kg</div></div>'
+    + '</div>';
+
+  // 腎・肝・侵襲のときだけ、たんぱく質ほかを出す
+  const extra = [];
+  const pr = function(a, b, per){
+    const pbase = (per === '現体重') ? wt : tw;
+    return (a === null)
+      ? Math.round(pbase*b) + ' g 未満'
+      : Math.round(pbase*a) + '〜' + Math.round(pbase*b) + ' g';
+  };
+
+  if (hd){
+    extra.push(['たんぱく質', pr(0.9, 1.2, '目標体重')]);
+    if (hdType === 'hd'){
+      extra.push(['食塩', '6 g 未満']);
+      extra.push(['カリウム', '2000 mg 以下']);
+      extra.push(['水分', 'できるだけ少なく']);
+    } else {
+      extra.push(['食塩', '除水量(L)×7.5 ＋ 尿量(L)×5 g']);
+      extra.push(['カリウム', '原則制限なし']);
+      extra.push(['水分', '除水量 ＋ 尿量']);
+    }
+    extra.push(['リン', 'たんぱく質(g)×15 mg 以下']);
+  } else if (ckd){
+    if (stage === 'g12') extra.push(['たんぱく質', pr(null, 1.3, '目標体重') + '（過剰にしない）']);
+    else if (stage === 'g3a') extra.push(['たんぱく質', pr(0.8, 1.0, '目標体重')]);
+    else extra.push(['たんぱく質', pr(0.6, 0.8, '目標体重')]);
+    extra.push(['食塩', '3 以上 6 g 未満']);
+    if (stage === 'g3b') extra.push(['カリウム', '2000 mg 以下']);
+    if (stage === 'g45') extra.push(['カリウム', '1500 mg 以下']);
+  }
+
+  if (cirr){
+    extra.push(['たんぱく質', enceph ? pr(0.5, 0.7, '目標体重') : pr(1.0, 1.5, '目標体重')]);
+    if (ascites) extra.push(['食塩', '5〜7 g']);
+  }
+
+  if (stress) extra.push(['たんぱく質', pr(1.2, 2.0, '現体重') + '（現体重あたり）']);
+
+  if (extra.length){
+    h += '<div class="body-line">' + extra.map(function(e){
+      return '<span class="pi">' + e[0] + ' <b>' + e[1] + '</b></span>';
+    }).join('') + '</div>';
+  }
+
+  const notes = [];
+  if (clash.length){
+    notes.push('安静度と病態の推奨が重なりませんでした。<b>' + clash.join('・') + ' を優先</b>しています。');
+  }
+  if (stress){
+    notes.push('侵襲下は<b>現体重</b>あたりで計算しています。急性期は入れすぎないほうが安全なので、'
+      + '経過を見ながら上げてください。可能なら間接熱量計を。');
+  }
+  if (cirr){
+    notes.push('肝硬変では<b>就寝前補食（LES）200 kcal 前後</b>を、上の総量の内訳として組みます。'
+      + (enceph ? ' 蛋白不耐症があるので、不足分は BCAA 製剤で補います。' : ''));
+  }
+  if ((hd || ckd) && elderly){
+    notes.push('高齢でサルコペニア・フレイルがあるときは、<b>たんぱく質を下限まで削らない</b>。'
+      + '腎機能の保持より低栄養の回避を優先する場面があります。');
+  }
+  if ((hd || ckd) && dm){
+    notes.push('糖尿病と腎臓の指示が両方かかっています。エネルギーは重なりを採りましたが、'
+      + '血糖と BUN の動きを見て寄せ直してください。');
+  }
+  if (bmi >= 25) notes.push('BMI ' + r1(bmi) + '。減量を組むなら、入院中は下限側（' + lo + ' kcal/kg）から。');
+  if (bmi < 18.5) notes.push('BMI ' + r1(bmi) + ' とやせています。指示量より<b>実際に食べた量</b>を追ってください。');
+  if (!hd && !ckd && !cirr && !stress){
+    notes.push('腎臓・肝臓・侵襲のチェックを入れると、たんぱく質や食塩の目安も出ます。');
+  }
+
+  notes.forEach(function(t){ h += '<div class="msg">' + t + '</div>'; });
+
+  h += '<div class="actions"><button type="button" class="reset" id="resetBtn">入力をクリア</button></div>';
+  out.innerHTML = h;
+  nbFix(out);
+  $('resetBtn').addEventListener('click', doReset);
+  save();
+}
+
+BOXES.concat(FIELDS).concat(SELS).forEach(function(k){
+  $(k).addEventListener('input', calc);
+  $(k).addEventListener('change', calc);
+});
+load();
+calc();
+nbFix(document.querySelector('details'));
+</script>
+
+<script>
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('sw.js').then(function(reg){
+    reg.update();                       // 起動のたびに新版を確認
+    setInterval(function(){ reg.update(); }, 60 * 60 * 1000);
+  }).catch(function(){});
+
+  // 新しい版が主導権を取ったら、その場で読み込み直す
+  var reloaded = false;
+  navigator.serviceWorker.addEventListener('controllerchange', function(){
+    if (reloaded) return;
+    reloaded = true;
+    location.reload();
+  });
+}
+</script>
+</body>
+</html>
