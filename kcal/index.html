@@ -116,11 +116,11 @@ footer{margin-top:20px; font-size:12.5px; color:var(--muted); line-height:1.7}
 <div class="wrap">
   <header>
     <h1>入院栄養指示の算出</h1>
-    <p class="sub">糖尿病治療ガイド／CKD食事療法基準2014／肝硬変診療ガイドライン2020</p>
+    <p class="sub">糖尿病治療ガイド／CKD食事療法基準2014／肝硬変診療ガイドライン2020／ESPEN 2019（肝）</p>
   </header>
 
   <div class="card">
-    <h2>からだ</h2>
+    <h2>体格</h2>
     <div class="grid">
       <div><label for="ht">身長 cm</label><input type="number" id="ht" min="100" max="220" step="0.1" inputmode="decimal"></div>
       <div><label for="wt">体重 kg</label><input type="number" id="wt" min="20" max="200" step="0.1" inputmode="decimal"></div>
@@ -167,7 +167,12 @@ footer{margin-top:20px; font-size:12.5px; color:var(--muted); line-height:1.7}
     </div>
 
     <div class="sublock" id="cirrSub" hidden>
-      <div class="t">肝硬変に伴うもの</div>
+      <div class="t">肝硬変の病期</div>
+      <select id="cirrStage">
+        <option value="comp" selected>代償期</option>
+        <option value="decomp">非代償期（腹水・黄疸・脳症・低アルブミン）</option>
+      </select>
+      <div class="t" style="margin-top:11px">肝硬変に伴うもの</div>
       <div class="chks">
         <label class="chk wide" id="w-enceph"><input type="checkbox" id="enceph"><span>蛋白不耐症・肝性脳症あり</span></label>
         <label class="chk" id="w-ascites"><input type="checkbox" id="ascites"><span>腹水あり</span></label>
@@ -197,8 +202,9 @@ footer{margin-top:20px; font-size:12.5px; color:var(--muted); line-height:1.7}
           <tr><td>CKD G3b–G5</td><td>25–35</td><td>0.6–0.8</td><td>3以上6未満</td></tr>
           <tr><td>血液透析</td><td>30–35</td><td>0.9–1.2</td><td>6未満</td></tr>
           <tr><td>腹膜透析</td><td>30–35</td><td>0.9–1.2</td><td>除水量×7.5＋尿量×5</td></tr>
-          <tr><td>肝硬変</td><td>25–35</td><td>1.0–1.5</td><td>腹水あり 5–7</td></tr>
-          <tr><td>肝硬変・蛋白不耐症</td><td>25–35</td><td>0.5–0.7</td><td>腹水あり 5–7</td></tr>
+          <tr><td>肝硬変 代償期</td><td>25–35</td><td>1.0–1.5</td><td>腹水あり 5–7</td></tr>
+          <tr><td>肝硬変 非代償期</td><td>30–35</td><td>1.0–1.5</td><td>腹水あり 5–7</td></tr>
+          <tr><td>肝硬変・蛋白不耐症</td><td>病期に同じ</td><td>0.5–0.7</td><td>腹水あり 5–7</td></tr>
           <tr><td>侵襲 急性期</td><td>20–25</td><td>1.2–2.0</td><td>—</td></tr>
           <tr><td>侵襲 安定期</td><td>25–30</td><td>1.2–2.0</td><td>—</td></tr>
         </table>
@@ -211,7 +217,7 @@ footer{margin-top:20px; font-size:12.5px; color:var(--muted); line-height:1.7}
     指示量は出発点であり、体重・血糖・アルブミン・BUN の動きを見て調整する。<br>
     「ベッド上安静が中心 20〜25」はガイドラインの区分ではなく、入院中の目安として置いたもの。<br>
     複数の病態が重なるときは、それぞれの推奨レンジの重なりを採用している。重ならない場合は病態側を優先し、その旨を下に出す。<br>
-    <span style="opacity:.75">版 2026-11-07</span>
+    <span style="opacity:.75">版 2026-11-08</span>
   </footer>
 </div>
 
@@ -219,7 +225,7 @@ footer{margin-top:20px; font-size:12.5px; color:var(--muted); line-height:1.7}
 const $ = id => document.getElementById(id);
 const BOXES = ['dm','ckd','hd','cirr','stress','enceph','ascites'];
 const FIELDS = ['ht','wt','age'];
-const SELS = ['act','ckdStage','hdType','stressPhase'];
+const SELS = ['act','ckdStage','cirrStage','hdType','stressPhase'];
 const STORE = 'inpatient-kcal-v1';
 
 const ACT = {rest:[20,25], light:[25,30], normal:[30,35], heavy:[35,40]};
@@ -263,6 +269,7 @@ function doReset(){
   BOXES.forEach(function(k){ $(k).checked = false; });
   FIELDS.forEach(function(k){ $(k).value = ''; });
   $('act').value = 'light'; $('ckdStage').value = 'g3a';
+  $('cirrStage').value = 'comp';
   $('hdType').value = 'hd'; $('stressPhase').value = 'acute';
   try{ localStorage.removeItem(STORE); }catch(e){}
   calc();
@@ -314,11 +321,13 @@ function calc(){
   const cirr = $('cirr').checked, stress = $('stress').checked;
   const stage = $('ckdStage').value, hdType = $('hdType').value;
   const enceph = $('enceph').checked, ascites = $('ascites').checked;
+  const decomp = $('cirrStage').value === 'decomp';
   const acute = $('stressPhase').value === 'acute';
 
   if (hd) apply(30, 35, '透析');
   else if (ckd) apply(25, 35, 'CKD');
-  if (cirr) apply(25, dm ? 30 : 35, '肝硬変');
+  // 非代償期は低栄養・サルコペニアの回避が先に立つので下限を上げる（ESPEN 30〜35、AASLD/EASL は35〜）
+  if (cirr) apply(decomp ? 30 : 25, (decomp || !dm) ? 35 : 30, '肝硬変' + (decomp ? '非代償期' : ''));
   if (stress) apply(acute ? 20 : 25, acute ? 25 : 30, '侵襲下');
 
   // 侵襲下だけは現体重あたり
@@ -334,9 +343,11 @@ function calc(){
     + '<span class="why">' + baseName + ' ' + r1(base) + ' kg × ' + lo + ' kcal/kg'
     + '（' + src.join('・') + '）</span></div>';
 
-  h += '<div class="range">幅をもたせるなら <b>' + kLo + '〜' + kHi + ' kcal</b>'
-    + '（' + (Math.round(kLo/80*10)/10) + '〜' + (Math.round(kHi/80*10)/10) + ' 単位）'
-    + '　／　' + lo + '〜' + hi + ' kcal/kg</div>';
+  h += (kLo === kHi)
+    ? '<div class="range">重なりは <b>' + lo + ' kcal/kg</b> の一点でした（' + kLo + ' kcal）</div>'
+    : '<div class="range">幅をもたせるなら <b>' + kLo + '〜' + kHi + ' kcal</b>'
+      + '（' + (Math.round(kLo/80*10)/10) + '〜' + (Math.round(kHi/80*10)/10) + ' 単位）'
+      + '　／　' + lo + '〜' + hi + ' kcal/kg</div>';
 
   h += '<div class="targets">'
     + '<div class="tg"><div class="lbl">目標体重</div><div class="val">' + r1(tw) + '<span style="font-size:15px"> kg</span></div>'
@@ -400,6 +411,11 @@ function calc(){
   if (cirr){
     notes.push('肝硬変では<b>就寝前補食（LES）200 kcal 前後</b>を、上の総量の内訳として組みます。'
       + (enceph ? ' 蛋白不耐症があるので、不足分は BCAA 製剤で補います。' : ''));
+    if (decomp){
+      notes.push('非代償期は<b>30〜35 kcal/kg</b>から組みます（代償期の25〜35より下限が高い）。'
+        + (dm ? '耐糖能異常があっても量は削らず、分割食と LES で血糖を均すほうを採ります。'
+              : '低栄養とサルコペニアの回避を、ほかより先に置いています。'));
+    }
   }
   if ((hd || ckd) && elderly){
     notes.push('高齢でサルコペニア・フレイルがあるときは、<b>たんぱく質を下限まで削らない</b>。'
