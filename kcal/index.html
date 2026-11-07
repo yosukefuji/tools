@@ -82,15 +82,13 @@ input:focus-visible, select:focus-visible, button:focus-visible, .chk:focus-with
 .head .why{font-size:13.5px; color:var(--muted); min-width:0; flex-basis:100%}
 .range{font-family:var(--display); font-size:14.5px; color:var(--muted); font-variant-numeric:tabular-nums; margin:-6px 0 14px}
 .range b{color:var(--ink); font-weight:600}
-.targets{display:grid; grid-template-columns:1fr 1fr; gap:10px}
-.tg{border:1px solid var(--line); border-radius:9px; padding:11px 12px; min-width:0; background:var(--card)}
-.tg .lbl{font-size:12px; color:var(--muted); letter-spacing:.06em}
-.tg .val{font-family:var(--display); font-size:27px; line-height:1.15; font-variant-numeric:tabular-nums; font-weight:500}
-.tg .now{font-size:13px; margin-top:2px; color:var(--muted)}
-.body-line{margin-top:12px; font-size:13px; color:var(--muted); font-variant-numeric:tabular-nums;
-  display:flex; flex-wrap:wrap; gap:2px 14px}
-.pi{white-space:nowrap}
-.pi b{color:var(--ink); font-weight:600}
+.nutri{display:grid; grid-template-columns:repeat(auto-fit,minmax(168px,1fr)); gap:8px; margin-bottom:10px}
+.nu{border:1px solid var(--line); border-radius:9px; padding:9px 12px; min-width:0; background:var(--card)}
+.nu .lb{display:block; font-size:12px; color:var(--muted); letter-spacing:.06em}
+.nu .vl{font-family:var(--display); font-size:19px; font-weight:600; line-height:1.3;
+  font-variant-numeric:tabular-nums; overflow-wrap:anywhere}
+.basis{font-size:12.5px; color:var(--muted); font-variant-numeric:tabular-nums; line-height:1.65}
+.basis b{color:var(--ink); font-weight:600}
 .msg{margin-top:12px; padding:11px 13px; border-radius:9px; background:var(--warn-soft); font-size:14px; border-left:3px solid var(--accent)}
 .actions{display:flex; gap:8px; margin-top:20px; flex-wrap:wrap}
 button{font-family:inherit; font-size:14.5px; padding:10px 16px; border-radius:8px; cursor:pointer;
@@ -109,7 +107,6 @@ th,td{border:1px solid var(--line); padding:4px 9px; text-align:center; white-sp
 th{background:var(--navy-soft); color:var(--ink); font-weight:700}
 td:first-child,th:first-child{text-align:left}
 footer{margin-top:20px; font-size:12.5px; color:var(--muted); line-height:1.7}
-@media (max-width:430px){ .targets{grid-template-columns:1fr} }
 .nb{white-space:nowrap}
 </style>
 
@@ -209,7 +206,7 @@ footer{margin-top:20px; font-size:12.5px; color:var(--muted); line-height:1.7}
           <tr><td>侵襲 安定期</td><td>25–30</td><td>1.2–2.0</td><td>—</td></tr>
         </table>
       </div>
-      <p style="margin:10px 0 0">エネルギー・たんぱく質はいずれも<b>目標体重あたり</b>。ただし侵襲下だけは<b>現体重あたり</b>で計算している。目標体重は 身長(m)<sup>2</sup>×22、65歳以上は×22〜25。</p>
+      <p style="margin:10px 0 0">エネルギー・たんぱく質はいずれも<b>標準体重あたり</b>。ただし侵襲下だけは<b>現体重あたり</b>で計算している。標準体重は 身長(m)<sup>2</sup>×22、65歳以上は×22〜25。</p>
     </div>
   </details>
 
@@ -332,7 +329,7 @@ function calc(){
 
   // 侵襲下だけは現体重あたり
   const base = stress ? wt : tw;
-  const baseName = stress ? '現体重' : '目標体重';
+  const baseName = stress ? '現体重' : '標準体重';
 
   const kLo = round40(base*lo), kHi = round40(base*hi);
   const rec = kLo;
@@ -349,14 +346,6 @@ function calc(){
       + '（' + (Math.round(kLo/80*10)/10) + '〜' + (Math.round(kHi/80*10)/10) + ' 単位）'
       + '　／　' + lo + '〜' + hi + ' kcal/kg</div>';
 
-  h += '<div class="targets">'
-    + '<div class="tg"><div class="lbl">目標体重</div><div class="val">' + r1(tw) + '<span style="font-size:15px"> kg</span></div>'
-    + '<div class="now">身長' + ht + 'cm × 22'
-    + (elderly ? '（65歳以上は22〜25＝' + r1(tw) + '〜' + r1(tw25) + 'kg）' : '') + '</div></div>'
-    + '<div class="tg"><div class="lbl">BMI</div><div class="val">' + r1(bmi) + '</div>'
-    + '<div class="now">現体重 ' + wt + ' kg・目標まで ' + (wt > tw ? '−' : '＋') + r1(Math.abs(wt-tw)) + ' kg</div></div>'
-    + '</div>';
-
   // 腎・肝・侵襲のときだけ、たんぱく質ほかを出す
   const extra = [];
   const pr = function(a, b, per){
@@ -367,7 +356,7 @@ function calc(){
   };
 
   if (hd){
-    extra.push(['たんぱく質', pr(0.9, 1.2, '目標体重')]);
+    extra.push(['たんぱく質', pr(0.9, 1.2, '標準体重')]);
     if (hdType === 'hd'){
       extra.push(['食塩', '6 g 未満']);
       extra.push(['カリウム', '2000 mg 以下']);
@@ -379,26 +368,32 @@ function calc(){
     }
     extra.push(['リン', 'たんぱく質(g)×15 mg 以下']);
   } else if (ckd){
-    if (stage === 'g12') extra.push(['たんぱく質', pr(null, 1.3, '目標体重') + '（過剰にしない）']);
-    else if (stage === 'g3a') extra.push(['たんぱく質', pr(0.8, 1.0, '目標体重')]);
-    else extra.push(['たんぱく質', pr(0.6, 0.8, '目標体重')]);
+    if (stage === 'g12') extra.push(['たんぱく質', pr(null, 1.3, '標準体重') + '（過剰にしない）']);
+    else if (stage === 'g3a') extra.push(['たんぱく質', pr(0.8, 1.0, '標準体重')]);
+    else extra.push(['たんぱく質', pr(0.6, 0.8, '標準体重')]);
     extra.push(['食塩', '3 以上 6 g 未満']);
     if (stage === 'g3b') extra.push(['カリウム', '2000 mg 以下']);
     if (stage === 'g45') extra.push(['カリウム', '1500 mg 以下']);
   }
 
   if (cirr){
-    extra.push(['たんぱく質', enceph ? pr(0.5, 0.7, '目標体重') : pr(1.0, 1.5, '目標体重')]);
+    extra.push(['たんぱく質', enceph ? pr(0.5, 0.7, '標準体重') : pr(1.0, 1.5, '標準体重')]);
     if (ascites) extra.push(['食塩', '5〜7 g']);
   }
 
   if (stress) extra.push(['たんぱく質', pr(1.2, 2.0, '現体重') + '（現体重あたり）']);
 
   if (extra.length){
-    h += '<div class="body-line">' + extra.map(function(e){
-      return '<span class="pi">' + e[0] + ' <b>' + e[1] + '</b></span>';
+    h += '<div class="nutri">' + extra.map(function(e){
+      return '<div class="nu"><span class="lb">' + e[0] + '</span><span class="vl">' + e[1] + '</span></div>';
     }).join('') + '</div>';
   }
+
+  // 体格は添え物。1行で小さく置く
+  h += '<div class="basis">標準体重 <b>' + r1(tw) + ' kg</b>'
+    + (elderly ? '（65歳以上は22〜25で ' + r1(tw) + '〜' + r1(tw25) + ' kg）' : '')
+    + '　／　BMI <b>' + r1(bmi) + '</b>'
+    + '（現体重 ' + wt + ' kg・標準まで ' + (wt > tw ? '−' : '＋') + r1(Math.abs(wt-tw)) + ' kg）</div>';
 
   const notes = [];
   if (clash.length){
