@@ -240,13 +240,13 @@ footer{margin-top:20px; font-size:12.5px; color:var(--muted); line-height:1.7}
           <tr><td>高度肥満症 BMI 35以上</td><td>20–25以下</td><td>1.0–1.2</td><td>—</td></tr>
           <tr><td>侵襲 急性期</td><td>20–25</td><td>1.2–2.0</td><td>—</td></tr>
           <tr><td>侵襲 安定期</td><td>25–30</td><td>1.2–2.0</td><td>—</td></tr>
-          <tr><td>侵襲＋BMI 25以上</td><td>20–30<br>（標準体重）</td><td>1.2–1.5</td><td>—</td></tr>
+          <tr><td>侵襲＋BMI 25以上</td><td>20–30<br>（調整体重）</td><td>1.2–1.5</td><td>—</td></tr>
           <tr><td>再栄養 低リスク</td><td>15–25<br>（現体重）</td><td>—</td><td>制限なし</td></tr>
           <tr><td>再栄養 高リスク</td><td>10–15<br>（現体重）</td><td>—</td><td>Na 1mmol/kg未満</td></tr>
           <tr><td>再栄養 超高リスク</td><td>5–10<br>（現体重）</td><td>—</td><td>Na 1mmol/kg未満</td></tr>
         </table>
       </div>
-      <p style="margin:10px 0 0">エネルギー・たんぱく質はいずれも<b>標準体重あたり</b>。ただし侵襲下だけは<b>現体重あたり</b>で計算している。標準体重は 身長(m)<sup>2</sup>×22、65歳以上は×22〜25。</p>
+      <p style="margin:10px 0 0">エネルギー・たんぱく質はいずれも<b>標準体重あたり</b>。侵襲下（肥満でない場合）は<b>現体重あたり</b>、BMI 25以上では<b>調整体重あたり</b>で計算している。調整体重 ＝ 標準体重 ＋ 0.25×(現体重 − 標準体重)。標準体重は 身長(m)<sup>2</sup>×22、65歳以上は×22〜25。</p>
     </div>
   </details>
 
@@ -257,7 +257,7 @@ footer{margin-top:20px; font-size:12.5px; color:var(--muted); line-height:1.7}
     複数の病態が重なるときは、それぞれの推奨レンジの重なりを採用している。重ならない場合は病態側を優先し、その旨を下に出す。<br>
     肥満症のたんぱく質 1.0〜1.2 g/kg は、減量中に筋量を落とさないための目安として置いたもの（ガイドラインの明示値ではない）。<br>
     再栄養の日ごとの量は Friedli ら(2018)の表、リスク区分は NICE(2006) による。<br>
-    <span style="opacity:.75">版 2026-11-08f</span>
+    <span style="opacity:.75">版 2026-11-08g</span>
   </footer>
 </div>
 
@@ -412,9 +412,13 @@ function calc(){
   if (lose && obese && !stress) apply(20, 25, sevObese ? '高度肥満症' : '肥満症');
 
   // 侵襲下は現体重あたり。ただし肥満では現体重だと入れすぎになるので標準体重あたり
-  const useNow = stress && bmi < 25;
-  const base = useNow ? wt : tw;
-  const baseName = useNow ? '現体重' : '標準体重';
+  // 肥満では標準体重だけだと少なく見積もりすぎる（脂肪が増えれば除脂肪量も増えるため）。
+  // 調整体重 ＝ 標準体重 ＋ 0.25×(現体重 − 標準体重)。ただし減量が目的のときは標準体重のまま
+  const aw = tw + 0.25*(wt - tw);
+  const useAdj = obese && !(lose && !stress);
+  const useNow = stress && !obese;
+  const base = useNow ? wt : (useAdj ? aw : tw);
+  const baseName = useNow ? '現体重' : (useAdj ? '調整体重' : '標準体重');
 
   const kLo = round40(base*lo), kHi = round40(base*hi);
   const rec = kLo;
@@ -454,7 +458,7 @@ function calc(){
   // 腎・肝・侵襲のときだけ、たんぱく質ほかを出す
   const extra = [];
   const pr = function(a, b, per){
-    const pbase = (per === '現体重') ? wt : tw;
+    const pbase = (per === '現体重') ? wt : (useAdj ? aw : tw);
     return (a === null)
       ? Math.round(pbase*b) + ' g 未満'
       : Math.round(pbase*a) + '〜' + Math.round(pbase*b) + ' g';
@@ -503,6 +507,7 @@ function calc(){
 
   // 体格は添え物。1行で小さく置く
   h += '<div class="basis">標準体重 <b>' + r1(tw) + ' kg</b>'
+    + (useAdj ? '　／　調整体重 <b>' + r1(aw) + ' kg</b>（標準＋0.25×超過分）' : '')
     + (elderly ? '（65歳以上は22〜25で ' + r1(tw) + '〜' + r1(tw25) + ' kg）' : '')
     + '　／　BMI <b>' + r1(bmi) + '</b>'
     + '（現体重 ' + wt + ' kg・標準まで ' + (wt > tw ? '−' : '＋') + r1(Math.abs(wt-tw)) + ' kg）</div>';
@@ -545,22 +550,25 @@ function calc(){
       + '血糖と BUN の動きを見て寄せ直してください。');
   }
   if (stress && obese){
-    notes.push('BMI ' + r1(bmi) + ' なので、侵襲下でも<b>標準体重あたり</b>で計算しています'
-      + '（現体重あたりだと入れすぎになるため）。たんぱく質は 1.2〜1.5 g/kg 標準体重。');
+    notes.push('BMI ' + r1(bmi) + ' なので、侵襲下でも現体重ではなく<b>調整体重 ' + r1(aw) + ' kg</b> で'
+      + '計算しています（標準体重だけだと少なく見積もりすぎ、現体重だと入れすぎになるため）。');
   } else if (lose && sevObese){
     notes.push('高度肥満症（BMI ' + r1(bmi) + '）として<b>20〜25 kcal/kg 標準体重 以下</b>で組んでいます。'
       + 'まず3〜6か月で現体重の5〜10%減が目標。届かないときはフォーミュラ食・超低エネルギー食を検討します。');
   } else if (lose && obese){
-    notes.push('肥満症（BMI ' + r1(bmi) + '）として<b>25 kcal/kg 標準体重 以下</b>で組んでいます。まず3%の減量から。');
+    notes.push('肥満症（BMI ' + r1(bmi) + '）として<b>25 kcal/kg 標準体重 以下</b>で組んでいます。まず3%の減量から。'
+      + '減量が目的のときだけは、調整体重ではなく<b>標準体重</b>を使います。');
   } else if (lose && !obese){
     notes.push('BMI ' + r1(bmi) + ' なので、減量のチェックは計算に反映していません。');
   } else if (bmi >= 25){
-    notes.push('BMI ' + r1(bmi) + '。減量を組むなら「減量を目的とする」にチェックを入れてください。');
+    notes.push('BMI ' + r1(bmi) + ' なので<b>調整体重 ' + r1(aw) + ' kg</b>（標準体重＋超過分の1/4）で計算しています。'
+      + '減量を組むなら「減量を目的とする」にチェックを入れてください（そのときは標準体重に切り替わります）。');
   }
-  const protLo = hd ? tw*0.9
-    : (ckd ? (stage === 'g12' ? 0 : (stage === 'g3a' ? tw*0.8 : tw*0.6))
-    : (cirr ? (enceph ? tw*0.5 : tw*1.0)
-    : (stress ? (obese ? tw*1.2 : wt*1.2) : 0)));
+  const pb = useAdj ? aw : tw;
+  const protLo = hd ? pb*0.9
+    : (ckd ? (stage === 'g12' ? 0 : (stage === 'g3a' ? pb*0.8 : pb*0.6))
+    : (cirr ? (enceph ? pb*0.5 : pb*1.0)
+    : (stress ? (obese ? pb*1.2 : wt*1.2) : 0)));
   if (protLo > 90){
     notes.push('たんぱく質 ' + Math.round(protLo) + ' g は、<b>常食や高たんぱく食では届かないことがあります</b>。'
       + '院内の約束食事箋の上限を確かめて、足りなければ栄養補助食品（メイバランスなど）や経腸栄養剤を足してください。');
