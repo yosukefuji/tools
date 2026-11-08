@@ -94,6 +94,8 @@ input:focus-visible, select:focus-visible, button:focus-visible, .chk:focus-with
 .ramp .d{font-size:12.5px; color:var(--muted); flex:0 0 76px}
 .ramp .v{font-family:var(--display); font-size:16.5px; font-weight:600; font-variant-numeric:tabular-nums; min-width:0}
 .ramp .s{font-size:12.5px; color:var(--muted); margin-left:auto; text-align:right; white-space:nowrap}
+.rfauto{margin-top:10px; font-size:12.5px; color:var(--muted); line-height:1.6}
+.rfauto b{color:var(--navy)}
 .basis{font-size:12.5px; color:var(--muted); font-variant-numeric:tabular-nums; line-height:1.65}
 .basis b{color:var(--ink); font-weight:600}
 .msg{margin-top:12px; padding:11px 13px; border-radius:9px; background:var(--warn-soft); font-size:14px; border-left:3px solid var(--accent)}
@@ -186,12 +188,26 @@ footer{margin-top:20px; font-size:12.5px; color:var(--muted); line-height:1.7}
     </div>
 
     <div class="sublock" id="refeedSub" hidden>
-      <div class="t">再栄養のリスク（NICE 2006）</div>
-      <select id="refeedRisk">
-        <option value="low" selected>低リスク　BMI 18.5未満／5日以上ほぼ絶食 など1項目</option>
-        <option value="high">高リスク　BMI 16未満／3〜6か月で15%超の減／10日以上ほぼ絶食／K・P・Mg が低い</option>
-        <option value="vhigh">超高リスク　BMI 14未満／15日以上ほぼ絶食</option>
-      </select>
+      <div class="t">A　1つでも当てはまれば高リスク（NICE 2006）</div>
+      <div class="chks">
+        <label class="chk wide" id="w-rfLoss15"><input type="checkbox" id="rfLoss15"><span>3〜6か月で <b>15%超</b> の体重減少</span></label>
+        <label class="chk wide" id="w-rfFast10"><input type="checkbox" id="rfFast10"><span><b>10日以上</b> ほとんど食べていない</span></label>
+        <label class="chk wide" id="w-rfLyte"><input type="checkbox" id="rfLyte"><span>開始前から <b>K・P・Mg が低い</b></span></label>
+      </div>
+
+      <div class="t" style="margin-top:11px">B　2つ以上で高リスク</div>
+      <div class="chks">
+        <label class="chk wide" id="w-rfLoss10"><input type="checkbox" id="rfLoss10"><span>3〜6か月で <b>10%超</b> の体重減少</span></label>
+        <label class="chk wide" id="w-rfFast5"><input type="checkbox" id="rfFast5"><span><b>5日以上</b> ほとんど食べていない</span></label>
+        <label class="chk wide" id="w-rfHist"><input type="checkbox" id="rfHist"><span>アルコール多飲、またはインスリン・抗がん剤・制酸薬・利尿薬</span></label>
+      </div>
+
+      <div class="t" style="margin-top:11px">超高リスク</div>
+      <div class="chks">
+        <label class="chk wide" id="w-rfFast15"><input type="checkbox" id="rfFast15"><span><b>15日以上</b> ほとんど食べていない</span></label>
+      </div>
+
+      <div class="rfauto" id="rfAuto"></div>
     </div>
 
     <div class="sublock" id="stressSub" hidden>
@@ -241,15 +257,16 @@ footer{margin-top:20px; font-size:12.5px; color:var(--muted); line-height:1.7}
     複数の病態が重なるときは、それぞれの推奨レンジの重なりを採用している。重ならない場合は病態側を優先し、その旨を下に出す。<br>
     肥満症のたんぱく質 1.0〜1.2 g/kg は、減量中に筋量を落とさないための目安として置いたもの（ガイドラインの明示値ではない）。<br>
     再栄養の日ごとの量は Friedli ら(2018)の表、リスク区分は NICE(2006) による。<br>
-    <span style="opacity:.75">版 2026-11-08c</span>
+    <span style="opacity:.75">版 2026-11-08d</span>
   </footer>
 </div>
 
 <script>
 const $ = id => document.getElementById(id);
-const BOXES = ['dm','ckd','hd','cirr','stress','enceph','ascites','lose','refeed'];
+const BOXES = ['dm','ckd','hd','cirr','stress','enceph','ascites','lose','refeed',
+  'rfLoss15','rfFast10','rfLyte','rfLoss10','rfFast5','rfHist','rfFast15'];
 const FIELDS = ['ht','wt','age'];
-const SELS = ['act','ckdStage','cirrStage','hdType','stressPhase','refeedRisk'];
+const SELS = ['act','ckdStage','cirrStage','hdType','stressPhase'];
 const STORE = 'inpatient-kcal-v1';
 
 const ACT = {rest:[20,25], light:[25,30], normal:[30,35], heavy:[35,40]};
@@ -293,7 +310,7 @@ function doReset(){
   BOXES.forEach(function(k){ $(k).checked = false; });
   FIELDS.forEach(function(k){ $(k).value = ''; });
   $('act').value = 'light'; $('ckdStage').value = 'g3a';
-  $('cirrStage').value = 'comp'; $('refeedRisk').value = 'low';
+  $('cirrStage').value = 'comp';
   $('hdType').value = 'hd'; $('stressPhase').value = 'acute';
   try{ localStorage.removeItem(STORE); }catch(e){}
   calc();
@@ -351,11 +368,39 @@ function calc(){
   const lose = $('lose').checked;
   const refeed = $('refeed').checked;
   // 再栄養は「現体重あたり」で、最初の数日はわざと少なく入れる（Friedli 2018／ASPEN 2020）
+  // 体重（BMI）だけでは決まらない。NICE 2006 は 体格・減り方・絶食期間・電解質 の組み合わせで見る
+  const rfA = [];               // A群：1つでも高リスク
+  if (bmi < 16) rfA.push('BMI 16未満');
+  if ($('rfLoss15').checked) rfA.push('15%超の体重減');
+  if ($('rfFast10').checked) rfA.push('10日以上の絶食');
+  if ($('rfLyte').checked)   rfA.push('K・P・Mg が低い');
+  const rfB = [];               // B群：2つ以上で高リスク
+  if (bmi < 18.5) rfB.push('BMI 18.5未満');
+  if ($('rfLoss10').checked) rfB.push('10%超の体重減');
+  if ($('rfFast5').checked)  rfB.push('5日以上の絶食');
+  if ($('rfHist').checked)   rfB.push('飲酒・薬剤');
+  const rfV = [];               // 超高リスク
+  if (bmi < 14) rfV.push('BMI 14未満');
+  if ($('rfFast15').checked) rfV.push('15日以上の絶食');
+
+  const rfLevel = rfV.length ? 'vhigh' : ((rfA.length || rfB.length >= 2) ? 'high' : 'low');
   const RF = {
-    low:   {label:'低リスク',   d13:[15,25], d45:[30,30], thi:3, fl:'30〜35'},
-    high:  {label:'高リスク',   d13:[10,15], d45:[15,25], thi:3, fl:'25〜30'},
-    vhigh: {label:'超高リスク', d13:[5,10],  d45:[10,20], thi:5, fl:'20〜25'}
-  }[$('refeedRisk').value];
+    low:   {label:'リスク低め', d13:[15,25], d45:[30,30], thi:3, fl:'30〜35', na:false},
+    high:  {label:'高リスク',   d13:[10,15], d45:[15,25], thi:3, fl:'25〜30', na:true},
+    vhigh: {label:'超高リスク', d13:[5,10],  d45:[10,20], thi:5, fl:'20〜25', na:true}
+  }[rfLevel];
+
+  // 入力から自動で当てはまったものを、チェック欄の下に出す
+  const auto = [];
+  if (bmi < 14) auto.push('BMI ' + r1(bmi) + ' → <b>超高リスク</b>（14未満）');
+  else if (bmi < 16) auto.push('BMI ' + r1(bmi) + ' → <b>A に該当</b>（16未満）');
+  else if (bmi < 18.5) auto.push('BMI ' + r1(bmi) + ' → <b>B に1つ該当</b>（18.5未満）');
+  else auto.push('BMI ' + r1(bmi) + ' → 体格だけでは当てはまりません');
+  auto.push('いまの判定：<b>' + RF.label + '</b>'
+    + (rfLevel === 'high' ? '（' + (rfA.length ? 'A：' + rfA.join('・') : 'B：' + rfB.join('・')) + '）' : '')
+    + (rfLevel === 'vhigh' ? '（' + rfV.join('・') + '）' : '')
+    + (rfLevel === 'low' ? '（A はなし、B は' + rfB.length + '個）' : ''));
+  $('rfAuto').innerHTML = refeed ? auto.join('<br>') : '';
   const obese = bmi >= 25, sevObese = bmi >= 35;
 
   if (hd) apply(30, 35, '透析');
@@ -398,7 +443,7 @@ function calc(){
       + '<span class="s">病態からの必要量</span></div>'
       + '</div>';
     h += '<div class="range">水分 ' + RF.fl + ' mL/kg／日・ナトリウムは'
-      + ($('refeedRisk').value === 'low' ? '制限なし' : '1 mmol/kg／日 未満') + '</div>';
+      + (RF.na ? '1 mmol/kg／日 未満' : '制限なし') + '</div>';
   }
   h += (refeed ? '' : '<div class="head"><span class="k">' + rec + '</span><span class="u">kcal / 日</span>'
     + '<span class="u" style="color:var(--ink)">＝ ' + unit + ' 単位</span>'
@@ -475,8 +520,11 @@ function calc(){
       + '上の数字は<b>現体重</b>あたりです。');
     notes.push('低栄養から戻すときの最終目標は、通常より高めの<b>30〜35 kcal/kg 標準体重</b>を見ておきます'
       + '（上の「6日目〜」は安静度と病態からの計算値です。安静度を上げると追随します）。');
-    if (bmi < 14) notes.push('BMI ' + r1(bmi) + '。超高リスクに当たります。リスクの選択を確かめてください。');
-    else if (bmi < 16) notes.push('BMI ' + r1(bmi) + '。NICEでは高リスクに当たります。リスクの選択を確かめてください。');
+    if (rfLevel === 'low'){
+      notes.push('いまの入力では<b>強いリスクには当たりません</b>（A はなし、B は' + rfB.length + '個）。'
+        + 'それでも急に満量は入れず、15〜25 kcal/kg から始めています。'
+        + '食べられていなかった日数や体重の減り方が分かれば、上のチェックを入れてください。');
+    }
   }
   if (clash.length && !refeed){
     notes.push('安静度と病態の推奨が重なりませんでした。<b>' + clash.join('・') + ' を優先</b>しています。');
