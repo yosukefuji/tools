@@ -240,8 +240,7 @@ footer{margin-top:20px; font-size:12.5px; color:var(--muted); line-height:1.7}
           <tr><td>高度肥満症 BMI 35以上</td><td>20–25以下</td><td>1.0–1.2</td><td>—</td></tr>
           <tr><td>侵襲 急性期</td><td>20–25</td><td>1.2–2.0</td><td>—</td></tr>
           <tr><td>侵襲 安定期</td><td>25–30</td><td>1.2–2.0</td><td>—</td></tr>
-          <tr><td>侵襲＋BMI 30–50</td><td>11–14<br>（現体重）</td><td>2.0以上</td><td>—</td></tr>
-          <tr><td>侵襲＋BMI 50超</td><td>22–25</td><td>2.0–2.5</td><td>—</td></tr>
+          <tr><td>侵襲＋BMI 25以上</td><td>20–30<br>（標準体重）</td><td>1.2–1.5</td><td>—</td></tr>
           <tr><td>再栄養 低リスク</td><td>15–25<br>（現体重）</td><td>—</td><td>制限なし</td></tr>
           <tr><td>再栄養 高リスク</td><td>10–15<br>（現体重）</td><td>—</td><td>Na 1mmol/kg未満</td></tr>
           <tr><td>再栄養 超高リスク</td><td>5–10<br>（現体重）</td><td>—</td><td>Na 1mmol/kg未満</td></tr>
@@ -253,11 +252,12 @@ footer{margin-top:20px; font-size:12.5px; color:var(--muted); line-height:1.7}
 
   <footer>
     指示量は出発点であり、体重・血糖・アルブミン・BUN の動きを見て調整する。<br>
+    <b>一般病棟を想定している。</b>ICU で使う permissive underfeeding（肥満の重症患者に現体重あたり11〜14 kcal/kg）は入れていない。<br>
     「ベッド上安静が中心 20〜25」はガイドラインの区分ではなく、入院中の目安として置いたもの。<br>
     複数の病態が重なるときは、それぞれの推奨レンジの重なりを採用している。重ならない場合は病態側を優先し、その旨を下に出す。<br>
     肥満症のたんぱく質 1.0〜1.2 g/kg は、減量中に筋量を落とさないための目安として置いたもの（ガイドラインの明示値ではない）。<br>
     再栄養の日ごとの量は Friedli ら(2018)の表、リスク区分は NICE(2006) による。<br>
-    <span style="opacity:.75">版 2026-11-08d</span>
+    <span style="opacity:.75">版 2026-11-08e</span>
   </footer>
 </div>
 
@@ -407,17 +407,12 @@ function calc(){
   else if (ckd) apply(25, 35, 'CKD');
   // 非代償期は低栄養・サルコペニアの回避が先に立つので下限を上げる（ESPEN 30〜35、AASLD/EASL は35〜）
   if (cirr) apply(decomp ? 30 : 25, (decomp || !dm) ? 35 : 30, '肝硬変' + (decomp ? '非代償期' : ''));
-  if (stress){
-    // BMI30以上の侵襲下は permissive underfeeding（SCCM/ASPEN）。熱量は抑え、たんぱく質は確保する
-    if (bmi > 50) apply(22, 25, '肥満＋侵襲下');
-    else if (bmi >= 30) apply(11, 14, '肥満＋侵襲下');
-    else apply(acute ? 20 : 25, acute ? 25 : 30, '侵襲下');
-  }
+  if (stress) apply(acute ? 20 : 25, acute ? 25 : 30, '侵襲下');
   // 減量は侵襲が落ち着いてから。肥満症GL2022は「25以下」、高度肥満症は「20〜25以下」
   if (lose && obese && !stress) apply(20, 25, sevObese ? '高度肥満症' : '肥満症');
 
-  // 侵襲下は現体重あたり。ただしBMI50超は現体重だと過剰になるので標準体重あたり
-  const useNow = stress && bmi <= 50;
+  // 侵襲下は現体重あたり。ただし肥満では現体重だと入れすぎになるので標準体重あたり
+  const useNow = stress && bmi < 25;
   const base = useNow ? wt : tw;
   const baseName = useNow ? '現体重' : '標準体重';
 
@@ -496,8 +491,7 @@ function calc(){
   }
 
   if (stress){
-    if (bmi >= 40) extra.push(['たんぱく質', pr(2.0, 2.5, '標準体重') + '（標準体重あたり）']);
-    else if (bmi >= 30) extra.push(['たんぱく質', Math.round(tw*2.0) + ' g 以上（標準体重あたり）']);
+    if (obese) extra.push(['たんぱく質', pr(1.2, 1.5, '標準体重')]);
     else extra.push(['たんぱく質', pr(1.2, 2.0, '現体重') + '（現体重あたり）']);
   }
 
@@ -527,9 +521,9 @@ function calc(){
     }
   }
   if (clash.length && !refeed){
-    notes.push('安静度と病態の推奨が重なりませんでした。<b>' + clash.join('・') + ' を優先</b>しています。');
+    notes.push('安静度の目安と病態の推奨が重なりませんでした。<b>病態のほうを採って ' + clash.join('・') + ' kcal/kg</b> にしています。');
   }
-  if (stress && bmi < 30){
+  if (stress && !obese){
     notes.push('侵襲下は<b>現体重</b>あたりで計算しています。急性期は入れすぎないほうが安全なので、'
       + '経過を見ながら上げてください。可能なら間接熱量計を。');
   }
@@ -550,10 +544,9 @@ function calc(){
     notes.push('糖尿病と腎臓の指示が両方かかっています。エネルギーは重なりを採りましたが、'
       + '血糖と BUN の動きを見て寄せ直してください。');
   }
-  if (stress && bmi >= 30){
-    notes.push('BMI ' + r1(bmi) + ' の侵襲下です。<b>熱量は抑え、たんぱく質は確保する</b>組み方にしています'
-      + '（' + (bmi > 50 ? '標準体重あたり22〜25' : '現体重あたり11〜14') + ' kcal/kg・SCCM/ASPEN）。'
-      + '可能なら間接熱量計で、測定値の65〜70%を目安に。');
+  if (stress && obese){
+    notes.push('BMI ' + r1(bmi) + ' なので、侵襲下でも<b>標準体重あたり</b>で計算しています'
+      + '（現体重あたりだと入れすぎになるため）。たんぱく質は 1.2〜1.5 g/kg 標準体重。');
   } else if (lose && sevObese){
     notes.push('高度肥満症（BMI ' + r1(bmi) + '）として<b>20〜25 kcal/kg 標準体重 以下</b>で組んでいます。'
       + 'まず3〜6か月で現体重の5〜10%減が目標。届かないときはフォーミュラ食・超低エネルギー食を検討します。');
@@ -564,6 +557,15 @@ function calc(){
   } else if (bmi >= 25){
     notes.push('BMI ' + r1(bmi) + '。減量を組むなら「減量を目的とする」にチェックを入れてください。');
   }
+  const protLo = hd ? tw*0.9
+    : (ckd ? (stage === 'g12' ? 0 : (stage === 'g3a' ? tw*0.8 : tw*0.6))
+    : (cirr ? (enceph ? tw*0.5 : tw*1.0)
+    : (stress ? (obese ? tw*1.2 : wt*1.2) : 0)));
+  if (protLo > 90){
+    notes.push('たんぱく質 ' + Math.round(protLo) + ' g は、<b>常食や高たんぱく食では届かないことがあります</b>。'
+      + '院内の約束食事箋の上限を確かめて、足りなければ栄養補助食品（ONS）や経腸栄養剤を足してください。');
+  }
+
   if (bmi < 18.5 && !refeed) notes.push('BMI ' + r1(bmi) + ' とやせています。指示量より<b>実際に食べた量</b>を追ってください。'
     + '長く食べられていなかった人なら「強い低栄養」にチェックを。');
   if (!hd && !ckd && !cirr && !stress){
