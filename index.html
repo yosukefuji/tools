@@ -22,24 +22,8 @@
   --display:"Helvetica Neue",system-ui,-apple-system,sans-serif;
   --body:-apple-system,"Hiragino Sans","Yu Gothic",system-ui,sans-serif;
 }
-@media (prefers-color-scheme: dark){
-  :root:not([data-theme="light"]){
-    --bg:#13161b; --card:#1c2128; --ink:#e7ebf0; --muted:#98a3b2;
-    --line:#2c333d; --navy:#86a6ec; --navy-soft:#1d2534; --accent:#e09a63;
-    --field:#11151c; --field-line:#3a4452; --panel:#141b29;
-    --reset-bg:#e09a63; --reset-fg:#1a1207;
-    --ok:#62c48f; --ok-soft:#18271f; --warn-soft:#2a2218;
-    color-scheme:dark;
-  }
-}
-:root[data-theme="dark"]{
-  --bg:#13161b; --card:#1c2128; --ink:#e7ebf0; --muted:#98a3b2;
-  --line:#2c333d; --navy:#86a6ec; --navy-soft:#1d2534; --accent:#e09a63;
-  --field:#11151c; --field-line:#3a4452; --panel:#141b29;
-  --reset-bg:#e09a63; --reset-fg:#1a1207;
-  --ok:#62c48f; --ok-soft:#18271f; --warn-soft:#2a2218;
-  color-scheme:dark;
-}
+
+
 *{box-sizing:border-box}
 body{
   background:var(--bg); color:var(--ink);
@@ -146,8 +130,8 @@ footer{margin-top:20px; font-size:12.5px; color:var(--muted); line-height:1.7}
 
 /* r29 1画面化・紫 */
 :root{--navy:#5B4BC4;--hd:#5B4BC4;--hdfg:#fff;--navy-soft:#ebe8fa;--panel:#f6f5fd}
-@media (prefers-color-scheme:dark){:root:not([data-theme=light]){--navy:#b3a9f5;--navy-soft:#26224a;--panel:#1c1930;--hd:#2d2766}}
-:root[data-theme=dark]{--navy:#b3a9f5;--navy-soft:#26224a;--panel:#1c1930;--hd:#2d2766}
+
+
 header{background:var(--hd);color:var(--hdfg);margin:0;padding:calc(30px + env(safe-area-inset-top,0px)) max(16px,env(safe-area-inset-right,0px)) 10px max(16px,env(safe-area-inset-left,0px))}
 h1{font-size:19px;margin:0}
 .wrap{padding-block:10px calc(40px + env(safe-area-inset-bottom,0px))}
@@ -173,9 +157,9 @@ select,select.on{background-image:linear-gradient(45deg,transparent 50%,currentC
 button.reset{padding:8px 14px;font-size:15px;background:var(--card);border:1.5px solid var(--navy);color:var(--navy)}
 details{margin-top:6px}
 .nb{white-space:nowrap}
-.tg .now{display:flex;flex-wrap:wrap;align-items:center;gap:3px 7px;font-size:14.5px;margin-top:2px}.pill{font-weight:600;font-size:14px}.hit,.miss{font-weight:500}.miss{color:#b03a2e}@media (prefers-color-scheme:dark){:root:not([data-theme=light]) .miss{color:#f08a7c}}
+.tg .now{display:flex;flex-wrap:wrap;align-items:center;gap:3px 7px;font-size:14.5px;margin-top:2px}.pill{font-weight:600;font-size:14px}.hit,.miss{font-weight:500}.miss{color:#b03a2e}
 @media (max-width:430px){.targets{grid-template-columns:1fr 1fr}}
-</style>
+:root{color-scheme:light}</style>
 </head>
 <body>
 
