@@ -7,7 +7,8 @@
 <meta name="apple-mobile-web-app-title" content="kcal">
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
-<meta name="theme-color" content="#1D3F8A">
+<meta name="theme-color" content="#1F6B4F">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <style>html{-webkit-text-size-adjust:100%}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
 <title>入院栄養指示の算出</title>
 </head>
@@ -117,12 +118,45 @@ th{background:var(--navy-soft); color:var(--ink); font-weight:700}
 td:first-child,th:first-child{text-align:left}
 footer{margin-top:20px; font-size:12.5px; color:var(--muted); line-height:1.7}
 .nb{white-space:nowrap}
+/* 2026-11-10 緑の改修 */
+:root{--navy:#1F6B4F;--navy-soft:#e3f2ea;--panel:#eff7f2;--bg:#eef4f0;--band:#1F6B4F;--hero:#1F6B4F;--kc:#fff;--kc2:#F6B93B;}
+@media (prefers-color-scheme:dark){:root:not([data-theme=light]){--navy:#6fcf9f;--navy-soft:#16281f;--panel:#12201a;--bg:#111a15;--band:#123a2a;--hero:#17503b;}}
+:root[data-theme=dark]{--navy:#6fcf9f;--navy-soft:#16281f;--panel:#12201a;--bg:#111a15;--band:#123a2a;--hero:#17503b;}
+
+html{background:var(--bg)}.head .u,.head .unit{color:#fff!important}
+body{background:var(--bg)}
+.wrap{display:flex;flex-direction:column;padding-block:0 56px!important;padding-left:0!important;padding-right:0!important;max-width:760px}
+.wrap>*:not(header){margin-left:16px;margin-right:16px}
+header{order:-3;margin:0 0 16px!important;background:var(--band);color:#fff;
+  padding:calc(env(safe-area-inset-top,0px) + 14px) 16px 14px}
+h1{color:#fff;font-size:22px;margin:0}
+.sub{display:none}
+.sub2{margin:2px 0 0;font-size:12.5px;color:rgba(255,255,255,.7)}
+.result{background:var(--hero);color:#fff;border:0;border-top:0;border-radius:14px;padding:18px 16px}
+.head{margin-bottom:6px;color:#fff}.head *{color:inherit}.head .k{color:var(--kc)}.grid{grid-template-columns:repeat(3,1fr)}.range{text-wrap:balance}
+.head .k{font-size:64px;color:var(--kc);letter-spacing:-.01em}
+.head .u{font-size:22px}.head .unit{font-size:30px;font-weight:700;flex-basis:100%;margin-top:-2px}.x{;color:#fff;font-weight:700}
+.head .why,.range,.basis,.rfauto{color:rgba(255,255,255,.78)}
+.range b,.basis b,.rfauto b{color:#fff}
+.range{font-size:15px;margin:0 0 14px}
+.nu{background:var(--card);border:0;border-left:6px solid var(--kc2);border-radius:10px;padding:10px 14px}
+.nu .lb{font-size:13px;color:var(--muted)}
+.nu .vl{font-size:26px;color:var(--ink);font-weight:700}
+.ramp .v{color:var(--ink)}
+.msg{color:var(--ink)}
+.chk{white-space:nowrap}
+.chk.wide{white-space:normal}
+.chk.wide span{text-wrap:balance}
+.nb{white-space:nowrap}
+.card{margin-bottom:12px}
+h2{font-size:14px}
+.head .u,.head .unit{color:#fff!important}.head *{color:inherit}.head{color:#fff}.head .unit{font-size:30px;font-weight:700;flex-basis:100%;margin-top:-2px}.grid{grid-template-columns:repeat(3,1fr)}.range{text-wrap:balance}
 </style>
 
 <div class="wrap">
   <header>
     <h1>入院栄養指示の算出</h1>
-    <p class="sub">糖尿病治療ガイド／CKD食事療法基準2014／肝硬変診療GL2020・ESPEN 2019／肥満症診療GL2022／再栄養は NICE 2006・ASPEN 2020</p>
+    <p class="sub2">入院中の目安量を、病態に合わせて出します</p><p class="sub">糖尿病治療ガイド／CKD食事療法基準2014／肝硬変診療GL2020・ESPEN 2019／肥満症診療GL2022／再栄養は NICE 2006・ASPEN 2020</p>
   </header>
 
   <div class="card">
@@ -152,8 +186,8 @@ footer{margin-top:20px; font-size:12.5px; color:var(--muted); line-height:1.7}
       <label class="chk" id="w-hd"><input type="checkbox" id="hd"><span>透析</span></label>
       <label class="chk" id="w-cirr"><input type="checkbox" id="cirr"><span>肝硬変</span></label>
       <label class="chk wide" id="w-stress"><input type="checkbox" id="stress"><span>侵襲下（術後・感染・外傷）</span></label>
-      <label class="chk wide" id="w-lose"><input type="checkbox" id="lose"><span>減量を目的とする（肥満症の治療として）</span></label>
-      <label class="chk wide" id="w-refeed"><input type="checkbox" id="refeed"><span>強い低栄養（再栄養症候群のおそれ）</span></label>
+      <label class="chk wide" id="w-lose"><input type="checkbox" id="lose"><span>減量が目的（肥満症）</span></label>
+      <label class="chk wide" id="w-refeed"><input type="checkbox" id="refeed"><span>強い低栄養（再栄養に注意）</span></label>
     </div>
 
     <div class="sublock" id="ckdSub" hidden>
@@ -445,15 +479,15 @@ function calc(){
       + (RF.na ? '1 mmol/kg／日 未満' : '制限なし') + '</div>';
   }
   h += (refeed ? '' : '<div class="head"><span class="k">' + rec + '</span><span class="u">kcal / 日</span>'
-    + '<span class="u" style="color:var(--ink)">＝ ' + unit + ' 単位</span>'
+    + '<span class="u unit">＝ ' + unit + ' 単位</span>'
     + '<span class="why">' + baseName + ' ' + r1(base) + ' kg × ' + lo + ' kcal/kg'
     + '（' + src.join('・') + '）</span></div>');
 
   if (!refeed) h += (kLo === kHi)
     ? '<div class="range">重なりは <b>' + lo + ' kcal/kg</b> の一点でした（' + kLo + ' kcal）</div>'
-    : '<div class="range">幅をもたせるなら <b>' + kLo + '〜' + kHi + ' kcal</b>'
-      + '（' + (Math.round(kLo/80*10)/10) + '〜' + (Math.round(kHi/80*10)/10) + ' 単位）'
-      + '　／　' + lo + '〜' + hi + ' kcal/kg</div>';
+    : '<div class="range"><span class="nb">幅をもたせるなら <b>' + kLo + '〜' + kHi + ' kcal</b></span>'
+      + '　<span class="nb">（' + (Math.round(kLo/80*10)/10) + '〜' + (Math.round(kHi/80*10)/10) + ' 単位）</span>'
+      + '　<span class="nb">' + lo + '〜' + hi + ' kcal/kg</span></div>';
 
   // 腎・肝・侵襲のときだけ、たんぱく質ほかを出す
   const extra = [];
