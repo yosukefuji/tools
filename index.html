@@ -4,10 +4,11 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="脂質目標">
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
-<meta name="theme-color" content="#1D3F8A">
+<meta name="theme-color" content="#5B4BC4">
 <style>html{-webkit-text-size-adjust:100%}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
 <title>脂質管理目標の算出</title>
 <style>
@@ -142,20 +143,48 @@ footer{margin-top:20px; font-size:12.5px; color:var(--muted); line-height:1.7}
 @media (max-width:430px){ .targets{grid-template-columns:1fr} }
 @media (prefers-reduced-motion:reduce){ *{transition:none!important} }
 .nb{white-space:nowrap}
+
+/* r29 1画面化・紫 */
+:root{--navy:#5B4BC4;--hd:#5B4BC4;--hdfg:#fff;--navy-soft:#ebe8fa;--panel:#f6f5fd}
+@media (prefers-color-scheme:dark){:root:not([data-theme=light]){--navy:#b3a9f5;--navy-soft:#26224a;--panel:#1c1930;--hd:#2d2766}}
+:root[data-theme=dark]{--navy:#b3a9f5;--navy-soft:#26224a;--panel:#1c1930;--hd:#2d2766}
+header{background:var(--hd);color:var(--hdfg);margin:0;padding:calc(8px + env(safe-area-inset-top,0px)) max(16px,env(safe-area-inset-right,0px)) 8px max(16px,env(safe-area-inset-left,0px))}
+h1{font-size:19px;margin:0}
+.wrap{padding-block:10px calc(40px + env(safe-area-inset-bottom,0px))}
+.card{padding:9px 11px;margin-bottom:8px}
+.t{font-size:13px;margin-bottom:4px;letter-spacing:0}
+.chks{gap:5px}
+.chk{padding:5px 9px;font-size:14.5px;white-space:nowrap}
+.chk.wide{font-size:14.5px}
+.sublock{margin-top:6px;padding-top:6px}
+.grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:4px 8px}
+.grid>div{display:flex;flex-direction:column}
+label{font-size:14px;margin-bottom:1px;white-space:nowrap;color:var(--ink);font-weight:600}
+label small{display:block;font-size:11.5px;line-height:1.1;font-weight:400;color:var(--muted)}
+input[type=number],select{height:44px;padding:5px 9px;font-size:19px;line-height:1.2;margin:0;appearance:none;-webkit-appearance:none}
+select,select.on{background-image:linear-gradient(45deg,transparent 50%,currentColor 50%),linear-gradient(135deg,currentColor 50%,transparent 50%)!important;background-position:calc(100% - 17px) 19px,calc(100% - 12px) 19px!important;background-size:5px 5px!important;background-repeat:no-repeat!important}
+.result{padding:10px 12px;margin-bottom:6px}
+.cat .k{font-size:26px}.cat .why{font-size:13px}
+.risk{margin-bottom:7px;font-size:14px}.risk b{font-size:22px}
+.tg{padding:6px 10px}.tg .val{font-size:44px;font-weight:700}.tg .lbl{font-size:13px}
+.points{margin-top:6px;font-size:13px}
+.msg{margin-top:7px;padding:7px 10px;font-size:14px}
+.actions{margin-top:8px}
+button.reset{padding:8px 14px;font-size:15px;background:var(--card);border:1.5px solid var(--navy);color:var(--navy)}
+details{margin-top:6px}
+.nb{white-space:nowrap}
+.tg .now{display:flex;flex-wrap:wrap;align-items:center;gap:3px 7px;font-size:14.5px;margin-top:2px}.pill{font-weight:600;font-size:14px}.hit,.miss{font-weight:500}.miss{color:#b03a2e}@media (prefers-color-scheme:dark){:root:not([data-theme=light]) .miss{color:#f08a7c}}
+@media (max-width:430px){.targets{grid-template-columns:1fr 1fr}}
 </style>
 </head>
 <body>
 
 
+<header><h1>脂質管理目標の算出</h1></header>
 <div class="wrap">
-  <header>
-    <h1>脂質管理目標の算出</h1>
-    <p class="sub">動脈硬化性疾患予防ガイドライン2022（日本動脈硬化学会）</p>
-  </header>
 
   <div class="card">
-    <h2>患者背景の確認</h2>
-    <div class="t">既往（二次予防）</div>
+    <div class="t">既往（二次予防）／高リスク病態（スコア不要）</div>
     <div class="chks">
       <label class="chk wide" id="w-second"><input type="checkbox" id="second"><span>冠動脈疾患／アテローム血栓性脳梗塞</span></label>
     </div>
@@ -168,11 +197,10 @@ footer{margin-top:20px; font-size:12.5px; color:var(--muted); line-height:1.7}
       </div>
     </div>
     <div class="sublock">
-      <div class="t">高リスク病態（スコアを使わず高リスク）</div>
       <div class="chks">
         <label class="chk" id="w-dm"><input type="checkbox" id="dm"><span>糖尿病</span></label>
         <label class="chk" id="w-ckd"><input type="checkbox" id="ckd"><span>CKD</span></label>
-        <label class="chk wide" id="w-pad"><input type="checkbox" id="pad"><span>末梢動脈疾患（ABI 0.90以下）</span></label>
+        <label class="chk" id="w-pad"><input type="checkbox" id="pad"><span>末梢動脈疾患（ABI 0.90以下）</span></label>
       </div>
       <div id="dmSub" hidden style="margin-top:9px">
         <div class="t">糖尿病に次を伴う</div>
@@ -182,26 +210,24 @@ footer{margin-top:20px; font-size:12.5px; color:var(--muted); line-height:1.7}
       </div>
     </div>
     <div class="sublock">
-      <div class="t">画像でみつかっている動脈硬化</div>
       <div class="chks">
-        <label class="chk wide" id="w-plaque"><input type="checkbox" id="plaque"><span>頸動脈プラークあり</span></label>
+        <label class="chk wide" id="w-plaque"><input type="checkbox" id="plaque"><span>頸動脈プラークあり（画像）</span></label>
       </div>
     </div>
   </div>
 
   <div class="card">
-    <h2>久山町スコアの項目</h2>
     <div class="grid">
-      <div><label for="age">年齢</label><input type="number" id="age" min="20" max="110" step="1" inputmode="numeric"></div>
-      <div><label for="sex">性別</label><select id="sex"><option value="" selected>—</option><option value="0">女性</option><option value="7">男性</option></select></div>
-      <div><label for="sbp">収縮期血圧 mmHg</label><input type="number" id="sbp" min="70" max="260" step="1" inputmode="numeric"></div>
-      <div><label for="hdl">HDL-C mg/dL</label><input type="number" id="hdl" min="10" max="150" step="1" inputmode="numeric"></div>
-      <div><label for="tc">TC mg/dL（任意）</label><input type="number" id="tc" value="" min="60" max="600" step="1" inputmode="numeric"></div>
-      <div><label for="ldl">LDL-C mg/dL</label><input type="number" id="ldl" min="20" max="500" step="1" inputmode="numeric"></div>
+      <div><label for="age">年齢<small>歳</small></label><input type="number" id="age" min="20" max="110" step="1" inputmode="numeric"></div>
+      <div><label for="sex">性別<small>&nbsp;</small></label><select id="sex"><option value="" selected>—</option><option value="0">女性</option><option value="7">男性</option></select></div>
+      <div><label for="sbp">収縮期血圧<small>mmHg</small></label><input type="number" id="sbp" min="70" max="260" step="1" inputmode="numeric"></div>
+      <div><label for="tc">TC<small>mg/dL</small></label><input type="number" id="tc" value="" min="60" max="600" step="1" inputmode="numeric"></div>
+      <div><label for="hdl">HDL-C<small>mg/dL</small></label><input type="number" id="hdl" min="10" max="150" step="1" inputmode="numeric"></div>
+      <div><label for="ldl">LDL-C<small>mg/dL</small></label><input type="number" id="ldl" min="20" max="500" step="1" inputmode="numeric"></div>
     </div>
     <div class="chks" style="margin-top:12px">
-      <label class="chk" id="w-smoke"><input type="checkbox" id="smoke"><span>喫煙あり（現在喫煙者）</span></label>
-      <label class="chk" id="w-igt"><input type="checkbox" id="igt"><span>耐糖能異常あり（糖尿病は除く）</span></label>
+      <label class="chk" id="w-smoke"><input type="checkbox" id="smoke"><span>喫煙（現在）</span></label>
+      <label class="chk" id="w-igt"><input type="checkbox" id="igt"><span>耐糖能異常（糖尿病除く）</span></label>
     </div>
   </div>
 
@@ -233,11 +259,9 @@ footer{margin-top:20px; font-size:12.5px; color:var(--muted); line-height:1.7}
     </div>
   </details>
 
-  <footer>
-    管理目標値は到達努力目標。一次予防では、原則3〜6か月の生活習慣改善の効果をみてから薬物療法を検討する（LDL-C 180mg/dL以上が持続する場合は同時に検討してよい）。低・中リスクではLDL-C 20〜30%低下も目標となりうる。<br>
+  <details><summary>注記・出典</summary><div class="body">動脈硬化性疾患予防ガイドライン2022（日本動脈硬化学会）<br>管理目標値は到達努力目標。一次予防では、原則3〜6か月の生活習慣改善の効果をみてから薬物療法を検討する（LDL-C 180mg/dL以上が持続する場合は同時に検討してよい）。低・中リスクではLDL-C 20〜30%低下も目標となりうる。<br>
     家族性高コレステロール血症・家族性Ⅲ型高脂血症は、このチャートを用いずそれぞれの診療方針に従う。<br>
-    <span style="opacity:.75">版 2026-11-05</span>
-  </footer>
+    <span style="opacity:.75">版 2026-11-10</span></div></details>
 </div>
 
 <script>
@@ -350,7 +374,7 @@ function calc(){
   let h = '<div class="cat"><span class="k" style="color:' + colors[cat] + '">' + cat + '</span><span class="why">' + why + '</span></div>';
 
   if (risk !== null){
-    h += '<div class="risk">10年間の動脈硬化性疾患発症確率　<b>' + risk + '%</b>　（' + pts + '点／' + AGE_LABEL[ageCol(age)] + '）</div>';
+    h += '<div class="risk"><span class="nb">10年発症確率</span> <b>' + risk + '%</b> <span class="nb">（' + pts + '点／' + AGE_LABEL[ageCol(age)] + '）</span></div>';
   } else if (pts !== null){
     h += '<div class="risk">合計 <b>' + pts + '</b> 点</div>';
   } else {
@@ -364,11 +388,11 @@ function calc(){
       '<div class="tg"><div class="lbl">LDL-C 目標</div><div class="val">&lt; ' + ldlT + '</div>' +
         (ldl === null
           ? '<div class="now" style="color:var(--muted)">LDL-C を入れると達成状況が出ます</div></div>'
-          : '<div class="now ' + (ldlOK?'hit':'miss') + '">現在 ' + ldl + ' ・ <span class="pill">' + (ldlOK ? '達成' : 'あと ' + (ldl-ldlT+1) + ' 下げる') + '</span></div></div>') +
+          : '<div class="now ' + (ldlOK?'hit':'miss') + '">現在 ' + ldl + '<span class="pill">' + (ldlOK ? '達成' : 'あと ' + (ldl-ldlT+1) + ' 下げる') + '</span></div></div>') +
       '<div class="tg"><div class="lbl">non-HDL-C 目標</div><div class="val">&lt; ' + nonT + '</div>' +
         (nonHDL === null
           ? '<div class="now" style="color:var(--muted)">TC と HDL-C を入れると判定します</div>'
-          : '<div class="now ' + (nonOK?'hit':'miss') + '">現在 ' + nonHDL + ' ・ <span class="pill">' + (nonOK ? '達成' : 'あと ' + (nonHDL-nonT+1) + ' 下げる') + '</span></div>') +
+          : '<div class="now ' + (nonOK?'hit':'miss') + '">現在 ' + nonHDL + '<span class="pill">' + (nonOK ? '達成' : 'あと ' + (nonHDL-nonT+1) + ' 下げる') + '</span></div>') +
       '</div></div>';
   }
 
