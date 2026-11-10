@@ -18,20 +18,20 @@ body{font-family:"Yu Gothic","Meiryo",sans-serif; color:#1b1b1b; margin:0; font-
 .page:last-child{break-after:auto;}
 h1{font-size:15pt; margin:0 0 1.5mm;}
 .lead{font-size:9pt; color:#666; margin:0 0 3mm;}
-h2{font-size:11pt; margin:0 0 2.2mm; padding:1.2mm 2.4mm; background:#1D3F8A; color:#fff; letter-spacing:.04em;}
+h2{font-size:11pt; margin:0 0 2.2mm; padding:1.2mm 2.4mm; background:#8A3A5E; color:#fff; letter-spacing:.04em;}
 section{margin-bottom:2.8mm;}
 section:last-of-type{margin-bottom:0;}
 .cols{display:flex; gap:5mm;} .cols>div{flex:1;}
 table{border-collapse:collapse; width:100%; font-size:10pt;}
 th,td{border:.3pt solid #c5c5c5; padding:1.15mm 1.9mm; text-align:left; vertical-align:top;}
-th{background:#eef1f7; font-weight:700;}
+th{background:#f6ecf1; font-weight:700;}
 .s{display:block; font-size:8.6pt; color:#666; font-weight:400;}
 td.c,th.c{text-align:center; font-variant-numeric:tabular-nums; white-space:nowrap;}
 td.n,th.n{text-align:right; font-variant-numeric:tabular-nums; white-space:nowrap;}
-tr.hi td{background:#eef4ff;}
+tr.hi td{background:#f9eef3;}
 ul{margin:0; padding-left:5mm;} li{margin-bottom:1.2mm;}
-.flow{border:.4pt solid #1D3F8A; padding:2mm; font-size:10pt;}
-.flow b{color:#1D3F8A;}
+.flow{border:.4pt solid #8A3A5E; padding:2mm; font-size:10pt;}
+.flow b{color:#8A3A5E;}
 .step{margin-bottom:1.4mm;}
 .arrow{color:#888; margin:0 1mm;}
 .warn{border-left:3pt solid #C0692A; padding:2mm 0 2mm 3mm; background:#fdf6f0;}
@@ -60,7 +60,7 @@ footer{font-size:8pt; color:#888; border-top:.3pt solid #ddd; padding-top:1.2mm;
   .toc a::after{content:''; position:absolute; right:16px; top:50%; width:7px; height:7px;
                 border-right:2px solid #aab2c0; border-bottom:2px solid #aab2c0;
                 transform:translateY(-50%) rotate(-45deg)}
-  .toc a b{display:inline-block; min-width:1.5em; color:#1D3F8A}
+  .toc a b{display:inline-block; min-width:1.5em; color:#8A3A5E}
   .page + .page{border-top:1px solid #d6dce6; margin-top:14px; padding-top:20px}
   .pidx{display:flex; flex-wrap:wrap; gap:6px; margin:0 2px 14px}
   .pidx a{font-size:12.5px; line-height:1.3; background:#fff; border:1px solid #d7dce5; border-radius:999px;
@@ -88,10 +88,10 @@ footer{font-size:8pt; color:#888; border-top:.3pt solid #ddd; padding-top:1.2mm;
   .tw.stack tr:last-child{margin-bottom:0}
   .tw.stack th,.tw.stack td{border:0; text-align:left !important; white-space:normal !important}
   .tw.stack td{padding:10px 12px}
-  .tw.stack tr>:first-child{background:#eef1f7; font-weight:700; padding:7px 12px; font-size:14.5px; line-height:1.55}
-  .tw.stack tr.hi>:first-child{background:#dbe5f8}
+  .tw.stack tr>:first-child{background:#f6ecf1; font-weight:700; padding:7px 12px; font-size:14.5px; line-height:1.55}
+  .tw.stack tr.hi>:first-child{background:#ecd5e0}
   .tw.stack td+td{border-top:1px dashed #d8dce3}
-  .tw.stack tr.hdr{display:flex; flex-wrap:wrap; gap:4px 14px; background:#eef1f7; border:0; border-radius:6px;
+  .tw.stack tr.hdr{display:flex; flex-wrap:wrap; gap:4px 14px; background:#f6ecf1; border:0; border-radius:6px;
                    padding:6px 12px; margin-bottom:9px; font-size:12.5px; color:#44506a}
   .tw.stack tr.hdr th{display:inline; background:none; padding:0; font-size:12.5px; font-weight:700}
   .tw.stack.lab tr.hdr{display:none}
@@ -109,7 +109,7 @@ footer{font-size:8pt; color:#888; border-top:.3pt solid #ddd; padding-top:1.2mm;
   .step{margin-bottom:7px}
   .note{font-size:13.5px; margin-top:10px; line-height:1.68}
   .spanNote{font-size:13.5px; line-height:1.70; color:#3f444c; margin:10px 0 0;
-            padding:2px 0 2px 12px; border-left:3px solid #c9d2e4}
+            padding:2px 0 2px 12px; border-left:3px solid #dcc1cf}
   .s{font-size:13px; color:#565b63; margin-top:3px; line-height:1.62}
   ul{padding-left:20px} li{margin-bottom:6px}
   footer{font-size:11.5px; margin:2px 4px 16px; padding-top:9px; color:#78808e}
@@ -122,7 +122,7 @@ footer{font-size:8pt; color:#888; border-top:.3pt solid #ddd; padding-top:1.2mm;
 @media print{ .nav{display:none} .tw{overflow:visible} }
 .nb{white-space:nowrap}
 </style>
-<style id="sumcss">@media screen and (max-width:820px){.pidx{display:none}.sum{padding:9px 38px 11px 14px;font-size:14.5px;line-height:1.6;color:#1b1b1b;border-top:0}.sum b{color:#1D3F8A}section:not(.closed)>.sum{display:none}.page.allclosed>footer,.page.allclosed>.fbtn{display:none}}</style><style>@media screen{table.keep{table-layout:auto} table.keep.big th:first-child{width:auto!important} table.keep.big td.c,table.keep.big td.c b,table.keep.big td.n,table.keep.big td.n b{font-size:18px!important;font-weight:700;color:#8A3A5E;white-space:normal} table.keep.big td.c em,table.keep.big td.n .s{font-size:13px!important;font-weight:400;color:#565b63} table.keep.big td.c .s{display:block;font-size:13px!important;font-weight:400;color:#565b63} table.keep.big td:first-child .s{display:block}}</style><style id="notoc">@media screen and (max-width:820px){.toc{display:none}}</style></head>
+<style id="sumcss">@media screen and (max-width:820px){.pidx{display:none}.sum{padding:9px 38px 11px 14px;font-size:14.5px;line-height:1.6;color:#1b1b1b;border-top:0}.sum b{color:#8A3A5E}section:not(.closed)>.sum{display:none}.page.allclosed>footer,.page.allclosed>.fbtn{display:none}}</style><style>@media screen{table.keep{table-layout:auto} table.keep.big th:first-child{width:auto!important} table.keep.big td.c,table.keep.big td.c b,table.keep.big td.n,table.keep.big td.n b{font-size:18px!important;font-weight:700;color:#8A3A5E;white-space:normal} table.keep.big td.c em,table.keep.big td.n .s{font-size:13px!important;font-weight:400;color:#565b63} table.keep.big td.c .s{display:block;font-size:13px!important;font-weight:400;color:#565b63} table.keep.big td:first-child .s{display:block}}</style><style id="notoc">@media screen and (max-width:820px){.toc{display:none}}</style><style id="readcss">@media screen and (max-width:820px){.warn,.ok{font-size:15.5px;line-height:1.85}.warn>b.big,.ok>b:first-child{display:block;margin-bottom:4px}.note{font-size:14px;line-height:1.85}em{background:none;font-weight:700;color:#8A3A5E}.warn ul,.ok ul{margin:6px 0 0}.warn li,.ok li{margin-bottom:9px}.warn>b.big+br,.ok>b:first-child+br{display:none}}</style></head>
 <body>
 <div class="nav"><a href="index.html">&#8249;&nbsp;一覧</a><span class="sp"></span><span>妊娠と甲状腺</span></div>
 
@@ -137,7 +137,7 @@ footer{font-size:8pt; color:#888; border-top:.3pt solid #ddd; padding-top:1.2mm;
 <tr><th>ホルモン需要が30〜50%増</th><td>すでに内服している人に増量が必要になる理由</td></tr>
 </table>
 <div class="warn" style="margin-top:3mm">
-<b class="big">診断の線と、治療の目標は別もの</b>　<b>妊娠初期のTSH上限 4.0</b>は<em>治療を始めるかどうか</em>の線（かつての「2.5未満」はATA 2017で緩和）。一方、<b>治療している人の目標は 2.5未満</b>のまま。
+<b class="big">診断の線と、治療の目標は別もの</b>　<b>妊娠初期のTSH上限 4.0</b>は<em>治療を始めるかどうか</em>の線（かつての「2.5未満」はATA 2017で緩和）。<br>一方、<b>治療している人の目標は 2.5未満</b>のまま。
 </div>
 </section>
 
@@ -148,11 +148,11 @@ footer{font-size:8pt; color:#888; border-top:.3pt solid #ddd; padding-top:1.2mm;
 <div class="ok">
 <b>初期の胎児は、母体のT4で脳を作る</b>
 <ul>
-  <li><b>胎児の甲状腺が十分に働くのは18〜20週ごろ</b>（10〜12週ごろから産生を始める）。それまでの神経発達は<em>母体から渡るT4に完全に依存する</em></li>
+  <li><b>胎児の甲状腺が十分に働くのは18〜20週ごろ</b>（10〜12週ごろから産生を始める）。<br>それまでの神経発達は<em>母体から渡るT4に完全に依存する</em></li>
   <li>だから<b>妊娠初期の不足がいちばん不利</b>——妊娠が分かってからでは遅いことがあり、妊娠前からの調整に意味がある</li>
 </ul>
 </div>
-<p class="note"><b>未治療の顕性甲状腺機能低下症で増えるもの</b>：<em>流産・早産・妊娠高血圧腎症・常位胎盤早期剥離・低出生体重</em>、児の神経発達の遅れ。<b>ここは補充する根拠が強い</b>。</p>
+<p class="note"><b>未治療の顕性甲状腺機能低下症で増えるもの</b>：<em>流産・早産・妊娠高血圧腎症・常位胎盤早期剥離・低出生体重</em>、児の神経発達の遅れ。<br><b>ここは補充する根拠が強い</b>。</p>
 </div>
 <div>
 <div class="warn">
@@ -163,7 +163,7 @@ footer{font-size:8pt; color:#888; border-top:.3pt solid #ddd; padding-top:1.2mm;
 </ul>
 <div style="margin-top:1.5mm"><b>治療の対象は3つだけ</b>：<b>① 顕性</b>　<b>② TSHが妊娠期の上限（4.0）を超える</b>　<b>③ すでに補充中の人の用量維持</b></div>
 </div>
-<p class="note"><b>甲状腺機能亢進症の側</b>：未治療の中毒症では<em>流産・早産・妊娠高血圧・胎児発育不全・甲状腺クリーゼ</em>が増える。ただし<b>下げすぎると胎児が機能低下になる</b>——③で扱う。</p>
+<p class="note"><b>甲状腺機能亢進症の側</b>：未治療の中毒症では<em>流産・早産・妊娠高血圧・胎児発育不全・甲状腺クリーゼ</em>が増える。<br>ただし<b>下げすぎると胎児が機能低下になる</b>——③で扱う。</p>
 </div>
 </div>
 </section>
@@ -177,7 +177,7 @@ footer{font-size:8pt; color:#888; border-top:.3pt solid #ddd; padding-top:1.2mm;
 <tr class="hi"><td><b>妊娠中／妊娠希望／不妊治療中</b></td><td class="c"><b>&lt; 2.5</b></td></tr>
 <tr><td>それ以外</td><td class="c"><b>&lt; 4</b></td></tr>
 </table>
-<p class="note"><b>下限もある。</b>実用レンジは<b>0.5〜2.5</b>で、<em>抑制（0.1未満）は過剰補充</em>。FT4は基準範囲内なら可で、<b>主役はTSH</b>。</p>
+<p class="note"><b>下限もある。</b>実用レンジは<b>0.5〜2.5</b>で、<em>抑制（0.1未満）は過剰補充</em>。<br>FT4は基準範囲内なら可で、<b>主役はTSH</b>。</p>
 </div>
 <div>
 <table class="keep big">
@@ -205,7 +205,7 @@ footer{font-size:8pt; color:#888; border-top:.3pt solid #ddd; padding-top:1.2mm;
 <li><b>真の機能低下症</b>（橋本病で甲状腺が働いていない）→ <b>30〜50%の増量が必要</b></li>
 <li><b>不妊治療で予防的に始めた人</b>（TSH 3くらい・抗体陰性）→ <em>自前の甲状腺が働けるので大幅な増量は要らない</em></li>
 </ul>
-<div style="margin-top:1.5mm">後者に一律で追加すると<em>抑制してしまう</em>。<b>最初のTSHを見てから決める。</b></div>
+<div style="margin-top:1.5mm">後者に一律で追加すると<em>抑制してしまう</em>。<br><b>最初のTSHを見てから決める。</b></div>
 </div>
 </div>
 <div style="flex:0 0 42%">
@@ -238,7 +238,7 @@ footer{font-size:8pt; color:#888; border-top:.3pt solid #ddd; padding-top:1.2mm;
 <div>
 <div class="warn">
 <b class="big">抗体陽性で機能正常な人へのLT4は、流産・早産を減らさない</b><br>
-<b>TABLET試験</b>（NEJM 2019）：抗TPO抗体陽性・機能正常で<em>流産既往または不妊</em>の女性にLT4 50μg → <b>生児出生率に差なし</b>。POSTAL・T4LiFEも陰性。<br>
+<b>TABLET試験</b>（NEJM 2019）：抗TPO抗体陽性・機能正常で<em>流産既往または不妊</em>の女性にLT4 50μg → <b>生児出生率に差なし</b>。<br>POSTAL・T4LiFEも陰性。<br>
 <em>機能が正常なら、抗体だけを理由に補充しない。</em>
 </div>
 </div>
@@ -248,15 +248,15 @@ footer{font-size:8pt; color:#888; border-top:.3pt solid #ddd; padding-top:1.2mm;
 <section data-sum="妊娠中はやめず<b>2.5未満を維持</b>。見直しは<b>分娩後</b>：妊娠前の量に戻し<b>6週後にTSH</b>。低用量・抗体陰性・甲状腺腫なしなら中止を検討">
 <h2>不妊治療で始まった補充を、どう畳むか</h2>
 <div class="warn">
-<b>妊娠中にやめる判断はしない。</b>「TSH 3.0・抗体陰性」で始まった補充は本来は適応が怪しいが、<em>妊娠中に中止すれば不確実性が増えるだけ</em>。<b>妊娠期間はそのまま続けて2.5未満を維持する。</b><br>
-<b>見直しは分娩後</b> → 妊娠前の用量に戻す → 6週後にTSH → <b>低用量・抗体陰性・甲状腺腫なしなら中止を検討</b>。<em>不妊治療で始まったLT4は、産後に卒業できる人がかなり多い。</em>
+<b>妊娠中にやめる判断はしない。</b>「TSH 3.0・抗体陰性」で始まった補充は本来は適応が怪しいが、<em>妊娠中に中止すれば不確実性が増えるだけ</em>。<br><b>妊娠期間はそのまま続けて2.5未満を維持する。</b><br>
+<b>見直しは分娩後</b> → 妊娠前の用量に戻す → 6週後にTSH → <b>低用量・抗体陰性・甲状腺腫なしなら中止を検討</b>。<br><em>不妊治療で始まったLT4は、産後に卒業できる人がかなり多い。</em>
 </div>
 </section>
 
 <section data-sum="日本は<b>ヨード過剰傾向</b>。<b>補充は勧めない</b>（サプリ不要、昆布・ヨード卵の摂りすぎに注意）">
 <h2>日本では、ヨード補充を勧めない</h2>
 <div class="warn">
-<b>日本ではヨード補充を勧めない。</b>欧米は妊娠中の補充（150μg／日）を推奨するが、日本はヨード<b>過剰傾向</b>で、<em>昆布やヨード卵の過剰摂取で胎児の機能低下を起こすリスク</em>のほうが現実的。<b>サプリは不要。</b>
+<b>日本ではヨード補充を勧めない。</b>欧米は妊娠中の補充（150μg／日）を推奨するが、日本はヨード<b>過剰傾向</b>で、<em>昆布やヨード卵の過剰摂取で胎児の機能低下を起こすリスク</em>のほうが現実的。<br><b>サプリは不要。</b>
 </div>
 </section>
 <footer>ATA 2017 Guidelines（妊娠・産後の甲状腺疾患）／Dhillon-Smith RK et al. NEJM 2019（TABLET）　2026-10-28</footer>
@@ -286,14 +286,14 @@ footer{font-size:8pt; color:#888; border-top:.3pt solid #ddd; padding-top:1.2mm;
 <tr class="hi"><td style="width:52%"><b>器官形成期（〜15週前後）</b></td><td><b>PTU</b></td></tr>
 <tr class="hi"><td><b>中期以降</b></td><td><b>MMI に戻す</b></td></tr>
 </table>
-<p class="note"><b>理由</b>：MMIには<b>メチマゾール胎児症</b>（頭皮欠損、後鼻孔閉鎖、食道閉鎖）、<b>PTUには肝毒性</b>。<b>妊娠を希望する時点でPTUに変更しておく</b>。</p>
+<p class="note"><b>理由</b>：MMIには<b>メチマゾール胎児症</b>（頭皮欠損、後鼻孔閉鎖、食道閉鎖）、<b>PTUには肝毒性</b>。<br><b>妊娠を希望する時点でPTUに変更しておく</b>。</p>
 </div>
 <div>
 <div class="warn">
 <b class="big">母体は「やや甲状腺機能亢進寄り」に保つ</b><br>
-<b>最小有効量</b>で、<b>FT4を基準範囲の上限付近</b>に維持する。<b>TSHは抑制されたままでよい</b>。<em>下げすぎると胎児が機能低下になる</em>——母体を完全に正常化しないのが正解という、珍しい管理。
+<b>最小有効量</b>で、<b>FT4を基準範囲の上限付近</b>に維持する。<br><b>TSHは抑制されたままでよい</b>。<br><em>下げすぎると胎児が機能低下になる</em>——母体を完全に正常化しないのが正解という、珍しい管理。
 </div>
-<p class="note"><b>授乳は可能。</b>MMI 10mg／日、PTU 300mg／日まで。<em>「薬を飲むなら授乳をやめる」必要はない。</em></p>
+<p class="note"><b>授乳は可能。</b>MMI 10mg／日、PTU 300mg／日まで。<br><em>「薬を飲むなら授乳をやめる」必要はない。</em></p>
 </div>
 </div>
 </section>
@@ -308,7 +308,7 @@ footer{font-size:8pt; color:#888; border-top:.3pt solid #ddd; padding-top:1.2mm;
 <tr><th>胎児エコーで見る</th><td>頻脈／甲状腺腫／発育不全／胎児水腫</td></tr>
 </table>
 <div class="warn" style="margin-top:3mm">
-<b>治療済みでもTRAbは残る。</b>手術・アイソトープ後でも残存しうる。<em>母体の機能が正常でも抗体は胎盤を通過する</em>。<b>既往があれば必ず測る</b>——最も見落とされやすい。
+<b>治療済みでもTRAbは残る。</b>手術・アイソトープ後でも残存しうる。<br><em>母体の機能が正常でも抗体は胎盤を通過する</em>。<br><b>既往があれば必ず測る</b>——最も見落とされやすい。
 </div>
 </div>
 <div style="flex:0 0 40%">
@@ -326,7 +326,7 @@ footer{font-size:8pt; color:#888; border-top:.3pt solid #ddd; padding-top:1.2mm;
 <h2>産後甲状腺炎</h2>
 <div class="cols">
 <div>
-<p class="note" style="margin-top:0"><b>産後2〜6か月、5〜10%。TPO抗体陽性者では30〜50%</b>と高率。<b>3相性</b>：中毒期 → 機能低下期 → 回復。<em>産後の「疲れが抜けない」を全部育児のせいにしない。</em></p>
+<p class="note" style="margin-top:0"><b>産後2〜6か月、5〜10%。<br>TPO抗体陽性者では30〜50%</b>と高率。<br><b>3相性</b>：中毒期 → 機能低下期 → 回復。<br><em>産後の「疲れが抜けない」を全部育児のせいにしない。</em></p>
 </div>
 <div>
 <table>
@@ -334,7 +334,7 @@ footer{font-size:8pt; color:#888; border-top:.3pt solid #ddd; padding-top:1.2mm;
 <tr><td>機能低下期</td><td>症状があればLT4</td></tr>
 <tr class="hi"><td><b>その後</b></td><td><b>20〜30%が永続的な機能低下へ</b> → 年1回のTSH</td></tr>
 </table>
-<p class="note"><b>スクリーニング</b>：TPO抗体陽性者は<b>産後3か月と6か月にTSH</b>。既往がある人は次回妊娠後も。</p>
+<p class="note"><b>スクリーニング</b>：TPO抗体陽性者は<b>産後3か月と6か月にTSH</b>。<br>既往がある人は次回妊娠後も。</p>
 </div>
 </div>
 
@@ -512,5 +512,21 @@ if('serviceWorker' in navigator){
 <script id="sumjs">(function(){if(!window.matchMedia('(max-width:820px)').matches)return;
 function upd(){document.querySelectorAll('.page').forEach(function(p){var o=p.querySelector('section:not(.closed)');p.classList.toggle('allclosed',!o&&!!p.querySelector('section[data-sum]'))})}
 window.addEventListener('load',function(){document.querySelectorAll('.page > section[data-sum]').forEach(function(s){var h=s.querySelector(':scope > h2');var d=document.createElement('div');d.className='sum';d.innerHTML=s.getAttribute('data-sum');h.parentNode.insertBefore(d,h.nextSibling);if(!s.hasAttribute('data-open'))s.classList.add('closed');d.addEventListener('click',function(){s.classList.remove('closed');upd()})});
-document.addEventListener('click',function(){setTimeout(upd,0)});upd()})})();</script></body>
+document.addEventListener('click',function(){setTimeout(upd,0)});upd()})})();</script><style id="phrasecss">@media screen and (max-width:820px){.ph,.nbk{white-space:nowrap}}</style>
+<script id="phrasejs">(function(){if(!window.matchMedia('(max-width:820px)').matches)return;
+var HIRA=/[ぁ-ゟ]/,KEEP=/[、。，．）」』】]/;
+function isH(c){return HIRA.test(c)||KEEP.test(c)}
+function split(s,CAP){var out=[],cur='';for(var i=0;i<s.length;i++){var c=s[i];cur+=c;var n=s[i+1];if(n===undefined)break;
+ var brk=false;if(isH(c)&&!isH(n)&&!/[、。，．）」』】・ー]/.test(n)&&!/[ぁ-ゖ]/.test(n))brk=true;if(/[。、]/.test(c)&&n!=='」')brk=true;if(/[（「『【]/.test(n)&&!/[（「『【]/.test(c))brk=true;
+ if(cur.length>=CAP&&!brk&&isH(c))brk=true;if(!brk&&c==='・'&&cur.length>=6)brk=true;if(!brk&&c==='／'&&cur.length>=5)brk=true;if(!brk&&cur.length>=CAP+4)brk=true;if(brk){out.push(cur);cur=''}}
+ if(cur)out.push(cur);return out}
+function run(){var sel='.warn,.ok,.note,.sum,li,td,th,.s,.flow';
+ document.querySelectorAll(sel).forEach(function(root){
+  root.querySelectorAll('b,em').forEach(function(e){if(!e.children.length&&e.textContent.length<=16)e.classList.add('nbk')});
+  var w=document.createTreeWalker(root,NodeFilter.SHOW_TEXT,null),nodes=[],n;while(n=w.nextNode())nodes.push(n);
+  nodes.forEach(function(t){var p=t.parentNode;if(p.classList&&(p.classList.contains('ph')||p.classList.contains('nbk')||p.classList.contains('nb')))return;
+   if(p.closest&&(p.closest('.ph')||p.closest('.nbk')||p.closest('.nb')))return;
+   var tb=p.closest('table');if(tb&&tb.rows[0]&&tb.rows[0].cells.length>2)return;var s=t.nodeValue;if(!s.trim()||s.length<3)return;var parts=split(s,(p.closest('td,th')?7:13)),f=document.createDocumentFragment();
+   parts.forEach(function(x){var sp=document.createElement('span');sp.className='ph';sp.textContent=x;f.appendChild(sp)});p.replaceChild(f,t)})})}
+window.addEventListener('load',function(){setTimeout(run,60)})})();</script></body>
 </html>
