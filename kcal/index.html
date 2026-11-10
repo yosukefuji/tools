@@ -23,24 +23,6 @@
   --display:"Helvetica Neue",system-ui,-apple-system,sans-serif;
   --body:-apple-system,"Hiragino Sans","Yu Gothic",system-ui,sans-serif;
 }
-@media (prefers-color-scheme: dark){
-  :root:not([data-theme="light"]){
-    --bg:#13161b; --card:#1c2128; --ink:#e7ebf0; --muted:#98a3b2;
-    --line:#2c333d; --navy:#86a6ec; --navy-soft:#1d2534; --accent:#e09a63;
-    --field:#11151c; --field-line:#3a4452; --panel:#141b29;
-    --reset-bg:#e09a63; --reset-fg:#1a1207;
-    --ok:#62c48f; --warn-soft:#2a2218;
-    color-scheme:dark;
-  }
-}
-:root[data-theme="dark"]{
-  --bg:#13161b; --card:#1c2128; --ink:#e7ebf0; --muted:#98a3b2;
-  --line:#2c333d; --navy:#86a6ec; --navy-soft:#1d2534; --accent:#e09a63;
-  --field:#11151c; --field-line:#3a4452; --panel:#141b29;
-  --reset-bg:#e09a63; --reset-fg:#1a1207;
-  --ok:#62c48f; --warn-soft:#2a2218;
-  color-scheme:dark;
-}
 *{box-sizing:border-box}
 body{background:var(--bg); color:var(--ink); font-family:var(--body); font-size:17px; line-height:1.6; margin:0}
 img{max-width:100%}
@@ -119,10 +101,7 @@ td:first-child,th:first-child{text-align:left}
 footer{margin-top:20px; font-size:12.5px; color:var(--muted); line-height:1.7}
 .nb{white-space:nowrap}
 /* 2026-11-10 緑の改修 */
-:root{--navy:#1F6B4F;--navy-soft:#e3f2ea;--panel:#eff7f2;--bg:#eef4f0;--band:#1F6B4F;--hero:#1F6B4F;--kc:#fff;--kc2:#F6B93B;}
-@media (prefers-color-scheme:dark){:root:not([data-theme=light]){--navy:#6fcf9f;--navy-soft:#16281f;--panel:#12201a;--bg:#111a15;--band:#123a2a;--hero:#17503b;}}
-:root[data-theme=dark]{--navy:#6fcf9f;--navy-soft:#16281f;--panel:#12201a;--bg:#111a15;--band:#123a2a;--hero:#17503b;}
-
+:root{--navy:#1F6B4F;--navy-soft:#e3f2ea;--panel:#eff7f2;--bg:#eef4f0;--field:#e7efe9;--field-line:#b8cabd;--line:#d9e3dc;--band:#1F6B4F;--hero:#1F6B4F;--kc:#fff;--kc2:#F6B93B;}
 html{background:var(--bg)}.head .u,.head .unit{color:#fff!important}
 body{background:var(--bg)}
 .wrap{display:flex;flex-direction:column;padding-block:0 56px!important;padding-left:0!important;padding-right:0!important;max-width:760px}
