@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="theme-color" content="#1D3F8A">
+<meta name="theme-color" content="#2563C9">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
@@ -18,23 +18,23 @@ body{font-family:"Yu Gothic","Meiryo",sans-serif; color:#1b1b1b; margin:0; font-
 .page:last-child{break-after:auto;}
 h1{font-size:15pt; margin:0 0 1.5mm;}
 .lead{font-size:9pt; color:#666; margin:0 0 3mm;}
-h2{font-size:11pt; margin:0 0 2.2mm; padding:1.2mm 2.4mm; background:#1D3F8A; color:#fff; letter-spacing:.04em;}
+h2{font-size:11pt; margin:0 0 2.2mm; padding:1.2mm 2.4mm; background:#2563C9; color:#fff; letter-spacing:.04em;}
 section{margin-bottom:3.2mm;}
 section:last-of-type{margin-bottom:0;}
 .cols{display:flex; gap:5mm;} .cols>div{flex:1;}
 table{border-collapse:collapse; width:100%; font-size:10pt;}
 th,td{border:.3pt solid #c5c5c5; padding:1.3mm 2mm; text-align:left; vertical-align:top;}
-th{background:#eef1f7; font-weight:700;}
+th{background:#eef3fb; font-weight:700;}
 .s{display:block; font-size:8.6pt; color:#666; font-weight:400;}
 td.c,th.c{text-align:center; font-variant-numeric:tabular-nums; white-space:nowrap;}
-tr.hi td{background:#eef4ff;}
+tr.hi td{background:#eef5ff;}
 ul{margin:0; padding-left:5mm;} li{margin-bottom:1.2mm;}
-.warn{border-left:3pt solid #C0692A; padding:2mm 0 2mm 3mm; background:#fdf6f0;}
+.warn{border-left:3pt solid #E39A1C; padding:2mm 0 2mm 3mm; background:#fff7e8;}
 .note{font-size:9pt; color:#555; margin-top:2mm;}
-em{font-style:normal; background:#fff2cc; padding:0 .6mm;}
+em{font-style:normal; background:#ffeaa8; padding:0 .6mm;}
 .big{font-weight:700;}
 footer{font-size:8pt; color:#888; border-top:.3pt solid #ddd; padding-top:1.2mm; margin-top:2mm;}
-:root{--brand:#1D3F8A}
+:root{--brand:#2563C9}
 
 @media screen and (max-width:820px){
   html{-webkit-text-size-adjust:100%}
@@ -42,7 +42,7 @@ footer{font-size:8pt; color:#888; border-top:.3pt solid #ddd; padding-top:1.2mm;
        word-break:normal; overflow-wrap:break-word; line-break:strict;
        width:auto !important; max-width:none !important;
        margin:0 !important; padding:0 0 40px !important}
-  body{background:#eceff4 !important}
+  body{background:#f1f4f9 !important}
   .page{break-after:auto; padding:16px max(14px,env(safe-area-inset-right,0px)) 2px max(14px,env(safe-area-inset-left,0px))}
   h1{font-size:20px; margin:4px 2px 4px; line-height:1.4}
   .lead{font-size:13px; margin:0 2px 12px}
@@ -54,7 +54,7 @@ footer{font-size:8pt; color:#888; border-top:.3pt solid #ddd; padding-top:1.2mm;
   .toc a::after{content:''; position:absolute; right:16px; top:50%; width:7px; height:7px;
                 border-right:2px solid #aab2c0; border-bottom:2px solid #aab2c0;
                 transform:translateY(-50%) rotate(-45deg)}
-  .toc a b{display:inline-block; min-width:1.5em; color:#1D3F8A}
+  .toc a b{display:inline-block; min-width:1.5em; color:#2563C9}
   .page + .page{border-top:1px solid #d6dce6; margin-top:14px; padding-top:20px}
   .pidx{display:flex; flex-wrap:wrap; gap:6px; margin:0 2px 14px}
   .pidx a{font-size:12.5px; line-height:1.3; background:#fff; border:1px solid #d7dce5; border-radius:999px;
@@ -82,10 +82,10 @@ footer{font-size:8pt; color:#888; border-top:.3pt solid #ddd; padding-top:1.2mm;
   .tw.stack tr:last-child{margin-bottom:0}
   .tw.stack th,.tw.stack td{border:0; text-align:left !important; white-space:normal !important}
   .tw.stack td{padding:10px 12px}
-  .tw.stack tr>:first-child{background:#eef1f7; font-weight:700; padding:7px 12px; font-size:14.5px; line-height:1.55}
-  .tw.stack tr.hi>:first-child{background:#dbe5f8}
+  .tw.stack tr>:first-child{background:#eef3fb; font-weight:700; padding:7px 12px; font-size:14.5px; line-height:1.55}
+  .tw.stack tr.hi>:first-child{background:#dbe8fd}
   .tw.stack td+td{border-top:1px dashed #d8dce3}
-  .tw.stack tr.hdr{display:flex; flex-wrap:wrap; gap:4px 14px; background:#eef1f7; border:0; border-radius:6px;
+  .tw.stack tr.hdr{display:flex; flex-wrap:wrap; gap:4px 14px; background:#eef3fb; border:0; border-radius:6px;
                    padding:6px 12px; margin-bottom:9px; font-size:12.5px; color:#44506a}
   .tw.stack tr.hdr th{display:inline; background:none; padding:0; font-size:12.5px; font-weight:700}
   .tw.stack.lab tr.hdr{display:none}
@@ -116,27 +116,28 @@ footer{font-size:8pt; color:#888; border-top:.3pt solid #ddd; padding-top:1.2mm;
 @media print{ .nav{display:none} .tw{overflow:visible} }
 .nb{white-space:nowrap}
 </style>
-</head>
+<style>@media screen{table.keep td.c b,table.keep td.c{font-size:15px} table.keep.big td.c{font-size:19px;font-weight:700;color:#2563C9} table.keep.big td.c em{font-size:14px;color:#555;font-weight:400} table.keep.big tr.hi td.c{color:#1B4FA8}}</style>
+<style>@media screen{table.keep{table-layout:auto} table.keep.big th:first-child{width:auto!important} table.keep.big td.c,table.keep.big td.c b,table.keep.big td.n,table.keep.big td.n b{font-size:17px!important;font-weight:700;color:#2563C9;white-space:normal} table.keep.big td.c em,table.keep.big td.n .s{font-size:13px!important;font-weight:400} table.keep.big td.n .s{display:block;color:#565b63} table.keep.big td:first-child .s{display:block;}}</style><style>@media screen{.page>.lead{display:none}}</style><style id="sumcss">@media screen and (max-width:820px){.pidx{display:none}.sum{padding:9px 38px 11px 14px;font-size:14.5px;line-height:1.6;color:#1b1b1b;border-top:0}.sum b{color:#2563C9}section:not(.closed)>.sum{display:none}.page.allclosed>footer,.page.allclosed>.fbtn{display:none}}</style><style id="keeptune">@media screen{table.keep.big th,table.keep.big td{padding:7px 5px}table.keep.big td.c,table.keep.big td.c b,table.keep.big td.n,table.keep.big td.n b{font-size:15px!important;white-space:nowrap}table.keep.big td.n .s{white-space:normal}}</style><style id="tw">@media screen{p,li,td,th,.warn,.sum,.note,.s{text-wrap:pretty;word-break:auto-phrase}h1,h2{text-wrap:balance}}</style></head>
 <body>
 <div class="nav"><a href="index.html">&#8249;&nbsp;一覧</a><span class="sp"></span><span>高血圧</span></div>
 
 
 <div class="page">
-<h1>① 高血圧とは　— 何をもって高血圧か</h1>
+<h1>① 高血圧とは</h1>
 <p class="lead">基準値と、その値が成り立つ測定条件</p>
 
-<section>
+<section data-sum="診察室 <b>140/90以上</b>・家庭 <b>135/85以上</b>。降圧目標は <b>130/80未満</b>（家庭125/75）">
 <h2>基準値</h2>
 <table>
 <tr><th style="width:30%">測り方</th><th class="c">高血圧</th><th class="c">降圧目標</th></tr>
 <tr class="hi"><td><b>診察室</b></td><td class="c"><b>140/90 以上</b></td><td class="c"><b>130/80 未満</b></td></tr>
 <tr class="hi"><td><b>家庭</b></td><td class="c"><b>135/85 以上</b></td><td class="c"><b>125/75 未満</b></td></tr>
 </table>
-<p class="note"><b>降圧目標は全年齢共通。</b>JSH2019の「75歳以上は140/90未満」は廃止され、糖尿病・CKDも同じ目標。<b>高血圧の定義（140/90以上）は変更なし</b>——<em>変わったのは「目標」であって「開始基準」ではない</em>。<b>診察室と家庭が食い違ったら、家庭血圧を優先する。</b></p>
+<p class="note"><b>降圧目標は全年齢共通</b>（JSH2019の「75歳以上は140/90未満」は廃止。糖尿病・CKDも同じ）。<b>高血圧の定義（140/90以上）は変更なし</b>——<em>変わったのは「目標」で「開始基準」ではない</em>。<b>診察室と家庭が食い違ったら家庭を優先。</b></p>
 </section>
 
-<section>
-<h2>測定条件　— 条件を満たした値だけが、基準値と比べられる</h2>
+<section data-sum="座位で安静1〜2分・心臓の高さ・<b>2回測って平均</b>。家庭は朝晩 <b>5〜7日平均</b>">
+<h2>測定条件</h2>
 <div class="cols">
 <div>
 <table>
@@ -159,7 +160,7 @@ footer{font-size:8pt; color:#888; border-top:.3pt solid #ddd; padding-top:1.2mm;
 </div>
 </div>
 <div class="warn" style="margin-top:3mm">
-<b>運動後・緊張時の値は、高血圧の診断には使わない。</b>基準値は<em>すべて「規定の条件下で測った値」</em>が前提になっている。
+<b>運動後・緊張時の値は診断に使わない。</b>基準値は<em>規定の条件下で測った値</em>が前提。
 </div>
 </section>
 
@@ -167,17 +168,17 @@ footer{font-size:8pt; color:#888; border-top:.3pt solid #ddd; padding-top:1.2mm;
 </div>
 
 <div class="page">
-<h1>② なぜ下げるのか　— 何が減って、何は減らないか</h1>
+<h1>② なぜ下げるのか</h1>
 <p class="lead">降圧で得られるもの／得られないもの</p>
 
-<section>
+<section data-sum="収縮期を10mmHg下げると、心血管イベント <b>約20%減</b>（脳卒中27%・心不全28%）">
 <h2>基本法則</h2>
 <div class="warn">
 <b class="big">収縮期血圧を 10 mmHg 下げるごとに、主要心血管イベントが約20%減る</b><br>
 Ettehadらのメタ解析（Lancet 2016、123試験・613,815例）。<em>低下幅に比例して効果が大きくなる。</em>
 </div>
-<table style="margin-top:3mm">
-<tr><th style="width:44%">アウトカム（SBP 10mmHg低下あたり）</th><th class="c">相対リスク低下</th></tr>
+<table class="keep big" style="margin-top:3mm">
+<tr><th style="width:44%">アウトカム</th><th class="c">リスク低下</th></tr>
 <tr><td>主要心血管イベント</td><td class="c">約20%（RR 0.80）</td></tr>
 <tr><td>冠動脈疾患</td><td class="c">約17%</td></tr>
 <tr class="hi"><td><b>脳卒中</b></td><td class="c"><b>約27%</b></td></tr>
@@ -189,13 +190,13 @@ Ettehadらのメタ解析（Lancet 2016、123試験・613,815例）。<em>低下
 <b>患者さんへの説明</b>：「上の血圧を10下げると、<em>脳卒中が約3割、心不全が約3割</em>減ります」</p>
 </section>
 
-<section>
+<section data-sum="<b>腎不全の進行</b>・<b>認知症単独</b>は有意差なし。腎保護は薬剤クラスの効果">
 <h2>効かない・はっきりしないもの</h2>
 <div class="warn">
 <ul>
-<li><b>腎不全への進行</b>　降圧の上乗せで透析導入が減る直接の証拠は乏しい（RR 0.95、0.84–1.07）。ACCORD-BP・SPRINTのpost hocは「強化降圧でCKDの進行は遅らせない」とし、むしろ<em>AKI・新規CKDが増える</em></li>
-<li><b>腎保護は薬剤クラスの効果</b>で、血圧低下とは別　RAS阻害薬（蛋白尿減少）、SGLT2阻害薬、DKDではフィネレノン（腎複合アウトカム 約18%減）、GLP-1受容体作動薬（FLOW：セマグルチド HR 0.76）</li>
-<li><b>認知症</b>　SPRINT MINDで軽度認知障害は減ったが、<em>認知症単独では有意差に届かなかった</em></li>
+<li><b>腎不全への進行</b>　透析導入が減る直接の証拠は乏しい（上表）。ACCORD-BP・SPRINT post hoc：強化降圧でCKDの進行は遅れず、<em>AKI・新規CKDが増える</em></li>
+<li><b>腎保護は薬剤クラスの効果</b>（血圧低下とは別）：RAS阻害薬（蛋白尿減少）、SGLT2阻害薬、DKDではフィネレノン（腎複合アウトカム 約18%減）、GLP-1受容体作動薬（FLOW：セマグルチド HR 0.76）</li>
+<li><b>認知症</b>　SPRINT MIND：軽度認知障害は減ったが、<em>認知症単独では有意差なし</em></li>
 </ul>
 </div>
 <p class="note">低リスク例や、もともと血圧が低い層では効果が小さくなる。</p>
@@ -208,7 +209,7 @@ Ettehadらのメタ解析（Lancet 2016、123試験・613,815例）。<em>低下
 <h1>③ 下げすぎない</h1>
 <p class="lead">どこまで下げてよいか、何を見て判断するか</p>
 
-<section>
+<section data-sum="目標 <b>130/80未満</b>。注意ライン：収縮期 <b>110未満</b>／拡張期 <b>60未満</b>">
 <h2>目標と、下限</h2>
 <table>
 <tr><th style="width:34%">目標</th><td><b>130/80 未満</b>（家庭 125/75 未満）</td></tr>
@@ -218,7 +219,7 @@ Ettehadらのメタ解析（Lancet 2016、123試験・613,815例）。<em>低下
 <p class="note"><b>ガイドラインに「過降圧」の明確な定義はない。数値より、害が出ているかで判断する。</b></p>
 </section>
 
-<section>
+<section data-sum="起立後3分で収縮期<b>20↓</b>／拡張期<b>10↓</b>、ふらつき・転倒、eGFR低下・Cr上昇">
 <h2>過降圧のサイン</h2>
 <div class="cols">
 <div>
@@ -241,14 +242,14 @@ Ettehadらのメタ解析（Lancet 2016、123試験・613,815例）。<em>低下
 </div>
 </section>
 
-<section>
+<section data-sum="<b>収縮期を基準</b>にゆっくり下げる。<b>拡張期60未満</b>になったら止める">
 <h2>高齢者で収縮期が高く拡張期が低い（収縮期高血圧）</h2>
 <div class="cols">
 <div>
 <div class="warn">
 <b class="big">収縮期を基準に、ゆっくり下げる</b><br>
-大動脈が硬くなり脈圧が開いた状態。<b>高齢者では収縮期のほうが心血管リスクとの相関が強い</b>ので、拡張期が低いことを理由に治療をためらわない。<br>
-<b>ただし拡張期が60を下回ったら、そこで止める</b>——<em>収縮期が目標に届かなくても許容する</em>。冠動脈疾患があれば拡張期70を目安に。
+大動脈が硬くなり脈圧が開いた状態。<b>高齢者は収縮期のほうが心血管リスクとの相関が強い</b>ので、拡張期が低くても治療をためらわない。<br>
+<b>ただし拡張期が60を下回ったら止める</b>（<em>収縮期が目標に届かなくても許容</em>。冠動脈疾患があれば70を目安）。
 </div>
 <p class="note">例：150/55 なら <b>収縮期140台で止める</b>。130を目指して拡張期を50台にするより安全。<b>脈圧60以上はそれ自体が心血管リスクの指標</b>だが、<em>脈圧を直接下げる薬はない</em>。</p>
 </div>
@@ -266,10 +267,10 @@ Ettehadらのメタ解析（Lancet 2016、123試験・613,815例）。<em>低下
 </div>
 
 <div class="page">
-<h1>④ いつ薬を始めるか　— と、そのあいだにやること</h1>
+<h1>④ いつ薬を始めるか</h1>
 <p class="lead">開始基準と、生活習慣の降圧効果</p>
 
-<section>
+<section data-sum="薬は <b>140/90以上</b>（家庭135/85）から。糖尿病・CKD・既往は<b>130/80以上</b>で考慮">
 <h2>開始基準</h2>
 <div class="warn">
 <b class="big">薬を始めるのは 140/90 以上（家庭 135/85 以上）から。</b>　<em>目標が130/80未満なのであって、130台で薬を始めるわけではない。</em>
@@ -288,14 +289,14 @@ Ettehadらのメタ解析（Lancet 2016、123試験・613,815例）。<em>低下
 <div style="flex:0 0 42%">
 <div class="warn">
 <b>例外 — 130台でも始める</b><br>
-高値血圧（130–139/80–89）は本来は生活習慣修正の範囲。ただし <b>脳心血管病の既往・糖尿病・蛋白尿陽性のCKD</b> があれば <em>130/80以上で考慮</em>。
+高値血圧（130–139/80–89）は生活習慣修正が基本。<b>脳心血管病の既往・糖尿病・蛋白尿陽性のCKD</b>があれば<em>130/80以上で考慮</em>。
 </div>
 <p class="note"><b>高リスクとは</b>：脳心血管病の既往／糖尿病／CKD／臓器障害／非弁膜症性心房細動／危険因子3個以上。</p>
 </div>
 </div>
 </section>
 
-<section>
+<section data-sum="<b>減塩 6g/日未満</b>が最も効く（−4〜5）。合わせて薬1剤ぶん（約10mmHg）">
 <h2>生活習慣 — 日本では減塩が最も効く</h2>
 <div class="cols">
 <div>
@@ -326,7 +327,7 @@ Ettehadらのメタ解析（Lancet 2016、123試験・613,815例）。<em>低下
 <h1>⑤ 薬を選ぶ</h1>
 <p class="lead">開始の順序と、薬価の桁感</p>
 
-<section>
+<section data-sum="Ca拮抗薬／ARB・ACE／少量サイアザイド → <b>2剤目 RAS＋Ca</b> → 3剤目 利尿薬 → 4剤目 スピロノラクトン">
 <h2>薬剤選択の順序</h2>
 <table>
 <tr><th style="width:15%">段階</th><th style="width:38%">薬剤</th><th>ひとこと</th></tr>
@@ -338,11 +339,11 @@ Ettehadらのメタ解析（Lancet 2016、123試験・613,815例）。<em>低下
 <p class="note"><b>治療抵抗性</b>＝RAS阻害薬＋Ca拮抗薬＋利尿薬の3剤を適切に使っても目標未達。<b>ARNI</b>で2剤のまま強化する手もある（高血圧は<b>1回200mg 1日1回</b>、400mgまで。心不全は1日2回）。<em>ACE阻害薬とは併用禁忌で36時間空ける。</em>薬価141.2円/錠。</p>
 </section>
 
-<section>
+<section data-sum="後発の降圧薬は 30日・3割負担で <b>約90〜230円</b>。<b>エンレスト</b>だけ約1,270円">
 <h2>薬価の桁感（概算）</h2>
-<table>
+<table class="keep big">
 <tr><th style="width:40%">薬剤</th><th class="c">1日あたり</th><th class="c">30日・3割負担</th></tr>
-<tr><td>トリクロルメチアジド 1mg</td><td class="c">10円未満</td><td class="c">約90円</td></tr>
+<tr><td><span class="nb">トリクロル</span><span class="nb">メチアジド</span> 1mg</td><td class="c">10円未満</td><td class="c">約90円</td></tr>
 <tr><td>スピロノラクトン 25mg（後発）</td><td class="c">約10円</td><td class="c">約90円</td></tr>
 <tr class="hi"><td><b>アムロジピン 5mg</b></td><td class="c"><b>約11円</b></td><td class="c"><b>約100円</b></td></tr>
 <tr class="hi"><td><b>後発ARB</b><span class="s">ロサルタン50／カンデサルタン8／テルミサルタン40／バルサルタン80</span></td><td class="c"><b>10〜25円</b></td><td class="c"><b>約100〜230円</b></td></tr>
@@ -360,7 +361,7 @@ Ettehadらのメタ解析（Lancet 2016、123試験・613,815例）。<em>低下
 <h1>⑥ 併存疾患で選ぶ</h1>
 <p class="lead">疾患別の優先・回避と、利尿薬の注意点</p>
 
-<section>
+<section data-sum="糖尿病・蛋白尿CKD → <b>ARB・ACE</b>。<b>妊娠はRAS阻害薬・ARNI禁忌</b>">
 <h2>併存疾患による選択</h2>
 <table>
 <tr><th style="width:24%">併存疾患</th><th style="width:30%">優先</th><th>避ける・注意</th></tr>
@@ -485,6 +486,7 @@ if(window.matchMedia('(max-width:820px)').matches){
     for(var i=0;i<cells.length;i++){
       var c = cells[i];
       var txt = (c.innerText||'').replace(/\s+/g,'');
+      if(t.classList.contains('keep')) return false;
       if(txt.length < 8) continue;
       var lh = parseFloat(getComputedStyle(c).lineHeight) || 20;
       var lines = Math.round((c.getBoundingClientRect().height - 10) / lh);
@@ -553,5 +555,28 @@ if('serviceWorker' in navigator){
   });
 })(document.body);
 </script>
-</body>
+<style>@media screen and (max-width:820px){.note.fold:not(.open),.spanNote.fold:not(.open){display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:3;overflow:hidden}
+footer.fold:not(.open){white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.fbtn{display:block;margin:2px 0 0;padding:6px 0;font-size:13px;color:#2563C9;font-weight:700;cursor:pointer;-webkit-tap-highlight-color:transparent}}</style>
+<script id="foldjs">(function(){if(!window.matchMedia('(max-width:820px)').matches)return;
+function add(el,minLen){var n=(el.textContent||'').replace(/\s+/g,'').length;if(n<minLen)return;el.classList.add('fold');
+var b=document.createElement('div');b.className='fbtn';var lb=el.tagName==='FOOTER'?'出典を見る ▾':'続きを開く ▾';b.textContent=lb;
+b.addEventListener('click',function(){var o=el.classList.toggle('open');b.textContent=o?'閉じる ▴':lb});
+el.parentNode.insertBefore(b,el.nextSibling)}
+window.addEventListener('load',function(){document.querySelectorAll('.page .note, .page .spanNote').forEach(function(e){add(e,130)});
+document.querySelectorAll('.page footer').forEach(function(e){add(e,40)})})})();</script><script id="sumjs">(function(){if(!window.matchMedia('(max-width:820px)').matches)return;
+function upd(){document.querySelectorAll('.page').forEach(function(p){var o=p.querySelector('section:not(.closed)');p.classList.toggle('allclosed',!o&&!!p.querySelector('section[data-sum]'))})}
+window.addEventListener('load',function(){document.querySelectorAll('.page > section[data-sum]').forEach(function(s){var h=s.querySelector(':scope > h2');var d=document.createElement('div');d.className='sum';d.innerHTML=s.getAttribute('data-sum');h.parentNode.insertBefore(d,h.nextSibling);if(!s.hasAttribute('data-open'))s.classList.add('closed');d.addEventListener('click',function(){s.classList.remove('closed');upd()})});
+document.addEventListener('click',function(){setTimeout(upd,0)});upd()})})();</script><script id="nbjs">(function(){if(!window.matchMedia('(max-width:820px)').matches)return;
+var KA=/[ァ-ヺー]{2,}|[A-Za-z][A-Za-z0-9\-]{2,}/g;
+var NUM=/約?\d[\d.,]*(?:\s?[–〜~\-]\s?\d[\d.,]*)?\s?(?:mg\/日|mg\/dL|\/日|mmHg|mg\/gCr|g\/gCr|mg|μg|µg|kg|mL|dL|g|円|%|％|未満|以上|以下|か月|月|個|週間|週|時間|日|年|点|人|例|回|倍|分|秒|mm|cm|歳)?/g;
+function wrapText(n){var t=n.nodeValue;if(t.trim().length<2)return;var pp=n.parentNode,inT=!!pp.closest('td,th'),inS=!!pp.closest('.s'),inN=!!pp.closest('td.n');var lim=inT?10:16;if(pp.closest('table.keep')&&pp.closest('td,th')&&!pp.closest('td.c,td.n,th.c,th.n'))lim=8;
+var parts=[],re=new RegExp(KA.source+'|'+NUM.source,'g'),m,last=0,any=false;
+while((m=re.exec(t))){var s=m[0];if(s.length<2||s.length>lim)continue;if(inN&&/^約?\d/.test(s))continue;parts.push([m.index,m.index+s.length]);}
+if(!parts.length)return;var f=document.createDocumentFragment();last=0;
+parts.forEach(function(p){if(p[0]>last)f.appendChild(document.createTextNode(t.slice(last,p[0])));var sp=document.createElement('span');sp.className='nb';sp.textContent=t.slice(p[0],p[1]);f.appendChild(sp);last=p[1]});
+if(last<t.length)f.appendChild(document.createTextNode(t.slice(last)));n.parentNode.replaceChild(f,n)}
+window.addEventListener('load',function(){var w=document.createTreeWalker(document.body,NodeFilter.SHOW_TEXT),a=[],n;
+while(n=w.nextNode()){var p=n.parentNode;if(!p||/SCRIPT|STYLE|PRE/.test(p.tagName)||p.closest('.nav,.fbtn'))continue;a.push(n)}
+a.forEach(wrapText)})})();</script></body>
 </html>
