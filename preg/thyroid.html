@@ -114,7 +114,7 @@ footer{font-size:8pt; color:#888; border-top:.3pt solid #ddd; padding-top:1.2mm;
   ul{padding-left:20px} li{margin-bottom:6px}
   footer{font-size:11.5px; margin:2px 4px 16px; padding-top:9px; color:#78808e}
   .nav{position:sticky; top:0; z-index:20; display:flex; align-items:center; gap:12px;
-       padding:11px max(14px,env(safe-area-inset-left,0px)) 11px max(14px,env(safe-area-inset-right,0px));
+       padding:calc(24px + env(safe-area-inset-top,0px)) max(14px,env(safe-area-inset-left,0px)) 11px max(14px,env(safe-area-inset-right,0px));
        background:var(--brand); color:#fff; font-weight:700; font-size:15px}
   .nav a{color:#fff; text-decoration:none; font-weight:400; font-size:14px; opacity:.92}
   .nav .sp{margin-left:auto}
