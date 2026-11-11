@@ -594,5 +594,21 @@ parts.forEach(function(p){if(p[0]>last)f.appendChild(document.createTextNode(t.s
 if(last<t.length)f.appendChild(document.createTextNode(t.slice(last)));n.parentNode.replaceChild(f,n)}
 window.addEventListener('load',function(){var w=document.createTreeWalker(document.body,NodeFilter.SHOW_TEXT),a=[],n;
 while(n=w.nextNode()){var p=n.parentNode;if(!p||/SCRIPT|STYLE|PRE/.test(p.tagName)||p.closest('.nav,.fbtn'))continue;a.push(n)}
-a.forEach(wrapText)})})();</script></body>
+a.forEach(wrapText)})})();</script><style id="phrasecss">@media screen and (max-width:820px){.ph,.nbk{white-space:nowrap}}</style>
+<script id="phrasejs">(function(){if(!window.matchMedia('(max-width:820px)').matches)return;
+var HIRA=/[ぁ-ゟ]/,KEEP=/[、。，．）」』】]/;
+function isH(c){return HIRA.test(c)||KEEP.test(c)}
+function split(s,CAP){var out=[],cur='';for(var i=0;i<s.length;i++){var c=s[i];cur+=c;var n=s[i+1];if(n===undefined)break;
+ var brk=false;if(isH(c)&&!isH(n)&&!/[、。，．）」』】・ー]/.test(n)&&!/[ぁ-ゖ]/.test(n))brk=true;if(/[。、]/.test(c)&&n!=='」')brk=true;if(/[（「『【]/.test(n)&&!/[（「『【]/.test(c))brk=true;
+ if(cur.length>=CAP&&!brk&&isH(c))brk=true;if(!brk&&c==='・'&&cur.length>=6)brk=true;if(!brk&&c==='／'&&cur.length>=5)brk=true;if(!brk&&cur.length>=CAP+4)brk=true;if(brk){out.push(cur);cur=''}}
+ if(cur)out.push(cur);return out}
+function run(){var sel='.warn,.ok,.note,.sum,li,td,th,.s,.flow';
+ document.querySelectorAll(sel).forEach(function(root){
+  root.querySelectorAll('b,em').forEach(function(e){if(!e.children.length&&e.textContent.length<=16)e.classList.add('nbk')});
+  var w=document.createTreeWalker(root,NodeFilter.SHOW_TEXT,null),nodes=[],n;while(n=w.nextNode())nodes.push(n);
+  nodes.forEach(function(t){var p=t.parentNode;if(p.classList&&(p.classList.contains('ph')||p.classList.contains('nbk')||p.classList.contains('nb')))return;
+   if(p.closest&&(p.closest('.ph')||p.closest('.nbk')||p.closest('.nb')))return;
+   var tb=p.closest('table');if(tb&&tb.rows[0]&&tb.rows[0].cells.length>2)return;var s=t.nodeValue;if(!s.trim()||s.length<3)return;var parts=split(s,(p.closest('td,th')?7:13)),f=document.createDocumentFragment();
+   parts.forEach(function(x){var sp=document.createElement('span');sp.className='ph';sp.textContent=x;f.appendChild(sp)});p.replaceChild(f,t)})})}
+window.addEventListener('load',function(){setTimeout(run,60)})})();</script></body>
 </html>
