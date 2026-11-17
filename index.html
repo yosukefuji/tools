@@ -114,6 +114,7 @@ button.reset{
 button.reset:hover{border-color:var(--reset-bg); filter:brightness(1.08)}
 button.reset:active{filter:brightness(.94)}
 
+.more{margin-top:8px}.more summary{font-size:13px;color:var(--muted);padding:2px 0}.more .mb{font-size:13px;color:var(--muted);line-height:1.7;margin-top:4px}
 details{margin-top:14px; font-size:14px}
 summary{cursor:pointer; color:var(--navy); font-size:14px; padding:4px 0}
 details .body{margin-top:8px; color:var(--muted); line-height:1.7}
@@ -168,7 +169,7 @@ details{margin-top:6px}
 <div class="wrap">
 
   <div class="card">
-    <div class="t">既往（二次予防）／高リスク病態（スコア不要）</div>
+    <div class="t">既往・高リスク病態</div>
     <div class="chks">
       <label class="chk wide" id="w-second"><input type="checkbox" id="second"><span>冠動脈疾患／アテローム血栓性脳梗塞</span></label>
     </div>
@@ -245,7 +246,7 @@ details{margin-top:6px}
 
   <details><summary>注記・出典</summary><div class="body">動脈硬化性疾患予防ガイドライン2022（日本動脈硬化学会）<br>管理目標値は到達努力目標。一次予防では、原則3〜6か月の生活習慣改善の効果をみてから薬物療法を検討する（LDL-C 180mg/dL以上が持続する場合は同時に検討してよい）。低・中リスクではLDL-C 20〜30%低下も目標となりうる。<br>
     家族性高コレステロール血症・家族性Ⅲ型高脂血症は、このチャートを用いずそれぞれの診療方針に従う。<br>
-    <span style="opacity:.75">版 2026-11-10</span></div></details>
+    <span style="opacity:.75">版 2026-11-17</span></div></details>
 </div>
 
 <script>
@@ -303,15 +304,14 @@ function calc(){
   if ($('second').checked){
     const strict = $('acs').checked || $('fh').checked || $('both').checked || $('dm').checked;
     cat = '二次予防'; ldlT = strict ? 70 : 100; nonT = strict ? 100 : 130;
-    why = strict ? '急性冠症候群・FH・糖尿病・冠動脈疾患と脳梗塞の合併のいずれかあり'
-                 : '冠動脈疾患／アテローム血栓性脳梗塞の既往';
+    why = '';
   } else if ($('dm').checked || $('ckd').checked || $('pad').checked){
     cat = '高リスク';
     const names = [];
     if ($('dm').checked) names.push('糖尿病');
     if ($('ckd').checked) names.push('CKD');
     if ($('pad').checked) names.push('末梢動脈疾患');
-    why = names.join('・') + ' → スコアを使わず高リスク';
+    why = names.join('・');
     const tight = $('dm').checked && ($('micro').checked || $('smoke').checked || $('pad').checked);
     ldlT = tight ? 100 : 120; nonT = tight ? 130 : 150;
     if (tight){
@@ -319,7 +319,7 @@ function calc(){
       if ($('pad').checked) add.push('末梢動脈疾患');
       if ($('micro').checked) add.push('細小血管症');
       if ($('smoke').checked) add.push('喫煙');
-      why += '（糖尿病に' + add.join('・') + 'を伴う）';
+      why += '＋' + add.join('・');
     }
   } else {
     const missing = [];
@@ -330,8 +330,7 @@ function calc(){
     if (ldl === null) missing.push('LDL-C');
     if (missing.length){
       $('result').innerHTML = '<div class="cat"><span class="k" style="color:var(--muted)">判定待ち</span>' +
-        '<span class="why">' + missing.join('・') + ' を入力すると判定します</span></div>' +
-        '<div class="risk">既往や糖尿病・CKD・末梢動脈疾患があれば、上のチェックだけで目標値が出ます</div>' +
+        '<span class="why">' + missing.join('・') + ' が未入力</span></div>' +
         '<div class="actions"><button type="button" class="reset" id="resetBtn">入力をクリア</button></div>';
       $('resetBtn').addEventListener('click', doReset);
       save();
@@ -341,16 +340,16 @@ function calc(){
         + ($('igt').checked ? 1 : 0) + ($('smoke').checked ? 2 : 0);
     if (age < 40){
       cat = '判定外'; why = '40歳未満はスコアの対象外'; ldlT = nonT = null;
-      msg = '久山町スコアは40〜79歳が対象です。生涯リスクの観点から、危険因子の是正を優先します。';
+      msg = '危険因子の是正を優先。';
     } else if (age >= 80){
       cat = '判定外'; why = '80歳以上はスコアを使わない'; ldlT = nonT = null;
-      msg = '80歳以上の一次予防では、スコアから一律に管理目標値を決めず、患者の状態を把握して個別に判断します。';
+      msg = '目標値は個別に判断。';
     } else {
       risk = RISK[Math.min(pts, 19)][ageCol(age)];
-      if (risk === null){ cat='低リスク'; ldlT=160; nonT=190; why='10年リスク 1.0%未満'; }
-      else if (risk < 2){ cat='低リスク'; ldlT=160; nonT=190; why='10年リスク 2%未満'; }
-      else if (risk < 10){ cat='中リスク'; ldlT=140; nonT=170; why='10年リスク 2〜10%未満'; }
-      else { cat='高リスク'; ldlT=120; nonT=150; why='10年リスク 10%以上'; }
+      if (risk === null){ cat='低リスク'; ldlT=160; nonT=190; why=''; }
+      else if (risk < 2){ cat='低リスク'; ldlT=160; nonT=190; why=''; }
+      else if (risk < 10){ cat='中リスク'; ldlT=140; nonT=170; why=''; }
+      else { cat='高リスク'; ldlT=120; nonT=150; why=''; }
     }
   }
 
@@ -362,7 +361,6 @@ function calc(){
   } else if (pts !== null){
     h += '<div class="risk">合計 <b>' + pts + '</b> 点</div>';
   } else {
-    h += '<div class="risk">スコアは使用しません</div>';
   }
 
   if (ldlT !== null){
@@ -371,39 +369,39 @@ function calc(){
     h += '<div class="targets">' +
       '<div class="tg"><div class="lbl">LDL-C 目標</div><div class="val">&lt; ' + ldlT + '</div>' +
         (ldl === null
-          ? '<div class="now" style="color:var(--muted)">LDL-C を入れると達成状況が出ます</div></div>'
+          ? '</div>'
           : '<div class="now ' + (ldlOK?'hit':'miss') + '">現在 ' + ldl + '<span class="pill">' + (ldlOK ? '達成' : 'あと ' + (ldl-ldlT+1) + ' 下げる') + '</span></div></div>') +
       '<div class="tg"><div class="lbl">non-HDL-C 目標</div><div class="val">&lt; ' + nonT + '</div>' +
         (nonHDL === null
-          ? '<div class="now" style="color:var(--muted)">TC と HDL-C を入れると判定します</div>'
+          ? ''
           : '<div class="now ' + (nonOK?'hit':'miss') + '">現在 ' + nonHDL + '<span class="pill">' + (nonOK ? '達成' : 'あと ' + (nonHDL-nonT+1) + ' 下げる') + '</span></div>') +
       '</div></div>';
   }
 
+  const more = [];
   if (pts !== null && risk !== null){
-    const seg = (k, v) => '<span class="pi">' + k + ' ' + v + '</span>';
-    h += '<div class="points"><span class="pi">内訳（点）</span>' +
-         seg('性別', sexPt) + seg('収縮期血圧', ptSBP(sbp)) +
-         seg('耐糖能異常', $('igt').checked ? 1 : 0) + seg('LDL-C', ptLDL(ldl)) +
-         seg('HDL-C', ptHDL(hdl)) + seg('喫煙', $('smoke').checked ? 2 : 0) + '</div>';
+    more.push('内訳（点）：性別 ' + sexPt + '・収縮期血圧 ' + ptSBP(sbp) + '・耐糖能異常 ' + ($('igt').checked ? 1 : 0)
+      + '・LDL-C ' + ptLDL(ldl) + '・HDL-C ' + ptHDL(hdl) + '・喫煙 ' + ($('smoke').checked ? 2 : 0));
   }
   if ($('plaque').checked){
-    let t;
     if (ldlT === null){
-      t = '<b>頸動脈プラークあり</b> ― 動脈硬化がすでにある証拠。スコアの対象外でも、スタチンの適応を個別に検討します。';
+      h += '<div class="msg"><b>頸動脈プラーク</b>：スタチンを個別に検討</div>';
     } else if (ldlT > 100){
-      t = '<b>頸動脈プラークあり</b> ― 動脈硬化がすでにある証拠。GL2022の高リスク病態ではないため上の目標値は変わらないが、'
-        + '<b>一段上げて LDL-C ' + UP[ldlT] + ' 未満</b>（non-HDL-C ' + (UP[ldlT]+30) + ' 未満）で考える。退縮をねらうなら 70 前後。';
+      h += '<div class="msg"><b>頸動脈プラーク</b>：LDL-C <b>' + UP[ldlT] + ' 未満</b>（non-HDL-C ' + (UP[ldlT]+30) + ' 未満）で考える</div>';
+      more.push('頸動脈プラークは GL2022 の高リスク病態ではないので、区分と目標値は変わらない。動脈硬化がすでにある証拠として一段上げて考える。退縮をねらうなら LDL-C 70 前後。');
     } else {
-      t = '<b>頸動脈プラークあり</b> ― 目標は上のまま。<b>退縮をねらうなら LDL-C 70 前後</b>（ASTEROID・SATURN）。エコーは6〜12か月でフォロー。';
+      h += '<div class="msg"><b>頸動脈プラーク</b>：退縮をねらうなら LDL-C <b>70 前後</b></div>';
+      more.push('退縮の根拠は ASTEROID・SATURN。エコーは6〜12か月でフォロー。');
     }
-    h += '<div class="msg">' + t + '</div>';
   }
   if (msg) h += '<div class="msg">' + msg + '</div>';
   if (cat === '二次予防' && !$('acs').checked && !$('fh').checked && !$('both').checked && !$('dm').checked){
-    h += '<div class="msg">急性冠症候群・家族性高コレステロール血症・糖尿病・冠動脈疾患と脳梗塞の合併があれば、目標は LDL-C 70 ／ non-HDL-C 100 未満になります。</div>';
+    more.push('急性冠症候群・家族性高コレステロール血症・糖尿病・冠動脈疾患と脳梗塞の合併があれば、LDL-C 70 ／ non-HDL-C 100 未満。');
   }
-
+  if (more.length){
+    h += '<details class="more" id="more"' + (window.moreOpen ? ' open' : '') + '><summary>ⓘ 補足</summary><div class="mb">'
+      + more.join('<br>') + '</div></details>';
+  }
   h += '<div class="actions"><button type="button" class="reset" id="resetBtn">入力をクリア</button></div>';
 
   $('result').innerHTML = h;

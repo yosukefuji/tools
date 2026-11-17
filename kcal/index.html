@@ -98,6 +98,7 @@ table{border-collapse:collapse; font-size:13.5px; font-variant-numeric:tabular-n
 th,td{border:1px solid var(--line); padding:4px 9px; text-align:center; white-space:nowrap}
 th{background:var(--navy-soft); color:var(--ink); font-weight:700}
 td:first-child,th:first-child{text-align:left}
+.more{margin-top:10px}.more summary{color:rgba(255,255,255,.8);font-size:13.5px;padding:2px 0}.more .mb{color:rgba(255,255,255,.85);font-size:13px;line-height:1.7;margin-top:4px}.more .mb b{color:#fff}
 footer{margin-top:20px; font-size:12.5px; color:var(--muted); line-height:1.7}
 .nb{white-space:nowrap}
 /* 2026-11-10 緑の改修 */
@@ -115,8 +116,9 @@ h1{color:#fff;font-size:22px;margin:0}
 .head{margin-bottom:6px;color:#fff}.head *{color:inherit}.head .k{color:var(--kc)}.grid{grid-template-columns:repeat(3,1fr)}.range{text-wrap:balance}
 .head .k{font-size:64px;color:var(--kc);letter-spacing:-.01em}
 .head .u{font-size:22px}.head .unit{font-size:30px;font-weight:700;flex-basis:100%;margin-top:-2px}.x{;color:#fff;font-weight:700}
-.head .why,.range,.basis,.rfauto{color:rgba(255,255,255,.78)}
-.range b,.basis b,.rfauto b{color:#fff}
+.head .why,.range,.basis{color:rgba(255,255,255,.78)}
+.range b,.basis b{color:#fff}
+.rfauto{color:var(--ink);font-size:14px}.rfauto b{color:var(--navy)}
 .range{font-size:15px;margin:0 0 14px}
 .nu{background:var(--card);border:0;border-left:6px solid var(--kc2);border-radius:10px;padding:10px 14px}
 .nu .lb{font-size:13px;color:var(--muted)}
@@ -135,7 +137,7 @@ h2{font-size:14px}
 <div class="wrap">
   <header>
     <h1>入院栄養指示の算出</h1>
-    <p class="sub2">入院中の目安量を、病態に合わせて出します</p><p class="sub">糖尿病治療ガイド／CKD食事療法基準2014／肝硬変診療GL2020・ESPEN 2019／肥満症診療GL2022／再栄養は NICE 2006・ASPEN 2020</p>
+    
   </header>
 
   <div class="card">
@@ -263,15 +265,19 @@ h2{font-size:14px}
     </div>
   </details>
 
-  <footer>
+  <details>
+    <summary>注記・出典</summary>
+    <div class="body">
+    糖尿病治療ガイド／CKD食事療法基準2014／肝硬変診療GL2020・ESPEN 2019／肥満症診療GL2022／再栄養は NICE 2006・ASPEN 2020<br>
     指示量は出発点であり、体重・血糖・アルブミン・BUN の動きを見て調整する。<br>
     <b>一般病棟を想定している。</b>ICU で使う permissive underfeeding（肥満の重症患者に現体重あたり11〜14 kcal/kg）は入れていない。<br>
     「ベッド上安静が中心 20〜25」はガイドラインの区分ではなく、入院中の目安として置いたもの。<br>
     複数の病態が重なるときは、それぞれの推奨レンジの重なりを採用している。重ならない場合は病態側を優先し、その旨を下に出す。<br>
     肥満症のたんぱく質 1.0〜1.2 g/kg は、減量中に筋量を落とさないための目安として置いたもの（ガイドラインの明示値ではない）。<br>
     再栄養の日ごとの量は Friedli ら(2018)の表、リスク区分は NICE(2006) による。<br>
-    <span style="opacity:.75">版 2026-11-08g</span>
-  </footer>
+    <span style="opacity:.75">版 2026-11-17</span>
+    </div>
+  </details>
 </div>
 
 <script>
@@ -454,8 +460,8 @@ function calc(){
       + '<div class="rw"><span class="d">6日目〜</span><span class="v">' + rec + ' kcal<span style="font-size:13px;font-weight:400"> ＝ ' + unit + ' 単位</span></span>'
       + '<span class="s">病態からの必要量</span></div>'
       + '</div>';
-    h += '<div class="range">水分 ' + RF.fl + ' mL/kg／日・ナトリウムは'
-      + (RF.na ? '1 mmol/kg／日 未満' : '制限なし') + '</div>';
+    h += '<div class="range"><span class="nb">水分 ' + RF.fl + ' mL/kg／日</span>　<span class="nb">ナトリウム '
+      + (RF.na ? '1 mmol/kg／日 未満' : '制限なし') + '</span></div>';
   }
   h += (refeed ? '' : '<div class="head"><span class="k">' + rec + '</span><span class="u">kcal / 日</span>'
     + '<span class="u unit">＝ ' + unit + ' 単位</span>'
@@ -464,9 +470,8 @@ function calc(){
 
   if (!refeed) h += (kLo === kHi)
     ? '<div class="range">重なりは <b>' + lo + ' kcal/kg</b> の一点でした（' + kLo + ' kcal）</div>'
-    : '<div class="range"><span class="nb">幅をもたせるなら <b>' + kLo + '〜' + kHi + ' kcal</b></span>'
-      + '　<span class="nb">（' + (Math.round(kLo/80*10)/10) + '〜' + (Math.round(kHi/80*10)/10) + ' 単位）</span>'
-      + '　<span class="nb">' + lo + '〜' + hi + ' kcal/kg</span></div>';
+    : '<div class="range"><span class="nb">幅 <b>' + kLo + '〜' + kHi + ' kcal</b></span>'
+      + '　<span class="nb">（' + (Math.round(kLo/80*10)/10) + '〜' + (Math.round(kHi/80*10)/10) + ' 単位）</span></div>';
 
   // 腎・肝・侵襲のときだけ、たんぱく質ほかを出す
   const extra = [];
@@ -540,85 +545,80 @@ function calc(){
   }
 
   // 体格は添え物。1行で小さく置く
-  h += '<div class="basis">標準体重 <b>' + r1(tw) + ' kg</b>'
-    + (useAdj ? '　／　調整体重 <b>' + r1(aw) + ' kg</b>（標準＋0.25×超過分）' : '')
-    + (elderly ? '（65歳以上は22〜25で ' + r1(tw) + '〜' + r1(tw25) + ' kg）' : '')
-    + '　／　BMI <b>' + r1(bmi) + '</b>'
-    + '（現体重 ' + wt + ' kg・標準まで ' + (wt > tw ? '−' : '＋') + r1(Math.abs(wt-tw)) + ' kg）</div>';
+  h += '<div class="basis">BMI <b>' + r1(bmi) + '</b></div>';
 
-  const notes = [];
+  const notes = [], more = [];
+  if (elderly) more.push('65歳以上の標準体重は 22〜25 で ' + r1(tw) + '〜' + r1(tw25) + ' kg。');
   if (refeed){
-    notes.push('<b>チアミン 200〜300 mg を最初の食事の前に投与</b>し、' + RF.thi + '日間続けます。総合ビタミンも併せて。');
-    notes.push('<b>K・P・Mg を開始前に測り、低ければ先に補正</b>。開始後も毎日追い、下がったら増量を止めて戻します。'
-      + '上の数字は<b>現体重</b>あたりです。');
-    notes.push('低栄養から戻すときの最終目標は、通常より高めの<b>30〜35 kcal/kg 標準体重</b>を見ておきます'
-      + '（上の「6日目〜」は安静度と病態からの計算値です。安静度を上げると追随します）。');
+    notes.push('<b>チアミン 200〜300 mg</b> を最初の食事の前から ' + RF.thi + ' 日間（総合ビタミンも）');
+    notes.push('<b>K・P・Mg</b> を開始前に補正し、毎日追う。下がれば増量を止める');
+    more.push('上の数字は<b>現体重</b>あたり。');
+    more.push('最終目標は通常より高めの<b>30〜35 kcal/kg 標準体重</b>を見ておく（「6日目〜」は安静度と病態からの計算値。安静度を上げると追随）。');
     if (rfLevel === 'low'){
-      notes.push('いまの入力では<b>強いリスクには当たりません</b>（A はなし、B は' + rfB.length + '個）。'
+      more.push('いまの入力では<b>強いリスクには当たりません</b>（A はなし、B は' + rfB.length + '個）。'
         + 'それでも急に満量は入れず、15〜25 kcal/kg から始めています。'
         + '食べられていなかった日数や体重の減り方が分かれば、上のチェックを入れてください。');
     }
   }
   if (clash.length && !refeed){
-    notes.push('安静度の目安と病態の推奨が重なりませんでした。<b>病態のほうを採って ' + clash.join('・') + ' kcal/kg</b> にしています。');
+    notes.push('安静度と重ならず、<b>病態（' + clash.join('・') + ' kcal/kg）</b>を採用');
   }
   if (stress && !obese){
-    notes.push('侵襲下は<b>現体重</b>あたりで計算しています。急性期は入れすぎないほうが安全なので、'
+    more.push('侵襲下は<b>現体重</b>あたりで計算しています。急性期は入れすぎないほうが安全なので、'
       + '経過を見ながら上げてください。可能なら間接熱量計を。');
   }
   if (cirr){
-    notes.push('肝硬変では<b>就寝前補食（LES）200 kcal 前後</b>を、上の総量の内訳として組みます。'
-      + (enceph ? ' 蛋白不耐症があるので、不足分は BCAA 製剤で補います。' : ''));
+    notes.push('<b>就寝前補食 200 kcal 前後</b>を総量の内訳に' + (enceph ? '。不足分は <b>BCAA 製剤</b>で' : ''));
     if (decomp){
-      notes.push('非代償期は<b>30〜35 kcal/kg</b>から組みます（代償期の25〜35より下限が高い）。'
+      more.push('非代償期は<b>30〜35 kcal/kg</b>から組みます（代償期の25〜35より下限が高い）。'
         + (dm ? '耐糖能異常があっても量は削らず、分割食と LES で血糖を均すほうを採ります。'
               : '低栄養とサルコペニアの回避を、ほかより先に置いています。'));
     }
   }
   if ((hd || ckd) && elderly){
-    notes.push('高齢でサルコペニア・フレイルがあるときは、<b>たんぱく質を下限まで削らない</b>。'
-      + '腎機能の保持より低栄養の回避を優先する場面があります。');
+    notes.push('フレイルなら<b>たんぱく質を下限まで削らない</b>');
+    more.push('高齢でサルコペニア・フレイルがあるときは、腎機能の保持より低栄養の回避を優先する場面がある。');
   }
   if ((hd || ckd) && dm){
-    notes.push('糖尿病と腎臓の指示が両方かかっています。エネルギーは重なりを採りましたが、'
+    more.push('糖尿病と腎臓の指示が両方かかっています。エネルギーは重なりを採りましたが、'
       + '血糖と BUN の動きを見て寄せ直してください。');
   }
   if (stress && obese){
-    notes.push('BMI ' + r1(bmi) + ' なので、侵襲下でも現体重ではなく<b>調整体重 ' + r1(aw) + ' kg</b> で'
+    more.push('BMI ' + r1(bmi) + ' なので、侵襲下でも現体重ではなく<b>調整体重 ' + r1(aw) + ' kg</b> で'
       + '計算しています（標準体重だけだと少なく見積もりすぎ、現体重だと入れすぎになるため）。');
   } else if (lose && sevObese){
-    notes.push('高度肥満症（BMI ' + r1(bmi) + '）として<b>20〜25 kcal/kg 標準体重 以下</b>で組んでいます。'
+    more.push('高度肥満症（BMI ' + r1(bmi) + '）として<b>20〜25 kcal/kg 標準体重 以下</b>で組んでいます。'
       + 'まず3〜6か月で現体重の5〜10%減が目標。届かないときはフォーミュラ食・超低エネルギー食を検討します。');
   } else if (lose && obese){
-    notes.push('肥満症（BMI ' + r1(bmi) + '）として<b>25 kcal/kg 標準体重 以下</b>で組んでいます。まず3%の減量から。'
+    more.push('肥満症（BMI ' + r1(bmi) + '）として<b>25 kcal/kg 標準体重 以下</b>で組んでいます。まず3%の減量から。'
       + '減量が目的のときだけは、調整体重ではなく<b>標準体重</b>を使います。');
   } else if (lose && !obese){
-    notes.push('BMI ' + r1(bmi) + ' なので、減量のチェックは計算に反映していません。');
+    notes.push('BMI 25未満なので、減量は計算に入れていません');
   } else if (bmi >= 25){
-    notes.push('BMI ' + r1(bmi) + ' なので<b>調整体重 ' + r1(aw) + ' kg</b>（標準体重＋超過分の1/4）で計算しています。'
+    more.push('BMI ' + r1(bmi) + ' なので<b>調整体重 ' + r1(aw) + ' kg</b>（標準体重＋超過分の1/4）で計算しています。'
       + '減量を組むなら「減量を目的とする」にチェックを入れてください（そのときは標準体重に切り替わります）。');
   }
   if (protClash){
-    notes.push('たんぱく質の目安が病態どうしで重なりませんでした。<b>' + (protPick === 'CKD' || protPick === '透析' ? '腎臓の制限' : protPick) + 'の範囲</b>を優先しています。' + (protPick === 'CKD' || protPick === '透析' ? 'たんぱく質が足りなくなりそうなときは、主治医・栄養士と相談してください。' : '状態が変わったら見直してください。'));
+    notes.push('たんぱく質は<b>' + (protPick === 'CKD' || protPick === '透析' ? '腎臓の制限' : protPick) + '</b>を優先' + (protPick === 'CKD' || protPick === '透析' ? '。足りなければ主治医・栄養士に相談' : ''));
+    more.push('たんぱく質の目安が病態どうしで重ならなかった。' + (protPick === 'CKD' || protPick === '透析' ? '' : '状態が変わったら見直す。'));
   }
   const pb = useAdj ? aw : tw;
   const protLo = protShown;
   if (protLo > 90){
-    notes.push('たんぱく質 ' + Math.round(protLo) + ' g は、<b>常食や高たんぱく食では届かないことがあります</b>。'
-      + '院内の約束食事箋の上限を確かめて、足りなければ栄養補助食品（メイバランスなど）や経腸栄養剤を足してください。');
+    notes.push('院内食では<b>届かないかも</b>。栄養補助食品（メイバランスなど）・経腸栄養剤を足す');
+    more.push('たんぱく質 ' + Math.round(protLo) + ' g は常食や高たんぱく食では届かないことがある。院内の約束食事箋の上限を確かめる。');
   }
 
-  if (bmi < 18.5 && !refeed) notes.push('BMI ' + r1(bmi) + ' とやせています。指示量より<b>実際に食べた量</b>を追ってください。'
-    + '長く食べられていなかった人なら「強い低栄養」にチェックを。');
-  if (!hd && !ckd && !cirr && !stress){
-    notes.push('腎臓・肝臓・侵襲のチェックを入れると、たんぱく質や食塩の目安も出ます。');
-  }
+  if (bmi < 18.5 && !refeed) notes.push('やせ：<b>実際に食べた量</b>を追う。長く食べていなければ「強い低栄養」に');
 
   notes.forEach(function(t){ h += '<div class="msg">' + t + '</div>'; });
+  if (more.length) h += '<details class="more" id="more"' + (window.moreOpen ? ' open' : '') + '><summary>ⓘ 補足</summary><div class="mb">'
+    + more.join('<br>') + '</div></details>';
 
   h += '<div class="actions"><button type="button" class="reset" id="resetBtn">入力をクリア</button></div>';
   out.innerHTML = h;
   nbFix(out);
+  if ($('more')) $('more').addEventListener('toggle', function(){ window.moreOpen = this.open; });
   $('resetBtn').addEventListener('click', doReset);
   save();
 }
@@ -629,7 +629,7 @@ BOXES.concat(FIELDS).concat(SELS).forEach(function(k){
 });
 load();
 calc();
-nbFix(document.querySelector('details'));
+document.querySelectorAll('.wrap > details').forEach(nbFix);
 </script>
 
 <script>
