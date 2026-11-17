@@ -1,4 +1,4 @@
-const CACHE = 'kcal-v12';
+const CACHE = 'kcal-v13';
 const ASSETS = [
   './',
   './index.html',

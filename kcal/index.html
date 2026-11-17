@@ -476,7 +476,7 @@ function calc(){
     const pbase = (per === '現体重') ? wt : (useAdj ? aw : tw);
     prot.push({name:name, lo:(a === null ? 0 : pbase*a), hi:pbase*b, none:(a === null), tail:tail || ''});
   };
-  let protClash = false, protShown = 0;
+  let protClash = false, protShown = 0, protPick = '';
 
   if (hd){
     addP('透析', 0.9, 1.2, '標準体重');
@@ -518,9 +518,11 @@ function calc(){
     let names = prot.map(function(p){ return p.name; });
     let tail = prot.length === 1 ? prot[0].tail : '';
     if (plo > phi){
-      // 重ならないときはエネルギーと同じく、侵襲下（なければ最後に足した病態）を採る
+      // 重ならないときは腎臓（透析・CKD）の制限を優先する。腎臓がなければ最後に足した病態（侵襲下など）
       protClash = true;
-      const pick = prot[prot.length - 1];
+      const kid = prot.filter(function(p){ return p.name === '透析' || p.name === 'CKD'; });
+      const pick = kid.length ? kid[0] : prot[prot.length - 1];
+      protPick = pick.name;
       plo = pick.lo; phi = pick.hi; names = [pick.name]; tail = pick.tail;
     }
     protShown = plo;
@@ -597,7 +599,7 @@ function calc(){
       + '減量を組むなら「減量を目的とする」にチェックを入れてください（そのときは標準体重に切り替わります）。');
   }
   if (protClash){
-    notes.push('たんぱく質の目安が病態どうしで重なりませんでした。<b>侵襲下など、いま優先される病態の範囲</b>を採っています。急性期が過ぎたら見直してください。');
+    notes.push('たんぱく質の目安が病態どうしで重なりませんでした。<b>' + (protPick === 'CKD' || protPick === '透析' ? '腎臓の制限' : protPick) + 'の範囲</b>を優先しています。' + (protPick === 'CKD' || protPick === '透析' ? 'たんぱく質が足りなくなりそうなときは、主治医・栄養士と相談してください。' : '状態が変わったら見直してください。'));
   }
   const pb = useAdj ? aw : tw;
   const protLo = protShown;
