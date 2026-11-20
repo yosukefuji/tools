@@ -5,443 +5,120 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#8A3A5E">
 <meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="妊娠メモ">
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
-
-<title>妊娠糖尿病 診療の整理</title>
-<style>
-@page{size:A4 portrait; margin:8mm 9.5mm;}
+<title>妊娠糖尿病</title>
+<style>/* 診療ツール 共通の型（全アプリ同じ。--c だけアプリごと） */
+:root{--bg:#f3f4f7;--card:#fff;--ink:#1b1f27;--muted:#6b7280;--line:#e3e6ec;
+ --font:-apple-system,"Hiragino Sans","Yu Gothic UI","Yu Gothic",system-ui,sans-serif}
 *{box-sizing:border-box}
-body{font-family:"Yu Gothic","Meiryo",sans-serif; color:#1b1b1b; margin:0; font-size:10.3pt; line-height:1.52;}
-@media print{body{width:auto; padding:0;}}
-.page{break-after:page;}
-.page:last-child{break-after:auto;}
-h1{font-size:15pt; margin:0 0 1.5mm;}
-.lead{font-size:9pt; color:#666; margin:0 0 3mm;}
-h2{font-size:11pt; margin:0 0 2.2mm; padding:1.2mm 2.4mm; background:#8A3A5E; color:#fff; letter-spacing:.04em;}
-section{margin-bottom:2.8mm;}
-section:last-of-type{margin-bottom:0;}
-.cols{display:flex; gap:5mm;} .cols>div{flex:1;}
-table{border-collapse:collapse; width:100%; font-size:10pt;}
-th,td{border:.3pt solid #c5c5c5; padding:1.15mm 1.9mm; text-align:left; vertical-align:top;}
-th{background:#f6ecf1; font-weight:700;}
-.s{display:block; font-size:8.6pt; color:#666; font-weight:400;}
-td.c,th.c{text-align:center; font-variant-numeric:tabular-nums; white-space:nowrap;}
-td.n,th.n{text-align:right; font-variant-numeric:tabular-nums; white-space:nowrap;}
-tr.hi td{background:#f9eef3;}
-ul{margin:0; padding-left:5mm;} li{margin-bottom:1.2mm;}
-.flow{border:.4pt solid #8A3A5E; padding:2mm; font-size:10pt;}
-.flow b{color:#8A3A5E;}
-.step{margin-bottom:1.4mm;}
-.arrow{color:#888; margin:0 1mm;}
-.warn{border-left:3pt solid #C0692A; padding:2mm 0 2mm 3mm; background:#fdf6f0;}
-.ok{border-left:3pt solid #1f7a4d; padding:2mm 0 2mm 3mm; background:#eef6f1;}
-.note{font-size:9pt; color:#555; margin-top:2mm;}
-em{font-style:normal; background:#fff2cc; padding:0 .6mm;}
-.big{font-weight:700;}
-footer{font-size:8pt; color:#888; border-top:.3pt solid #ddd; padding-top:1.2mm; margin-top:2mm;}
-:root{--brand:#8A3A5E}
-
-@media screen and (max-width:820px){
-  html{-webkit-text-size-adjust:100%}
-  body{font-size:16px; line-height:1.72; background:#fff; color:#1b1b1b;
-       word-break:normal; overflow-wrap:break-word; line-break:strict;
-       width:auto !important; max-width:none !important;
-       margin:0 !important; padding:0 0 40px !important}
-  body{background:#eceff4 !important}
-  .page{break-after:auto; padding:16px max(14px,env(safe-area-inset-right,0px)) 2px max(14px,env(safe-area-inset-left,0px))}
-  h1{font-size:20px; margin:4px 2px 4px; line-height:1.4}
-  .lead{font-size:13px; margin:0 2px 12px}
-  .toc{background:#fff; border-radius:12px; margin:14px 0 4px; padding:2px 0;
-       box-shadow:0 1px 2px rgba(20,32,64,.09); overflow:hidden}
-  .toc a{display:block; padding:12px 34px 12px 14px; text-decoration:none; color:#1b1b1b;
-         font-size:15px; line-height:1.45; border-bottom:1px solid #eef0f4; position:relative}
-  .toc a:last-child{border-bottom:0}
-  .toc a::after{content:''; position:absolute; right:16px; top:50%; width:7px; height:7px;
-                border-right:2px solid #aab2c0; border-bottom:2px solid #aab2c0;
-                transform:translateY(-50%) rotate(-45deg)}
-  .toc a b{display:inline-block; min-width:1.5em; color:#8A3A5E}
-  .page + .page{border-top:1px solid #d6dce6; margin-top:14px; padding-top:20px}
-  .pidx{display:flex; flex-wrap:wrap; gap:6px; margin:0 2px 14px}
-  .pidx a{font-size:12.5px; line-height:1.3; background:#fff; border:1px solid #d7dce5; border-radius:999px;
-          padding:6px 11px; text-decoration:none; color:#2b3550}
-  section{background:#fff; border-radius:12px; margin:0 0 13px; overflow:hidden;
-          box-shadow:0 1px 2px rgba(20,32,64,.09)}
-  section>h2{font-size:15.5px; margin:0; padding:12px 38px 12px 14px; border-radius:0; line-height:1.45;
-             position:relative; cursor:pointer; -webkit-tap-highlight-color:transparent}
-  section>h2::after{content:''; position:absolute; right:16px; top:50%; width:8px; height:8px;
-                    border-right:2px solid rgba(255,255,255,.85); border-bottom:2px solid rgba(255,255,255,.85);
-                    transform:translateY(-70%) rotate(45deg); transition:transform .15s}
-  section.closed>h2::after{transform:translateY(-50%) rotate(-45deg)}
-  .sbody{padding:14px}
-  section.closed .sbody{display:none}
-  .cols{flex-direction:column; gap:16px}
-  .cols>div{flex:1 1 auto !important}
-  .tw{overflow-x:auto; -webkit-overflow-scrolling:touch; margin:0}
-  .tw table{min-width:100%}
-  .tw.wide table{width:max-content !important; min-width:100%}
-  .tw.wide td,.tw.wide th{min-width:6em; max-width:17em}
-  .tw.stack{overflow:visible}
-  .tw.stack table,.tw.stack tbody,.tw.stack tr,.tw.stack th,.tw.stack td{display:block; width:auto !important; min-width:0 !important}
-  .tw.stack table{border:0; min-width:0 !important}
-  .tw.stack tr{border:1px solid #cfd4dc; border-radius:7px; overflow:hidden; margin-bottom:10px; background:#fff}
-  .tw.stack tr:last-child{margin-bottom:0}
-  .tw.stack th,.tw.stack td{border:0; text-align:left !important; white-space:normal !important}
-  .tw.stack td{padding:10px 12px}
-  .tw.stack tr>:first-child{background:#f6ecf1; font-weight:700; padding:7px 12px; font-size:14.5px; line-height:1.55}
-  .tw.stack tr.hi>:first-child{background:#ecd5e0}
-  .tw.stack td+td{border-top:1px dashed #d8dce3}
-  .tw.stack tr.hdr{display:flex; flex-wrap:wrap; gap:4px 14px; background:#f6ecf1; border:0; border-radius:6px;
-                   padding:6px 12px; margin-bottom:9px; font-size:12.5px; color:#44506a}
-  .tw.stack tr.hdr th{display:inline; background:none; padding:0; font-size:12.5px; font-weight:700}
-  .tw.stack.lab tr.hdr{display:none}
-  .tw.stack td[data-lab]::before,.tw.stack th[data-lab]::before{
-    content:attr(data-lab); display:block; font-size:12px; font-weight:700;
-    color:#5a6473; letter-spacing:.02em; margin-bottom:2px}
-  .tw.stack tr>:first-child[data-lab]::before{color:#44506a; margin-bottom:1px}
-  table{font-size:14.5px; margin:0; table-layout:auto}
-  th,td{padding:7px 9px; word-break:normal; overflow-wrap:break-word; line-break:strict}
-  th{min-width:6.2em}
-  td.c,td.n{white-space:nowrap}
-  th.c,th.n{white-space:normal}
-  .warn{padding:11px 13px 11px 14px; border-radius:0 6px 6px 0; margin:0}
-  .flow{padding:12px 13px; border-radius:6px; font-size:15px}
-  .step{margin-bottom:7px}
-  .note{font-size:13.5px; margin-top:10px; line-height:1.68}
-  .spanNote{font-size:13.5px; line-height:1.70; color:#3f444c; margin:10px 0 0;
-            padding:2px 0 2px 12px; border-left:3px solid #dcc1cf}
-  .s{font-size:13px; color:#565b63; margin-top:3px; line-height:1.62}
-  ul{padding-left:20px} li{margin-bottom:6px}
-  footer{font-size:11.5px; margin:2px 4px 16px; padding-top:9px; color:#78808e}
-  .nav{position:sticky; top:0; z-index:20; display:flex; align-items:center; gap:12px;
-       padding:calc(env(safe-area-inset-top,0px) + 40px) max(14px,env(safe-area-inset-right,0px)) 14px max(14px,env(safe-area-inset-left,0px));
-       background:var(--brand); color:#fff; font-weight:700; font-size:18px}
-  .nav a{color:#fff; text-decoration:none; font-weight:600; font-size:18px; opacity:1; padding:10px 14px 10px 4px; margin:-10px 0}
-  .nav .sp{margin-left:auto}
-}
-@media print{ .nav{display:none} .tw{overflow:visible} }
+html,body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--font);-webkit-text-size-adjust:100%}
+.top{background:var(--c);color:#fff;padding:calc(env(safe-area-inset-top,0px) + 14px) 16px 14px}
+.top .in,.main{max-width:560px;margin:0 auto}
+.brand{font-size:11px;letter-spacing:.14em;opacity:.8;font-weight:700}
+.title{display:flex;align-items:center;gap:10px;margin-top:4px;min-height:30px}
+.title h1{font-size:21px;margin:0;font-weight:800;letter-spacing:.02em}
+.back{color:#fff;text-decoration:none;font-size:15px;opacity:.9;white-space:nowrap}
+.main{padding:14px 16px 32px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;margin:0 0 12px;overflow:hidden}
+.q{padding:12px 16px;font-size:20px;line-height:1.4;font-weight:800;color:var(--c);background:color-mix(in srgb,var(--c) 10%,#fff);border-left:5px solid var(--c);margin-bottom:6px;letter-spacing:.04em}
+.q em{font-style:normal;color:var(--c)}
+.row{display:flex;gap:12px;align-items:baseline;padding:9px 16px;border-top:1px solid var(--line);font-size:15px;line-height:1.5}
+.q+.row{border-top:0}
+.row .k{flex:0 0 36%;color:var(--ink)}
+.row .v{flex:1}
+.big{font-size:19px;font-weight:800;color:var(--c);white-space:nowrap}
+.b{font-weight:800;color:var(--c)}
+.note{padding:4px 16px 12px;font-size:12.5px;color:var(--muted);line-height:1.6}
 .nb{white-space:nowrap}
-</style>
-<style id="sumcss">@media screen and (max-width:820px){.pidx{display:none}.sum{padding:9px 38px 11px 14px;font-size:14.5px;line-height:1.6;color:#1b1b1b;border-top:0}.sum b{color:#8A3A5E}section:not(.closed)>.sum{display:none}.page.allclosed>footer,.page.allclosed>.fbtn{display:none}}</style><style>@media screen{table.keep{table-layout:auto} table.keep.big th:first-child{width:auto!important} table.keep.big td.c,table.keep.big td.c b,table.keep.big td.n,table.keep.big td.n b{font-size:18px!important;font-weight:700;color:#8A3A5E;white-space:normal} table.keep.big td.c em,table.keep.big td.n .s{font-size:13px!important;font-weight:400;color:#565b63} table.keep.big td.c .s{display:block;font-size:13px!important;font-weight:400;color:#565b63} table.keep.big td:first-child .s{display:block}}</style><style id="readcss">@media screen and (max-width:820px){.warn,.ok{font-size:15.5px;line-height:1.85}.warn>b.big,.ok>b:first-child{display:block;margin-bottom:4px}.note{font-size:14px;line-height:1.85}em{background:none;font-weight:700;color:#8A3A5E}.warn ul,.ok ul{margin:6px 0 0}.warn li,.ok li{margin-bottom:9px}.warn>b.big+br,.ok>b:first-child+br{display:none}}</style><style id="acc2">@media screen and (max-width:820px){.sum b{color:#0F766E}}</style></head>
+.sec{font-size:12px;color:var(--muted);font-weight:700;letter-spacing:.1em;margin:20px 4px 8px}
+.list a{display:block;padding:14px 16px;border-top:1px solid var(--line);text-decoration:none;color:var(--ink)}
+.list a:first-child{border-top:0}
+.list .n{font-size:17px;font-weight:800;display:flex;justify-content:space-between}
+.list .n::after{content:"›";color:var(--c);font-size:20px;line-height:1}
+.list .s{font-size:13px;color:var(--muted);margin-top:3px;line-height:1.5}
+.list .s b{color:var(--c)}
+.fold{padding:13px 16px;border-top:1px solid var(--line);font-size:15px;display:flex;justify-content:space-between;color:var(--ink)}
+.fold:first-child{border-top:0}
+.fold::after{content:"＋";color:var(--c);font-weight:800}
+.foot{font-size:11.5px;color:var(--muted);line-height:1.7;margin:18px 4px 0}
+/* 入力（計算アプリ） */
+.lbl{font-size:13px;font-weight:700;color:var(--muted);padding:12px 16px 6px}
+.chips{display:flex;flex-wrap:wrap;gap:8px;padding:0 16px 12px}
+.chip{border:1.5px solid var(--line);border-radius:999px;padding:7px 12px;font-size:14.5px}
+.chip.on{border-color:var(--c);color:var(--c);font-weight:800;background:color-mix(in srgb,var(--c) 8%,#fff)}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;padding:0 16px 14px}
+.f .t{font-size:13px;font-weight:700}.f .u{font-size:11px;color:var(--muted)}
+.f .box{margin-top:4px;height:46px;border-radius:10px;background:#f1f3f7;border:1.5px solid var(--line);font-size:20px;font-weight:800;display:flex;align-items:center;padding:0 10px}
+.ans{background:var(--c);color:#fff;border-radius:14px;padding:14px 16px;margin:0 0 12px}
+.ans .t{font-size:12px;opacity:.85;font-weight:700;letter-spacing:.06em}
+.ans .v{font-size:30px;font-weight:800;margin-top:2px}
+.ans .s{font-size:13.5px;opacity:.92;margin-top:2px}
+.two{display:grid;grid-template-columns:1fr 1fr;border-top:1px solid var(--line)}
+.q+.two{border-top:0}
+.two>div{padding:8px 14px 12px;font-size:14.5px;line-height:1.55}
+.two>div+div{border-left:1px solid var(--line)}
+.two .h{font-size:12.5px;font-weight:800;margin-bottom:4px}
+.yes .h{color:var(--c)} .no .h{color:#9a3b2a}
+.two ul{margin:0;padding:0;list-style:none}.two li{margin:2px 0}
+.small{font-size:12px;color:var(--muted)}
+.tags{display:flex;flex-wrap:wrap;gap:6px;padding:2px 16px 12px}
+.tag{font-size:13.5px;font-weight:700;border-radius:8px;padding:3px 9px;background:color-mix(in srgb,var(--c) 10%,#fff);color:var(--c)}
+.ev{border-top:1px solid var(--line)}
+.ev summary{list-style:none;padding:10px 16px;font-size:13.5px;font-weight:700;color:var(--muted);display:flex;justify-content:space-between;cursor:pointer}
+.ev summary::-webkit-details-marker{display:none}
+.ev summary::after{content:"＋";color:var(--c)}
+.ev[open] summary::after{content:"－"}
+.ev .in{padding:0 16px 12px;font-size:13px;line-height:1.65;color:#3b4150}
+.ev .in p{margin:0 0 6px}
+.ev .in .src{font-size:11.5px;color:var(--muted)}
+.gl{display:inline-block;font-size:11px;font-weight:700;color:var(--muted);background:#eef0f4;border-radius:5px;padding:0 6px;margin-left:2px}
+.toc{position:sticky;top:0;z-index:5;background:var(--bg);display:flex;gap:6px;padding:10px 16px;border-bottom:1px solid var(--line)}
+.toc a{flex:1;text-align:center;font-size:14px;font-weight:800;color:var(--c);background:#fff;border:1.5px solid color-mix(in srgb,var(--c) 35%,#fff);border-radius:999px;padding:7px 0;text-decoration:none;white-space:nowrap}
+.go{display:flex;justify-content:space-between;align-items:center;margin:12px 16px;padding:14px 16px;border-radius:12px;background:#5B4BC4;color:#fff;font-size:17px;font-weight:800;text-decoration:none}
+.go::after{content:"›";font-size:24px;line-height:1}
+
+html{scroll-behavior:smooth}.card[id],.part[id]{scroll-margin-top:62px}.back{display:inline-block;padding:6px 12px 6px 0;margin:-6px 0;font-size:24px;line-height:1}.list a{color:var(--ink)}.foot{margin-bottom:24px}</style>
+<style>:root{--c:#8A3A5E}.row .k{flex-basis:30%}.toc a{font-size:14px}</style>
+</head>
 <body>
-<div class="nav"><a href="index.html">&#8249;&nbsp;一覧</a><span class="sp"></span><span>妊娠糖尿病</span></div>
+<div class="top"><div class="in"><div class="title"><a class="back" href="index.html">‹</a><h1>妊娠糖尿病</h1></div></div></div>
+<nav class="toc"><a href="#s0">なぜ</a><a href="#s1">妊娠前から産後</a><a href="#s2">数値と調整</a></nav>
+<div class="main">
 
-<div class="page">
-<h1>① 妊娠糖尿病とは</h1>
+<div id="s0" class="card"><div class="q">なぜ管理するのか</div>
+<div class="row"><div class="v">母体の<span class="b">食後高血糖</span> → 胎児の高インスリン → <span class="b">巨大児</span></div></div>
+<div class="two"><div class="yes"><div class="h">母体</div><ul><li>妊娠高血圧症候群</li><li>羊水過多・早産</li><li>帝王切開・肩甲難産</li></ul></div><div class="yes"><div class="h">児</div><ul><li><span class="b">巨大児</span></li><li><span class="b">新生児低血糖</span></li><li>高ビリルビン・低Ca</li><li>呼吸窮迫症候群</li></ul></div></div>
+<div class="row"><div class="k">将来の2型</div><div class="v">母体は約<span class="big">7倍</span></div></div>
+<details class="ev"><summary>根拠</summary><div class="in"><p>だから食後値を中心に見る。生まれると糖の供給が止まるのに高インスリンが残るので、新生児低血糖が起こる</p><p><b>約7倍</b>：妊娠糖尿病の既往で2型糖尿病が約7倍（Bellamy, Lancet 2009 のメタ解析、確認中）</p><p><span class="gl">ガイドライン記載</span></p></div></details></div>
 
-<section data-sum="GDM＝妊娠中に初めて見つかった、糖尿病に至らない糖代謝異常。<b>空腹時≥126 または HbA1c≥6.5%</b>は「明らかな糖尿病」。管理目標はふつうの糖尿病より<b>はるかに厳しい</b>">
-<h2>3つを区別する —— 名前が似ていて別もの</h2>
-<table>
-<tr class="hi"><th style="width:28%">妊娠糖尿病（GDM）</th><td>妊娠中に初めて発見または発症した、<b>糖尿病に至っていない</b>糖代謝異常</td></tr>
-<tr><th>妊娠中の明らかな糖尿病</th><td><b>空腹時血糖 ≥126</b> または <b>HbA1c ≥6.5%</b><span class="s">随時血糖 ≥200、OGTT 2時間 ≥200 の場合は上記を確認する</span></td></tr>
-<tr><th>糖尿病合併妊娠</th><td>妊娠前にすでに診断された糖尿病／<b>確実な糖尿病網膜症があるもの</b></td></tr>
-</table>
-<p class="note"><b>GDMは「糖尿病」ではない。</b>名前に引きずられて過剰に扱わない一方、<em>管理目標は通常の糖尿病よりはるかに厳しい</em>——この両方を押さえる。</p>
-</section>
+<div id="s1" class="card"><div class="q">妊娠前から産後まで</div>
+<div class="row"><div class="k">既往のある人</div><div class="v">次の妊娠の前に<span class="b">耐糖能を調べる</span></div></div>
+<div class="row"><div class="k">妊娠初期</div><div class="v">随時血糖 <span class="b">95〜100以上</span> → OGTT</div></div>
+<div class="row"><div class="k">24〜28週</div><div class="v">初期に陰性でも<span class="b">もう一度</span><br>50gGCT 140以上 → OGTT</div></div>
+<div class="row"><div class="k">診断後</div><div class="v">血糖自己測定 毎日<span class="b">4〜7回</span><br>まず<span class="b">分割食</span></div></div>
+<div class="row"><div class="k">届かなければ</div><div class="v"><span class="b">インスリン</span>。飲み薬は使わない</div></div>
+<div class="row"><div class="k">妊娠後期</div><div class="v">インスリン量が<span class="big">1.5〜2倍</span>に</div></div>
+<div class="row"><div class="k">分娩直後</div><div class="v">インスリンを<span class="b">大きく減らすか中止</span></div></div>
+<div class="row"><div class="k">産後6〜12週</div><div class="v"><span class="big">75gOGTT</span></div></div>
+<div class="row"><div class="k">その後</div><div class="v"><span class="b">年1回</span> 血糖・HbA1c</div></div>
+<details class="ev"><summary>根拠</summary><div class="in"><p>スクリーニング・産後 OGTT・年1回：<span class="gl">ガイドライン記載</span>。インスリン抵抗性は妊娠後半に強まるので、初期に陰性でも中期に調べる</p><p><b>リスク</b>：肥満、糖尿病の家族歴、巨大児出産歴、妊娠糖尿病の既往、35歳以上、尿糖陽性、羊水過多、原因不明の流早産のくり返し</p><p><b>飲み薬</b>：海外ではメトホルミン・グリベンクラミドを使うことがあるが、日本では適応がなく勧められていない</p><p><b>産後</b>：空腹時血糖や HbA1c だけでは拾えないことがある。1〜3年ごとに OGTT を考える。授乳は糖尿病のリスクを下げる。産科のフォローが終わると途切れやすいので、産後 OGTT の予約は分娩前に取る</p><p class="src">日本糖尿病・妊娠学会／糖尿病診療ガイドライン2024</p></div></details></div>
 
-<section data-sum="食後高血糖 → 胎児の高インスリン血症 → <b>巨大児</b>。出生後は<b>新生児低血糖</b>。だから<b>食後値</b>を主軸に管理する">
-<h2>なにを防ぐための管理か</h2>
-<div class="cols">
-<div>
-<table>
-<tr><th>母体</th></tr>
-<tr><td><b>妊娠高血圧症候群</b></td></tr>
-<tr><td>羊水過多</td></tr>
-<tr><td>早産</td></tr>
-<tr><td><b>帝王切開・肩甲難産</b></td></tr>
-</table>
-</div>
-<div>
-<table>
-<tr><th>胎児・新生児</th></tr>
-<tr class="hi"><td><b>巨大児</b>（最も直接的な帰結）</td></tr>
-<tr><td><b>新生児低血糖</b>（分娩後に注意）</td></tr>
-<tr><td>高ビリルビン血症、低Ca血症</td></tr>
-<tr><td>呼吸窮迫症候群</td></tr>
-<tr><td><b>将来の肥満・糖尿病</b></td></tr>
-</table>
-</div>
-</div>
-<p class="note"><b>母体の食後高血糖 → 胎児の高インスリン血症 → 巨大児</b>という経路。<br>だから食後値を主軸に管理する。<br><em>出生後は母体からの糖供給が途絶える一方、胎児の高インスリン状態が残るため、新生児低血糖が起こる。</em></p>
-</section>
+<div id="s2" class="card"><div class="q">数値と調整</div>
+<div class="row"><div class="k">診断</div><div class="v">75gOGTT で<span class="b">1点</span>でも<br>空腹時 <span class="big">92</span><br>1時間 <span class="big">180</span><br>2時間 <span class="big">153</span></div></div>
+<div class="row"><div class="k">明らかな<br>糖尿病</div><div class="v">空腹時 126以上<br>か HbA1c 6.5%以上<br>→ 妊娠糖尿病とは別</div></div>
+<div class="row"><div class="k">空腹時</div><div class="v"><span class="big">95</span> 以下</div></div>
+<div class="row"><div class="k">食後1時間</div><div class="v"><span class="big">140</span> 以下</div></div>
+<div class="row"><div class="k">食後2時間</div><div class="v"><span class="big">120</span> 以下</div></div>
+<div class="row"><div class="k">GA</div><div class="v"><span class="b">15.8%</span> 未満（HbA1cより確か）</div></div>
+<div class="row"><div class="k">エネルギー</div><div class="v">標準体重×30kcal＋付加量<br>初期＋50・中期＋250・後期＋450<br>肥満は付加量なし</div></div>
+<div class="row"><div class="k">受診間隔</div><div class="v">食事だけで安定 <span class="b">2〜4週ごと</span><br>インスリン調整中 <span class="b">1〜2週ごと</span></div></div>
+<div class="row"><div class="k">毎回</div><div class="v">GA・<span class="b">尿ケトン</span>・体重・血圧・尿蛋白</div></div>
+<details class="ev"><summary>根拠</summary><div class="in"><p>診断基準・目標：<span class="gl">ガイドライン記載</span>。ふだんの糖尿病の診断（126・200）とは別の数字。低血糖も避ける</p><p>妊娠中は鉄欠乏や赤血球寿命の変化で HbA1c が低く出やすく、GA のほうが実態に近い</p><p>エネルギー量・付加量：<span class="gl">ガイドライン記載</span>（数字は確認中）。極端な制限はケトン体を増やすので避け、尿ケトンで確かめる</p><p>受診間隔は実務上の目安。妊婦健診（24〜35週は2週ごと、36週からは毎週）に合わせると負担が少ない</p><p class="src">日本糖尿病・妊娠学会／糖尿病診療ガイドライン2024</p></div></details></div>
 
-<section data-sum="75gOGTTで<b>空腹時≥92／1時間≥180／2時間≥153</b>の<b>1点でも</b>満たせばGDM（2点は不要）。初期に陰性でも中期（24〜28週）に必ず再スクリーニング">
-<h2>診断基準 —— 75gOGTT で1点でも満たせばGDM</h2>
-<div class="cols">
-<div>
-<table class="keep big">
-<tr><th class="c" style="width:34%">空腹時</th><td class="c"><b>≥ 92 mg/dL</b></td></tr>
-<tr><th class="c">1時間値</th><td class="c"><b>≥ 180 mg/dL</b></td></tr>
-<tr><th class="c">2時間値</th><td class="c"><b>≥ 153 mg/dL</b></td></tr>
-</table>
-<div class="warn" style="margin-top:3mm">
-<b>通常の糖尿病診断（空腹時126・2時間200）とはまったく違う数字。</b><em>1点を満たせば診断</em>で、2点必要ではない。
 </div>
-</div>
-<div>
-<table>
-<tr><th colspan="2">スクリーニング</th></tr>
-<tr><td style="width:30%"><b>妊娠初期</b></td><td>随時血糖 <b>≥95〜100</b> で陽性 → 75gOGTTへ</td></tr>
-<tr class="hi"><td><b>24〜28週</b></td><td><b>50gGCT ≥140</b>、または随時血糖 ≥100 → 75gOGTTへ</td></tr>
-</table>
-<p class="note"><b>リスク因子</b>：肥満、糖尿病の家族歴、<b>巨大児分娩歴</b>、GDM既往、35歳以上、尿糖陽性、羊水過多、原因不明の習慣流早産。<br><em>初期に陰性でも、中期に必ず再スクリーニングする</em>（インスリン抵抗性は妊娠後半に高まるため）。</p>
-</div>
-</div>
-</section>
-<footer>日本糖尿病・妊娠学会／日本糖尿病学会 糖尿病診療ガイドライン　2026-10-28</footer>
-</div>
-
-<div class="page">
-<h1>② 目標と治療</h1>
-
-<section data-sum="<b>空腹時≤95／食後1時間≤140／食後2時間≤120</b>、HbA1c<6.0〜6.5%。妊娠中は<b>GA<15.8%</b>のほうが実態を反映">
-<h2>血糖の管理目標 —— 通常の糖尿病よりずっと厳しい</h2>
-<div class="cols">
-<div>
-<table class="keep big">
-<tr><th style="width:44%">空腹時</th><td class="c"><b>≤ 95 mg/dL</b></td></tr>
-<tr class="hi"><th>食後1時間</th><td class="c"><b>≤ 140 mg/dL</b></td></tr>
-<tr class="hi"><th>食後2時間</th><td class="c"><b>≤ 120 mg/dL</b></td></tr>
-<tr><th>HbA1c</th><td class="c"><b>&lt; 6.0〜6.5%</b></td></tr>
-</table>
-</div>
-<div>
-<div class="warn">
-<b class="big">妊娠中はHbA1cより グリコアルブミン（GA）</b><br>
-妊娠中は<b>鉄欠乏や赤血球寿命の変化でHbA1cが不正確</b>になりやすい。<br><b>GA &lt; 15.8%</b> のほうが実態を反映する。<br><em>HbA1cが良く見えても安心しない。</em>
-</div>
-</div>
-</div>
-<p class="note">低血糖も避ける。<br><b>食後高血糖が胎児発育に直結する</b>ため、食後値を主軸に見るのが通常の糖尿病との違い。</p>
-</section>
-
-<section data-sum="<b>食事（分割食4〜6回）が基本</b>、届かなければ<b>インスリン</b>。経口薬は日本では使わない。産後は需要が急減するので<b>低血糖に注意</b>">
-<h2>治療 —— 食事が基本、足りなければインスリン</h2>
-<div class="cols">
-<div>
-<table>
-<tr><th style="width:36%">非肥満（BMI&lt;25）</th><td>標準体重×30 kcal ＋ <b>付加量 初期＋50／中期＋250／後期＋450kcal</b></td></tr>
-<tr class="hi"><th>肥満（BMI≥25）</th><td>標準体重×30 kcal、<b>付加量なし</b></td></tr>
-</table>
-<p class="note"><b>分割食（4〜6回）</b>が有効——1回量を減らして食後高血糖を抑えつつ、空腹時のケトーシスを防ぐ。<br><em>妊娠中の極端なカロリー制限はケトン体を増やすので避ける。</em></p>
-</div>
-<div>
-<div class="warn">
-<b class="big">経口血糖降下薬は、日本では使わない</b><br>
-海外ではメトホルミン・グリベンクラミドが使われることがあるが、<b>日本では保険適用がなく推奨されていない</b>。<br>
-<b>目標に届かなければインスリン</b>（超速効型＋持効型）。
-</div>
-<p class="note"><b>インスリン需要は妊娠後期に1.5〜2倍</b>まで増え、<em>分娩後に急減する</em>。<br><b>産後の低血糖に注意</b>——分娩直後に大幅減量、あるいは中止。</p>
-</div>
-</div>
-</section>
-
-<section data-sum="SMBG毎日4〜7回。外来は食事療法のみで安定なら<b>2〜4週ごと</b>、インスリン調整中は<b>1〜2週ごと</b>。GAは2〜4週ごと、尿ケトン体も見る">
-<h2>経過観察の間隔</h2>
-<div class="cols">
-<div>
-<div class="warn">
-<b class="big">SMBG を毎日4〜7回</b>　毎食前＋毎食後1〜2時間（必要なら就寝前）。<br><em>毎日のデータがあって、外来はそれを見て調整する場</em>——だから「次は4週後」という発想にならない。
-</div>
-<table style="margin-top:3mm">
-<tr><th style="width:44%">食事療法のみで安定</th><td class="c">2〜4週ごと</td></tr>
-<tr class="hi"><th>インスリン導入時・調整中</th><td class="c"><b>1〜2週ごと</b></td></tr>
-<tr class="hi"><th>妊娠後期</th><td class="c"><b>頻度を上げる</b></td></tr>
-</table>
-<p class="note">後期を上げる理由は、<b>インスリン需要が1.5〜2倍まで増えていく</b>から。<br><em>同じ量では足りなくなるので、追いかけ続ける。</em></p>
-</div>
-<div>
-<table>
-<tr><th style="width:36%">毎回みるもの</th><th>補足</th></tr>
-<tr class="hi"><td><b>GA（グリコアルブミン）</b></td><td><b>2〜4週ごと</b>。<em>HbA1cは妊娠中は反映が遅く不正確</em></td></tr>
-<tr><td><b>尿ケトン体</b></td><td>食事制限が強すぎないかの指標。<em>見落とされがち</em></td></tr>
-<tr><td>体重・血圧・尿蛋白</td><td>妊娠高血圧症候群</td></tr>
-</table>
-<div class="warn" style="margin-top:3mm">
-<b>産科のスケジュールに乗せる</b>　妊婦健診は〜23週 4週ごと／<b>24〜35週 2週ごと</b>／<b>36週〜 毎週</b>。<br><em>24週以降は産科が2週ごとに診るので、そこに合わせると負担が増えない</em>。<br>胎児の推定体重・腹囲（巨大児）と羊水量も同じタイミングで。
-</div>
-</div>
-</div>
-</section>
-<footer>日本糖尿病・妊娠学会／日本糖尿病学会 糖尿病診療ガイドライン　2026-10-28</footer>
-</div>
-
-<div class="page">
-<h1>③ 産後のフォロー</h1>
-
-<section data-sum="<b>産後6〜12週に75gOGTT</b>、以後<b>年1回</b>の血糖・HbA1c。将来の2型糖尿病リスクは<b>約7倍</b>">
-<h2>産後6〜12週に 75gOGTT をやる</h2>
-<div class="warn">
-<b class="big">産後6〜12週に 75gOGTT を実施する</b><br>
-分娩で「終わり」ではない。<br><b>GDM既往者は、将来の2型糖尿病リスクが約7倍。</b><br>
-産後1年の時点で<b>2〜3割</b>に耐糖能異常があり、長期では<b>半数以上</b>が糖尿病を発症する。
-</div>
-<table style="margin-top:3mm">
-<tr><th style="width:26%">産後6〜12週</th><td><b>75gOGTT</b>（空腹時血糖・HbA1cだけでは拾えない）</td></tr>
-<tr class="hi"><td><b>以後</b></td><td><b>年1回</b>の血糖・HbA1c。<em>1〜3年ごとにOGTTを考慮</em></td></tr>
-<tr><td>次回妊娠の前</td><td>妊娠前に耐糖能を評価しておく</td></tr>
-<tr><td>生活指導</td><td>体重管理、運動。<b>授乳は糖尿病発症リスクを下げる</b></td></tr>
-</table>
-</section>
-
-<section data-sum="産科から内科への<b>橋渡しが途切れる</b>。産後OGTTの予約は<b>分娩前に</b>取る。女性の初診で「妊娠中に血糖を指摘されたか」を聞く">
-<h2>いちばん多い失敗</h2>
-<div class="warn">
-<b class="big">産科から内科への橋渡しが途切れる</b><br>
-分娩後は産科のフォローが終わり、本人も育児で手一杯になる。<br><b>GDM既往という情報が、どこにも残らないまま数年が過ぎる</b>——そして数年後に「初めて」糖尿病と診断される。<br>
-<em>産後OGTTの予約を、分娩前に取っておく。</em>それが最も確実。
-</div>
-<p class="note"><b>かかりつけ内科でできること</b>：女性の初診時に<b>「妊娠中に血糖を指摘されたことはありますか」と聞く</b>。<br>カルテに残す。<br>GDM既往があれば、それだけで年1回の採血に意味が生まれる。</p>
-</section>
-
-<section data-sum="診断・管理目標・治療・産後フォローの要点" data-open="1">
-<h2>要点</h2>
-<table>
-<tr><th style="width:26%">診断</th><td>75gOGTT で <b>92／180／153</b> のいずれか1点</td></tr>
-<tr class="hi"><th>管理目標</th><td>空腹時 ≤95、食後1時間 ≤140、食後2時間 ≤120。<b>HbA1cよりGA（&lt;15.8%）</b></td></tr>
-<tr><th>治療</th><td>分割食 → 届かなければ<b>インスリン</b>。経口薬は使わない</td></tr>
-<tr class="hi"><th>産後</th><td><b>6〜12週に75gOGTT</b>、以後年1回。<b>将来の2型糖尿病リスク約7倍</b></td></tr>
-</table>
-</section>
-<footer>日本糖尿病・妊娠学会／日本糖尿病学会 糖尿病診療ガイドライン　2026-10-28</footer>
-</div>
-
-
 <script>
-// 縦積みにした表は列見出しが行から切り離されてしまうので、各セルに列名を付け直す
-function labelStack(w){
-  var t = w.querySelector('table'); if(!t) return;
-  var hr = t.querySelector('tr.hdr'); if(!hr) return;
-  var labs = [].map.call(hr.cells, function(c){
-    return (c.innerText||'').replace(/\s+/g,' ').trim();
-  });
-  var any = false;
-  [].forEach.call(t.rows, function(x){
-    if(x === hr) return;
-    var ci = 0;
-    [].forEach.call(x.cells, function(c){
-      var l = labs[ci];
-      ci += (c.colSpan||1);
-      if(l && (c.colSpan||1) === 1 && (c.innerText||'').trim()){
-        c.setAttribute('data-lab', l); any = true;
-      }
-    });
-  });
-  if(any) w.className += ' lab';
-}
-if(window.matchMedia('(max-width:820px)').matches)
-document.querySelectorAll('.page table').forEach(function(t){
-  if(t.parentNode.classList.contains('tw')) return;
-  var w=document.createElement('div'); w.className='tw';
-  t.parentNode.insertBefore(w,t); w.appendChild(t);
-  [].slice.call(t.querySelectorAll('[rowspan]')).forEach(function(c){
-    if(parseInt(c.rowSpan,10) >= 3 && (c.innerText||'').replace(/\s+/g,'').length > 25){
-      var p=document.createElement('div'); p.className='spanNote'; p.innerHTML=c.innerHTML;
-      w.parentNode.insertBefore(p, w.nextSibling);
-      c.parentNode.removeChild(c);
-    }
-  });
-  var rows=[].slice.call(t.rows);
-  var r=rows[0], n=0;
-  if(r){ for(var i=0;i<r.cells.length;i++) n += (r.cells[i].colSpan||1); }
-  var hdr = r && r.cells.length>1 && [].every.call(r.cells, function(c){return c.tagName==='TH';});
-  if(hdr) r.className += ' hdr';
-  var dataRows = rows.slice(hdr?1:0);
-  var rowHeader = dataRows.length>0 && dataRows.every(function(x){
-    return x.cells.length>1 && x.cells[0].tagName==='TH';
-  });
-  if(hdr){
-    var maxc = 0;
-    dataRows.forEach(function(x){ var k=0; [].forEach.call(x.cells,function(c){k+=(c.colSpan||1);}); if(k>maxc) maxc=k; });
-    var hc = 0; [].forEach.call(r.cells,function(c){hc+=(c.colSpan||1);});
-    while(hc > maxc && r.cells.length > 1){
-      var last = r.cells[r.cells.length-1];
-      hc -= (last.colSpan||1);
-      last.parentNode.removeChild(last);
-    }
-    n = hc;
-  }
-  var maxLen = 0;
-  dataRows.forEach(function(x){ [].forEach.call(x.cells, function(c){
-    maxLen = Math.max(maxLen, (c.innerText||'').replace(/\s+/g,'').length);
-  });});
-  if((rowHeader && maxLen>60) || (n<=3 && maxLen>85)){ w.className += ' stack'; labelStack(w); return; }
-  if(n>=4) t.style.minWidth = (n*8.4) + 'em';
-});
-if(window.matchMedia('(max-width:820px)').matches)
-document.querySelectorAll('.page').forEach(function(pg, pi){
-  var secs = [].slice.call(pg.children).filter(function(e){ return e.tagName === 'SECTION'; });
-  if(!secs.length) return;
-  var idx = document.createElement('div'); idx.className = 'pidx';
-  secs.forEach(function(sec, si){
-    var h2 = sec.querySelector(':scope > h2');
-    if(!h2) return;
-    var id = 's' + pi + '-' + si;
-    sec.id = id;
-    var body = document.createElement('div'); body.className = 'sbody';
-    while(h2.nextSibling) body.appendChild(h2.nextSibling);
-    sec.appendChild(body);
-    h2.addEventListener('click', function(){ sec.classList.toggle('closed'); });
-    var a = document.createElement('a');
-    a.href = '#' + id;
-    a.textContent = (h2.textContent || '').split(/[—―─-]/)[0].replace(/\s+$/, '');
-    idx.appendChild(a);
-  });
-  var lead = pg.querySelector(':scope > .lead');
-  var h1 = pg.querySelector(':scope > h1');
-  var ref = lead || h1;
-  if(ref && idx.children.length > 1) ref.parentNode.insertBefore(idx, ref.nextSibling);
-});
-// 実際の描画を測り、細かく折り返している表は縦積みにする
-if(window.matchMedia('(max-width:820px)').matches){
-  var colCount = function(t){
-    var r = t.rows[0], n = 0;
-    if(r){ for(var i=0;i<r.cells.length;i++) n += (r.cells[i].colSpan||1); }
-    return n;
-  };
-  var badlyWrapped = function(t){
-    var cells = t.querySelectorAll('td,th');
-    for(var i=0;i<cells.length;i++){
-      var c = cells[i];
-      var txt = (c.innerText||'').replace(/\s+/g,'');
-      if(t.classList.contains('keep')) return false;
-      if(txt.length < 8) continue;
-      var lh = parseFloat(getComputedStyle(c).lineHeight) || 20;
-      var lines = Math.round((c.getBoundingClientRect().height - 10) / lh);
-      if(lines >= 3 && txt.length / lines <= 6) return true;
-    }
-    return false;
-  };
-  document.querySelectorAll('.tw:not(.stack)').forEach(function(w){
-    var t = w.querySelector('table'); if(!t) return;
-    if(!badlyWrapped(t)) return;
-    var n = colCount(t);
-    if(n <= 5){ w.className += ' stack'; labelStack(w); }
-    else { w.className += ' wide'; }
-  });
-}
-if(window.matchMedia('(max-width:820px)').matches){
-  var pgs = document.querySelectorAll('.page');
-  if(pgs.length > 1){
-    var toc = document.createElement('div'); toc.className = 'toc';
-    pgs.forEach(function(pg, i){
-      var h1 = pg.querySelector(':scope > h1'); if(!h1) return;
-      if(!pg.id) pg.id = 'p' + i;
-      var txt = (h1.textContent || '').trim();
-      var m = txt.match(/^([①-⑳])\s*(.*)$/);
-      var a = document.createElement('a');
-      a.href = '#' + pg.id;
-      a.innerHTML = m ? ('<b>' + m[1] + '</b>' + m[2].split('　—')[0].split(' —')[0])
-                      : txt;
-      toc.appendChild(a);
-    });
-    var nav = document.querySelector('.nav');
-    var wrap = document.createElement('div');
-    wrap.style.cssText = 'padding:0 max(14px,env(safe-area-inset-left,0px))';
-    wrap.appendChild(toc);
-    if(nav) nav.parentNode.insertBefore(wrap, nav.nextSibling);
-  }
-}
 if('serviceWorker' in navigator){
   navigator.serviceWorker.register('sw.js').then(function(reg){ reg.update(); });
   var reloaded=false;
@@ -449,48 +126,6 @@ if('serviceWorker' in navigator){
     if(!reloaded){reloaded=true; location.reload();}
   });
 }
-
-// ハイフンやスラッシュを含む英数字は、その途中で改行させない
-(window.nbFix = function(root){
-  var RE = /[A-Za-z0-9][A-Za-z0-9.+%]*(?:[-‐–—\/][A-Za-z0-9.+%]+)+/g;
-  var esc = function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;'}[c]; };
-  var w = document.createTreeWalker(root || document.body, NodeFilter.SHOW_TEXT, null);
-  var list = [], n;
-  while ((n = w.nextNode())) {
-    var p = n.parentNode;
-    if (!p || p.nodeName === 'SCRIPT' || p.nodeName === 'STYLE') continue;
-    RE.lastIndex = 0;
-    if (RE.test(n.nodeValue)) list.push(n);
-  }
-  list.forEach(function(t){
-    if (!t.parentNode) return;
-    RE.lastIndex = 0;
-    var html = t.nodeValue.replace(/[&<>]/g, esc)
-                          .replace(RE, '<span class="nb">$&</span>');
-    var f = document.createElement('span');
-    f.innerHTML = html;
-    t.parentNode.replaceChild(f, t);
-  });
-})(document.body);
 </script>
-<script id="sumjs">(function(){if(!window.matchMedia('(max-width:820px)').matches)return;
-function upd(){document.querySelectorAll('.page').forEach(function(p){var o=p.querySelector('section:not(.closed)');p.classList.toggle('allclosed',!o&&!!p.querySelector('section[data-sum]'))})}
-window.addEventListener('load',function(){document.querySelectorAll('.page > section[data-sum]').forEach(function(s){var h=s.querySelector(':scope > h2');var d=document.createElement('div');d.className='sum';d.innerHTML=s.getAttribute('data-sum');h.parentNode.insertBefore(d,h.nextSibling);if(!s.hasAttribute('data-open'))s.classList.add('closed');d.addEventListener('click',function(){s.classList.remove('closed');upd()})});
-document.addEventListener('click',function(){setTimeout(upd,0)});upd()})})();</script><style id="phrasecss">@media screen and (max-width:820px){.ph,.nbk{white-space:nowrap}}</style>
-<script id="phrasejs">(function(){if(!window.matchMedia('(max-width:820px)').matches)return;
-var HIRA=/[ぁ-ゟ]/,KEEP=/[、。，．）」』】]/;
-function isH(c){return HIRA.test(c)||KEEP.test(c)}
-function split(s,CAP){var out=[],cur='';for(var i=0;i<s.length;i++){var c=s[i];cur+=c;var n=s[i+1];if(n===undefined)break;
- var brk=false;if(isH(c)&&!isH(n)&&!/[、。，．）」』】・ー]/.test(n)&&!/[ぁ-ゖ]/.test(n))brk=true;if(/[。、]/.test(c)&&n!=='」')brk=true;if(/[（「『【]/.test(n)&&!/[（「『【]/.test(c))brk=true;
- if(cur.length>=CAP&&!brk&&isH(c))brk=true;if(!brk&&c==='・'&&cur.length>=6)brk=true;if(!brk&&c==='／'&&cur.length>=5)brk=true;if(!brk&&cur.length>=CAP+4)brk=true;if(brk){out.push(cur);cur=''}}
- if(cur)out.push(cur);return out}
-function run(){var sel='.warn,.ok,.note,.sum,li,td,th,.s,.flow';
- document.querySelectorAll(sel).forEach(function(root){
-  root.querySelectorAll('b,em').forEach(function(e){if(!e.children.length&&e.textContent.length<=16)e.classList.add('nbk')});
-  var w=document.createTreeWalker(root,NodeFilter.SHOW_TEXT,null),nodes=[],n;while(n=w.nextNode())nodes.push(n);
-  nodes.forEach(function(t){var p=t.parentNode;if(p.classList&&(p.classList.contains('ph')||p.classList.contains('nbk')||p.classList.contains('nb')))return;
-   if(p.closest&&(p.closest('.ph')||p.closest('.nbk')||p.closest('.nb')))return;
-   var tb=p.closest('table');if(tb&&tb.rows[0]&&tb.rows[0].cells.length>2)return;var s=t.nodeValue;if(!s.trim()||s.length<3)return;var parts=split(s,(p.closest('td,th')?7:13)),f=document.createDocumentFragment();
-   parts.forEach(function(x){var sp=document.createElement('span');sp.className='ph';sp.textContent=x;f.appendChild(sp)});p.replaceChild(f,t)})})}
-window.addEventListener('load',function(){setTimeout(run,60)})})();</script></body>
+</body>
 </html>

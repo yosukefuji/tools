@@ -5,563 +5,148 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#2563C9">
 <meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="診療メモ">
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
-
-<title>脳梗塞 保存的加療の整理</title>
-<style>
-@page{size:A4 portrait; margin:8mm 9.5mm;}
+<title>脳梗塞</title>
+<style>/* 診療ツール 共通の型（全アプリ同じ。--c だけアプリごと） */
+:root{--bg:#f3f4f7;--card:#fff;--ink:#1b1f27;--muted:#6b7280;--line:#e3e6ec;
+ --font:-apple-system,"Hiragino Sans","Yu Gothic UI","Yu Gothic",system-ui,sans-serif}
 *{box-sizing:border-box}
-body{font-family:"Yu Gothic","Meiryo",sans-serif; color:#1b1b1b; margin:0; font-size:10.3pt; line-height:1.52;}
-@media print{body{width:auto; padding:0;}}
-.page{break-after:page;}
-.page:last-child{break-after:auto;}
-h1{font-size:15pt; margin:0 0 1.5mm;}
-.lead{font-size:9pt; color:#666; margin:0 0 3mm;}
-h2{font-size:11pt; margin:0 0 2.2mm; padding:1.2mm 2.4mm; background:#2563C9; color:#fff; letter-spacing:.04em;}
-section{margin-bottom:2.8mm;}
-section:last-of-type{margin-bottom:0;}
-.cols{display:flex; gap:5mm;} .cols>div{flex:1;}
-table{border-collapse:collapse; width:100%; font-size:10pt;}
-th,td{border:.3pt solid #c5c5c5; padding:1.15mm 1.9mm; text-align:left; vertical-align:top;}
-th{background:#eef3fb; font-weight:700;}
-.s{display:block; font-size:8.6pt; color:#666; font-weight:400;}
-td.c,th.c{text-align:center; font-variant-numeric:tabular-nums; white-space:nowrap;}
-td.n,th.n{text-align:right; font-variant-numeric:tabular-nums; white-space:nowrap;}
-tr.hi td{background:#eef5ff;}
-ul{margin:0; padding-left:5mm;} li{margin-bottom:1.2mm;}
-.flow{border:.4pt solid #2563C9; padding:2mm; font-size:10pt;}
-.flow b{color:#2563C9;}
-.step{margin-bottom:1.4mm;}
-.arrow{color:#888; margin:0 1mm;}
-.warn{border-left:3pt solid #E39A1C; padding:2mm 0 2mm 3mm; background:#fff7e8;}
-.ok{border-left:3pt solid #1f7a4d; padding:2mm 0 2mm 3mm; background:#eef6f1;}
-.note{font-size:9pt; color:#555; margin-top:2mm;}
-em{font-style:normal; background:#ffeaa8; padding:0 .6mm;}
-.big{font-weight:700;}
-footer{font-size:8pt; color:#888; border-top:.3pt solid #ddd; padding-top:1.2mm; margin-top:2mm;}
-:root{--brand:#2563C9}
-
-@media screen and (max-width:820px){
-  html{-webkit-text-size-adjust:100%}
-  body{font-size:16px; line-height:1.72; background:#fff; color:#1b1b1b;
-       word-break:normal; overflow-wrap:break-word; line-break:strict;
-       width:auto !important; max-width:none !important;
-       margin:0 !important; padding:0 0 40px !important}
-  body{background:#f1f4f9 !important}
-  .page{break-after:auto; padding:16px max(14px,env(safe-area-inset-right,0px)) 2px max(14px,env(safe-area-inset-left,0px))}
-  h1{font-size:20px; margin:4px 2px 4px; line-height:1.4}
-  .lead{font-size:13px; margin:0 2px 12px}
-  .toc{background:#fff; border-radius:12px; margin:14px 0 4px; padding:2px 0;
-       box-shadow:0 1px 2px rgba(20,32,64,.09); overflow:hidden}
-  .toc a{display:block; padding:12px 34px 12px 14px; text-decoration:none; color:#1b1b1b;
-         font-size:15px; line-height:1.45; border-bottom:1px solid #eef0f4; position:relative}
-  .toc a:last-child{border-bottom:0}
-  .toc a::after{content:''; position:absolute; right:16px; top:50%; width:7px; height:7px;
-                border-right:2px solid #aab2c0; border-bottom:2px solid #aab2c0;
-                transform:translateY(-50%) rotate(-45deg)}
-  .toc a b{display:inline-block; min-width:1.5em; color:#2563C9}
-  .page + .page{border-top:1px solid #d6dce6; margin-top:14px; padding-top:20px}
-  .pidx{display:flex; flex-wrap:wrap; gap:6px; margin:0 2px 14px}
-  .pidx a{font-size:12.5px; line-height:1.3; background:#fff; border:1px solid #d7dce5; border-radius:999px;
-          padding:6px 11px; text-decoration:none; color:#2b3550}
-  section{background:#fff; border-radius:12px; margin:0 0 13px; overflow:hidden;
-          box-shadow:0 1px 2px rgba(20,32,64,.09)}
-  section>h2{font-size:15.5px; margin:0; padding:12px 38px 12px 14px; border-radius:0; line-height:1.45;
-             position:relative; cursor:pointer; -webkit-tap-highlight-color:transparent}
-  section>h2::after{content:''; position:absolute; right:16px; top:50%; width:8px; height:8px;
-                    border-right:2px solid rgba(255,255,255,.85); border-bottom:2px solid rgba(255,255,255,.85);
-                    transform:translateY(-70%) rotate(45deg); transition:transform .15s}
-  section.closed>h2::after{transform:translateY(-50%) rotate(-45deg)}
-  .sbody{padding:14px}
-  section.closed .sbody{display:none}
-  .cols{flex-direction:column; gap:16px}
-  .cols>div{flex:1 1 auto !important}
-  .tw{overflow-x:auto; -webkit-overflow-scrolling:touch; margin:0}
-  .tw table{min-width:100%}
-  .tw.wide table{width:max-content !important; min-width:100%}
-  .tw.wide td,.tw.wide th{min-width:6em; max-width:17em}
-  .tw.stack{overflow:visible}
-  .tw.stack table,.tw.stack tbody,.tw.stack tr,.tw.stack th,.tw.stack td{display:block; width:auto !important; min-width:0 !important}
-  .tw.stack table{border:0; min-width:0 !important}
-  .tw.stack tr{border:1px solid #cfd4dc; border-radius:7px; overflow:hidden; margin-bottom:10px; background:#fff}
-  .tw.stack tr:last-child{margin-bottom:0}
-  .tw.stack th,.tw.stack td{border:0; text-align:left !important; white-space:normal !important}
-  .tw.stack td{padding:10px 12px}
-  .tw.stack tr>:first-child{background:#eef3fb; font-weight:700; padding:7px 12px; font-size:14.5px; line-height:1.55}
-  .tw.stack tr.hi>:first-child{background:#dbe8fd}
-  .tw.stack td+td{border-top:1px dashed #d8dce3}
-  .tw.stack tr.hdr{display:flex; flex-wrap:wrap; gap:4px 14px; background:#eef3fb; border:0; border-radius:6px;
-                   padding:6px 12px; margin-bottom:9px; font-size:12.5px; color:#44506a}
-  .tw.stack tr.hdr th{display:inline; background:none; padding:0; font-size:12.5px; font-weight:700}
-  .tw.stack.lab tr.hdr{display:none}
-  .tw.stack td[data-lab]::before,.tw.stack th[data-lab]::before{
-    content:attr(data-lab); display:block; font-size:12px; font-weight:700;
-    color:#5a6473; letter-spacing:.02em; margin-bottom:2px}
-  .tw.stack tr>:first-child[data-lab]::before{color:#44506a; margin-bottom:1px}
-  table{font-size:14.5px; margin:0; table-layout:auto}
-  th,td{padding:7px 9px; word-break:normal; overflow-wrap:break-word; line-break:strict}
-  th{min-width:6.2em}
-  td.c,td.n{white-space:nowrap}
-  th.c,th.n{white-space:normal}
-  .warn{padding:11px 13px 11px 14px; border-radius:0 6px 6px 0; margin:0}
-  .flow{padding:12px 13px; border-radius:6px; font-size:15px}
-  .step{margin-bottom:7px}
-  .note{font-size:13.5px; margin-top:10px; line-height:1.68}
-  .spanNote{font-size:13.5px; line-height:1.70; color:#3f444c; margin:10px 0 0;
-            padding:2px 0 2px 12px; border-left:3px solid #c9d2e4}
-  .s{font-size:13px; color:#565b63; margin-top:3px; line-height:1.62}
-  ul{padding-left:20px} li{margin-bottom:6px}
-  footer{font-size:11.5px; margin:2px 4px 16px; padding-top:9px; color:#78808e}
-  .nav{position:sticky; top:0; z-index:20; display:flex; align-items:center; gap:12px;
-       padding:calc(env(safe-area-inset-top,0px) + 40px) max(14px,env(safe-area-inset-right,0px)) 14px max(14px,env(safe-area-inset-left,0px));
-       background:var(--brand); color:#fff; font-weight:700; font-size:18px}
-  .nav a{color:#fff; text-decoration:none; font-weight:600; font-size:18px; opacity:1; padding:10px 14px 10px 4px; margin:-10px 0}
-  .nav .sp{margin-left:auto}
-}
-@media print{ .nav{display:none} .tw{overflow:visible} }
+html,body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--font);-webkit-text-size-adjust:100%}
+.top{background:var(--c);color:#fff;padding:calc(env(safe-area-inset-top,0px) + 14px) 16px 14px}
+.top .in,.main{max-width:560px;margin:0 auto}
+.brand{font-size:11px;letter-spacing:.14em;opacity:.8;font-weight:700}
+.title{display:flex;align-items:center;gap:10px;margin-top:4px;min-height:30px}
+.title h1{font-size:21px;margin:0;font-weight:800;letter-spacing:.02em}
+.back{color:#fff;text-decoration:none;font-size:15px;opacity:.9;white-space:nowrap}
+.main{padding:14px 16px 32px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;margin:0 0 12px;overflow:hidden}
+.q{padding:12px 16px;font-size:20px;line-height:1.4;font-weight:800;color:var(--c);background:color-mix(in srgb,var(--c) 10%,#fff);border-left:5px solid var(--c);margin-bottom:6px;letter-spacing:.04em}
+.q em{font-style:normal;color:var(--c)}
+.row{display:flex;gap:12px;align-items:baseline;padding:9px 16px;border-top:1px solid var(--line);font-size:15px;line-height:1.5}
+.q+.row{border-top:0}
+.row .k{flex:0 0 36%;color:var(--ink)}
+.row .v{flex:1}
+.big{font-size:19px;font-weight:800;color:var(--c);white-space:nowrap}
+.b{font-weight:800;color:var(--c)}
+.note{padding:4px 16px 12px;font-size:12.5px;color:var(--muted);line-height:1.6}
 .nb{white-space:nowrap}
-</style>
-<style>@media screen{.page>.lead{display:none}}</style><style id="sumcss">@media screen and (max-width:820px){.pidx{display:none}.sum{padding:9px 38px 11px 14px;font-size:14.5px;line-height:1.6;color:#1b1b1b;border-top:0}.sum b{color:#2563C9}section:not(.closed)>.sum{display:none}.page.allclosed>footer,.page.allclosed>.fbtn{display:none}}</style><style id="keeptune">@media screen{table.keep.big th,table.keep.big td{padding:7px 5px}table.keep.big td.c,table.keep.big td.c b,table.keep.big td.n,table.keep.big td.n b{font-size:15px!important;white-space:nowrap}table.keep.big td.n .s{white-space:normal}}</style><style id="tw">@media screen{p,li,td,th,.warn,.sum,.note,.s{text-wrap:pretty;word-break:auto-phrase}h1,h2{text-wrap:balance}}</style><style id="acc2">@media screen and (max-width:820px){.sum b{color:#C2410C}}</style></head>
+.sec{font-size:12px;color:var(--muted);font-weight:700;letter-spacing:.1em;margin:20px 4px 8px}
+.list a{display:block;padding:14px 16px;border-top:1px solid var(--line);text-decoration:none;color:var(--ink)}
+.list a:first-child{border-top:0}
+.list .n{font-size:17px;font-weight:800;display:flex;justify-content:space-between}
+.list .n::after{content:"›";color:var(--c);font-size:20px;line-height:1}
+.list .s{font-size:13px;color:var(--muted);margin-top:3px;line-height:1.5}
+.list .s b{color:var(--c)}
+.fold{padding:13px 16px;border-top:1px solid var(--line);font-size:15px;display:flex;justify-content:space-between;color:var(--ink)}
+.fold:first-child{border-top:0}
+.fold::after{content:"＋";color:var(--c);font-weight:800}
+.foot{font-size:11.5px;color:var(--muted);line-height:1.7;margin:18px 4px 0}
+/* 入力（計算アプリ） */
+.lbl{font-size:13px;font-weight:700;color:var(--muted);padding:12px 16px 6px}
+.chips{display:flex;flex-wrap:wrap;gap:8px;padding:0 16px 12px}
+.chip{border:1.5px solid var(--line);border-radius:999px;padding:7px 12px;font-size:14.5px}
+.chip.on{border-color:var(--c);color:var(--c);font-weight:800;background:color-mix(in srgb,var(--c) 8%,#fff)}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;padding:0 16px 14px}
+.f .t{font-size:13px;font-weight:700}.f .u{font-size:11px;color:var(--muted)}
+.f .box{margin-top:4px;height:46px;border-radius:10px;background:#f1f3f7;border:1.5px solid var(--line);font-size:20px;font-weight:800;display:flex;align-items:center;padding:0 10px}
+.ans{background:var(--c);color:#fff;border-radius:14px;padding:14px 16px;margin:0 0 12px}
+.ans .t{font-size:12px;opacity:.85;font-weight:700;letter-spacing:.06em}
+.ans .v{font-size:30px;font-weight:800;margin-top:2px}
+.ans .s{font-size:13.5px;opacity:.92;margin-top:2px}
+.two{display:grid;grid-template-columns:1fr 1fr;border-top:1px solid var(--line)}
+.q+.two{border-top:0}
+.two>div{padding:8px 14px 12px;font-size:14.5px;line-height:1.55}
+.two>div+div{border-left:1px solid var(--line)}
+.two .h{font-size:12.5px;font-weight:800;margin-bottom:4px}
+.yes .h{color:var(--c)} .no .h{color:#9a3b2a}
+.two ul{margin:0;padding:0;list-style:none}.two li{margin:2px 0}
+.small{font-size:12px;color:var(--muted)}
+.tags{display:flex;flex-wrap:wrap;gap:6px;padding:2px 16px 12px}
+.tag{font-size:13.5px;font-weight:700;border-radius:8px;padding:3px 9px;background:color-mix(in srgb,var(--c) 10%,#fff);color:var(--c)}
+.ev{border-top:1px solid var(--line)}
+.ev summary{list-style:none;padding:10px 16px;font-size:13.5px;font-weight:700;color:var(--muted);display:flex;justify-content:space-between;cursor:pointer}
+.ev summary::-webkit-details-marker{display:none}
+.ev summary::after{content:"＋";color:var(--c)}
+.ev[open] summary::after{content:"－"}
+.ev .in{padding:0 16px 12px;font-size:13px;line-height:1.65;color:#3b4150}
+.ev .in p{margin:0 0 6px}
+.ev .in .src{font-size:11.5px;color:var(--muted)}
+.gl{display:inline-block;font-size:11px;font-weight:700;color:var(--muted);background:#eef0f4;border-radius:5px;padding:0 6px;margin-left:2px}
+.toc{position:sticky;top:0;z-index:5;background:var(--bg);display:flex;gap:6px;padding:10px 16px;border-bottom:1px solid var(--line)}
+.toc a{flex:1;text-align:center;font-size:14px;font-weight:800;color:var(--c);background:#fff;border:1.5px solid color-mix(in srgb,var(--c) 35%,#fff);border-radius:999px;padding:7px 0;text-decoration:none;white-space:nowrap}
+.go{display:flex;justify-content:space-between;align-items:center;margin:12px 16px;padding:14px 16px;border-radius:12px;background:#5B4BC4;color:#fff;font-size:17px;font-weight:800;text-decoration:none}
+.go::after{content:"›";font-size:24px;line-height:1}
+
+html{scroll-behavior:smooth}.card[id],.part[id]{scroll-margin-top:62px}.back{display:inline-block;padding:6px 12px 6px 0;margin:-6px 0;font-size:24px;line-height:1}.list a{color:var(--ink)}.foot{margin-bottom:24px}</style>
+<style>:root{--c:#2563C9}.row .k{flex-basis:30%}.toc{overflow-x:auto}.toc a{flex:none;padding:7px 13px}</style>
+</head>
 <body>
-<div class="nav"><a href="index.html">&#8249;&nbsp;一覧</a><span class="sp"></span><span>脳梗塞</span></div>
+<div class="top"><div class="in"><div class="title"><a class="back" href="index.html">‹</a><h1>脳梗塞</h1></div></div></div>
+<nav class="toc"><a href="#s0">確認</a><a href="#s1">流れ</a><a href="#s2">管理</a><a href="#s3">抗血栓</a><a href="#s4">点滴</a><a href="#s5">目標</a><a href="#s6">外来</a></nav>
+<div class="main">
 
-<div class="page">
-<h1>① 脳梗塞とは</h1>
-<p class="lead">ペナンブラ、保存的加療の4本柱、時間軸、病型で変わること</p>
+<div id="s0" class="card"><div class="q">情報の確認</div>
+<div class="row"><div class="k">病型</div><div class="v"><span class="nb">ラクナ</span>／<span class="nb">アテローム</span>／<span class="b nb">心原性</span>／<span class="nb">分水嶺</span><br>→ 薬と血圧の扱いが決まる</div></div>
+<div class="row"><div class="k">心房細動</div><div class="v">有無を確認（心原性の手がかり）<br>原因不明なら探し続ける</div></div>
+<div class="row"><div class="k">血管の狭窄</div><div class="v">頸動脈エコー・MRA<br>高度狭窄では<br>降圧で広がることがある</div></div>
+<div class="row"><div class="k">NIHSS</div><div class="v"><span class="b">1〜4</span> 軽症／<span class="b">5〜15</span> 中等症<br><span class="b">21以上</span> 重症</div></div>
+<div class="row"><div class="k">mRS</div><div class="v"><span class="b">0〜2</span> 自立／<span class="b">3〜5</span> 介助</div></div>
+<div class="row"><div class="k">軽症に見えて<br>危ない</div><div class="v"><span class="b">BAD</span>・<span class="b">分水嶺梗塞</span><br>48〜72時間は悪化に注意</div></div>
+<details class="ev"><summary>根拠</summary><div class="in"><p>病型と治療の対応：<span class="gl">ガイドライン記載</span></p><p><b>NIHSS</b>：0〜42点。麻痺の配点が大きく、脳幹・小脳・右半球の梗塞は低く出る</p><p><b>BAD</b>：ラクナに見えるが穿通枝起始部のアテローム。入院後に進行性に悪化する</p></div></details></div>
 
-<section data-sum="救えるのは<b>ペナンブラ</b>だけ。<b>降圧せず脱水を作らない</b>。守る・止める・防ぐ・備えるの4つを同時に">
-<h2>なにが起きているのか</h2>
-<div class="cols">
-<div>
-<table>
-<tr><th style="width:24%">脳梗塞</th><td>脳動脈が詰まって血流が途絶え、<b>脳組織が不可逆的に壊れた</b>状態</td></tr>
-<tr class="hi"><th>TIA</th><td>症状が<b>24時間以内に消え、画像上の梗塞がない</b>もの。<em>梗塞の予告であって軽い脳梗塞ではない</em>——<b>発症48時間以内の再発が最も多い</b>ので、即日精査・即日抗血小板</td></tr>
-</table>
-<div class="warn" style="margin-top:3mm">
-<b class="big">救えるのは「ペナンブラ」だけ</b><br>
-詰まった血管の中心（<b>コア</b>）は数分で死ぬ。その周囲は<em>機能は止まっているが、まだ生きている</em>——これが<b>ペナンブラ</b>で、<b>時間とともにコアに取り込まれていく</b>。<br>
-<em>急性期の管理はすべて「ペナンブラを死なせない」ための操作</em>——だから血圧を下げず、脱水を作らない。
-</div>
-</div>
-<div style="flex:0 0 40%">
-<div class="ok">
-<b>溶かさない・取らない症例で、やっていること</b>
-<ul>
-  <li><b>守る</b>　ペナンブラの灌流を保つ（降圧しない、補液、血糖・体温・酸素）</li>
-  <li><b>止める</b>　血栓の進展と再発を止める（抗血栓療法）</li>
-  <li><b>防ぐ</b>　二次的な悪化（脳浮腫、誤嚥性肺炎、不動）</li>
-  <li><b>備える</b>　退院後の再発予防を急性期から</li>
-</ul>
-</div>
-<p class="note">「保存的加療」は<b>この4つを同時に回すこと</b>。悪くなるときは、ほぼ<em>脳浮腫・進行性梗塞・誤嚥性肺炎</em>のどれか。</p>
-</div>
-</div>
-</section>
+<div id="s1" class="card"><div class="q">急性期の流れ</div>
+<div class="row"><div class="k">〜24時間</div><div class="v">エダラボン開始（使うなら）</div></div>
+<div class="row"><div class="k">〜48時間</div><div class="v"><span class="b">抗血小板薬</span>開始（非心原性）<br>アルガトロバン（ラクナ以外）<br>リハ開始</div></div>
+<div class="row"><div class="k">48〜72時間</div><div class="v">心原性の軽〜中等症は<br><span class="b">DOAC</span>の開始を考える<br>降圧をゆっくり始める</div></div>
+<div class="row"><div class="k">3〜5日</div><div class="v"><span class="b">脳浮腫のピーク</span></div></div>
+<div class="row"><div class="k">7日〜2週</div><div class="v">点滴のやめどき・嚥下の再評価<br>再発予防薬を決める</div></div>
+<details class="ev"><summary>根拠</summary><div class="in"><p>時間軸：<span class="gl">ガイドライン記載</span></p><p>rt-PA・血栓回収をしない（できない）場合の流れ。rt-PA後24時間は抗血栓薬を入れない</p></div></details></div>
 
-<section data-sum="〜4.5h rt-PA／〜24h 血栓回収／<b>〜48h 抗血小板薬</b>／48〜72h 心原性（軽症〜中等症）は<b>DOAC早期</b>／3〜5日 脳浮腫ピーク">
-<h2>時間軸</h2>
-<div class="flow">
-<div class="step"><b>〜4.5時間</b> rt-PA　／　<b>〜24時間</b> 血栓回収（大血管閉塞で適応があれば）<span class="arrow">▶</span><em>以下は、これらを行わない／行えない場合</em></div>
-<div class="step"><b>〜24時間</b>　エダラボン開始（使うなら）。<b>rt-PA後は24時間、抗血栓薬を入れない</b></div>
-<div class="step"><b>〜48時間</b>　抗血小板薬の開始（非心原性）。アルガトロバン（ラクナを除く）。<b>リハは24〜48時間以内に開始</b></div>
-<div class="step"><b>48〜72時間</b>　心原性では<b>軽症〜中等症はDOACを早期開始</b>。降圧をここから徐々に始める</div>
-<div class="step"><b>3〜5日</b>　<b>脳浮腫のピーク</b>。悪化するならこの時期</div>
-<div class="step"><b>7日前後〜2週</b>　<b>点滴薬のやめどき</b>。嚥下の再評価、再発予防薬の確定、転院・自宅調整</div>
-</div>
-<p class="note"><b>48時間以内に悪化する例が一定数ある</b>のが脳梗塞の特徴。<em>「軽症だから大丈夫」と言い切らず、48〜72時間は進行を見張る</em>——特に次ページのBADと分水嶺梗塞。</p>
-</section>
+<div id="s2" class="card"><div class="q">全身管理</div>
+<div class="row"><div class="k">血圧</div><div class="v"><span class="big">220/120</span> 未満は下げない</div></div>
+<div class="row"><div class="k">血糖</div><div class="v"><span class="big">140〜180</span></div></div>
+<div class="row"><div class="k">体温</div><div class="v"><span class="b">37.5℃</span>以上は解熱</div></div>
+<div class="row"><div class="k">SpO₂</div><div class="v"><span class="b">94%</span>以上。酸素はルーチンでは不要</div></div>
+<div class="row"><div class="k">輸液</div><div class="v"><span class="b">経口不可・脱水・低灌流</span>のときだけ<br>→ <span class="b">生理食塩水</span><br>3号液・5%糖は避ける</div></div>
+<div class="row"><div class="k">しない</div><div class="v">ステロイド<br>抗てんかん薬の予防投与<br>安易な尿カテーテル</div></div>
+<details class="ev"><summary>根拠</summary><div class="in"><p><b>血圧</b>：下げるとペナンブラ（まだ生きている周りの脳）の血流が落ち、梗塞が広がる</p><p><b>輸液</b>：3号液は低張で脳浮腫・低Naを悪化。5%糖は高血糖と自由水になる</p><p>各数値：<span class="gl">ガイドライン記載</span>。ステロイドは脳浮腫に無効</p></div></details></div>
 
-<section data-sum="ラクナ・アテローム → <b>抗血小板</b>。心原性 → <b>DOAC</b>。分水嶺は<b>降圧しない</b>">
-<h2>なぜ病型を決めるのか</h2>
-<table>
-<tr><th style="width:17%">病型</th><th style="width:30%">機序</th><th>治療が変わるところ</th></tr>
-<tr><td><b>ラクナ</b></td><td>穿通枝の血管自体の変化（リポヒアリノーシス）</td><td>抗血小板単剤。<em>アルガトロバンは適応外</em>。血圧管理が本体</td></tr>
-<tr class="hi"><td><b>アテローム血栓性</b></td><td>主幹動脈の狭窄・プラークからの血栓／A-to-A塞栓</td><td><b>軽症ならDAPT 21日間</b>。狭窄の評価（CEA/CAS）、<b>スタチンを強く</b></td></tr>
-<tr><td><b>心原性</b></td><td>心内（主にAf）の血栓が飛ぶ</td><td><b>DOAC</b>。<em>抗血小板薬ではない</em>。梗塞が大きければ開始を待つ</td></tr>
-<tr><td><b>分水嶺（低灌流）</b></td><td>近位の高度狭窄＋灌流圧の低下</td><td><b>降圧すると広がる。むしろ補液</b>。血行再建の検討</td></tr>
-</table>
-<p class="note"><em>病型が決まらないうちは「降圧してよいか」と「抗凝固か抗血小板か」が決まらない</em>。だから画像と心電図（Af検索）が先に来る。</p>
-</section>
-<footer>脳卒中治療ガイドライン2021［2023年改訂］（日本脳卒中学会）　2026-10-28</footer>
-</div>
+<div id="s3" class="card"><div class="q">抗血栓薬</div>
+<div class="row"><div class="k">非心原性</div><div class="v"><span class="b">アスピリン 160〜300mg</span><br>48時間以内。噛み砕く</div></div>
+<div class="row"><div class="k">軽症<br>NIHSS ≦3</div><div class="v">＋クロピドグレル 75mg<br><span class="big">21日</span>で単剤へ</div></div>
+<div class="row"><div class="k">心原性</div><div class="v"><span class="b">DOAC</span><br>抗血小板薬とは原則併用しない<br>大梗塞・出血性変化は待つ</div></div>
+<div class="row"><div class="k">その後</div><div class="v">非心原性は1剤を<span class="b">生涯</span><br>自己中断がいちばん危険</div></div>
+<div class="row"><div class="k">クロピド<br>グレル</div><div class="v">胃薬はオメプラゾールを避ける<br>→ <span class="b">ランソプラゾール・ボノプラザン</span></div></div>
+<details class="ev"><summary>根拠</summary><div class="in"><p><b>DAPT 21日</b>：CHANCE・POINT。21日を超えると出血が増える。クロピドグレル300mgのローディングは日本では適応外</p><p><b>DOACの早期開始</b>：ELAN・TIMING・OPTIMAS・CATALYST で軽〜中等症は48〜72時間</p><p><b>クロピドグレル</b>：CYP2C19で活性化。日本人は効きにくい型（PM）が約2割、中間型も約半数。再発をくり返すならプラスグレル 3.75mg</p></div></details></div>
 
-<div class="page">
-<h1>② 病型を決める、抗血栓療法を決める</h1>
-<p class="lead">画像からの病型診断と、見落とすと痛い2つ</p>
+<div id="s4" class="card"><div class="q">点滴薬</div>
+<div class="row"><div class="k">エダラボン</div><div class="v">30mg×2/日<br>目安 <span class="big">7日</span>（上限14日）</div></div>
+<div class="row"><div class="k">やめどき</div><div class="v">進行が止まったら<br><span class="b">誤嚥性肺炎</span>が出たら</div></div>
+<div class="row"><div class="k">注意</div><div class="v"><span class="b">腎機能</span>をBUN・Crで数日ごと<br>セフェム併用で腎障害</div></div>
+<div class="row"><div class="k">アルガト<br>ロバン</div><div class="v"><span class="nb">60mg/日×2日</span><br>→ <span class="nb">10mg×2/日×5日</span><br>計 <span class="big">7日</span>。ラクナは対象外</div></div>
+<details class="ev"><summary>根拠</summary><div class="in"><p>用法・期間・注意：各電子添文（PMDA）</p><p>エダラボンの禁忌は重篤な腎機能障害。AKI・肝障害・血小板減少・DICの警告あり</p></div></details></div>
 
-<section data-sum="単発15mm未満は<b>ラクナ</b>、多発・大梗塞は<b>心原性</b>。<b>BAD</b>と<b>分水嶺</b>は「軽症」と扱わない">
-<h2>画像から病型を決める ―― と、見落とすと痛い2つ</h2>
-<table>
-<tr><th style="width:54%">画像の所見</th><th>病型</th></tr>
-<tr><td>穿通枝領域に単発、15mm未満、皮質症状なし</td><td>ラクナ</td></tr>
-<tr class="hi"><td><b>両側・前後にまたがる多発</b>／皮質を含む大梗塞／出血性変化／早期再開通</td><td><b>心原性</b></td></tr>
-<tr><td>同一血管支配域に散在（穿通枝＋皮質枝）、狭窄の遠位</td><td>アテローム血栓性<span class="s">A-to-A塞栓</span></td></tr>
-<tr><td>放線冠〜半卵円中心に<b>数珠状に3つ以上</b>／ACA-MCA・MCA-PCA境界の楔状</td><td>分水嶺梗塞<span class="s">＝低灌流</span></td></tr>
-</table>
-<div class="cols" style="margin-top:3mm">
-<div>
-<div class="warn">
-<b class="big">BAD（branch atheromatous disease）</b><br>
-ラクナに見えるが穿通枝<em>起始部</em>のアテローム。レンズ核線条体動脈で<b>3スライス以上</b>、橋では<b>腹側表面に接する</b>。<em>入院後に進行性に悪化する</em>ので「軽症」と扱わない。
-</div>
-</div>
-<div>
-<div class="warn">
-<b class="big">分水嶺梗塞を見たら、近位の高度狭窄を探す</b><br>
-頸動脈エコー・MRA／CTAは必須。機序が低灌流なので<em>降圧すると梗塞が広がる</em>。むしろ補液。CEA／CASの検討対象。
-</div>
-</div>
-</div>
-</section>
+<div id="s5" class="card"><div class="q">再発予防の目標</div>
+<div class="row"><div class="k">血圧</div><div class="v"><span class="big">130/80</span> 未満<br>高度狭窄・閉塞があれば <span class="b">140/90</span></div></div>
+<div class="row"><div class="k">LDL</div><div class="v">二次予防の区分で決める</div></div><a class="go" href="../index.html">脂質管理目標アプリで計算</a>
+<div class="row"><div class="k">HbA1c</div><div class="v"><span class="big">7.0%</span> 未満</div></div>
+<div class="row"><div class="k">糖尿病の薬</div><div class="v">脳卒中が減った薬<br><span class="b nb">GLP-1受容体作動薬</span><br><span class="b">ピオグリタゾン</span></div></div>
+<div class="row"><div class="k">生活</div><div class="v"><span class="b">禁煙</span>がいちばん効く</div></div>
+<details class="ev"><summary>根拠</summary><div class="in"><p><b>血圧</b>：SPS3（ラクナ）で脳出血 HR 0.37。狭窄があると下げすぎで低灌流</p><p><b>LDL</b>：二次予防は100未満、ACS・FH・糖尿病・冠動脈疾患の合併は70未満 <span class="gl">ガイドライン記載</span>。TST で70未満が90〜110に勝った（HR 0.78）</p><p><b>血糖</b>：下げること自体は大血管イベントを減らさない（ACCORD・ADVANCE・VADT）</p><p><b>糖尿病の薬</b>：REWIND HR 0.76、SUSTAIN-6 HR 0.61、PROactive 脳卒中既往 HR 0.53</p></div></details></div>
 
-<section data-sum="非心原性：<b>アスピリン160〜300mg（48h以内）</b>、軽症はDAPT 21日間。心原性：<b>DOAC</b>。併用は原則しない">
-<h2>抗血栓療法</h2>
-<table>
-<tr><th style="width:22%">非心原性</th><td>
-<b>アスピリン 160〜300mg</b> を48時間以内に開始<span class="s">バイアスピリンは添付文書内（300mgまで可）。腸溶錠は<em>噛み砕かせる</em>／バファリン配合錠A81を使う</span>
-<div style="margin-top:1.5mm">軽症（<b>NIHSS 3以下</b>）・高リスクTIA → <b>DAPT（アスピリン＋クロピドグレル75mg）21日間 → 単剤へ</b><span class="s">CHANCE・POINT。21日を超えると出血が増えるので切替日を決めておく。<em>クロピドグレルのローディング（300mg）は日本では適応外</em></span></div>
-<div style="margin-top:1.5mm">アルガトロバン：48時間以内、<b>ラクナを除く</b></div>
-</td></tr>
-<tr class="hi"><th>心原性（Af）</th><td>
-<b>DOAC。開始時期の考え方が変わった</b><br>
-従来の「1-2-3-4週ルール」→ <b>軽症〜中等症は48〜72時間以内の早期開始</b><span class="s">ELAN・TIMING・OPTIMAS・CATALYST。大梗塞・出血性変化があれば従来どおり待機</span>
-</td></tr>
-</table>
-<p class="note"><b>抗凝固薬と抗血小板薬の併用は原則しない</b>（出血が増えるだけ）。<b>rt-PA後24時間は抗血栓薬を入れない。</b></p>
-</section>
-<footer>脳卒中治療ガイドライン2021［2023年改訂］（日本脳卒中学会）／CHANCE・POINT／ELAN・OPTIMAS　2026-10-28</footer>
-</div>
+<div id="s6" class="card"><div class="q">外来</div>
+<div class="row"><div class="k">通院</div><div class="v">退院後<span class="b">2〜4週</span> → 1〜3か月ごと<br>安定したら 3〜6か月ごと</div></div>
+<div class="row"><div class="k">採血</div><div class="v">3〜6か月ごと。肝・腎・脂質・<span class="b">CK</span></div></div>
+<div class="row"><div class="k">画像</div><div class="v">定期は<span class="b">不要</span>。症状が変わったら</div></div>
+<div class="row"><div class="k">頸動脈エコー</div><div class="v">狭窄があれば <span class="b">6〜12か月</span>ごと</div></div>
+<div class="row"><div class="k">再発を疑う</div><div class="v"><span class="b">顔・腕・言葉</span>の1つでも → <span class="big">救急へ</span></div></div>
+<div class="row"><div class="k">TIA</div><div class="v">消えても<span class="b">当日に精査</span></div></div>
+<details class="ev"><summary>根拠</summary><div class="in"><p>フォローの間隔：<span class="gl">ガイドライン記載</span></p><p><b>顔・腕・言葉</b>（CPSS）：1つでも異常なら脳卒中の可能性72%</p><p><b>TIA</b>：発症48時間以内の再発が最も多い</p></div></details></div>
 
-<div class="page">
-<h1>③ 全身管理と、薬のやめどき</h1>
-<p class="lead">ここが保存的加療の本体</p>
-
-<section data-sum="溶解・回収をしないなら <b>220/120未満は降圧しない</b>。血糖140〜180・37.5℃以上は解熱・SpO₂ 94%以上">
-<h2>血圧は下げない</h2>
-<div class="warn">
-<b class="big">血栓溶解・血栓回収をしないなら、220/120mmHg 未満は降圧しない</b><br>
-急性期の過度な降圧は<em>ペナンブラの血流を落として梗塞を拡大させる</em>。48時間以降から徐々に、慢性期は130/80未満へ。
 </div>
-<table style="margin-top:3mm">
-<tr><th style="width:22%">血糖</th><td>140〜180mg/dL（低血糖を避ける）</td></tr>
-<tr><th>体温</th><td>37.5℃以上は解熱</td></tr>
-<tr><th>SpO₂</th><td>94%以上。<b>ルーチンの酸素は不要</b></td></tr>
-</table>
-</section>
-
-<section data-sum="輸液が要るのは<b>経口不可・脱水・低灌流</b>の3つだけ。<b>生理食塩水</b>を選ぶ（3号液・5%ブドウ糖は避ける）">
-<h2>輸液は「何を入れるか」より先に「入れるかどうか」</h2>
-<div class="cols">
-<div>
-<table>
-<tr><th style="width:38%">輸液の選択</th><th>理由</th></tr>
-<tr class="hi"><td><b>生理食塩水</b></td><td>等張（308）。自由水を足さず血管内を保てる</td></tr>
-<tr><td>乳酸リンゲル</td><td>Na130でわずかに低張。脳浮腫がある場面では避ける</td></tr>
-<tr><td>3号液</td><td><b>低張</b>。脳浮腫とSIADHの低Naを悪化させる</td></tr>
-<tr><td>5%ブドウ糖</td><td><b>高血糖で梗塞を悪化</b>＋代謝後は実質<em>自由水</em></td></tr>
-</table>
-</div>
-<div style="flex:0 0 38%">
-<div class="warn">
-<b>輸液が必要なのは3つだけ</b>
-<ul>
-<li>経口摂取ができない</li>
-<li>脱水がある</li>
-<li><b>低灌流が機序</b>（分水嶺・高度狭窄）＝このときは治療の一部</li>
-</ul>
-<div style="margin-top:1.5mm">食べられて脱水がなければ不要。<em>心原性で心機能が悪い人に漫然と流さない。</em></div>
-</div>
-</div>
-</div>
-</section>
-
-<section data-sum="<b>エダラボン</b>は目安7日（上限14日）。アルガトロバンは計7日。<b>誤嚥性肺炎</b>の併発がエダラボンのやめどきになりやすい">
-<h2>薬のやめどき</h2>
-<table>
-<tr><th style="width:17%">エダラボン</th><td>
-24時間以内に開始、30mg×2／日、添付文書上<b>14日以内</b>。<em>14日は上限であって目標ではない。</em><b>症状の進行が止まり全身状態が安定したら中止（目安7日前後）</b>。<br>
-<b>禁忌＝重篤な腎機能障害</b>（数値の定義は添付文書になく、eGFR30未満・Cr2.0以上は各施設の慣習）。急性腎障害・肝障害・血小板減少・DICの警告、死亡例あり。<em>値より投与中の上昇傾向を見る</em>（BUN・Crを数日ごと）
-</td></tr>
-<tr class="hi"><th>アルガトロバン</th><td>
-48時間以内、<b>ラクナを除く</b>。最初の2日：60mg／日を24時間持続 → その後5日：10mg×2／日（各3時間）。<b>合計7日間が添付文書の規定</b>で、これを超えると適応外。APTTをモニター。rt-PA後は24時間あける
-</td></tr>
-</table>
-<div class="warn" style="margin-top:3mm">
-<b>セフェム併用に注意。</b>エダラボンの併用注意にセファゾリン・セフォチアム・ピペラシリン等（腎機能障害が増悪）。<em>誤嚥性肺炎を併発した時点が、エダラボンのやめどきになりやすい。</em>
-</div>
-<p class="note"><b>その他</b>：リハは24〜48時間以内に開始（超早期の過度な離床は逆効果＝AVERT）。脳浮腫にはグリセオール、<b>ステロイドは無効</b>（悪性中大脳動脈梗塞は外減圧）。<b>やらないこと</b>＝抗てんかん薬の予防投与、尿道カテーテルの安易な留置。</p>
-</section>
-<footer>脳卒中治療ガイドライン2021［2023年改訂］（日本脳卒中学会）／エダラボン・アルガトロバンの用法は各電子添文（PMDA）　2026-10-28</footer>
-</div>
-
-<div class="page">
-<h1>④ NIHSS の読み方</h1>
-<p class="lead">自分でつけるより、紹介状やサマリーに書かれた点数を読む場面のほうが多い</p>
-
-<section data-sum="NIHSS <b>0〜42点</b>、高いほど重症。<b>1〜4軽症／5〜15中等症／21以上重症</b>。自分で使うなら顔・腕・言葉の3項目">
-<h2>点数の意味 —— 0〜42点、高いほど重症</h2>
-<div class="cols">
-<div>
-<table>
-<tr><th style="width:26%">見ているもの</th><th>項目（全15）</th><th class="c" style="width:14%">配点</th></tr>
-<tr><td><b>意識</b></td><td>意識水準／質問／従命</td><td class="c">0–7</td></tr>
-<tr><td><b>目</b></td><td>注視（左右方向のみ）／視野</td><td class="c">0–5</td></tr>
-<tr class="hi"><td><b>麻痺</b></td><td>顔面／上肢（左右）／下肢（左右）</td><td class="c"><b>0–19</b></td></tr>
-<tr><td><b>感覚・失調</b></td><td>感覚／運動失調（麻痺で評価できなければ0点）</td><td class="c">0–4</td></tr>
-<tr><td><b>言葉</b></td><td>言語／構音</td><td class="c">0–5</td></tr>
-<tr><td><b>無視</b></td><td>消去・注意障害</td><td class="c">0–2</td></tr>
-</table>
-<p class="note">麻痺は上肢10秒・下肢5秒の保持で見る。<b>配点が麻痺に大きく偏っている</b>（19点＝全体の半分近い）。<b>1点増えるごとに良好な転帰のオッズが約17%下がる</b>。</p>
-</div>
-<div style="flex:0 0 32%">
-<table>
-<tr><th class="c" style="width:38%">合計点</th><th>重症度</th></tr>
-<tr><td class="c">0</td><td>症状なし</td></tr>
-<tr><td class="c"><b>1–4</b></td><td><b>軽症</b></td></tr>
-<tr><td class="c">5–15</td><td>中等症</td></tr>
-<tr><td class="c">16–20</td><td>中等症〜重症</td></tr>
-<tr><td class="c">21–42</td><td>重症</td></tr>
-</table>
-<div class="warn" style="margin-top:3mm">
-<b>自分で使うなら、3項目で足りる（CPSS）</b><br>
-<b>① 顔</b>：歯を見せて笑う → 左右差　／　<b>② 腕</b>：両腕を10秒上げる → 片方が下がるか　／　<b>③ 言葉</b>：短い文を言ってもらう<br>
-<b>1つでも異常なら脳卒中の可能性72%、3つそろえば85%以上。</b><b>共同偏視</b>が加われば<b>大血管閉塞</b>を強く疑う。
-</div>
-</div>
-</div>
-</section>
-
-<section data-sum="<b>脳幹・小脳／右半球</b>は点数が低く出る。DAPTは3以下、血栓回収は6以上が目安">
-<h2>点数の限界と、判断に直結する場面</h2>
-<div class="cols">
-<div>
-<div class="warn">
-<b class="big">① 脳幹・小脳は点数が低く出る</b><br>
-<b>めまい・ふらつき・複視</b>を拾う項目がほとんどない。運動失調は2点までで、麻痺があれば0点。<em>NIHSS 2点でも、脳底動脈が詰まっていれば命に関わる。</em>
-</div>
-<div class="warn" style="margin-top:2mm">
-<b class="big">② 右半球は点数が低く出る</b><br>
-<b>失語には5点</b>あるのに、<b>半側空間無視はたった2点</b>。右半球の大きな梗塞が「軽症」に見え、<em>rt-PAの適応から外れることがある</em>。
-</div>
-<p class="note"><em>NIHSSは経過を追う共通言語であって、重症度そのものではない。</em></p>
-</div>
-<div>
-<table>
-<tr class="hi"><td style="width:30%"><b>DAPT を21日間</b></td><td class="c" style="width:18%"><b>3以下</b></td><td>CHANCE・POINT の対象（THALESは5以下）</td></tr>
-<tr><td>rt-PA</td><td class="c">26以上／4以下</td><td>どちらも<b>慎重投与</b>。<em>失語や無視があれば点数が低くても適応になりうる</em></td></tr>
-<tr><td>血栓回収療法</td><td class="c">6以上</td><td>主要試験の対象範囲。<b>点数が低くても大血管閉塞はありうる</b></td></tr>
-</table>
-</div>
-</div>
-</section>
-
-<section data-sum="<b>0〜2＝自立</b>、3〜5＝介助、6＝死亡。発症90日のmRSが「予後」">
-<h2>mRS —— 退院後の「生活」の指標</h2>
-<div class="cols">
-<div>
-<table>
-<tr class="hi"><td style="width:22%"><b>0–2</b></td><td><b>自立</b>（介助なしで身の回りのことができる）</td></tr>
-<tr><td><b>3–5</b></td><td>介助が必要（3は歩行だけ自立、5は常時介護）</td></tr>
-<tr><td><b>6</b></td><td>死亡</td></tr>
-</table>
-</div>
-<div style="flex:0 0 42%">
-<p class="note" style="margin-top:0"><b>NIHSS＝急性期の症状の重さ、mRS＝退院後に自立できているか。</b><em>試験が「よくなった」とは、ほぼ「mRS 0–2の人が増えた」という意味</em>で、<b>発症90日のmRS</b>が論文でいう「予後」。</p>
-</div>
-</div>
-</section>
-<footer>NIHSS日本語版／脳卒中治療ガイドライン2021［2023年改訂］（日本脳卒中学会）／CHANCE・POINT・THALES　2026-10-28</footer>
-</div>
-
-<div class="page">
-<h1>⑤ 退院後のフォロー</h1>
-<p class="lead">再発予防の目標値と、クロピドグレルを使うときの注意</p>
-
-<section data-sum="抗血栓薬は生涯／血圧 <b>130/80未満</b>／LDL-C <b>100未満</b>／HbA1c <b>7.0%未満</b>。禁煙が最も効く">
-<h2>再発予防の4本柱</h2>
-<table>
-<tr><th style="width:14%">抗血栓薬</th><td>病型に応じて<b>生涯継続</b>。自己中断が最大のリスク</td></tr>
-<tr class="hi"><th>血圧</th><td><b>130/80mmHg未満</b>。ただし<b>両側頸動脈高度狭窄・脳主幹動脈閉塞がある、または未評価なら140/90未満</b>（下げすぎによる低灌流を避ける）。<em>ラクナ・脳出血既往では130/80の達成を妥協しない</em>（SPS3で脳出血 HR 0.37）</td></tr>
-<tr><th>脂質</th><td>LDL-C <b>100未満</b>（二次予防）。<b>70未満になるのは</b>ACS・家族性高コレステロール血症・<b>糖尿病</b>・冠動脈疾患の合併がある場合<span class="s">TSTでは70未満が90〜110に優った（8.5% vs 10.9%、HR 0.78）が、管理目標は100未満</span></td></tr>
-<tr><th>血糖</th><td>HbA1c 7.0%未満。ただし<em>血糖降下そのものは大血管イベントを減らさない</em>（ACCORD・ADVANCE・VADT）——<b>効くのは薬の選択</b></td></tr>
-</table>
-<table style="margin-top:3mm">
-<tr><th style="width:24%">脳卒中を減らす</th><td><b>GLP-1受容体作動薬</b>（REWIND HR 0.76／SUSTAIN-6 HR 0.61）、<b>ピオグリタゾン</b>（PROactive 脳卒中既往サブ HR 0.53）</td></tr>
-<tr class="hi"><th>減らさない</th><td><b>SGLT2</b>（心不全・腎には効くが脳卒中は減らさない）、<b>DPP-4・SU・α-GI</b></td></tr>
-</table>
-<p class="note"><b>生活では禁煙が最も効く。</b>減塩6g未満、節酒、運動。<b>ピオグリタゾンの注意</b>：体重増加・浮腫・<b>骨折の増加</b>。<em>日本では保険適用が2型糖尿病のみ</em>のため非糖尿病への投与は適応外（IRIS試験は非糖尿病例が対象）。</p>
-</section>
-
-<section data-sum="日本人の<b>4割</b>近くが効きにくい（CYP2C19）。<b>オメプラゾール</b>は避ける。代替はプラスグレル3.75mg">
-<h2>クロピドグレルを使うときの注意 —— CYP2C19</h2>
-<div class="cols">
-<div>
-<div class="warn">
-<b class="big">日本人の4割近くが「効きにくい」可能性がある</b><br>
-クロピドグレルはプロドラッグで、<b>CYP2C19により活性化される</b>。日本人は<b>poor metabolizer 約20%、intermediate を含めると4割近く</b>。<br>
-<em>再発を繰り返すなら、この可能性を疑う。</em>代替は<b>プラスグレル3.75mg</b>（2021年に脳梗塞の適応追加、多型の影響を受けにくい）。
-</div>
-</div>
-<div>
-<table>
-<tr><th style="width:34%">併用で効果を落とす薬</th><th>対応</th></tr>
-<tr class="hi"><td><b>オメプラゾール<br>エソメプラゾール</b></td><td>CYP2C19を阻害する。<b>ランソプラゾール・ラベプラゾール</b>、または<b>ボノプラザン</b>（CYP2C19非依存）に変える</td></tr>
-<tr><td>フルボキサミン<br>フルオキセチン</td><td>同じ理由。脳卒中後うつでSSRIを使うなら<b>エスシタロプラム・セルトラリン</b>を選ぶ</td></tr>
-</table>
-<p class="note">SSRIは<b>それ自体が出血リスクを上げる</b>（血小板セロトニンの枯渇）。抗血栓薬との併用では消化管出血に注意。</p>
-</div>
-</div>
-</section>
-
-<section data-sum="退院後2〜4週 → 1〜3か月ごと → 安定後3〜6か月ごと。血液検査3〜6か月ごと">
-<h2>フォローの実際</h2>
-<table>
-<tr><th style="width:22%">外来</th><td>退院後2〜4週 → 1〜3か月ごと → 安定後3〜6か月ごと</td></tr>
-<tr><th>血液検査</th><td>3〜6か月ごと（肝腎機能、脂質、<b>CK</b>）</td></tr>
-<tr class="hi"><th>画像</th><td><b>定期撮影は不要。</b>症状が変わったときに</td></tr>
-<tr><th>頸動脈エコー</th><td>狭窄や未治療病変があれば6〜12か月ごと</td></tr>
-<tr class="hi"><th>心電図</th><td><b>原因不明例はAf検索を継続</b>（Afが見つかればDOACの適応が立つ）</td></tr>
-</table>
-</section>
-<footer>動脈硬化性疾患予防ガイドライン2022／SPS3・SPARCL・TST／PROactive・SUSTAIN-6・REWIND　2026-10-28</footer>
-</div>
-
-
 <script>
-// 縦積みにした表は列見出しが行から切り離されてしまうので、各セルに列名を付け直す
-function labelStack(w){
-  var t = w.querySelector('table'); if(!t) return;
-  var hr = t.querySelector('tr.hdr'); if(!hr) return;
-  var labs = [].map.call(hr.cells, function(c){
-    return (c.innerText||'').replace(/\s+/g,' ').trim();
-  });
-  var any = false;
-  [].forEach.call(t.rows, function(x){
-    if(x === hr) return;
-    var ci = 0;
-    [].forEach.call(x.cells, function(c){
-      var l = labs[ci];
-      ci += (c.colSpan||1);
-      if(l && (c.colSpan||1) === 1 && (c.innerText||'').trim()){
-        c.setAttribute('data-lab', l); any = true;
-      }
-    });
-  });
-  if(any) w.className += ' lab';
-}
-if(window.matchMedia('(max-width:820px)').matches)
-document.querySelectorAll('.page table').forEach(function(t){
-  if(t.parentNode.classList.contains('tw')) return;
-  var w=document.createElement('div'); w.className='tw';
-  t.parentNode.insertBefore(w,t); w.appendChild(t);
-  [].slice.call(t.querySelectorAll('[rowspan]')).forEach(function(c){
-    if(parseInt(c.rowSpan,10) >= 3 && (c.innerText||'').replace(/\s+/g,'').length > 25){
-      var p=document.createElement('div'); p.className='spanNote'; p.innerHTML=c.innerHTML;
-      w.parentNode.insertBefore(p, w.nextSibling);
-      c.parentNode.removeChild(c);
-    }
-  });
-  var rows=[].slice.call(t.rows);
-  var r=rows[0], n=0;
-  if(r){ for(var i=0;i<r.cells.length;i++) n += (r.cells[i].colSpan||1); }
-  var hdr = r && r.cells.length>1 && [].every.call(r.cells, function(c){return c.tagName==='TH';});
-  if(hdr) r.className += ' hdr';
-  var dataRows = rows.slice(hdr?1:0);
-  var rowHeader = dataRows.length>0 && dataRows.every(function(x){
-    return x.cells.length>1 && x.cells[0].tagName==='TH';
-  });
-  if(hdr){
-    var maxc = 0;
-    dataRows.forEach(function(x){ var k=0; [].forEach.call(x.cells,function(c){k+=(c.colSpan||1);}); if(k>maxc) maxc=k; });
-    var hc = 0; [].forEach.call(r.cells,function(c){hc+=(c.colSpan||1);});
-    while(hc > maxc && r.cells.length > 1){
-      var last = r.cells[r.cells.length-1];
-      hc -= (last.colSpan||1);
-      last.parentNode.removeChild(last);
-    }
-    n = hc;
-  }
-  var maxLen = 0;
-  dataRows.forEach(function(x){ [].forEach.call(x.cells, function(c){
-    maxLen = Math.max(maxLen, (c.innerText||'').replace(/\s+/g,'').length);
-  });});
-  if((rowHeader && maxLen>60) || (n<=3 && maxLen>85)){ w.className += ' stack'; labelStack(w); return; }
-  if(n>=4) t.style.minWidth = (n*8.4) + 'em';
-});
-if(window.matchMedia('(max-width:820px)').matches)
-document.querySelectorAll('.page').forEach(function(pg, pi){
-  var secs = [].slice.call(pg.children).filter(function(e){ return e.tagName === 'SECTION'; });
-  if(!secs.length) return;
-  var idx = document.createElement('div'); idx.className = 'pidx';
-  secs.forEach(function(sec, si){
-    var h2 = sec.querySelector(':scope > h2');
-    if(!h2) return;
-    var id = 's' + pi + '-' + si;
-    sec.id = id;
-    var body = document.createElement('div'); body.className = 'sbody';
-    while(h2.nextSibling) body.appendChild(h2.nextSibling);
-    sec.appendChild(body);
-    h2.addEventListener('click', function(){ sec.classList.toggle('closed'); });
-    var a = document.createElement('a');
-    a.href = '#' + id;
-    a.textContent = (h2.textContent || '').split(/[—―─-]/)[0].replace(/\s+$/, '');
-    idx.appendChild(a);
-  });
-  var lead = pg.querySelector(':scope > .lead');
-  var h1 = pg.querySelector(':scope > h1');
-  var ref = lead || h1;
-  if(ref && idx.children.length > 1) ref.parentNode.insertBefore(idx, ref.nextSibling);
-});
-// 実際の描画を測り、細かく折り返している表は縦積みにする
-if(window.matchMedia('(max-width:820px)').matches){
-  var colCount = function(t){
-    var r = t.rows[0], n = 0;
-    if(r){ for(var i=0;i<r.cells.length;i++) n += (r.cells[i].colSpan||1); }
-    return n;
-  };
-  var badlyWrapped = function(t){
-    var cells = t.querySelectorAll('td,th');
-    for(var i=0;i<cells.length;i++){
-      var c = cells[i];
-      var txt = (c.innerText||'').replace(/\s+/g,'');
-      if(txt.length < 8) continue;
-      var lh = parseFloat(getComputedStyle(c).lineHeight) || 20;
-      var lines = Math.round((c.getBoundingClientRect().height - 10) / lh);
-      if(lines >= 3 && txt.length / lines <= 6) return true;
-    }
-    return false;
-  };
-  document.querySelectorAll('.tw:not(.stack)').forEach(function(w){
-    var t = w.querySelector('table'); if(!t) return;
-    if(!badlyWrapped(t)) return;
-    var n = colCount(t);
-    if(n <= 5){ w.className += ' stack'; labelStack(w); }
-    else { w.className += ' wide'; }
-  });
-}
-if(window.matchMedia('(max-width:820px)').matches){
-  var pgs = document.querySelectorAll('.page');
-  if(pgs.length > 1){
-    var toc = document.createElement('div'); toc.className = 'toc';
-    pgs.forEach(function(pg, i){
-      var h1 = pg.querySelector(':scope > h1'); if(!h1) return;
-      if(!pg.id) pg.id = 'p' + i;
-      var txt = (h1.textContent || '').trim();
-      var m = txt.match(/^([①-⑳])\s*(.*)$/);
-      var a = document.createElement('a');
-      a.href = '#' + pg.id;
-      a.innerHTML = m ? ('<b>' + m[1] + '</b>' + m[2].split('　—')[0].split(' —')[0])
-                      : txt;
-      toc.appendChild(a);
-    });
-    var nav = document.querySelector('.nav');
-    var wrap = document.createElement('div');
-    wrap.style.cssText = 'padding:0 max(14px,env(safe-area-inset-left,0px))';
-    wrap.appendChild(toc);
-    if(nav) nav.parentNode.insertBefore(wrap, nav.nextSibling);
-  }
-}
 if('serviceWorker' in navigator){
   navigator.serviceWorker.register('sw.js').then(function(reg){ reg.update(); });
   var reloaded=false;
@@ -569,68 +154,6 @@ if('serviceWorker' in navigator){
     if(!reloaded){reloaded=true; location.reload();}
   });
 }
-
-// ハイフンやスラッシュを含む英数字は、その途中で改行させない
-(window.nbFix = function(root){
-  var RE = /[A-Za-z0-9][A-Za-z0-9.+%]*(?:[-‐–—\/][A-Za-z0-9.+%]+)+/g;
-  var esc = function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;'}[c]; };
-  var w = document.createTreeWalker(root || document.body, NodeFilter.SHOW_TEXT, null);
-  var list = [], n;
-  while ((n = w.nextNode())) {
-    var p = n.parentNode;
-    if (!p || p.nodeName === 'SCRIPT' || p.nodeName === 'STYLE') continue;
-    RE.lastIndex = 0;
-    if (RE.test(n.nodeValue)) list.push(n);
-  }
-  list.forEach(function(t){
-    if (!t.parentNode) return;
-    RE.lastIndex = 0;
-    var html = t.nodeValue.replace(/[&<>]/g, esc)
-                          .replace(RE, '<span class="nb">$&</span>');
-    var f = document.createElement('span');
-    f.innerHTML = html;
-    t.parentNode.replaceChild(f, t);
-  });
-})(document.body);
 </script>
-<style>@media screen and (max-width:820px){.note.fold:not(.open),.spanNote.fold:not(.open){display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:3;overflow:hidden}
-footer.fold:not(.open){white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.fbtn{display:block;margin:2px 0 0;padding:6px 0;font-size:13px;color:#2563C9;font-weight:700;cursor:pointer;-webkit-tap-highlight-color:transparent}}</style>
-<script id="foldjs">(function(){if(!window.matchMedia('(max-width:820px)').matches)return;
-function add(el,minLen){var n=(el.textContent||'').replace(/\s+/g,'').length;if(n<minLen)return;el.classList.add('fold');
-var b=document.createElement('div');b.className='fbtn';var lb=el.tagName==='FOOTER'?'出典を見る ▾':'続きを開く ▾';b.textContent=lb;
-b.addEventListener('click',function(){var o=el.classList.toggle('open');b.textContent=o?'閉じる ▴':lb});
-el.parentNode.insertBefore(b,el.nextSibling)}
-window.addEventListener('load',function(){document.querySelectorAll('.page .note, .page .spanNote').forEach(function(e){add(e,130)});
-document.querySelectorAll('.page footer').forEach(function(e){add(e,40)})})})();</script><script id="sumjs">(function(){if(!window.matchMedia('(max-width:820px)').matches)return;
-function upd(){document.querySelectorAll('.page').forEach(function(p){var o=p.querySelector('section:not(.closed)');p.classList.toggle('allclosed',!o&&!!p.querySelector('section[data-sum]'))})}
-window.addEventListener('load',function(){document.querySelectorAll('.page > section[data-sum]').forEach(function(s){var h=s.querySelector(':scope > h2');var d=document.createElement('div');d.className='sum';d.innerHTML=s.getAttribute('data-sum');h.parentNode.insertBefore(d,h.nextSibling);if(!s.hasAttribute('data-open'))s.classList.add('closed');d.addEventListener('click',function(){s.classList.remove('closed');upd()})});
-document.addEventListener('click',function(){setTimeout(upd,0)});upd()})})();</script><script id="nbjs">(function(){if(!window.matchMedia('(max-width:820px)').matches)return;
-var KA=/[ァ-ヺー]{2,}|[A-Za-z][A-Za-z0-9\-]{2,}/g;
-var NUM=/約?\d[\d.,]*(?:\s?[–〜~\-]\s?\d[\d.,]*)?\s?(?:mg\/日|mg\/dL|\/日|mmHg|mg\/gCr|g\/gCr|mg|μg|µg|kg|mL|dL|g|円|%|％|未満|以上|以下|か月|月|個|週間|週|時間|日|年|点|人|例|回|倍|分|秒|mm|cm|歳)?/g;
-function wrapText(n){var t=n.nodeValue;if(t.trim().length<2)return;var pp=n.parentNode,inT=!!pp.closest('td,th'),inS=!!pp.closest('.s'),inN=!!pp.closest('td.n');var lim=inT?10:16;if(pp.closest('table.keep')&&pp.closest('td,th')&&!pp.closest('td.c,td.n,th.c,th.n'))lim=8;
-var parts=[],re=new RegExp(KA.source+'|'+NUM.source,'g'),m,last=0,any=false;
-while((m=re.exec(t))){var s=m[0];if(s.length<2||s.length>lim)continue;if(inN&&/^約?\d/.test(s))continue;parts.push([m.index,m.index+s.length]);}
-if(!parts.length)return;var f=document.createDocumentFragment();last=0;
-parts.forEach(function(p){if(p[0]>last)f.appendChild(document.createTextNode(t.slice(last,p[0])));var sp=document.createElement('span');sp.className='nb';sp.textContent=t.slice(p[0],p[1]);f.appendChild(sp);last=p[1]});
-if(last<t.length)f.appendChild(document.createTextNode(t.slice(last)));n.parentNode.replaceChild(f,n)}
-window.addEventListener('load',function(){var w=document.createTreeWalker(document.body,NodeFilter.SHOW_TEXT),a=[],n;
-while(n=w.nextNode()){var p=n.parentNode;if(!p||/SCRIPT|STYLE|PRE/.test(p.tagName)||p.closest('.nav,.fbtn'))continue;a.push(n)}
-a.forEach(wrapText)})})();</script><style id="phrasecss">@media screen and (max-width:820px){.ph,.nbk{white-space:nowrap}}</style>
-<script id="phrasejs">(function(){if(!window.matchMedia('(max-width:820px)').matches)return;
-var HIRA=/[ぁ-ゟ]/,KEEP=/[、。，．）」』】]/;
-function isH(c){return HIRA.test(c)||KEEP.test(c)}
-function split(s,CAP){var out=[],cur='';for(var i=0;i<s.length;i++){var c=s[i];cur+=c;var n=s[i+1];if(n===undefined)break;
- var brk=false;if(isH(c)&&!isH(n)&&!/[、。，．）」』】・ー]/.test(n)&&!/[ぁ-ゖ]/.test(n))brk=true;if(/[。、]/.test(c)&&n!=='」')brk=true;if(/[（「『【]/.test(n)&&!/[（「『【]/.test(c))brk=true;
- if(cur.length>=CAP&&!brk&&isH(c))brk=true;if(!brk&&c==='・'&&cur.length>=6)brk=true;if(!brk&&c==='／'&&cur.length>=5)brk=true;if(!brk&&cur.length>=CAP+4)brk=true;if(brk){out.push(cur);cur=''}}
- if(cur)out.push(cur);return out}
-function run(){var sel='.warn,.ok,.note,.sum,li,td,th,.s,.flow';
- document.querySelectorAll(sel).forEach(function(root){
-  root.querySelectorAll('b,em').forEach(function(e){if(!e.children.length&&e.textContent.length<=16)e.classList.add('nbk')});
-  var w=document.createTreeWalker(root,NodeFilter.SHOW_TEXT,null),nodes=[],n;while(n=w.nextNode())nodes.push(n);
-  nodes.forEach(function(t){var p=t.parentNode;if(p.classList&&(p.classList.contains('ph')||p.classList.contains('nbk')||p.classList.contains('nb')))return;
-   if(p.closest&&(p.closest('.ph')||p.closest('.nbk')||p.closest('.nb')))return;
-   var tb=p.closest('table');if(tb&&tb.rows[0]&&tb.rows[0].cells.length>2)return;var s=t.nodeValue;if(!s.trim()||s.length<3)return;var parts=split(s,(p.closest('td,th')?7:13)),f=document.createDocumentFragment();
-   parts.forEach(function(x){var sp=document.createElement('span');sp.className='ph';sp.textContent=x;f.appendChild(sp)});p.replaceChild(f,t)})})}
-window.addEventListener('load',function(){setTimeout(run,60)})})();</script></body>
+</body>
 </html>

@@ -5,604 +5,140 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#2563C9">
 <meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="診療メモ">
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
-
-<title>脂質異常症 診療の整理</title>
-<style>
-@page{size:A4 portrait; margin:8.5mm 10mm;}
+<title>脂質異常症</title>
+<style>/* 診療ツール 共通の型（全アプリ同じ。--c だけアプリごと） */
+:root{--bg:#f3f4f7;--card:#fff;--ink:#1b1f27;--muted:#6b7280;--line:#e3e6ec;
+ --font:-apple-system,"Hiragino Sans","Yu Gothic UI","Yu Gothic",system-ui,sans-serif}
 *{box-sizing:border-box}
-body{font-family:"Yu Gothic","Meiryo",sans-serif; color:#1b1b1b; margin:0; font-size:10.3pt; line-height:1.52;}
-@media print{body{width:auto; padding:0;}}
-.page{break-after:page;}
-.page:last-child{break-after:auto;}
-h1{font-size:15pt; margin:0 0 1.5mm;}
-.lead{font-size:9pt; color:#666; margin:0 0 3mm;}
-h2{font-size:11pt; margin:0 0 2.2mm; padding:1.2mm 2.4mm; background:#2563C9; color:#fff; letter-spacing:.04em;}
-section{margin-bottom:3.2mm;}
-section:last-of-type{margin-bottom:0;}
-.cols{display:flex; gap:5mm;} .cols>div{flex:1;}
-table{border-collapse:collapse; width:100%; font-size:10pt;}
-th,td{border:.3pt solid #c5c5c5; padding:1.3mm 2mm; text-align:left; vertical-align:top;}
-th{background:#eef3fb; font-weight:700;}
-table.pts th{background:#eef3fb;} table.pts td.x{color:#c4c4c4;}
-.s{display:block; font-size:8.6pt; color:#666; font-weight:400;}
-td.c,th.c{text-align:center; font-variant-numeric:tabular-nums; white-space:nowrap;}
-td.n,th.n{text-align:right; font-variant-numeric:tabular-nums; white-space:nowrap;}
-tr.hi td{background:#eef5ff;}
-ul{margin:0; padding-left:5mm;} li{margin-bottom:1.2mm;}
-.flow{border:.4pt solid #2563C9; padding:2mm; font-size:10pt;}
-.flow b{color:#2563C9;}
-.step{margin-bottom:1.4mm;}
-.arrow{color:#888; margin:0 1mm;}
-.warn{border-left:3pt solid #E39A1C; padding:2mm 0 2mm 3mm; background:#fff7e8;}
-.note{font-size:9pt; color:#555; margin-top:2mm;}
-em{font-style:normal; background:#ffeaa8; padding:0 .6mm;}
-.big{font-weight:700;}
-footer{font-size:8pt; color:#888; border-top:.3pt solid #ddd; padding-top:1.2mm; margin-top:2mm;}
-:root{--brand:#2563C9}
-
-@media screen and (max-width:820px){
-  html{-webkit-text-size-adjust:100%}
-  body{font-size:16px; line-height:1.72; background:#fff; color:#1b1b1b;
-       word-break:normal; overflow-wrap:break-word; line-break:strict;
-       width:auto !important; max-width:none !important;
-       margin:0 !important; padding:0 0 40px !important}
-  body{background:#f1f4f9 !important}
-  .page{break-after:auto; padding:16px max(14px,env(safe-area-inset-right,0px)) 2px max(14px,env(safe-area-inset-left,0px))}
-  h1{font-size:20px; margin:4px 2px 4px; line-height:1.4}
-  .lead{font-size:13px; margin:0 2px 12px}
-  .toc{background:#fff; border-radius:12px; margin:14px 0 4px; padding:2px 0;
-       box-shadow:0 1px 2px rgba(20,32,64,.09); overflow:hidden}
-  .toc a{display:block; padding:12px 34px 12px 14px; text-decoration:none; color:#1b1b1b;
-         font-size:15px; line-height:1.45; border-bottom:1px solid #eef0f4; position:relative}
-  .toc a:last-child{border-bottom:0}
-  .toc a::after{content:''; position:absolute; right:16px; top:50%; width:7px; height:7px;
-                border-right:2px solid #aab2c0; border-bottom:2px solid #aab2c0;
-                transform:translateY(-50%) rotate(-45deg)}
-  .toc a b{display:inline-block; min-width:1.5em; color:#2563C9}
-  .page + .page{border-top:1px solid #d6dce6; margin-top:14px; padding-top:20px}
-  .pidx{display:flex; flex-wrap:wrap; gap:6px; margin:0 2px 14px}
-  .pidx a{font-size:12.5px; line-height:1.3; background:#fff; border:1px solid #d7dce5; border-radius:999px;
-          padding:6px 11px; text-decoration:none; color:#2b3550}
-  section{background:#fff; border-radius:12px; margin:0 0 13px; overflow:hidden;
-          box-shadow:0 1px 2px rgba(20,32,64,.09)}
-  section>h2{font-size:15.5px; margin:0; padding:12px 38px 12px 14px; border-radius:0; line-height:1.45;
-             position:relative; cursor:pointer; -webkit-tap-highlight-color:transparent}
-  section>h2::after{content:''; position:absolute; right:16px; top:50%; width:8px; height:8px;
-                    border-right:2px solid rgba(255,255,255,.85); border-bottom:2px solid rgba(255,255,255,.85);
-                    transform:translateY(-70%) rotate(45deg); transition:transform .15s}
-  section.closed>h2::after{transform:translateY(-50%) rotate(-45deg)}
-  .sbody{padding:14px}
-  section.closed .sbody{display:none}
-  .cols{flex-direction:column; gap:16px}
-  .cols>div{flex:1 1 auto !important}
-  .tw{overflow-x:auto; -webkit-overflow-scrolling:touch; margin:0}
-  .tw table{min-width:100%}
-  .tw.wide table{width:max-content !important; min-width:100%}
-  .tw.wide td,.tw.wide th{min-width:6em; max-width:17em}
-  .tw.stack{overflow:visible}
-  .tw.stack table,.tw.stack tbody,.tw.stack tr,.tw.stack th,.tw.stack td{display:block; width:auto !important; min-width:0 !important}
-  .tw.stack table{border:0; min-width:0 !important}
-  .tw.stack tr{border:1px solid #cfd4dc; border-radius:7px; overflow:hidden; margin-bottom:10px; background:#fff}
-  .tw.stack tr:last-child{margin-bottom:0}
-  .tw.stack th,.tw.stack td{border:0; text-align:left !important; white-space:normal !important}
-  .tw.stack td{padding:10px 12px}
-  .tw.stack tr>:first-child{background:#eef3fb; font-weight:700; padding:7px 12px; font-size:14.5px; line-height:1.55}
-  .tw.stack tr.hi>:first-child{background:#dbe8fd}
-  .tw.stack td+td{border-top:1px dashed #d8dce3}
-  .tw.stack tr.hdr{display:flex; flex-wrap:wrap; gap:4px 14px; background:#eef3fb; border:0; border-radius:6px;
-                   padding:6px 12px; margin-bottom:9px; font-size:12.5px; color:#44506a}
-  .tw.stack tr.hdr th{display:inline; background:none; padding:0; font-size:12.5px; font-weight:700}
-  .tw.stack.lab tr.hdr{display:none}
-  .tw.stack td[data-lab]::before,.tw.stack th[data-lab]::before{
-    content:attr(data-lab); display:block; font-size:12px; font-weight:700;
-    color:#5a6473; letter-spacing:.02em; margin-bottom:2px}
-  .tw.stack tr>:first-child[data-lab]::before{color:#44506a; margin-bottom:1px}
-  table{font-size:14.5px; margin:0; table-layout:auto}
-  th,td{padding:7px 9px; word-break:normal; overflow-wrap:break-word; line-break:strict}
-  th{min-width:6.2em}
-  td.c,td.n{white-space:nowrap}
-  th.c,th.n{white-space:normal}
-  .warn{padding:11px 13px 11px 14px; border-radius:0 6px 6px 0; margin:0}
-  .flow{padding:12px 13px; border-radius:6px; font-size:15px}
-  .step{margin-bottom:7px}
-  .note{font-size:13.5px; margin-top:10px; line-height:1.68}
-  .spanNote{font-size:13.5px; line-height:1.70; color:#3f444c; margin:10px 0 0;
-            padding:2px 0 2px 12px; border-left:3px solid #c9d2e4}
-  .s{font-size:13px; color:#565b63; margin-top:3px; line-height:1.62}
-  ul{padding-left:20px} li{margin-bottom:6px}
-  footer{font-size:11.5px; margin:2px 4px 16px; padding-top:9px; color:#78808e}
-  .nav{position:sticky; top:0; z-index:20; display:flex; align-items:center; gap:12px;
-       padding:calc(env(safe-area-inset-top,0px) + 40px) max(14px,env(safe-area-inset-right,0px)) 14px max(14px,env(safe-area-inset-left,0px));
-       background:var(--brand); color:#fff; font-weight:700; font-size:18px}
-  .nav a{color:#fff; text-decoration:none; font-weight:600; font-size:18px; opacity:1; padding:10px 14px 10px 4px; margin:-10px 0}
-  .nav .sp{margin-left:auto}
-}
-@media print{ .nav{display:none} .tw{overflow:visible} }
+html,body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--font);-webkit-text-size-adjust:100%}
+.top{background:var(--c);color:#fff;padding:calc(env(safe-area-inset-top,0px) + 14px) 16px 14px}
+.top .in,.main{max-width:560px;margin:0 auto}
+.brand{font-size:11px;letter-spacing:.14em;opacity:.8;font-weight:700}
+.title{display:flex;align-items:center;gap:10px;margin-top:4px;min-height:30px}
+.title h1{font-size:21px;margin:0;font-weight:800;letter-spacing:.02em}
+.back{color:#fff;text-decoration:none;font-size:15px;opacity:.9;white-space:nowrap}
+.main{padding:14px 16px 32px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;margin:0 0 12px;overflow:hidden}
+.q{padding:12px 16px;font-size:20px;line-height:1.4;font-weight:800;color:var(--c);background:color-mix(in srgb,var(--c) 10%,#fff);border-left:5px solid var(--c);margin-bottom:6px;letter-spacing:.04em}
+.q em{font-style:normal;color:var(--c)}
+.row{display:flex;gap:12px;align-items:baseline;padding:9px 16px;border-top:1px solid var(--line);font-size:15px;line-height:1.5}
+.q+.row{border-top:0}
+.row .k{flex:0 0 36%;color:var(--ink)}
+.row .v{flex:1}
+.big{font-size:19px;font-weight:800;color:var(--c);white-space:nowrap}
+.b{font-weight:800;color:var(--c)}
+.note{padding:4px 16px 12px;font-size:12.5px;color:var(--muted);line-height:1.6}
 .nb{white-space:nowrap}
-</style>
-<style>@media screen{table.keep{table-layout:auto} table.keep.big th:first-child{width:auto!important} table.keep.big td.c,table.keep.big td.c b,table.keep.big td.n,table.keep.big td.n b{font-size:17px!important;font-weight:700;color:#2563C9;white-space:normal} table.keep.big td.c{white-space:nowrap} table.keep.big td.c em,table.keep.big td.n .s{font-size:13px!important;font-weight:400} table.keep.big td.n .s{display:block;color:#565b63} table.keep.big td:first-child .s{display:block;}}</style><style>@media screen{.page>.lead{display:none}}</style><style id="sumcss">@media screen and (max-width:820px){.pidx{display:none}.sum{padding:9px 38px 11px 14px;font-size:14.5px;line-height:1.6;color:#1b1b1b;border-top:0}.sum b{color:#2563C9}section:not(.closed)>.sum{display:none}.page.allclosed>footer,.page.allclosed>.fbtn{display:none}}</style><style id="keeptune">@media screen{table.keep.big th,table.keep.big td{padding:7px 5px}table.keep.big td.c,table.keep.big td.c b,table.keep.big td.n,table.keep.big td.n b{font-size:15px!important;white-space:nowrap}table.keep.big td.n .s{white-space:normal}}</style><style id="tw">@media screen{p,li,td,th,.warn,.sum,.note,.s{text-wrap:pretty;word-break:auto-phrase}h1,h2{text-wrap:balance}}</style><style id="acc2">@media screen and (max-width:820px){.sum b{color:#C2410C}}</style></head>
+.sec{font-size:12px;color:var(--muted);font-weight:700;letter-spacing:.1em;margin:20px 4px 8px}
+.list a{display:block;padding:14px 16px;border-top:1px solid var(--line);text-decoration:none;color:var(--ink)}
+.list a:first-child{border-top:0}
+.list .n{font-size:17px;font-weight:800;display:flex;justify-content:space-between}
+.list .n::after{content:"›";color:var(--c);font-size:20px;line-height:1}
+.list .s{font-size:13px;color:var(--muted);margin-top:3px;line-height:1.5}
+.list .s b{color:var(--c)}
+.fold{padding:13px 16px;border-top:1px solid var(--line);font-size:15px;display:flex;justify-content:space-between;color:var(--ink)}
+.fold:first-child{border-top:0}
+.fold::after{content:"＋";color:var(--c);font-weight:800}
+.foot{font-size:11.5px;color:var(--muted);line-height:1.7;margin:18px 4px 0}
+/* 入力（計算アプリ） */
+.lbl{font-size:13px;font-weight:700;color:var(--muted);padding:12px 16px 6px}
+.chips{display:flex;flex-wrap:wrap;gap:8px;padding:0 16px 12px}
+.chip{border:1.5px solid var(--line);border-radius:999px;padding:7px 12px;font-size:14.5px}
+.chip.on{border-color:var(--c);color:var(--c);font-weight:800;background:color-mix(in srgb,var(--c) 8%,#fff)}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;padding:0 16px 14px}
+.f .t{font-size:13px;font-weight:700}.f .u{font-size:11px;color:var(--muted)}
+.f .box{margin-top:4px;height:46px;border-radius:10px;background:#f1f3f7;border:1.5px solid var(--line);font-size:20px;font-weight:800;display:flex;align-items:center;padding:0 10px}
+.ans{background:var(--c);color:#fff;border-radius:14px;padding:14px 16px;margin:0 0 12px}
+.ans .t{font-size:12px;opacity:.85;font-weight:700;letter-spacing:.06em}
+.ans .v{font-size:30px;font-weight:800;margin-top:2px}
+.ans .s{font-size:13.5px;opacity:.92;margin-top:2px}
+.two{display:grid;grid-template-columns:1fr 1fr;border-top:1px solid var(--line)}
+.q+.two{border-top:0}
+.two>div{padding:8px 14px 12px;font-size:14.5px;line-height:1.55}
+.two>div+div{border-left:1px solid var(--line)}
+.two .h{font-size:12.5px;font-weight:800;margin-bottom:4px}
+.yes .h{color:var(--c)} .no .h{color:#9a3b2a}
+.two ul{margin:0;padding:0;list-style:none}.two li{margin:2px 0}
+.small{font-size:12px;color:var(--muted)}
+.tags{display:flex;flex-wrap:wrap;gap:6px;padding:2px 16px 12px}
+.tag{font-size:13.5px;font-weight:700;border-radius:8px;padding:3px 9px;background:color-mix(in srgb,var(--c) 10%,#fff);color:var(--c)}
+.ev{border-top:1px solid var(--line)}
+.ev summary{list-style:none;padding:10px 16px;font-size:13.5px;font-weight:700;color:var(--muted);display:flex;justify-content:space-between;cursor:pointer}
+.ev summary::-webkit-details-marker{display:none}
+.ev summary::after{content:"＋";color:var(--c)}
+.ev[open] summary::after{content:"－"}
+.ev .in{padding:0 16px 12px;font-size:13px;line-height:1.65;color:#3b4150}
+.ev .in p{margin:0 0 6px}
+.ev .in .src{font-size:11.5px;color:var(--muted)}
+.gl{display:inline-block;font-size:11px;font-weight:700;color:var(--muted);background:#eef0f4;border-radius:5px;padding:0 6px;margin-left:2px}
+.toc{position:sticky;top:0;z-index:5;background:var(--bg);display:flex;gap:6px;padding:10px 16px;border-bottom:1px solid var(--line)}
+.toc a{flex:1;text-align:center;font-size:14px;font-weight:800;color:var(--c);background:#fff;border:1.5px solid color-mix(in srgb,var(--c) 35%,#fff);border-radius:999px;padding:7px 0;text-decoration:none;white-space:nowrap}
+.go{display:flex;justify-content:space-between;align-items:center;margin:12px 16px;padding:14px 16px;border-radius:12px;background:#5B4BC4;color:#fff;font-size:17px;font-weight:800;text-decoration:none}
+.go::after{content:"›";font-size:24px;line-height:1}
+
+html{scroll-behavior:smooth}.card[id],.part[id]{scroll-margin-top:62px}.back{display:inline-block;padding:6px 12px 6px 0;margin:-6px 0;font-size:24px;line-height:1}.list a{color:var(--ink)}.foot{margin-bottom:24px}</style>
+<style>:root{--c:#2563C9}.row .k{flex-basis:30%}</style>
+</head>
 <body>
-<div class="nav"><a href="index.html">&#8249;&nbsp;一覧</a><span class="sp"></span><span>脂質異常症</span></div>
+<div class="top"><div class="in"><div class="title"><a class="back" href="index.html">‹</a><h1>脂質異常症</h1></div></div></div>
+<nav class="toc"><a href="#s0">目的</a><a href="#s1">二次性</a><a href="#s2">LDL</a><a href="#s3">FH</a><a href="#s4">TG</a><a href="#s5">EPA</a></nav>
+<div class="main">
 
-<div class="page">
-<h1>① 脂質異常症とは</h1>
-<p class="lead">診断基準、二次性の除外、FH</p>
+<div id="s0" class="card"><div class="q">治療の目的</div>
+<div class="row"><div class="v">LDLを<span class="b">39</span>下げるごとに<br>主要血管イベント <span class="big">約22%減</span></div></div>
+<div class="two"><div class="yes"><div class="h">効く</div><ul><li>冠動脈イベント <span class="b">24%減</span></li><li>脳梗塞 <span class="b nb">15〜21%減</span></li><li>冠動脈疾患死 20%減</li><li>総死亡 10%減</li><li>末梢動脈疾患</li></ul></div>
+<div class="no"><div class="h">効かない</div><ul><li>腎機能・透析導入</li><li>大動脈弁狭窄</li><li>心不全</li><li>認知症</li></ul></div></div>
+<details class="ev"><summary>根拠</summary><div class="in"><p><b>数字</b>：CTTメタ解析（Lancet 2010・2012、27試験・約17万人）。下げる手段（スタチン・エゼチミブ・PCSK9阻害薬）を問わず、下げた量に比例</p><p><b>末梢動脈疾患</b>：FOURIER のPAD解析。絶対リスク減少は PADあり 3.5%、なし 1.6%</p><p><b>腎</b>：SHARP（CKD約9,000人）で腎アウトカムに差なし。透析中はイベントも差なし（4D・AURORAも陰性）</p><p><b>弁膜症</b>：SEAS・SALTIRE 陰性　<b>心不全</b>：CORONA・GISSI-HF 陰性</p></div></details></div>
 
-<section data-sum="LDL-C <b>140以上</b>、HDL-C <b>40未満</b>、TG <b>150以上</b>（随時175）、non-HDL-C <b>170以上</b>">
-<h2>診断基準（空腹時採血）</h2>
-<table>
-<tr><th style="width:30%">項目</th><th class="c" style="width:26%">基準</th><th>呼び方</th></tr>
-<tr class="hi"><td><b>LDL-C</b></td><td class="c"><b>140 以上</b></td><td>高LDLコレステロール血症</td></tr>
-<tr><td>　</td><td class="c">120–139</td><td>境界域高LDLコレステロール血症</td></tr>
-<tr><td><b>HDL-C</b></td><td class="c"><b>40 未満</b></td><td>低HDLコレステロール血症</td></tr>
-<tr class="hi"><td><b>TG</b></td><td class="c"><b>150 以上</b>（空腹時）<br><b>175 以上</b>（随時）</td><td>高トリグリセライド血症</td></tr>
-<tr><td><b>non-HDL-C</b></td><td class="c"><b>170 以上</b></td><td>高non-HDLコレステロール血症</td></tr>
-<tr><td>　</td><td class="c">150–169</td><td>境界域高non-HDLコレステロール血症</td></tr>
-</table>
-<p class="note"><b>空腹時＝10時間以上の絶食</b>（水やお茶は可）。<em>随時採血で判定できるのはTGだけ</em>（175以上）。<b>Friedewald式は TG 400未満でのみ使える</b>——TGが高い例は直接法か <b>non-HDL-C（TC − HDL-C）</b>で評価する。</p>
-</section>
+<div id="s1" class="card"><div class="q">二次性を除く</div>
+<div class="row"><div class="k">甲状腺<br>機能低下</div><div class="v"><span class="b">TSH</span>を一度は測る</div></div>
+<div class="row"><div class="k">ネフローゼ</div><div class="v"><span class="b">尿蛋白</span>・浮腫</div></div>
+<div class="row"><div class="k">アルコール</div><div class="v">TGが上がる。節酒で数百下がることがある</div></div>
+<div class="row"><div class="k">糖尿病・肥満</div><div class="v">TG高値・HDL低値</div></div>
+<div class="row"><div class="k">胆汁うっ滞</div><div class="v">閉塞性黄疸・PBC</div></div>
+<div class="row"><div class="k">薬</div><div class="v">ステロイド・エストロゲン・サイアザイド・β遮断薬・抗精神病薬 など</div></div>
+<details class="ev"><summary>根拠</summary><div class="in"><p>二次性の原因：<span class="gl">ガイドライン記載</span></p></div></details></div>
 
-<section data-sum="スタチンの前に <b>TSH・尿蛋白・飲酒歴・服用薬</b>（ステロイド等）を確認">
-<h2>まず二次性を外す</h2>
-<div class="cols">
-<div>
-<table>
-<tr><th style="width:38%">原因</th><th>手がかり</th></tr>
-<tr class="hi"><td><b>甲状腺機能低下症</b></td><td><b>TSHを一度は測る。</b>補充で脂質が戻ることがある</td></tr>
-<tr><td>ネフローゼ症候群</td><td>蛋白尿・浮腫</td></tr>
-<tr><td>糖尿病・肥満</td><td>高TG・低HDLが主体</td></tr>
-<tr><td>閉塞性黄疸・原発性胆汁性胆管炎</td><td>高コレステロール</td></tr>
-<tr><td>アルコール</td><td>高TG。<b>節酒だけで数百下がることがある</b></td></tr>
-</table>
-</div>
-<div>
-<div class="warn">
-<b>薬剤性</b><br>
-ステロイド／エストロゲン／<b>サイアザイド</b>／β遮断薬／レチノイド／抗精神病薬（とくにオランザピン）／タモキシフェン／免疫抑制薬
-</div>
-<p class="note"><b>外来では珍しくない。</b><em>スタチンを出す前に、TSHと尿蛋白と飲酒歴を押さえる。</em></p>
-</div>
-</div>
-</section>
+<div id="s2" class="card"><div class="q">LDLを下げる食事</div><div class="two" style="border-top:0"><div class="yes"><div class="h">減らす</div><ul><li><span class="b">肉の脂身</span>・バター</li><li>加工肉</li><li>卵の大量摂取</li><li>トランス脂肪</li></ul></div>
+<div class="yes"><div class="h">増やす</div><ul><li><span class="b">魚</span></li><li>大豆・野菜・海藻</li><li>未精製の穀類</li><li>食物繊維</li></ul></div></div>
+<details class="ev"><summary>根拠</summary><div class="in"><p><b>飽和脂肪を減らす</b>：Cochrane（2020、12試験・約5.4万人）で心血管イベント <b>17%減</b>（RR 0.83）。総死亡・心血管死は変わらず。置き換え先は多価不飽和脂肪か炭水化物</p><p><b>各項目・数値</b>：<span class="gl">ガイドライン記載</span>（食事療法7項目。飽和脂肪 7%未満、コレステロール 200mg/日未満、食物繊維 25g/日以上、食塩 6g/日未満）</p></div></details></div>
+
+<div class="card"><div class="q">LDLの管理目標</div><a class="go" href="../index.html">脂質管理目標アプリで計算</a>
 
 
-<section data-sum="未治療LDL-C <b>180以上</b>・腱黄色腫・家族歴の<b>2項目以上</b>で <b>FH</b>（約300人に1人）。アキレス腱を触る">
-<h2>家族性高コレステロール血症（FH）と黄色腫</h2>
-<div class="cols">
-<div>
-<div class="warn">
-<b class="big">成人のFH診断は、次の2項目以上</b>
-<ul>
-<li><b>未治療の LDL-C 180 以上</b></li>
-<li><b>腱黄色腫</b>（手背・肘・膝、アキレス腱肥厚）または<b>皮膚結節性黄色腫</b></li>
-<li><b>2親等以内の血族に FH または早発性冠動脈疾患</b>（男性55歳未満・女性65歳未満）</li>
-</ul>
-</div>
-<p class="note"><b>有病率は約300人に1人</b>——珍しい病気ではない。<b>年齢・一次/二次予防にかかわらず治療対象</b>で管理目標も別枠。家族歴がなくても診断でき、<em>診断をきっかけに血縁者の脂質を測る（カスケードスクリーニング）</em>と未診断の家族が見つかる。</p>
-<div class="warn" style="margin-top:3mm">
-<b class="big">二次性を除外して LDL-C 180以上 → アキレス腱を触る</b><br>
-足関節を背屈させ、母指と示指でつまむ。<b>左右差・紡錘状のびまん性肥厚</b>を見る。<br>
-<b>肥厚の基準（2022年版）</b>　<b>X線：男性 8.0mm／女性 7.5mm 以上</b>　／　<b>超音波：男性 6.0mm／女性 5.5mm 以上</b>
-</div>
-</div>
-<div>
-<table>
-<tr><th style="width:34%">黄色腫の部位</th><th>示唆するもの</th></tr>
-<tr class="hi"><td><b>腱</b>（アキレス腱・手背・肘・膝）</td><td><b>FH</b>　診断基準に入る。<em>アキレス腱肥厚はとくに特異的</em></td></tr>
-<tr class="hi"><td><b>皮膚結節性</b>（肘・膝）</td><td><b>FH</b>　診断基準に入る</td></tr>
-<tr><td><b>眼瞼</b></td><td><em>最多だが約半数は脂質正常</em>——<b>診断基準には入らない</b>。ただし<b>見かけたら脂質を測る</b></td></tr>
-<tr><td><b>発疹性</b>（体幹・四肢伸側の黄色丘疹）</td><td><b>高TG（1000以上）。膵炎のサイン</b></td></tr>
-<tr><td><b>手掌線条</b></td><td><b>III型高脂血症に特異的</b>（ApoE2/2）</td></tr>
-<tr><td>角膜輪</td><td><b>45歳未満</b>なら意義あり</td></tr>
-</table>
-</div>
-</div>
-</section>
 
-<footer>動脈硬化性疾患予防ガイドライン2022年版（日本動脈硬化学会）／成人家族性高コレステロール血症診療ガイドライン2022　2026-10-28</footer>
-</div>
+<div class="row"><div class="k">一次予防</div><div class="v">まず<span class="b">3〜6か月</span>生活習慣<br>LDL 180以上が続けば薬も</div></div>
+<div class="row"><div class="k">80歳以上</div><div class="v">目標に当てはめず<span class="b">個別に</span></div></div>
+<details class="ev"><summary>根拠</summary><div class="in"><p>区分と目標値：<span class="gl">ガイドライン記載</span>（アプリ内に表あり）</p></div></details></div>
 
-<div class="page">
-<h1>② なぜ下げるのか</h1>
-<p class="lead">何がどれだけ減るのか、そして何は減らないのか</p>
+<div class="card"><div class="q">LDLを下げる薬</div>
+<div class="row"><div class="k">目標まで<br>10%以内</div><div class="v">スタチンを<span class="b">1段階増量</span></div></div>
+<div class="row"><div class="k">目標まで<br>15〜20%以上</div><div class="v"><span class="b">エゼチミブを追加</span></div></div>
+<div class="row"><div class="k">筋症状</div><div class="v">増量せず<span class="b">エゼチミブ</span></div></div>
+<div class="row"><div class="k">CCr&lt;30</div><div class="v">ロスバスタチン <span class="b">2.5mg</span>から<br>最大 5mg。エゼチミブは調節不要</div></div>
+<details class="ev"><summary>根拠</summary><div class="in"><p><b>増量か追加か</b>：スタチン倍量で下がるのは約6%、エゼチミブ追加で約18〜20%</p><p><b>RACING</b>（ASCVD 3,780例）：ロスバスタチン10mg＋エゼチミブは20mg単剤に劣らず（9.1% vs 9.9%）、中止・減量が少ない（4.8% vs 8.2%）</p><p><b>腎機能</b>：ロスバスタチン・エゼチミブの添付文書</p></div></details></div>
 
-<section data-sum="LDL-Cを <b>39mg/dL</b>下げるごとに、主要血管イベント <b>約22%減</b>（冠動脈イベント約24%）">
-<h2>基本法則</h2>
-<div class="flow">
-<div class="step"><b>LDL-Cを 1 mmol/L（≒39 mg/dL）下げるごとに、主要血管イベントが約22%減る</b></div>
-<div class="step">CTTメタ解析（Lancet 2010/2012、27試験・約17万人）。LDL 160→120 mg/dL がちょうどこの幅。</div>
-</div>
-<table style="margin-top:1.5mm">
-<tr><th style="width:34%">アウトカム（1 mmol/L低下あたり）</th><th class="c">相対リスク低下</th><th>補足</th></tr>
-<tr><td>冠動脈イベント</td><td class="c">約24%</td><td rowspan="5">低下の手段（スタチン・エゼチミブ・PCSK9阻害薬）を問わず、<em>絶対的なLDL低下量に比例</em>する</td></tr>
-<tr><td>冠血行再建</td><td class="c">約24%</td></tr>
-<tr><td>虚血性脳卒中</td><td class="c">約15〜21%</td></tr>
-<tr><td>冠動脈疾患死</td><td class="c">約20%</td></tr>
-<tr><td><b>総死亡</b></td><td class="c"><b>約10%</b></td></tr>
-</table>
-<p class="note">減るのは<em>相対リスク</em>。実際の利益はもとのリスク次第——ガイドラインが区分ごとに目標値を変えているのはこのため。<br>
-<b>時間の効果</b>：メンデルランダム化研究では<em>生涯にわたりLDLが低い人は、同じ低下幅でも約3倍大きいリスク低減</em>を示す。GL2022が40〜50代で生涯リスクも考慮するとしているのはこの文脈。日本人のデータはMEGA試験（一次予防、プラバスタチンで冠動脈疾患 約33%減）、EWTOPIA 75（75歳以上、エゼチミブ）。</p>
-</section>
+<div id="s3" class="card"><div class="q">家族性高コレステロール血症</div>
+<div class="row"><div class="k">疑う</div><div class="v">未治療 LDL <span class="big">180</span> 以上</div></div>
+<div class="row"><div class="k">診断</div><div class="v">次の<span class="b">2つ以上</span><br>・LDL 180以上<br>・腱黄色腫・皮膚結節性黄色腫<br>・2親等以内にFHか早発性冠動脈疾患</div></div>
+<div class="row"><div class="k">アキレス腱</div><div class="v">X線 男 <span class="b">8.0</span>／女 <span class="b">7.5mm</span> 以上<br>超音波 男 <span class="b">6.0</span>／女 <span class="b">5.5mm</span> 以上</div></div>
+<div class="row"><div class="k">目標</div><div class="v">LDL <span class="big">100</span> 未満<br>二次予防は <span class="b">70</span> 未満</div></div>
+<div class="row"><div class="k">家族</div><div class="v">血縁者の脂質を測る</div></div>
+<details class="ev"><summary>根拠</summary><div class="in"><p>診断基準・腱の厚さ・目標：<span class="gl">ガイドライン記載</span></p><p>約300人に1人。年齢や一次・二次予防を問わず治療の対象</p><p>早発性＝男性55歳未満・女性65歳未満</p><p class="src">成人家族性高コレステロール血症診療ガイドライン2022／動脈硬化性疾患予防ガイドライン2022</p></div></details></div>
 
-<section data-sum="<b>冠動脈疾患・アテローム血栓性脳梗塞・PAD</b>に効く。<b>腎機能・弁膜症・心不全・認知症・がん</b>には効かない">
-<h2>効くもの・効かないもの</h2>
-<div class="cols">
-<div>
-<table>
-<tr><th>効く（動脈硬化が主役）</th><th>根拠</th></tr>
-<tr><td>冠動脈疾患</td><td>CTT、IMPROVE-IT、FOURIER</td></tr>
-<tr><td>アテローム血栓性脳梗塞</td><td>CTT</td></tr>
-<tr><td>末梢動脈疾患（PAD）</td><td>FOURIER PADサブ解析</td></tr>
-<tr><td>静脈血栓塞栓症</td><td>JUPITER（HR 0.57）。機序は不明</td></tr>
-</table>
-<p class="note"><b>PADがある人ほど得が大きい</b>：FOURIERの絶対リスク減少は PADあり 3.5%、なし 1.6%。</p>
-</div>
-<div>
-<div class="warn">
-<b>効かない</b>
-<ul>
-  <li><b>腎機能の悪化・透析導入</b>：SHARP（CKD約9,000人）で腎アウトカムに差なし。<em>透析導入後は動脈硬化イベントも有意差なし</em>（15.0% vs 16.5%）。4D・AURORAも陰性</li>
-  <li><b>大動脈弁狭窄症の進行</b>：SEAS、SALTIREとも陰性</li>
-  <li><b>心不全</b>：CORONA、GISSI-HFとも陰性</li>
-  <li><b>認知症</b>：予防効果は示されていない（害も否定されている）</li>
-  <li>がん：増えも減りもしない</li>
-</ul>
-</div>
-<p class="note">腎保護はSGLT2阻害薬・RAS阻害薬の役割。「LDLを下げれば腎臓も」という説明にはしない。</p>
-</div>
-</div>
-</section>
-<footer>CTTメタ解析（Lancet 2010・2012）／IMPROVE-IT／FOURIER／SHARP　2026-10-28</footer>
-</div>
+<div id="s4" class="card"><div class="q">高TG血症</div><div class="row"><div class="k"><span class="b">節酒</span></div><div class="v">アルコール <span class="big">25g</span>/日以下<br>＝ビール500mL・日本酒1合ほど</div></div><div class="row"><div class="k">糖</div><div class="v">果糖・甘い加工食品を控える</div></div><div class="row"><div class="k">減量</div><div class="v">食べすぎない・適正体重</div></div><div class="row"><div class="k">500以上</div><div class="v"><span class="b">薬を開始</span>（ペマフィブラート）</div></div><div class="row"><div class="k">150〜499</div><div class="v"><span class="b">non-HDL</span>を確認</div></div><details class="ev"><summary>根拠</summary><div class="in"><p><b>non-HDLで見る理由</b>：TGが高いと、動脈硬化を起こすレムナント（VLDL・IDL）が増え、LDL-Cには入らない。さらに計算式のLDLはTGが高いほど低く出る（TG 400以上は使えない）。non-HDL＝総コレステロール−HDLは両方をまとめて拾う</p><p><b>ペマフィブラート</b>：PROMINENT（NEJM 2022、10,497例）で TG −26% でもイベント HR 1.03。目的は膵炎予防</p><p><b>500の線</b>：膵炎予防のための実務上の線引き（学会により500〜1000）</p><p><b>アルコール量</b>：ビール（5%）500mLで約20g、日本酒1合で約22g</p></div></details></div>
 
-<div class="page">
-<h1>③ 目標値</h1>
-<p class="lead">リスク区分を決めて、いくつを目指すか</p>
+<div id="s5" class="card"><div class="q">EPA</div><div class="row"><div class="v">スタチンに足すと<br>心血管イベント <span class="big">約25%減</span></div></div><div class="two"><div class="yes"><div class="h">得られる</div><ul><li>心血管死 <span class="b">20%減</span></li><li>心筋梗塞・脳卒中の減少</li><li>日本人の冠動脈<br>イベント <span class="b">19%減</span></li></ul></div><div class="no"><div class="h">示されていない</div><ul><li>総死亡</li></ul></div></div>
+<div class="row"><div class="k">考える人</div><div class="v"><span class="b">スタチン中</span>の高リスク<br><span class="nb">冠動脈疾患</span>・<span class="nb">PAD</span>・<span class="nb">脳梗塞後</span>・<span class="nb">糖尿病</span></div></div>
+<div class="row"><div class="k">控える</div><div class="v"><span class="b">心房細動</span>・抗凝固薬・出血しやすい<br>手術・内視鏡の前は1週休薬</div></div>
+<div class="row"><div class="k">続け方</div><div class="v">TGが下がらなくても<span class="b">やめない</span></div></div>
+<details class="ev"><summary>根拠</summary><div class="in"><p><b>REDUCE-IT</b>（NEJM 2019、8,179例、4g/日、TG 135〜499）：主要心血管イベント HR 0.75、心血管死 HR 0.80、総死亡は有意差なし。効果は達成したTGと関係なし</p><p><b>JELIS</b>（Lancet 2007、日本人18,645例、1.8g/日、TGを問わず、非盲検）：主要冠動脈イベント HR 0.81</p><p><b>効かなかった</b>：STRENGTH（EPA＋DHA）は差なし。RESPECT-EPA は有意差に届かず</p><p><b>害</b>：REDUCE-IT で心房細動 5.3% vs 3.9%、出血 2.7% vs 2.1%</p><p>ガイドラインの対象は「スタチン中・高リスク・TG 150〜499」<span class="gl">ガイドライン記載</span></p></div></details></div>
 
-<section data-sum="既往あり → <b>二次予防</b>／糖尿病・CKD・PAD → <b>高リスク</b>／それ以外はスコアで振り分け">
-<h2>判定の順番</h2>
-<div class="flow">
-  <div class="step"><b>1.</b> 冠動脈疾患／アテローム血栓性脳梗塞の既往がある　<span class="arrow">▶</span>　<b>二次予防</b>（スコア不要）</div>
-  <div class="step"><b>2.</b> 糖尿病・CKD・末梢動脈疾患のいずれかがある　<span class="arrow">▶</span>　<b>高リスク</b>（スコア不要）</div>
-  <div class="step"><b>3.</b> どちらもなければ　<span class="arrow">▶</span>　<b>久山町スコア</b>で低・中・高リスクに振り分ける</div>
 </div>
-<p class="note"><b>スコアの配点と区分は「脂質管理目標 算出」アプリで計算する</b>（<a href="../">yosukefuji.github.io/tools/</a>）。<br>
-40歳未満・80歳以上はスコアを使わない。家族性高コレステロール血症・家族性Ⅲ型高脂血症は別に扱う。末梢動脈疾患＝ABI 0.90以下（症状の有無を問わない。血行再建後にABIが戻っても高リスクのまま）。</p>
-</section>
-
-<section data-sum="低 <b>160</b>／中 <b>140</b>／高 <b>120</b>／高（糖尿病）・二次予防 <b>100</b>／二次予防（厳格）<b>70</b>（LDL-C mg/dL）">
-<h2>区分 → 管理目標値（mg/dL）</h2>
-<table class="keep big">
-<tr><th>区分</th><th class="c">LDL-C</th><th class="c">non-HDL-C</th></tr>
-<tr><td><b>低リスク</b><span class="s">一次予防（10年リスク 2%未満）</span></td><td class="c">&lt;160</td><td class="c">&lt;190</td></tr>
-<tr><td><b>中リスク</b><span class="s">一次予防（2〜10%未満）</span></td><td class="c">&lt;140</td><td class="c">&lt;170</td></tr>
-<tr><td><b>高リスク</b><span class="s">糖尿病・CKD・PAD、またはスコアで高リスク（10%以上）</span></td><td class="c">&lt;120</td><td class="c">&lt;150</td></tr>
-<tr><td><b>高リスク（糖尿病）</b><span class="s">末梢動脈疾患・細小血管症（網膜症・腎症・神経障害）の合併、または喫煙あり</span></td><td class="c">&lt;100</td><td class="c">&lt;130</td></tr>
-<tr><td><b>二次予防</b><span class="s">冠動脈疾患／アテローム血栓性脳梗塞の既往</span></td><td class="c">&lt;100</td><td class="c">&lt;130</td></tr>
-<tr><td><b>二次予防（厳格）</b><span class="s">急性冠症候群・家族性高コレステロール血症・糖尿病・冠動脈疾患と脳梗塞の合併</span></td><td class="c">&lt;70</td><td class="c">&lt;100</td></tr>
-</table>
-<p class="note"><em>non-HDL-C ＝ 総コレステロール − HDL-C</em>（LDL目標＋30）。空腹時でなくても評価でき、TG 400以上でも使える。あわせて TG 150未満（空腹時）・175未満（随時）、HDL-C 40以上。<br>
-<b>一次予防</b>は原則3〜6か月の生活習慣改善の効果をみてから薬物療法を検討（LDL-C 180以上が持続する場合は同時に検討してよい）。<b>80歳以上</b>は目標値に機械的に当てはめず個別に判断する。</p>
-</section>
-<footer>動脈硬化性疾患予防ガイドライン2022年版（日本動脈硬化学会） 第3章　2026-10-28</footer>
-</div>
-
-<div class="page">
-<h1>④ 薬を選ぶ</h1>
-<p class="lead">増量か追加か、腎機能、薬価</p>
-
-<section data-sum="目標まで10%以内 → スタチン増量。<b>15〜20%以上 → エゼチミブ追加</b>（倍量は約6%・追加は約18〜20%）">
-<h2>増量するか、エゼチミブを足すか</h2>
-<div class="cols">
-<div>
-<table>
-<tr><th>手段</th><th class="c">LDL-C 追加低下</th></tr>
-<tr><td>スタチンを倍量にする</td><td class="c"><b>約6%</b></td></tr>
-<tr><td>エゼチミブ10mgを足す</td><td class="c"><b>約18〜20%</b></td></tr>
-</table>
-<p class="note">倍量で得られるのは約6%のみ（rule of 6）。<b>エゼチミブ1剤の上乗せは、倍量3回ぶんに相当する。</b></p>
-<div class="warn" style="margin-top:1.5mm">
-<b>使い分けの目安</b>
-<ul>
-  <li>目標まで<b>10%以内</b> → スタチンを1段階増量</li>
-  <li>目標まで<b>15〜20%以上</b> → エゼチミブを追加</li>
-  <li>筋症状がある・出そう → <em>増量せずエゼチミブ</em></li>
-</ul>
-</div>
-</div>
-<div>
-<b>RACING試験</b>（韓国26施設、ASCVD既往 3,780例）
-<ul>
-  <li>ロスバスタチン<b>10mg＋エゼチミブ</b> vs ロスバスタチン<b>20mg単剤</b></li>
-  <li>3年の主要評価項目　<b>9.1% vs 9.9%</b>（非劣性）</li>
-  <li>不耐・有害事象による中止や減量　<b>4.8% vs 8.2%</b></li>
-</ul>
-<p class="note">高用量1剤より、中等量＋エゼチミブのほうが同等に効いて脱落が少ない。<em>日本では高用量スタチンを使う機会が少なく、この形が実情に合う。</em></p>
-</div>
-</div>
-</section>
-
-<section data-sum="ロスバスタチン <b>CCr30未満は2.5mgから・上限5mg</b>。エゼチミブは調節不要">
-<h2>腎機能が低下しているとき</h2>
-<table>
-<tr><th style="width:17%">薬剤</th><th style="width:36%">腎機能による調節</th><th>注意</th></tr>
-<tr><td><b>ロスバスタチン</b></td><td><em>CCr 30未満 → 2.5mgで開始し、最大5mg/日</em><br>通常は2.5mg開始、上限20mg/日</td><td>20mg使用時は開始後12週まで原則 月1回、以降は定期的に腎機能を確認。筋症状・CK上昇・Cr上昇があれば直ちに中止</td></tr>
-<tr><td><b>エゼチミブ</b></td><td><b>調節不要。透析患者にも使用可</b></td><td>胆汁排泄。<em>中等度以上の肝障害では推奨されない</em></td></tr>
-</table>
-<p class="note">腎機能が落ちるほどスタチンは増やせない。<b>増量より追加</b>がいっそう合理的になる。</p>
-</section>
-
-<section data-sum="ロスバスタチン5mg（後発）は30日・3割で <b>約100〜150円</b>、エゼチミブ約150〜170円。<b>レクビオは約118,400円/回</b>">
-<h2>薬価と自己負担（30日・3割）</h2>
-<table class="keep big">
-<tr><th>薬剤</th><th class="n">薬価</th><th class="n">3割負担</th></tr>
-<tr><td><b>ロスバスタチン 5mg（後発）</b><span class="s">先発クレストールは23.5円</span></td><td class="n">10.8–16.9円<span class="s">30日 324–507円</span></td><td class="n"><b>約100–150円</b></td></tr>
-<tr><td><b>エゼチミブ 10mg（後発）</b><span class="s">先発ゼチーアは49.5円</span></td><td class="n">17.0–19.3円<span class="s">30日 510–579円</span></td><td class="n"><b>約150–170円</b></td></tr>
-<tr><td><b>エゼロス配合錠HD（後発）</b><span class="s">ロスバスタチン5mg＋エゼチミブ10mg。別々に出すのとほぼ同額で1錠</span></td><td class="n">31.3円<span class="s">30日 939円</span></td><td class="n"><b>約280円</b></td></tr>
-<tr><td><b>ネクセトール 180mg</b><span class="s">1日1回</span></td><td class="n">371.5円<span class="s">30日 11,145円</span></td><td class="n"><b>約3,340円</b></td></tr>
-<tr><td><b>レパーサ 140mgペン</b><span class="s">2週ごと＝月2本。年間 約17.5万円</span></td><td class="n">24,302円/本<span class="s">30日 48,604円</span></td><td class="n"><b>約14,600円</b></td></tr>
-<tr><td><b>レクビオ 300mg</b><span class="s">年間 約23.7万円。初年度は3回で約35.5万円</span></td><td class="n">394,758円/筒<span class="s">30日 年2回で789,516円</span></td><td class="n"><b>約118,400円/回</b></td></tr>
-</table>
-<p class="note">高額療養費制度の対象になれば、実際の支払いは上限までとなる。調剤料・管理料は含まない。</p>
-</section>
-<footer>IMPROVE-IT／RACING／山口県薬剤師会フォーミュラリ資料（薬価2026.4）　2026-10-28</footer>
-</div>
-
-<div class="page">
-<h1>⑤ 高トリグリセライド血症</h1>
-<p class="lead">治療の順序、EPA、ペマフィブラート、膵炎</p>
-
-<section data-sum="二次性を除く → <b>スタチン</b>で目標 → TG150〜499＋高リスクは<b>EPA</b> → TG500以上は<b>ペマフィブラート</b>">
-<h2>治療の順序</h2>
-<div class="flow">
-  <div class="step"><b>0.</b> 二次性高TGをつぶす　血糖コントロール／飲酒／甲状腺機能／薬剤性（ステロイド、エストロゲン）</div>
-  <div class="step"><b>1.</b> スタチンでLDL-C・non-HDL-Cを目標まで　<span class="arrow">▶</span> イベント抑制の土台はここ</div>
-  <div class="step"><b>2.</b> TG 150〜499 ＋ 高リスク <span class="arrow">▶</span> <b>EPA</b> を上乗せ（イベント予防目的）</div>
-  <div class="step"><b>3.</b> TG 500以上 <span class="arrow">▶</span> <b>ペマフィブラート</b>で500未満へ（膵炎予防目的）</div>
-  <div class="step"><b>4.</b> 効果判定は TG だけでなく <b>non-HDL-C</b> で</div>
-</div>
-</section>
-
-<section data-sum="EPAは <b>心房細動・出血リスクで控える</b>。ペマフィブラートは膵炎予防で、<b>イベント抑制の根拠なし</b>">
-<h2>EPA と ペマフィブラート</h2>
-<div class="cols">
-<div>
-<b>EPAを足す対象</b>（いずれか ＋ スタチン投与下 ＋ TG 150〜499）<br>
-冠動脈疾患／末梢動脈疾患／アテローム血栓性脳梗塞後／糖尿病
-<div class="warn" style="margin-top:1.5mm">
-<b>EPAを控える</b>
-<ul>
-  <li>心房細動の既往・疑い（REDUCE-IT 5.3% vs 3.9%）</li>
-  <li>抗凝固薬併用、出血リスク高値（2.7% vs 2.1%）</li>
-  <li>手術・内視鏡の予定（術前1週間程度休薬）</li>
-  <li>75歳以上は個別判断（80歳以上はデータなし）</li>
-</ul>
-</div>
-<p class="note">エパデール1800mgのTG低下は数%〜10%程度。<em>TGが下がらないことを理由に中止しない</em>——REDUCE-ITでは達成TG値と効果に相関なし。</p>
-</div>
-<div>
-<b>ペマフィブラートの位置づけ</b>
-<ul>
-  <li><b>膵炎予防</b>：TG 500以上。1000超は急ぐ</li>
-  <li>腎機能低下例でフィブラートが要るとき（胆汁排泄、スタチン併用禁忌は解除、CK・腎機能はフォロー）</li>
-  <li>MASH／PBC は適応外</li>
-</ul>
-<div class="warn" style="margin-top:1.5mm">
-<b>心血管イベント抑制の根拠はない</b><br>
-PROMINENT（NEJM 2022、10,497例、2型糖尿病、TG 200〜499、スタチン下）：TG −26.2% にもかかわらず <b>HR 1.03</b>（0.91〜1.15）。LDL-C・apoB はむしろ上昇し、腎有害事象とVTEが増加。
-</div>
-<p class="note"><em>TGを下げてもapoB（粒子数）が減らなければイベントは減らない。</em></p>
-</div>
-</div>
-</section>
-
-<section data-sum="TG <b>1000以上</b>は急ぐ／<b>500〜1000</b>は薬物療法開始／500未満は慌てない">
-<h2>TGと膵炎リスク</h2>
-<table>
-<tr><th class="n">TG</th><th>対応</th></tr>
-<tr><td class="n">≧1000</td><td>急ぐ。絶食、入院、インスリン持続静注も検討（発症 5〜20%）</td></tr>
-<tr><td class="n">500〜1000</td><td>薬物療法を開始。背景因子を同時に詰める</td></tr>
-<tr><td class="n">&lt;500</td><td>膵炎としては慌てない。以降は心血管の話</td></tr>
-</table>
-<p class="note">500は閾値ではなく実務上の線引き（ATP III 500、米内分泌学会 1000、ESC/EAS 885）。飲酒・血糖悪化・感染・薬剤で数日に跳ねる。</p>
-</section>
-<footer>REDUCE-IT（NEJM 2019）／JELIS（Lancet 2007）／PROMINENT（NEJM 2022）　2026-10-28</footer>
-</div>
-
-<div class="page">
-<h1>⑥ CKDと脂質・レクビオ</h1>
-<p class="lead">下げる目的は腎臓ではない／インクリシランの使いどころ</p>
-
-<section data-sum="CKDは高リスクで <b>LDL-C 120未満</b>。心臓と脳は守れるが腎臓は守れない。<b>透析中の新規開始は根拠なし</b>">
-<h2>CKDでの考え方</h2>
-<div class="cols">
-<div>
-<div class="flow">
-<div class="step"><b>CKDは高リスク病態</b>＝スコアを使わず <b>LDL-C 120未満</b>（CKD診療ガイドライン2024は「可能であれば100未満」）</div>
-<div class="step"><b>SHARP（CKD約9,000人）</b>：主要動脈硬化性イベント <b>17%減少</b>／<em>末期腎不全への進行は変わらず</em></div>
-<div class="step"><b>「腎臓は守れないが、心臓と脳は守れる」</b>――最大の死因は腎不全ではなく心血管疾患</div>
-</div>
-</div>
-<div>
-<div class="warn">
-<b>KDIGOは目標値を追いかけない ― fire and forget</b><br>
-<b>「50歳以上の非透析CKDにはスタチン（±エゼチミブ）を使う」とだけ決めて、以後LDLを測って用量調整しない</b>。日本は目標値を置くので<em>方針が違う</em>。<b>「120未満に届いたか」ではなく「スタチンを飲む人かどうか」</b>で考えると、判断の難しい場面は楽になる。
-</div>
-<table style="margin-top:1.5mm">
-<tr><th style="width:30%">透析中</th><td><b>新規開始の根拠はない</b>（SHARP透析サブ 15.0% vs 16.5%、<b>4D・AURORAとも陰性</b>）。KDIGOは<b>新規開始は推奨しない（2A）／導入時に内服中なら継続を提案（2C）</b>――<em>2Cは弱く、中止も選択肢</em></td></tr>
-<tr class="hi"><td><b>80歳以上の一次予防</b></td><td>GL2022は<em>「一律に管理目標値に紐づけず、患者の状態を把握して個別の治療を」</em>と明記</td></tr>
-</table>
-<p class="note"><b>透析患者のLDL値はリスクマーカーとして機能しない</b>（reverse epidemiology）。<b>エゼチミブ単剤の透析患者でのエビデンスはゼロ</b>。<em>切る前に確認：直近のACS・冠動脈疾患／FH／高TG（膵炎予防）。</em></p>
-</div>
-</div>
-</section>
-
-<section data-sum="<b>1回300mg皮下注</b>、初回→3か月後→6か月ごと。<b>スタチン不十分・不適</b>の高リスク例に限る">
-<h2>レクビオ（インクリシラン）</h2>
-<div class="cols">
-<div>
-<table>
-<tr><th style="width:26%">適応</th><td>家族性高コレステロール血症／高コレステロール血症。<b>次のいずれも満たす場合に限る</b>：①心血管イベントの発現リスクが高い　②スタチンで効果不十分、またはスタチンが適さない</td></tr>
-<tr><td><b>「リスクが高い」</b></td><td>FH以外では、<b>動脈硬化性心血管疾患・末梢動脈疾患・糖尿病・慢性腎臓病</b>などの罹患歴・既往歴から判断</td></tr>
-<tr class="hi"><td><b>投与</b></td><td><b>1回300mgを皮下注。初回 → 3か月後 → 以降6か月ごと</b>（年2回）</td></tr>
-</table>
-<p class="note"><b>スタチンが適さない場合を除き、スタチンと併用する。</b>初回投与後に脂質を測って継続の可否を判断し、反応がなければ中止。禁忌は本剤成分への過敏症のみ。</p>
-</div>
-<div style="flex:0 0 42%">
-<table>
-<tr><th>費用</th><th class="n"></th></tr>
-<tr><td>薬価</td><td class="n">394,758円/筒</td></tr>
-<tr class="hi"><td><b>3割負担</b></td><td class="n"><b>約118,400円/回</b></td></tr>
-<tr><td>年間（2回）</td><td class="n">約23.7万円</td></tr>
-<tr><td>初年度（3回）</td><td class="n">約35.5万円</td></tr>
-</table>
-<div class="warn" style="margin-top:3mm">
-<b>高額療養費制度の対象になれば、実際の支払いは上限までで止まる。</b><em>年2回という投与間隔のため、投与した月だけ自己負担が跳ね上がる</em>——<b>月をまたがないよう投与日を揃えると負担が抑えられる</b>。
-</div>
-</div>
-</div>
-</section>
-<footer>CKD診療ガイドライン2024／KDIGO／SHARP・4D・AURORA／レクビオ電子添文　2026-10-28</footer>
-</div>
-
-
 <script>
-// 縦積みにした表は列見出しが行から切り離されてしまうので、各セルに列名を付け直す
-function labelStack(w){
-  var t = w.querySelector('table'); if(!t) return;
-  var hr = t.querySelector('tr.hdr'); if(!hr) return;
-  var labs = [].map.call(hr.cells, function(c){
-    return (c.innerText||'').replace(/\s+/g,' ').trim();
-  });
-  var any = false;
-  [].forEach.call(t.rows, function(x){
-    if(x === hr) return;
-    var ci = 0;
-    [].forEach.call(x.cells, function(c){
-      var l = labs[ci];
-      ci += (c.colSpan||1);
-      if(l && (c.colSpan||1) === 1 && (c.innerText||'').trim()){
-        c.setAttribute('data-lab', l); any = true;
-      }
-    });
-  });
-  if(any) w.className += ' lab';
-}
-if(window.matchMedia('(max-width:820px)').matches)
-document.querySelectorAll('.page table').forEach(function(t){
-  if(t.parentNode.classList.contains('tw')) return;
-  var w=document.createElement('div'); w.className='tw';
-  t.parentNode.insertBefore(w,t); w.appendChild(t);
-  [].slice.call(t.querySelectorAll('[rowspan]')).forEach(function(c){
-    if(parseInt(c.rowSpan,10) >= 3 && (c.innerText||'').replace(/\s+/g,'').length > 25){
-      var p=document.createElement('div'); p.className='spanNote'; p.innerHTML=c.innerHTML;
-      w.parentNode.insertBefore(p, w.nextSibling);
-      c.parentNode.removeChild(c);
-    }
-  });
-  var rows=[].slice.call(t.rows);
-  var r=rows[0], n=0;
-  if(r){ for(var i=0;i<r.cells.length;i++) n += (r.cells[i].colSpan||1); }
-  var hdr = r && r.cells.length>1 && [].every.call(r.cells, function(c){return c.tagName==='TH';});
-  if(hdr) r.className += ' hdr';
-  var dataRows = rows.slice(hdr?1:0);
-  var rowHeader = dataRows.length>0 && dataRows.every(function(x){
-    return x.cells.length>1 && x.cells[0].tagName==='TH';
-  });
-  if(hdr){
-    var maxc = 0;
-    dataRows.forEach(function(x){ var k=0; [].forEach.call(x.cells,function(c){k+=(c.colSpan||1);}); if(k>maxc) maxc=k; });
-    var hc = 0; [].forEach.call(r.cells,function(c){hc+=(c.colSpan||1);});
-    while(hc > maxc && r.cells.length > 1){
-      var last = r.cells[r.cells.length-1];
-      hc -= (last.colSpan||1);
-      last.parentNode.removeChild(last);
-    }
-    n = hc;
-  }
-  var maxLen = 0;
-  dataRows.forEach(function(x){ [].forEach.call(x.cells, function(c){
-    maxLen = Math.max(maxLen, (c.innerText||'').replace(/\s+/g,'').length);
-  });});
-  if((rowHeader && maxLen>60) || (n<=3 && maxLen>85)){ w.className += ' stack'; labelStack(w); return; }
-  if(n>=4) t.style.minWidth = (n*8.4) + 'em';
-});
-if(window.matchMedia('(max-width:820px)').matches)
-document.querySelectorAll('.page').forEach(function(pg, pi){
-  var secs = [].slice.call(pg.children).filter(function(e){ return e.tagName === 'SECTION'; });
-  if(!secs.length) return;
-  var idx = document.createElement('div'); idx.className = 'pidx';
-  secs.forEach(function(sec, si){
-    var h2 = sec.querySelector(':scope > h2');
-    if(!h2) return;
-    var id = 's' + pi + '-' + si;
-    sec.id = id;
-    var body = document.createElement('div'); body.className = 'sbody';
-    while(h2.nextSibling) body.appendChild(h2.nextSibling);
-    sec.appendChild(body);
-    h2.addEventListener('click', function(){ sec.classList.toggle('closed'); });
-    var a = document.createElement('a');
-    a.href = '#' + id;
-    a.textContent = (h2.textContent || '').split(/[—―─-]/)[0].replace(/\s+$/, '');
-    idx.appendChild(a);
-  });
-  var lead = pg.querySelector(':scope > .lead');
-  var h1 = pg.querySelector(':scope > h1');
-  var ref = lead || h1;
-  if(ref && idx.children.length > 1) ref.parentNode.insertBefore(idx, ref.nextSibling);
-});
-// 実際の描画を測り、細かく折り返している表は縦積みにする
-if(window.matchMedia('(max-width:820px)').matches){
-  var colCount = function(t){
-    var r = t.rows[0], n = 0;
-    if(r){ for(var i=0;i<r.cells.length;i++) n += (r.cells[i].colSpan||1); }
-    return n;
-  };
-  var badlyWrapped = function(t){
-    var cells = t.querySelectorAll('td,th');
-    for(var i=0;i<cells.length;i++){
-      var c = cells[i];
-      var txt = (c.innerText||'').replace(/\s+/g,'');
-      if(t.classList.contains('keep')) return false;
-      if(txt.length < 8) continue;
-      var lh = parseFloat(getComputedStyle(c).lineHeight) || 20;
-      var lines = Math.round((c.getBoundingClientRect().height - 10) / lh);
-      if(lines >= 3 && txt.length / lines <= 6) return true;
-    }
-    return false;
-  };
-  document.querySelectorAll('.tw:not(.stack)').forEach(function(w){
-    var t = w.querySelector('table'); if(!t) return;
-    if(!badlyWrapped(t)) return;
-    var n = colCount(t);
-    if(n <= 5){ w.className += ' stack'; labelStack(w); }
-    else { w.className += ' wide'; }
-  });
-}
-if(window.matchMedia('(max-width:820px)').matches){
-  var pgs = document.querySelectorAll('.page');
-  if(pgs.length > 1){
-    var toc = document.createElement('div'); toc.className = 'toc';
-    pgs.forEach(function(pg, i){
-      var h1 = pg.querySelector(':scope > h1'); if(!h1) return;
-      if(!pg.id) pg.id = 'p' + i;
-      var txt = (h1.textContent || '').trim();
-      var m = txt.match(/^([①-⑳])\s*(.*)$/);
-      var a = document.createElement('a');
-      a.href = '#' + pg.id;
-      a.innerHTML = m ? ('<b>' + m[1] + '</b>' + m[2].split('　—')[0].split(' —')[0])
-                      : txt;
-      toc.appendChild(a);
-    });
-    var nav = document.querySelector('.nav');
-    var wrap = document.createElement('div');
-    wrap.style.cssText = 'padding:0 max(14px,env(safe-area-inset-left,0px))';
-    wrap.appendChild(toc);
-    if(nav) nav.parentNode.insertBefore(wrap, nav.nextSibling);
-  }
-}
 if('serviceWorker' in navigator){
   navigator.serviceWorker.register('sw.js').then(function(reg){ reg.update(); });
   var reloaded=false;
@@ -610,68 +146,6 @@ if('serviceWorker' in navigator){
     if(!reloaded){reloaded=true; location.reload();}
   });
 }
-
-// ハイフンやスラッシュを含む英数字は、その途中で改行させない
-(window.nbFix = function(root){
-  var RE = /[A-Za-z0-9][A-Za-z0-9.+%]*(?:[-‐–—\/][A-Za-z0-9.+%]+)+/g;
-  var esc = function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;'}[c]; };
-  var w = document.createTreeWalker(root || document.body, NodeFilter.SHOW_TEXT, null);
-  var list = [], n;
-  while ((n = w.nextNode())) {
-    var p = n.parentNode;
-    if (!p || p.nodeName === 'SCRIPT' || p.nodeName === 'STYLE') continue;
-    RE.lastIndex = 0;
-    if (RE.test(n.nodeValue)) list.push(n);
-  }
-  list.forEach(function(t){
-    if (!t.parentNode) return;
-    RE.lastIndex = 0;
-    var html = t.nodeValue.replace(/[&<>]/g, esc)
-                          .replace(RE, '<span class="nb">$&</span>');
-    var f = document.createElement('span');
-    f.innerHTML = html;
-    t.parentNode.replaceChild(f, t);
-  });
-})(document.body);
 </script>
-<style>@media screen and (max-width:820px){.note.fold:not(.open),.spanNote.fold:not(.open){display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:3;overflow:hidden}
-footer.fold:not(.open){white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.fbtn{display:block;margin:2px 0 0;padding:6px 0;font-size:13px;color:#2563C9;font-weight:700;cursor:pointer;-webkit-tap-highlight-color:transparent}}</style>
-<script id="foldjs">(function(){if(!window.matchMedia('(max-width:820px)').matches)return;
-function add(el,minLen){var n=(el.textContent||'').replace(/\s+/g,'').length;if(n<minLen)return;el.classList.add('fold');
-var b=document.createElement('div');b.className='fbtn';var lb=el.tagName==='FOOTER'?'出典を見る ▾':'続きを開く ▾';b.textContent=lb;
-b.addEventListener('click',function(){var o=el.classList.toggle('open');b.textContent=o?'閉じる ▴':lb});
-el.parentNode.insertBefore(b,el.nextSibling)}
-window.addEventListener('load',function(){document.querySelectorAll('.page .note, .page .spanNote').forEach(function(e){add(e,130)});
-document.querySelectorAll('.page footer').forEach(function(e){add(e,40)})})})();</script><script id="sumjs">(function(){if(!window.matchMedia('(max-width:820px)').matches)return;
-function upd(){document.querySelectorAll('.page').forEach(function(p){var o=p.querySelector('section:not(.closed)');p.classList.toggle('allclosed',!o&&!!p.querySelector('section[data-sum]'))})}
-window.addEventListener('load',function(){document.querySelectorAll('.page > section[data-sum]').forEach(function(s){var h=s.querySelector(':scope > h2');var d=document.createElement('div');d.className='sum';d.innerHTML=s.getAttribute('data-sum');h.parentNode.insertBefore(d,h.nextSibling);if(!s.hasAttribute('data-open'))s.classList.add('closed');d.addEventListener('click',function(){s.classList.remove('closed');upd()})});
-document.addEventListener('click',function(){setTimeout(upd,0)});upd()})})();</script><script id="nbjs">(function(){if(!window.matchMedia('(max-width:820px)').matches)return;
-var KA=/[ァ-ヺー]{2,}|[A-Za-z][A-Za-z0-9\-]{2,}/g;
-var NUM=/約?\d[\d.,]*(?:\s?[–〜~\-]\s?\d[\d.,]*)?\s?(?:mg\/日|mg\/dL|\/日|mmHg|mg\/gCr|g\/gCr|mg|μg|µg|kg|mL|dL|g|円|%|％|未満|以上|以下|か月|月|個|週間|週|時間|日|年|点|人|例|回|倍|分|秒|mm|cm|歳)?/g;
-function wrapText(n){var t=n.nodeValue;if(t.trim().length<2)return;var pp=n.parentNode,inT=!!pp.closest('td,th'),inS=!!pp.closest('.s'),inN=!!pp.closest('td.n');var lim=inT?10:16;if(pp.closest('table.keep')&&pp.closest('td,th')&&!pp.closest('td.c,td.n,th.c,th.n'))lim=8;
-var parts=[],re=new RegExp(KA.source+'|'+NUM.source,'g'),m,last=0,any=false;
-while((m=re.exec(t))){var s=m[0];if(s.length<2||s.length>lim)continue;if(inN&&/^約?\d/.test(s))continue;parts.push([m.index,m.index+s.length]);}
-if(!parts.length)return;var f=document.createDocumentFragment();last=0;
-parts.forEach(function(p){if(p[0]>last)f.appendChild(document.createTextNode(t.slice(last,p[0])));var sp=document.createElement('span');sp.className='nb';sp.textContent=t.slice(p[0],p[1]);f.appendChild(sp);last=p[1]});
-if(last<t.length)f.appendChild(document.createTextNode(t.slice(last)));n.parentNode.replaceChild(f,n)}
-window.addEventListener('load',function(){var w=document.createTreeWalker(document.body,NodeFilter.SHOW_TEXT),a=[],n;
-while(n=w.nextNode()){var p=n.parentNode;if(!p||/SCRIPT|STYLE|PRE/.test(p.tagName)||p.closest('.nav,.fbtn'))continue;a.push(n)}
-a.forEach(wrapText)})})();</script><style id="phrasecss">@media screen and (max-width:820px){.ph,.nbk{white-space:nowrap}}</style>
-<script id="phrasejs">(function(){if(!window.matchMedia('(max-width:820px)').matches)return;
-var HIRA=/[ぁ-ゟ]/,KEEP=/[、。，．）」』】]/;
-function isH(c){return HIRA.test(c)||KEEP.test(c)}
-function split(s,CAP){var out=[],cur='';for(var i=0;i<s.length;i++){var c=s[i];cur+=c;var n=s[i+1];if(n===undefined)break;
- var brk=false;if(isH(c)&&!isH(n)&&!/[、。，．）」』】・ー]/.test(n)&&!/[ぁ-ゖ]/.test(n))brk=true;if(/[。、]/.test(c)&&n!=='」')brk=true;if(/[（「『【]/.test(n)&&!/[（「『【]/.test(c))brk=true;
- if(cur.length>=CAP&&!brk&&isH(c))brk=true;if(!brk&&c==='・'&&cur.length>=6)brk=true;if(!brk&&c==='／'&&cur.length>=5)brk=true;if(!brk&&cur.length>=CAP+4)brk=true;if(brk){out.push(cur);cur=''}}
- if(cur)out.push(cur);return out}
-function run(){var sel='.warn,.ok,.note,.sum,li,td,th,.s,.flow';
- document.querySelectorAll(sel).forEach(function(root){
-  root.querySelectorAll('b,em').forEach(function(e){if(!e.children.length&&e.textContent.length<=16)e.classList.add('nbk')});
-  var w=document.createTreeWalker(root,NodeFilter.SHOW_TEXT,null),nodes=[],n;while(n=w.nextNode())nodes.push(n);
-  nodes.forEach(function(t){var p=t.parentNode;if(p.classList&&(p.classList.contains('ph')||p.classList.contains('nbk')||p.classList.contains('nb')))return;
-   if(p.closest&&(p.closest('.ph')||p.closest('.nbk')||p.closest('.nb')))return;
-   var tb=p.closest('table');if(tb&&tb.rows[0]&&tb.rows[0].cells.length>2)return;var s=t.nodeValue;if(!s.trim()||s.length<3)return;var parts=split(s,(p.closest('td,th')?7:13)),f=document.createDocumentFragment();
-   parts.forEach(function(x){var sp=document.createElement('span');sp.className='ph';sp.textContent=x;f.appendChild(sp)});p.replaceChild(f,t)})})}
-window.addEventListener('load',function(){setTimeout(run,60)})})();</script></body>
+</body>
 </html>
