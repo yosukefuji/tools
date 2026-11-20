@@ -1,7 +1,9 @@
-const CACHE = 'preg-20261120-r40';
+const CACHE = 'preg-20261121-r41';
 const ASSETS = [
   './',
   './index.html',
+  './ic/dm_wine.png',
+  './ic/thy_wine.png',
   './manifest.webmanifest',
   './icon-192.png',
   './icon-512.png',

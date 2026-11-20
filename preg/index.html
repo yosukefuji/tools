@@ -81,17 +81,15 @@ html,body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--font)
 .go::after{content:"›";font-size:24px;line-height:1}
 
 html{scroll-behavior:smooth}.card[id],.part[id]{scroll-margin-top:62px}.back{display:inline-block;padding:6px 12px 6px 0;margin:-6px 0;font-size:24px;line-height:1}.list a{color:var(--ink)}.foot{margin-bottom:24px}.main,.q{word-break:keep-all;overflow-wrap:anywhere;line-break:strict}html{background:var(--c)}body{background:var(--bg);min-height:100vh}</style>
-<style>:root{--c:#8A3A5E}</style>
+<style>:root{--c:#8A3A5E}.top{padding-top:calc(env(safe-area-inset-top) + 44px)}.i-thy{-webkit-mask-image:url(ic/thy.png);mask-image:url(ic/thy.png)}.i-dm{-webkit-mask-image:url(ic/dm.png);mask-image:url(ic/dm.png)}.grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.tile{background:#fff;border:1px solid var(--line);border-radius:16px;padding:18px 12px 16px;display:flex;flex-direction:column;align-items:center;gap:10px;text-decoration:none;color:var(--ink)}
+.tile .cir{width:72px;height:72px;border-radius:50%;background:color-mix(in srgb,var(--c) 12%,#fff);display:flex;align-items:center;justify-content:center}
+.tile .ic{width:40px;height:40px;object-fit:contain}
+.tile .n{font-size:16px;font-weight:800;text-align:center;line-height:1.35}
+</style>
 </head>
 <body>
-<div class="top"><div class="in"><div class="title"><h1>妊娠メモ</h1></div></div></div>
-<div class="main">
-<div class="card list">
-<a href="thyroid.html"><div class="n">妊娠と甲状腺</div></a>
-<a href="gdm.html"><div class="n">妊娠糖尿病</div></a>
-</div>
-<div class="foot">オフラインで使えます。最終的な判断は原典で確認してください。<br>版 2026-11-20 23:43</div>
-</div>
+<div class="top"><div class="in"><div class="title"><h1>妊娠メモ</h1></div></div></div><div class="main"><div class="grid2"><a class="tile" href="thyroid.html"><span class="cir"><img class="ic" src="ic/thy_wine.png"></span><span class="n">妊娠と甲状腺</span></a><a class="tile" href="gdm.html"><span class="cir"><img class="ic" src="ic/dm_wine.png"></span><span class="n">妊娠糖尿病</span></a></div><div class="foot">オフラインで使えます。最終的な判断は原典で確認してください。<br>版 2026-11-21 00:01</div></div>
 <script>
 if('serviceWorker' in navigator){
   navigator.serviceWorker.register('sw.js').then(function(reg){ reg.update(); });

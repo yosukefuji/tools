@@ -1,7 +1,13 @@
-const CACHE = 'ref-20261120-r37';
+const CACHE = 'ref-20261121-r38';
 const ASSETS = [
   './',
   './index.html',
+  './ic/bp_blue.png',
+  './ic/dm_blue.png',
+  './ic/lipid_blue.png',
+  './ic/stroke_blue.png',
+  './ic/thy_blue.png',
+  './ic/ua_blue.png',
   './manifest.webmanifest',
   './icon-192.png',
   './icon-512.png',
