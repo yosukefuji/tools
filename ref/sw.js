@@ -1,4 +1,4 @@
-const CACHE = 'ref-20261124-r47';
+const CACHE = 'ref-20261124-r48';
 const ASSETS = [
   './',
   './index.html',
