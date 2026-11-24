@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#2563C9">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="診療メモ">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<title>画像フォロー</title>
+<style>/* 診療ツール 共通の型（全アプリ同じ。--c だけアプリごと） */
+:root{--bg:#f3f4f7;--card:#fff;--ink:#1b1f27;--muted:#6b7280;--line:#e3e6ec;
+ --font:-apple-system,"Hiragino Sans","Yu Gothic UI","Yu Gothic",system-ui,sans-serif}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--font);-webkit-text-size-adjust:100%}
+.top{background:var(--c);color:#fff;padding:calc(env(safe-area-inset-top,0px) + 44px) 16px 14px}
+.top .in,.main{max-width:560px;margin:0 auto}
+.brand{font-size:11px;letter-spacing:.14em;opacity:.8;font-weight:700}
+.title{display:flex;align-items:center;gap:10px;margin-top:4px;min-height:30px}
+.title h1{font-size:21px;margin:0;font-weight:800;letter-spacing:.02em}
+.back{color:#fff;text-decoration:none;font-size:15px;opacity:.9;white-space:nowrap}
+.main{padding:14px 16px 32px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;margin:0 0 12px;overflow:hidden}
+.q{padding:12px 16px;font-size:20px;line-height:1.4;font-weight:800;color:var(--c);background:color-mix(in srgb,var(--c) 10%,#fff);border-left:5px solid var(--c);margin-bottom:6px;letter-spacing:.04em}
+.q em{font-style:normal;color:var(--c)}
+.row{display:flex;gap:12px;align-items:baseline;padding:9px 16px;border-top:1px solid var(--line);font-size:15px;line-height:1.5}
+.q+.row{border-top:0}
+.row .k{flex:0 0 36%;color:var(--ink)}
+.row .v{flex:1}
+.big{font-size:19px;font-weight:800;color:var(--c);white-space:nowrap}
+.b{font-weight:800;color:var(--c)}
+.note{padding:4px 16px 12px;font-size:12.5px;color:var(--muted);line-height:1.6}
+.nb{white-space:nowrap}
+.sec{font-size:12px;color:var(--muted);font-weight:700;letter-spacing:.1em;margin:20px 4px 8px}
+.list a{display:block;padding:14px 16px;border-top:1px solid var(--line);text-decoration:none;color:var(--ink)}
+.list a:first-child{border-top:0}
+.list .n{font-size:17px;font-weight:800;display:flex;justify-content:space-between}
+.list .n::after{content:"›";color:var(--c);font-size:20px;line-height:1}
+.list .s{font-size:13px;color:var(--muted);margin-top:3px;line-height:1.5}
+.list .s b{color:var(--c)}
+.fold{padding:13px 16px;border-top:1px solid var(--line);font-size:15px;display:flex;justify-content:space-between;color:var(--ink)}
+.fold:first-child{border-top:0}
+.fold::after{content:"＋";color:var(--c);font-weight:800}
+.foot{font-size:11.5px;color:var(--muted);line-height:1.7;margin:18px 4px 0}
+/* 入力（計算アプリ） */
+.lbl{font-size:13px;font-weight:700;color:var(--muted);padding:12px 16px 6px}
+.chips{display:flex;flex-wrap:wrap;gap:8px;padding:0 16px 12px}
+.chip{border:1.5px solid var(--line);border-radius:999px;padding:7px 12px;font-size:14.5px}
+.chip.on{border-color:var(--c);color:var(--c);font-weight:800;background:color-mix(in srgb,var(--c) 8%,#fff)}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;padding:0 16px 14px}
+.f .t{font-size:13px;font-weight:700}.f .u{font-size:11px;color:var(--muted)}
+.f .box{margin-top:4px;height:46px;border-radius:10px;background:#f1f3f7;border:1.5px solid var(--line);font-size:20px;font-weight:800;display:flex;align-items:center;padding:0 10px}
+.ans{background:var(--c);color:#fff;border-radius:14px;padding:14px 16px;margin:0 0 12px}
+.ans .t{font-size:12px;opacity:.85;font-weight:700;letter-spacing:.06em}
+.ans .v{font-size:30px;font-weight:800;margin-top:2px}
+.ans .s{font-size:13.5px;opacity:.92;margin-top:2px}
+.two{display:grid;grid-template-columns:1fr 1fr;border-top:1px solid var(--line)}
+.q+.two{border-top:0}
+.two>div{padding:8px 14px 12px;font-size:14.5px;line-height:1.55}
+.two>div+div{border-left:1px solid var(--line)}
+.two .h{font-size:12.5px;font-weight:800;margin-bottom:4px}
+.yes .h{color:var(--c)} .no .h{color:#9a3b2a}
+.two ul{margin:0;padding:0;list-style:none}.two li{margin:2px 0}
+.small{font-size:12px;color:var(--muted)}
+.tags{display:flex;flex-wrap:wrap;gap:6px;padding:2px 16px 12px}
+.tag{font-size:13.5px;font-weight:700;border-radius:8px;padding:3px 9px;background:color-mix(in srgb,var(--c) 10%,#fff);color:var(--c)}
+.ev{border-top:1px solid var(--line)}
+.ev summary{list-style:none;padding:10px 16px;font-size:13.5px;font-weight:700;color:var(--muted);display:flex;justify-content:space-between;cursor:pointer}
+.ev summary::-webkit-details-marker{display:none}
+.ev summary::after{content:"＋";color:var(--c)}
+.ev[open] summary::after{content:"－"}
+.ev .in{padding:0 16px 12px;font-size:13px;line-height:1.65;color:#3b4150}
+.ev .in p{margin:0 0 6px}
+.ev .in .src{font-size:11.5px;color:var(--muted)}
+.gl{display:inline-block;font-size:11px;font-weight:700;color:var(--muted);background:#eef0f4;border-radius:5px;padding:0 6px;margin-left:2px}
+.toc{position:sticky;top:0;z-index:5;background:var(--bg);display:flex;gap:6px;padding:10px 16px;border-bottom:1px solid var(--line)}
+.toc a{flex:1;text-align:center;font-size:14px;font-weight:800;color:var(--c);background:#fff;border:1.5px solid color-mix(in srgb,var(--c) 35%,#fff);border-radius:999px;padding:7px 0;text-decoration:none;white-space:nowrap}
+.go{display:flex;justify-content:space-between;align-items:center;margin:12px 16px;padding:14px 16px;border-radius:12px;background:#5B4BC4;color:#fff;font-size:17px;font-weight:800;text-decoration:none}
+.go::after{content:"›";font-size:24px;line-height:1}
+
+html{scroll-behavior:smooth}.card[id],.part[id]{scroll-margin-top:62px}.back{display:inline-block;padding:6px 12px 6px 0;margin:-6px 0;font-size:24px;line-height:1}.list a{color:var(--ink)}.foot{margin-bottom:24px}.main,.q{word-break:keep-all;overflow-wrap:anywhere;line-break:strict}html{background:var(--c)}body{background:var(--bg);min-height:100vh}</style>
+<style>:root{--c:#2563C9}.row .k{flex-basis:30%}.toc{overflow-x:auto}.toc a{flex:none;padding:7px 13px}.v a{color:var(--c);font-weight:700}</style>
+</head>
+<body>
+<div class="top"><div class="in"><div class="title"><a class="back" href="index.html">‹</a><h1>画像フォロー</h1></div></div></div>
+<nav class="toc"><a href="#s0">頸動脈</a><a href="#s1">脂肪肝</a><a href="#s2">肝血管腫</a><a href="#s3">胆嚢腺筋腫症</a><a href="#s4"><span class="nb">IPMN</span></a><a href="#s5">副腎腫瘍</a><a href="#s6">腎結石</a></nav>
+<div class="main">
+
+<div id="s0" class="card"><div class="q">頸動脈プラーク</div>
+<div class="row"><div class="k">プラーク</div><div class="v"><span class="nb">IMT</span> <span class="b"><span class="nb">1.1mm</span>以上</span>の<wbr>限局した<wbr>隆起</div></div>
+<div class="row"><div class="k"><span class="nb">LDL</span>目標</div><div class="v"><a href="lipid.html">脂質異常症の<wbr>ページ</a><wbr><span class="nb">（頸動脈プラークがあるとき）</span><wbr></div></div>
+<div class="row"><div class="k">相談する</div><div class="v">狭窄 <span class="big"><span class="nb">70%</span>以上</span><wbr><span class="nb">（<span class="nb">NASCET</span>）</span><wbr><br>短い<wbr>間に<wbr>進んだ<br>可動性・<wbr>潰瘍・<wbr>低輝度の<wbr>プラーク<br>一過性の<wbr>脱力・<wbr>しびれ・<wbr>黒内障</div></div>
+<div class="row"><div class="k">間隔</div><div class="v">決まりはない</div></div>
+<details class="ev"><summary>根拠</summary><div class="in"><p>プラークの<wbr>定義：<span class="gl">ガイドライン記載</span>（超音波による<wbr>頸動脈病変の<wbr>標準的評価法<span class="nb">2017</span>）</p><p>高度狭窄・症候性は<wbr>手術<wbr><span class="nb">（内膜剥離術・ステント）</span><wbr>を<wbr>考える<wbr>対象：<span class="gl">ガイドライン記載</span>（脳卒中治療ガイドライン<span class="nb">2021</span>）</p><p>経過をみる<wbr>間隔を<wbr>決めた<wbr>指針はない</p></div></details></div>
+
+<div id="s1" class="card"><div class="q">脂肪肝</div>
+<div class="row"><div class="k">まず</div><div class="v"><span class="nb">ALT</span> <span class="b">30超</span>は<wbr>原因を<wbr>探す<br>飲酒・<wbr>ウイルス・<wbr>薬を<wbr>確認</div></div>
+<div class="row"><div class="k">線維化</div><div class="v"><span class="b"><span class="nb">FIB-4</span></span>で<wbr>見る</div></div>
+<div class="row"><div class="k"><span class="nb">1.3</span>未満</div><div class="v">低リスク<br><span class="b"><span class="nb">1〜3年</span></span>ごとに<wbr>再計算</div></div>
+<div class="row"><div class="k"><span class="nb">1.3〜2.67</span></div><div class="v">エラストグラフィ・<wbr><span class="nb">ELF</span><br><wbr><span class="nb">（肝の硬さを測る）</span><wbr></div></div>
+<div class="row"><div class="k"><span class="nb">2.67</span>以上</div><div class="v"><span class="b">消化器内科へ</span></div></div>
+<div class="row"><div class="k"><span class="nb">65歳</span>以上</div><div class="v">低リスクの<wbr>線は <span class="big"><span class="nb">2.0</span></span></div></div>
+<div class="row"><div class="k">体重</div><div class="v"><span class="b">7%減</span>で<wbr>脂肪肝炎が<wbr>改善<br><span class="b"><span class="nb">10%</span>減</span>で<wbr>線維化も</div></div>
+<div class="row"><div class="k">エコーで<wbr>追う</div><div class="v">肝硬変なら<span class="big"><span class="nb">6か月</span></span>ごと<wbr><span class="nb">（肝癌）</span><wbr></div></div>
+<details class="ev"><summary>根拠</summary><div class="in"><p><b><span class="nb">ALT</span> 30</b>：奈良宣言<span class="nb">2023</span><wbr><span class="nb">（日本肝臓学会）</span><wbr></p><p><b><span class="nb">FIB-4</span> <span class="nb">1.3・2.67</span></b>：<span class="gl">ガイドライン記載</span>（<span class="nb">NAFLD/NASH</span> 診療ガイドライン<span class="nb">2020</span>、<wbr><span class="nb">EASL</span> <span class="nb">2024</span>）<wbr>。<wbr>高齢者は<wbr>偽陽性が<wbr>増えるため<wbr><span class="nb">65歳</span>以上は<wbr><span class="nb">2.0</span></p><p><b><span class="nb">1〜3年</span></b>：<span class="nb">EASL-EASD-EASO</span> <span class="nb">2024</span><wbr><span class="nb">（<span class="nb">MASLD</span>）</span><wbr></p><p><b><span class="nb">7%・10%</span></b>：生活指導<span class="nb">52週</span>で、<wbr><span class="nb">10%</span>以上減った<wbr>人の<wbr><span class="nb">90%</span>で<wbr>脂肪肝炎が<wbr>消え、<wbr><span class="nb">45%</span>で<wbr>線維化が<wbr>改善<wbr>（<span class="nb">Vilar-Gomez</span> <span class="nb">2015</span>、<wbr>生検）</p><p><span class="nb">2023年</span>から <span class="nb">MASLD</span><wbr>（代謝機能障害関連脂肪性肝疾患）<wbr>と<wbr>呼ぶ</p></div></details></div>
+
+<div id="s2" class="card"><div class="q">肝血管腫</div>
+<div class="row"><div class="k">典型像</div><div class="v">定期フォロー <span class="b">不要</span></div></div>
+<div class="row"><div class="k">典型でない</div><div class="v">造影CTか<wbr><span class="nb">MRI</span>で<wbr>確かめる<br>生検はしない</div></div>
+<div class="row"><div class="k">続けて<wbr>追う</div><div class="v">肝硬変・<wbr>B型慢性肝炎<br><span class="b"><span class="nb">3〜6か月</span></span>ごと、<wbr>少なくとも<wbr>1年</div></div>
+<details class="ev"><summary>根拠</summary><div class="in"><p><span class="gl">ガイドライン記載</span>（<span class="nb">ACG</span> <span class="nb">2024</span> <span class="nb">Focal</span> <span class="nb">Liver</span> <span class="nb">Lesions</span>）<wbr>。<wbr>エコーや<wbr>単相CTで<wbr>典型なら<wbr>追加の<wbr>検査はいらない。<wbr>肝細胞癌と<wbr>見分けにくい<wbr>背景<wbr><span class="nb">（肝硬変・B型）</span><wbr>だけ<wbr>追う</p><p>巨大なものは<wbr>痛み・<wbr>凝固異常<wbr>（カサバッハ・<wbr>メリット症候群）<wbr>が<wbr>出ることがある</p></div></details></div>
+
+<div id="s3" class="card"><div class="q">胆嚢腺筋腫症</div>
+<div class="row"><div class="k">典型像</div><div class="v">壁の<wbr>中の<wbr>小さな<wbr>嚢胞<wbr><span class="nb">（<span class="nb">RAS</span>）</span><wbr><br>コメット様エコー</div></div>
+<div class="row"><div class="k">典型なら</div><div class="v">症状がなければ<wbr>経過をみる</div></div>
+<div class="row"><div class="k">見分ける</div><div class="v">胆嚢癌<br>壁が<wbr>不整・<wbr>層が<wbr>崩れる・<wbr>血流が<wbr>多い<br>→ <span class="nb">MRI</span>・<wbr>超音波内視鏡</div></div>
+<div class="row"><div class="k">分節型</div><div class="v">底部側に<span class="b">胆嚢癌の<wbr>合併</span>の<wbr>報告がある</div></div>
+<div class="row"><div class="k">間隔</div><div class="v">決まりはない</div></div>
+<details class="ev"><summary>根拠</summary><div class="in"><p>腺筋腫症そのものが<wbr>癌になるかは<wbr>結論が<wbr>出ていない。<wbr>分節型で<wbr>胆嚢癌の<wbr>合併が<wbr>多いという<wbr>報告がある<wbr><span class="nb">（日本の症例集積）</span><wbr></p><p>経過をみる<wbr>間隔を<wbr>決めた<wbr>指針はない</p></div></details></div>
+
+<div id="s4" class="card"><div class="q"><span class="nb">IPMN</span><wbr><span class="nb">（分枝型）</span><wbr></div>
+<div class="row"><div class="k"><span class="nb">20mm</span>未満</div><div class="v"><span class="b"><span class="nb">6か月</span></span>後 → 変わらなければ<span class="big"><span class="nb">18か月</span></span>ごと</div></div>
+<div class="row"><div class="k"><span class="nb">20〜30mm</span></div><div class="v"><span class="b"><span class="nb">6か月</span></span>ごと<wbr>2回 → <span class="big">1年</span>ごと</div></div>
+<div class="row"><div class="k"><span class="nb">30mm</span>以上</div><div class="v"><span class="big"><span class="nb">6か月</span></span>ごと</div></div>
+<div class="row"><div class="k">すぐ<wbr>紹介</div><div class="v">閉塞性黄疸<br>造影される<wbr>結節 <span class="b"><span class="nb">5mm</span>以上</span><br>主膵管 <span class="b"><span class="nb">10mm</span>以上</span></div></div>
+<div class="row"><div class="k">間隔を<wbr>詰める</div><div class="v">嚢胞 <span class="nb">30mm</span>以上<br>結節 <span class="nb">5mm</span>未満・<wbr>壁が<wbr>厚い<br>主膵管 <span class="nb">5〜9mm</span>・<wbr>急に<wbr>細くなる<br>年 <span class="b"><span class="nb">2.5mm</span>以上</span>の<wbr>増大<br><span class="nb">CA19-9</span>上昇・<wbr>リンパ節腫大<br>膵炎・<wbr>糖尿病の<wbr>新規発症や<wbr>悪化</div></div>
+<div class="row"><div class="k">5年変わらない</div><div class="v">小さいものは<wbr>終了も<wbr>選べる</div></div>
+<div class="row"><div class="k">見るもの</div><div class="v">嚢胞だけでなく<span class="b">膵臓全体</span><wbr><span class="nb">（別の場所の膵癌）</span><wbr></div></div>
+<details class="ev"><summary>根拠</summary><div class="in"><p><span class="gl">ガイドライン記載</span>（<span class="nb">IPMN</span> 国際診療ガイドライン<span class="nb">2024</span> 京都）<wbr>。<wbr>検査は <span class="nb">MRI</span><wbr><span class="nb">（<span class="nb">MRCP</span>）</span><wbr>か<wbr>超音波内視鏡</p><p>終了するか、<wbr>別の<wbr>場所の<wbr>膵癌を<wbr>考えて<wbr>続けるかは、<wbr>2つの<wbr>選択肢として<wbr>並べられている</p></div></details></div>
+
+<div id="s5" class="card"><div class="q">副腎腫瘍<wbr><span class="nb">（偶発腫）</span><wbr></div>
+<div class="row"><div class="k">良性と<wbr>言える</div><div class="v">単純CTで <span class="big"><span class="nb">10HU</span>以下</span>・<wbr>均一<br>大きさによらず<wbr>画像の<wbr>再検は<wbr>不要</div></div>
+<div class="row"><div class="k"><span class="nb">11〜20HU</span></div><div class="v"><span class="nb">4cm</span>未満・<wbr>均一なら<br><span class="b">1年</span>後に<wbr>単純CTか<wbr><span class="nb">MRI</span></div></div>
+<div class="row"><div class="k">手術を<wbr>考える</div><div class="v"><span class="nb">4cm</span>超<br>かつ 不均一か<wbr><span class="nb">20HU</span>超</div></div>
+<div class="row"><div class="k">全員に</div><div class="v">デキサメタゾン<span class="nb">1mg</span>抑制試験<br>コルチゾール <span class="big"><span class="nb">1.8</span>以下</span>で<wbr>正常</div></div>
+<div class="row"><div class="k"><span class="nb">1.8</span>超</div><div class="v">軽度の<wbr>自律性コルチゾール分泌<br>高血圧・<wbr>糖尿病・<wbr>骨粗鬆症を<wbr>確かめる</div></div>
+<div class="row"><div class="k">高血圧・<wbr>低K</div><div class="v">アルドステロン／<wbr>レニン比</div></div>
+<div class="row"><div class="k"><span class="nb">10HU</span>超</div><div class="v">メタネフリン<wbr><span class="nb">（褐色細胞腫）</span><wbr></div></div>
+<div class="row"><div class="k">ホルモンの<wbr>再検</div><div class="v">新しい症状・<wbr>併存疾患が<wbr>出たとき</div></div>
+<details class="ev"><summary>根拠</summary><div class="in"><p><span class="gl">ガイドライン記載</span>（<span class="nb">ESE</span> <span class="nb">2023</span> 副腎偶発腫）<wbr>。<wbr><span class="nb">1.8µg/dL</span>＝<span class="nb">50nmol/L</span>。<wbr><span class="nb">1.8</span>を<wbr>超えると、症状がなくても<wbr>合併症・<wbr>死亡の<wbr>リスクが<wbr>高い</p><p><span class="nb">10HU</span>以下は<wbr>脂肪が<wbr>多い<wbr>腺腫の<wbr>像で、<wbr>褐色細胞腫の<wbr>検査もいらない</p></div></details></div>
+
+<div id="s6" class="card"><div class="q">腎結石<wbr><span class="nb">（症状なし）</span><wbr></div>
+<div class="row"><div class="k">基本</div><div class="v">経過をみてよい</div></div>
+<div class="row"><div class="k">泌尿器科へ</div><div class="v">痛み・<wbr>感染・<wbr>水腎症<br>大きくなった<br><span class="big"><span class="nb">15mm</span></span>超</div></div>
+<div class="row"><div class="k">予防</div><div class="v">尿量 <span class="big">2L</span>以上／<wbr>日になるよう<wbr>飲む<br>塩・<wbr>動物性たんぱくを<wbr>控える<br>カルシウムは<wbr>減らさない</div></div>
+<div class="row"><div class="k">間隔</div><div class="v">決まりはない</div></div>
+<details class="ev"><summary>根拠</summary><div class="in"><p><span class="gl">ガイドライン記載</span>（<span class="nb">EAU</span> 尿路結石ガイドライン、<wbr>尿路結石症診療ガイドライン<span class="nb">2023</span>）<wbr>。<wbr>経過観察中は、<wbr><span class="nb">50歳</span>未満と<wbr>年<span class="nb">1mm</span>以上大きくなるもので<wbr>痛みなどが<wbr>起きやすかった<wbr><span class="nb">（観察研究）</span><wbr></p><p>カルシウムを<wbr>減らすと、<wbr>腸で<wbr>シュウ酸が<wbr>吸収されて<wbr>結石が<wbr>増える</p></div></details></div>
+
+</div>
+<script>
+if('serviceWorker' in navigator){
+  navigator.serviceWorker.register('sw.js').then(function(reg){ reg.update(); });
+  var reloaded=false;
+  navigator.serviceWorker.addEventListener('controllerchange', function(){
+    if(!reloaded){reloaded=true; location.reload();}
+  });
+}
+</script>
+<style>.mini{position:fixed;top:0;left:0;right:0;z-index:20;background:var(--c);color:#fff;padding:calc(env(safe-area-inset-top,0px) + 44px) 16px 0;transform:translateY(-100%);transition:transform .2s ease;box-shadow:0 1px 6px rgba(0,0,0,.15)}.mini .in{max-width:560px;margin:0 auto;display:flex;align-items:center;gap:10px;height:48px}.mini .t{font-size:17px;font-weight:800;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.mini.on{transform:none}.toc{transition:top .2s ease}body.mini-on .toc{top:var(--mh,48px)}</style>
+<script>(function(){var top=document.querySelector('.top'),b=top&&top.querySelector('.back'),h=top&&top.querySelector('h1');if(!b||!h)return;var m=document.createElement('div');m.className='mini';m.innerHTML='<div class="in"><a class="back" href="'+b.getAttribute('href')+'">‹</a><span class="t"></span></div>';m.querySelector('.t').textContent=h.textContent;document.body.appendChild(m);var last=window.scrollY,on=false;function set(v){if(v===on)return;on=v;m.classList.toggle('on',v);document.body.classList.toggle('mini-on',v);if(v)document.documentElement.style.setProperty('--mh',m.offsetHeight+'px');}window.addEventListener('scroll',function(){var y=window.scrollY,d=y-last;if(y<top.offsetHeight){set(false);}else if(d<-6){set(true);}else if(d>6){set(false);}if(Math.abs(d)>6||y<top.offsetHeight)last=y;},{passive:true});})();</script>
+</body>
+</html>

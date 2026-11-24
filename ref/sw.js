@@ -1,9 +1,10 @@
-const CACHE = 'ref-20261123-r40';
+const CACHE = 'ref-20261124-r41';
 const ASSETS = [
   './',
   './index.html',
   './ic/bp_blue.png',
   './ic/dm_blue.png',
+  './ic/img_blue.png',
   './ic/lipid_blue.png',
   './ic/stroke_blue.png',
   './ic/thy_blue.png',
@@ -18,7 +19,8 @@ const ASSETS = [
   './ua.html',
   './stroke.html',
   './dm.html',
-  './thyroid.html'
+  './thyroid.html',
+  './img.html'
 ];
 
 self.addEventListener('install', function(e){
